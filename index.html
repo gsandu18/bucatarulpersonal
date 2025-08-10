@@ -68,6 +68,47 @@
     
     #cum-functioneaza{padding-top:48px}
     @media (max-width:980px){.hero-media img{object-position:center 30%}}
+    /* Hero – text alb + fundaluri „glass” transparente */
+.hero .content, .hero .content * { color:#fff; }
+
+.hero h1{
+  color:#fff;
+  text-shadow:0 8px 26px rgba(0,0,0,.5);
+}
+.hero p{
+  color:rgba(255,255,255,.92);
+  text-shadow:0 4px 18px rgba(0,0,0,.45);
+}
+
+/* badge-ul de sus */
+.hero .kicker{
+  background:rgba(255,255,255,.14);
+  border-color:rgba(255,255,255,.30);
+  color:#fff;
+}
+
+/* „chips”/statistici */
+.hero .chip{
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.45);
+  color:#fff;
+}
+
+/* butonul „Cum funcționează” – contur alb, transparent */
+.hero .btn-outline-green{
+  border-color:rgba(255,255,255,.70);
+  background:rgba(255,255,255,.12);
+  color:#fff;
+}
+.hero .btn-outline-green:hover{
+  background:rgba(255,255,255,.22);
+}
+
+/* opțional: întărește efectul pe mobile */
+@media (max-width:640px){
+  .hero .chip{ background:rgba(255,255,255,.16); border-color:rgba(255,255,255,.50); }
+  .hero .kicker{ background:rgba(255,255,255,.16); }
+}
 /* Hero stats: text alb, fundal transparent */
 .hero-stats .chip{
   background: transparent !important;
