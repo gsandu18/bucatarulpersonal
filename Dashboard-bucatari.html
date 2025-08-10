@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Bucătari – Profil, Documente, Galerie, Meniuri, Cereri + Chat, Financiar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <style>
+    :root{ --rubin:#0e5a43; --rubin-2:#0b4a36; --negru:#000; --alb:#fff; --gri1:#f5f7f8; --gri2:#e8ecee; --gri3:#cfd6da; --text:#1c2226; --shadow:0 16px 48px rgba(0,0,0,.12); --radius:18px }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.45}
+    .container{width:min(1160px,92%);margin:0 auto}
+
+    /* Tabs */
+    .tabs{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--gri2);z-index:10;display:flex;gap:10px;padding:10px 0;flex-wrap:wrap}
+    .tab{padding:10px 14px;border:1px solid var(--gri3);border-radius:999px;background:#fff;font-weight:700;cursor:pointer}
+    .tab.active{border-color:var(--rubin);color:var(--rubin);box-shadow:0 6px 16px rgba(14,90,67,.15)}
+
+    .card{background:#fff;border:1px solid var(--gri2);border-radius:20px;padding:18px;box-shadow:var(--shadow);margin:14px 0}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid var(--gri3);font-weight:700;cursor:pointer;background:#fff}
+    .btn-primary{background:var(--rubin);color:#fff;border-color:transparent}
+    .btn-ghost{background:#fff}
+    .btn-danger{background:#ffefef;border-color:#ffd7d7;color:#b42318}
+    label{font-size:14px;font-weight:700;color:#3a444b}
+    input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--gri3);background:#fbfcfc}
+    textarea{min-height:110px;resize:vertical}
+    .note{font-size:12px;color:#65737c}
+
+    /* Cereri & chat */
+    .req-layout{display:grid;grid-template-columns:0.5fr 1fr;gap:18px}
+    @media(max-width:980px){.req-layout{grid-template-columns:1fr}}
+    .req-list{border:1px solid var(--gri2);border-radius:14px;overflow:hidden;background:#fff}
+    .req-item{padding:12px;border-bottom:1px solid var(--gri2);cursor:pointer;display:flex;justify-content:space-between;gap:8px}
+    .req-item.active{background:#f6fbf8;border-left:4px solid var(--rubin)}
+    .badge{font-size:12px;padding:4px 8px;border-radius:999px;background:#eaf5ef;color:var(--rubin-2)}
+    .badge.pending{background:#fff7e6;color:#8a5b00}
+    .badge.accepted{background:#eaf5ef}
+    .badge.closed{background:#eceff3;color:#58636b}
+    .chat{border:1px solid var(--gri2);border-radius:14px;display:flex;flex-direction:column;height:480px;background:#fff}
+    .chat-messages{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:linear-gradient(180deg,#fafdfb,#fff)}
+    .msg{max-width:78%;padding:10px 12px;border-radius:14px;box-shadow: var(--shadow)}
+    .msg.me{align-self:flex-end;background:#0e5a43;color:#fff}
+    .msg.them{align-self:flex-start;background:#eef5f1}
+    .chat-input{display:flex;gap:8px;border-top:1px solid var(--gri2);padding:10px}
+    .chat-input input[type=text]{flex:1}
+    .chat-input input[type=file]{display:none}
+
+    /* Tabele */
+    .table{width:100%;border-collapse:separate;border-spacing:0 8px}
+    .table th,.table td{padding:10px 12px;border:1px solid #b7dacd}
+    .table th{background:#0e5a43;color:#fff;text-align:left}
+    .table td:first-child,.table th:first-child{border-top-left-radius:10px;border-bottom-left-radius:10px}
+    .table td:last-child,.table th:last-child{border-top-right-radius:10px;border-bottom-right-radius:10px}
+    .table-wrap{background:#fff;border:1px solid var(--gri2);border-radius:16px;box-shadow:var(--shadow);padding:12px}
+    .table tbody tr:nth-child(even) td{background:#f6fbf8}
+    .table-wrap .desc{margin:0 0 6px}
+
+    /* Responsive tables */
+    .table-wrap{overflow:hidden}
+    @media (max-width:740px){
+      .table thead{display:none}
+      .table tbody tr{display:grid;grid-template-columns:1fr;border:1px solid #b7dacd;border-radius:12px;margin-bottom:12px;background:#fff}
+      .table td{display:flex;justify-content:space-between;align-items:center;border:none;border-bottom:1px dashed #dfeae5;padding:10px 12px}
+      .table td:last-child{border-bottom:none}
+      .table td::before{content:attr(data-th);font-weight:700;color:var(--rubin-2);margin-right:10px}
+      .table td input{width:55%;min-width:120px}
+    }
+
+    /* Financiar */
+    .wallet{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media(max-width:740px){.wallet{grid-template-columns:1fr}}
+    .stat{border:1px solid var(--gri2);border-radius:16px;padding:14px;background:linear-gradient(135deg,#f0faf5,#fff)}
+    .stat strong{font-size:22px}
+    .iban{display:flex;gap:8px;align-items:center;margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Tabs -->
+    <nav class="tabs" id="dbf-tabs" role="tablist" aria-label="Taburi">
+      <span class="tab active" data-tab="profil" role="tab" aria-controls="dbf-profil">Profil</span>
+      <span class="tab" data-tab="documente" role="tab" aria-controls="dbf-documente">Documente</span>
+      <span class="tab" data-tab="galerie" role="tab" aria-controls="dbf-galerie">Galerie (6)</span>
+      <span class="tab" data-tab="meniuri" role="tab" aria-controls="dbf-meniuri">Meniuri</span>
+      <span class="tab" data-tab="cereri" role="tab" aria-controls="dbf-cereri">Cererile mele</span>
+      <span class="tab" data-tab="financiar" role="tab" aria-controls="dbf-financiar">Financiar</span>
+    </nav>
+
+    <!-- PROFIL -->
+    <section class="card dbf-section" id="dbf-profil">
+      <h2 style="margin:0 0 8px">Profil bucătar</h2>
+      <div class="grid">
+        <div>
+          <label for="dbf-name">Nume</label>
+          <input id="dbf-name" placeholder="Ex. Andrei Pop"/>
+        </div>
+        <div>
+          <label for="dbf-phone">Telefon</label>
+          <input id="dbf-phone" placeholder="07xx xxx xxx" />
+        </div>
+      </div>
+      <div class="grid" style="margin-top:10px">
+        <div>
+          <label for="dbf-cities">Oraș(e)</label>
+          <input id="dbf-cities" placeholder="Ex. București, Ilfov" />
+        </div>
+        <div>
+          <label for="dbf-spec">Specializări</label>
+          <input id="dbf-spec" placeholder="Ex. Italian, Grill, Healthy" />
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <label for="dbf-bio">Descriere scurtă</label>
+        <textarea id="dbf-bio" placeholder="Spune pe scurt despre experiența ta."></textarea>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h3 style="margin:0 0 8px">Stare profil</h3>
+        <div class="note">Incomplet • încarcă documentele pentru verificare.</div>
+        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+          <a class="btn" data-open-tab="documente">Documente</a>
+          <a class="btn" data-open-tab="galerie">Galerie</a>
+          <a class="btn" data-open-tab="meniuri">Meniuri</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOCUMENTE -->
+    <section class="card dbf-section" id="dbf-documente" style="display:none">
+      <h2 style="margin:0 0 8px">Documente</h2>
+      <p class="note">Încarcă diploma de bucătar, CI (demo localStorage).</p>
+      <div class="grid">
+        <div>
+          <label>Diplomă bucătar (PDF/JPG)</label>
+          <input type="file" id="dbf-doc-dip" accept=".pdf,image/*" />
+        </div>
+        <div>
+          <label>Carte identitate (JPG/PNG)</label>
+          <input type="file" id="dbf-doc-ci" accept="image/*,.pdf" />
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h3 style="margin:0 0 8px">Fișiere urcate</h3>
+        <div id="dbf-doc-list" class="note">—</div>
+      </div>
+    </section>
+
+    <!-- GALERIE (6) -->
+    <section class="card dbf-section" id="dbf-galerie" style="display:none">
+      <h2 style="margin:0 0 8px">Galerie (max. 6 poze)</h2>
+      <input type="file" id="dbf-gal" accept="image/*" multiple />
+      <div id="dbf-gal-wrap" style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px"></div>
+      <div class="note" id="dbf-gal-note"></div>
+    </section>
+
+    <!-- MENIURI – 3 tabele -->
+    <section class="card dbf-section" id="dbf-meniuri" style="display:none">
+      <h2 style="margin:0 0 8px">Tabele prețuri & calcule rapide</h2>
+      <p class="note">Formula: <code>preț bucătar = persoane × preparate × tarif</code> → <strong>preț total client = preț bucătar × (1 + comision/100)</strong>.</p>
+      <div class="grid">
+        <div class="table-wrap">
+          <h4 class="desc"><i class="fa-solid fa-champagne-glasses"></i> Fine Dining</h4>
+          <table class="table" aria-label="Fine Dining"><thead><tr><th>Nr. persoane</th><th>Nr. preparate</th><th>Tarif</th><th>Comision (%)</th><th>Preț bucătar</th><th>Preț total</th></tr></thead>
+          <tbody><tr>
+            <td><input type="number" min="1" id="dbf-priv-pers" value="6"></td>
+            <td><input type="number" min="1" id="dbf-priv-prep" value="4"></td>
+            <td><input type="number" min="0" step="5" id="dbf-priv-tarif" value="60"></td>
+            <td><input type="number" min="0" max="100" step="1" id="dbf-priv-comm" value="20"></td>
+            <td><input type="text" id="dbf-priv-chef" readonly></td>
+            <td><input type="text" id="dbf-priv-total" readonly></td>
+          </tr></tbody></table>
+        </div>
+        <div class="table-wrap">
+          <h4 class="desc"><i class="fa-solid fa-crown"></i> Premium</h4>
+          <table class="table" aria-label="Premium"><thead><tr><th>Nr. persoane</th><th>Nr. preparate</th><th>Tarif</th><th>Comision (%)</th><th>Preț bucătar</th><th>Preț total</th></tr></thead>
+          <tbody><tr>
+            <td><input type="number" min="1" id="dbf-corp-pers" value="20"></td>
+            <td><input type="number" min="1" id="dbf-corp-prep" value="6"></td>
+            <td><input type="number" min="0" step="5" id="dbf-corp-tarif" value="45"></td>
+            <td><input type="number" min="0" max="100" step="1" id="dbf-corp-comm" value="15"></td>
+            <td><input type="text" id="dbf-corp-chef" readonly></td>
+            <td><input type="text" id="dbf-corp-total" readonly></td>
+          </tr></tbody></table>
+        </div>
+      </div>
+      <div class="table-wrap" style="margin-top:12px">
+        <h4 class="desc"><i class="fa-solid fa-bowl-food"></i> Tradițional</h4>
+        <table class="table" aria-label="Tradițional"><thead><tr><th>Nr. persoane</th><th>Nr. preparate</th><th>Tarif</th><th>Comision (%)</th><th>Preț bucătar</th><th>Preț total</th></tr></thead>
+        <tbody><tr>
+          <td><input type="number" min="1" id="dbf-fam-pers" value="10"></td>
+          <td><input type="number" min="1" id="dbf-fam-prep" value="5"></td>
+          <td><input type="number" min="0" step="5" id="dbf-fam-tarif" value="35"></td>
+          <td><input type="number" min="0" max="100" step="1" id="dbf-fam-comm" value="20"></td>
+          <td><input type="text" id="dbf-fam-chef" readonly></td>
+          <td><input type="text" id="dbf-fam-total" readonly></td>
+        </tr></tbody></table>
+      </div>
+    </section>
+
+    <!-- CERERI + CHAT -->
+    <section class="card dbf-section" id="dbf-cereri" style="display:none">
+      <h2 style="margin:0 0 8px">Cererile mele</h2>
+      <div class="req-layout">
+        <aside class="req-list" id="dbf-req-list" aria-label="Lista cereri"></aside>
+        <div class="chat" aria-label="Chat pentru cererea selectată">
+          <div class="chat-messages" id="dbf-chat"></div>
+          <div class="chat-input">
+            <input type="text" id="dbf-chat-input" placeholder="Scrie un mesaj pentru cererea selectată..."/>
+            <label class="btn" for="dbf-chat-file"><i class="fa-solid fa-paperclip"></i> Atașează</label>
+            <input type="file" id="dbf-chat-file" multiple />
+            <button class="btn btn-primary" id="dbf-chat-send"><i class="fa-solid fa-paper-plane"></i> Trimite</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINANCIAR -->
+    <section class="card dbf-section" id="dbf-financiar" style="display:none">
+      <h2 style="margin:0 0 8px">Financiar</h2>
+      <div class="wallet">
+        <div class="stat">
+          <div class="note">Credit disponibil</div>
+          <strong id="dbf-credit">5 000 lei</strong>
+          <p class="note">Poate fi folosit pentru comisioane / avansuri.</p>
+        </div>
+        <div class="stat">
+          <div class="note">Sold curent</div>
+          <strong id="dbf-sold">0 lei</strong>
+          <p class="note">Actualizat după încasări / retrageri.</p>
+        </div>
+        <div class="stat">
+          <div class="note">Plăți recente</div>
+          <div id="dbf-payments" class="note">—</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h3 style="margin:0 0 8px">Cont bancar</h3>
+        <div class="iban">
+          <input id="dbf-iban" placeholder="ROxx BANK xxxx xxxx xxxx xxxx" />
+          <button class="btn btn-primary" id="dbf-save-iban"><i class="fa-solid fa-floppy-disk"></i> Salvează</button>
+        </div>
+        <div class="note" id="dbf-iban-msg"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+  // IIFE: toate variabilele prefixate "dbf-" pentru a evita coliziuni
+  (()=>{
+    const nf = new Intl.NumberFormat('ro-RO');
+    const fmt = n => nf.format(Math.round(+n||0)).replace(/\./g,' ');
+    const fmtRON = n => fmt(n) + ' lei';
+
+    // === Tabs ===
+    const tabs = document.getElementById('dbf-tabs');
+    if(tabs && !tabs.dataset.bound){
+      tabs.dataset.bound='1';
+      const sections = {
+        profil: document.getElementById('dbf-profil'),
+        documente: document.getElementById('dbf-documente'),
+        galerie: document.getElementById('dbf-galerie'),
+        meniuri: document.getElementById('dbf-meniuri'),
+        cereri: document.getElementById('dbf-cereri'),
+        financiar: document.getElementById('dbf-financiar'),
+      };
+      function show(id){ Object.entries(sections).forEach(([k,el])=> el.style.display = (k===id?'block':'none')); tabs.querySelectorAll('.tab').forEach(b=> b.classList.toggle('active', b.dataset.tab===id)); if(location.hash!==('#'+id)) history.replaceState(null,'','#'+id); }
+      tabs.addEventListener('click', e=>{ const b=e.target.closest('.tab'); if(!b) return; show(b.dataset.tab); });
+      document.querySelectorAll('[data-open-tab]').forEach(a=> a.addEventListener('click', ()=> show(a.dataset.openTab)));
+      window.addEventListener('hashchange', ()=>{ const id=(location.hash||'#profil').slice(1); if(sections[id]) show(id); });
+      const initial=(location.hash||'#profil').slice(1); show(sections[initial]?initial:'profil');
+    }
+
+    // === Documente demo ===
+    const DOCS_KEY='DBF_DOCS';
+    const docList = document.getElementById('dbf-doc-list');
+    function renderDocs(){ const arr=JSON.parse(localStorage.getItem(DOCS_KEY)||'[]'); if(docList) docList.textContent = arr.length? arr.join(', '):'—'; }
+    ;['dbf-doc-dip','dbf-doc-ci'].forEach(id=>{ const el=document.getElementById(id); if(el){ el.addEventListener('change', ()=>{ const arr=JSON.parse(localStorage.getItem(DOCS_KEY)||'[]'); Array.from(el.files).forEach(f=> arr.push(f.name)); localStorage.setItem(DOCS_KEY, JSON.stringify(arr)); renderDocs(); el.value=''; }); }});
+    renderDocs();
+
+    // === Galerie demo – max 6 ===
+    const GAL_KEY='DBF_GAL';
+    const galWrap=document.getElementById('dbf-gal-wrap');
+    const galNote=document.getElementById('dbf-gal-note');
+    function renderGal(){ const arr=JSON.parse(localStorage.getItem(GAL_KEY)||'[]'); if(galWrap) galWrap.innerHTML = arr.map(src=>`<img src="${src}" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;border:1px solid #e8ecee"/>`).join(''); if(galNote) galNote.textContent = `${arr.length}/6 încărcate`; }
+    const galInput=document.getElementById('dbf-gal');
+    if(galInput){
+      galInput.addEventListener('change', ()=>{
+        let arr=JSON.parse(localStorage.getItem(GAL_KEY)||'[]');
+        Array.from(galInput.files).forEach(file=>{
+          if(arr.length>=6) return;
+          const reader=new FileReader(); reader.onload=()=>{ arr.push(reader.result); localStorage.setItem(GAL_KEY, JSON.stringify(arr)); renderGal(); }; reader.readAsDataURL(file);
+        });
+        galInput.value='';
+      });
+      renderGal();
+    }
+
+    // === Meniuri – calcule pentru cele 3 tabele ===
+    function bindPricing(prefix){
+      const id = s => document.getElementById(`dbf-${prefix}-${s}`);
+      const pers=id('pers'), prep=id('prep'), tarif=id('tarif'), comm=id('comm'), chef=id('chef'), total=id('total');
+      const recalc = ()=>{ const p=+pers.value||0, n=+prep.value||0, t=+tarif.value||0, c=Math.max(0,+comm.value||0)/100; const chefVal = Math.max(0, p*n*t); const totalVal = chefVal*(1+c); chef.value = fmt(chefVal); total.value = fmt(totalVal); };
+      [pers,prep,tarif,comm].forEach(el=> el && el.addEventListener('input', recalc));
+      recalc();
+    }
+    ;['priv','corp','fam'].forEach(bindPricing);
+
+    // === Cereri + Chat ===
+    const REQS_KEY='DBF_REQS';
+    let reqs=JSON.parse(localStorage.getItem(REQS_KEY)||'[]');
+    if(!reqs.length){ reqs=[{id:'CER-9001',titlu:'Cină privată 6 pers',data:'2025-08-15',oras:'București',status:'in_asteptare',buget:2500},{id:'CER-9002',titlu:'Corporate 25 pers',data:'2025-08-20',oras:'Cluj',status:'acceptata',buget:4800},{id:'CER-9003',titlu:'Family style 10 pers',data:'2025-08-22',oras:'Brașov',status:'in_asteptare',buget:2200}]; localStorage.setItem(REQS_KEY, JSON.stringify(reqs)); }
+    const reqList=document.getElementById('dbf-req-list');
+    const chatBox=document.getElementById('dbf-chat');
+    let activeReqId=reqs[0]?reqs[0].id:null;
+    const badgeClass=st=> st==='acceptata'?'accepted':(st==='inchisa'?'closed':'pending');
+    const badgeText=st=> st==='acceptata'?'Acceptată':(st==='inchisa'?'Închisă':'În așteptare');
+    function renderReqs(){ if(!reqList) return; reqList.innerHTML = reqs.map(r=>`<div class="req-item ${r.id===activeReqId?'active':''}" data-id="${r.id}"><div><strong>${r.titlu}</strong><div class="note">${r.data} • ${r.oras} • ${fmtRON(r.buget)}</div></div><span class="badge ${badgeClass(r.status)}">${badgeText(r.status)}</span></div>`).join(''); }
+    function chatKey(id){ return 'DBF_CHAT_'+id; }
+    function openReq(id){ activeReqId=id; renderReqs(); const msgs=JSON.parse(localStorage.getItem(chatKey(id))||'[]'); renderChat(msgs); }
+    function renderChat(arr){ if(!chatBox) return; chatBox.innerHTML=''; arr.forEach(m=>{ const d=document.createElement('div'); d.className='msg '+(m.me?'me':'them'); d.innerHTML = m.fileName ? (`<i class=\"fa-solid fa-paperclip\"></i> ${m.fileName}`) : escapeHtml(m.text||''); chatBox.appendChild(d); }); chatBox.scrollTop=chatBox.scrollHeight; }
+    function escapeHtml(t){ return (t||'').replace(/[&<>"']/g, s=>({ '&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;','\'':'&#39;' }[s])); }
+    if(reqList){ reqList.addEventListener('click', e=>{ const it=e.target.closest('.req-item'); if(!it) return; openReq(it.dataset.id); }); renderReqs(); if(activeReqId) openReq(activeReqId); }
+    const chatInput=document.getElementById('dbf-chat-input');
+    const chatFile=document.getElementById('dbf-chat-file');
+    const chatSend=document.getElementById('dbf-chat-send');
+    function appendMsg(m){ if(!activeReqId) return; const key=chatKey(activeReqId); const arr=JSON.parse(localStorage.getItem(key)||'[]'); arr.push({...m, ts:Date.now()}); localStorage.setItem(key, JSON.stringify(arr)); openReq(activeReqId); }
+    if(chatSend){
+      chatSend.addEventListener('click', ()=>{ const t=(chatInput.value||'').trim(); if(!t) return; appendMsg({me:true,text:t}); chatInput.value=''; });
+      chatInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); chatSend.click(); }});
+      chatFile.addEventListener('change', ()=>{ Array.from(chatFile.files).forEach(f=> appendMsg({me:true,fileName:f.name})); chatFile.value=''; });
+    }
+
+    // === Financiar ===
+    const WALLET_KEY='DBF_WALLET';
+    let wallet=JSON.parse(localStorage.getItem(WALLET_KEY)||'{}');
+    if(typeof wallet.credit==='undefined'){ wallet.credit=5000; wallet.sold=wallet.sold||0; wallet.payments=wallet.payments||[]; localStorage.setItem(WALLET_KEY, JSON.stringify(wallet)); }
+    function renderWallet(){ const c=document.getElementById('dbf-credit'); const s=document.getElementById('dbf-sold'); const p=document.getElementById('dbf-payments'); if(c) c.textContent=fmtRON(wallet.credit); if(s) s.textContent=fmtRON(wallet.sold||0); if(p) p.innerHTML = (wallet.payments||[]).slice(-3).map(x=>`${x.date} • ${x.label} • ${fmtRON(x.amount)}`).join('<br>') || '—'; }
+    renderWallet();
+    const IBAN_KEY='DBF_IBAN';
+    const ibanInput=document.getElementById('dbf-iban');
+    const ibanMsg=document.getElementById('dbf-iban-msg');
+    if(ibanInput){ ibanInput.value = localStorage.getItem(IBAN_KEY)||''; }
+    const saveIbanBtn=document.getElementById('dbf-save-iban');
+    if(saveIbanBtn){ saveIbanBtn.addEventListener('click', ()=>{ const v=(ibanInput.value||'').trim().toUpperCase(); if(!/^RO[0-9A-Z]{16,}$/.test(v)){ ibanMsg.textContent='IBAN invalid. Exemplu: RO49 AAAA 1B31 0075 9384 0000'; return; } localStorage.setItem(IBAN_KEY, v); ibanMsg.textContent='Cont bancar salvat.'; }); }
+
+    // === Responsive labels pentru tabele (data-th) ===
+    function applyResponsiveLabels(){
+      document.querySelectorAll('#dbf-meniuri table').forEach(t=>{
+        const heads = Array.from(t.querySelectorAll('thead th')).map(th=> th.textContent.trim());
+        t.querySelectorAll('tbody tr').forEach(tr=>{
+          Array.from(tr.children).forEach((td,i)=> td.setAttribute('data-th', heads[i]||''));
+        });
+      });
+    }
+    applyResponsiveLabels();
+  })();
+  </script>
+</body>
+</html>
