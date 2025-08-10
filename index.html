@@ -604,42 +604,6 @@
   </div>
 
   <script>
-    const todayISO = ()=> new Date().toISOString().slice(0,10);
-
-    // Elements
-    const form = document.getElementById('formul');
-    const stepsBar = document.getElementById('steps');
-    const stepSections = [...document.querySelectorAll('.step')];
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const submitBtn = document.getElementById('submitBtn');
-
-    const city = document.getElementById('city');
-    const dateEl = document.getElementById('date');
-    const eventType = document.getElementById('eventType');
-
-    const gridAdults = document.getElementById('gridAdults');
-    const gridKids = document.getElementById('gridKids');
-    const adultsInput = document.getElementById('adults');
-    const kidsInput = document.getElementById('kids');
-
-    const menuCat = document.getElementById('menuCat');
-    const chipsWrap = document.getElementById('dietChips');
-
-    const phone = document.getElementById('phone');
-    const email = document.getElementById('email');
-    const gdpr = document.getElementById('gdpr');
-
-    const summary = document.getElementById('summary');
-    const s_city = document.getElementById('s_city');
-    const s_date = document.getElementById('s_date');
-    const s_type = document.getElementById('s_type');
-    const s_adults = document.getElementById('s_adults');
-    const s_kids = document.getElementById('s_kids');
-    const s_total = document.getElementById('s_total');
-    const s_menu = document.getElementById('s_menu');
-    const s_price = document.getElementById('s_price');
-
     dateEl.min = todayISO();
 
     // Stepper state
