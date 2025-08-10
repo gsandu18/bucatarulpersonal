@@ -48,17 +48,36 @@
     .sheet a{padding:12px 8px;border-bottom:1px solid var(--g2);font-weight:700;text-align:center}
 
     /* Hero */
-    .hero{position:relative;isolation:isolate}
+    .hero{
+  position:relative; isolation:isolate;
+  min-height:100svh;    /* full-screen, safe viewport */
+  display:grid; align-items:center;
+}
+
     .hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
     .hero-media::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(9,12,12,.65), rgba(9,12,12,.4) 38%, rgba(9,12,12,.75))}
-    .hero .content{color:#eaf5ef;padding:14vh 0 12vh}
+    .hero .content{
+  color:#eaf5ef;
+  padding:clamp(48px,12vh,120px) 0 0;  /* doar top */
+}
     .kicker{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border-radius:999px;background:rgba(14,90,67,.18);border:1px solid rgba(14,90,67,.4);font-weight:800}
     .hero h1{font-family:"Playfair Display",serif; font-size: clamp(36px, 5.6vw, 68px); line-height:1.05; margin:14px 0 10px}
     .hero p{font-size: clamp(16px, 2.2vw, 20px); max-width:780px; opacity:.95}
     .hero-cta{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap}
     .hero-stats{display:flex; gap:18px; flex-wrap:wrap; margin-top:18px}
     .chip{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)}
-
+    .hero-media img{
+  width:100%;
+  height:100vh;                /* fallback */
+  height:100svh !important;    /* bate stilul inline */
+  object-fit:cover;
+  object-position:60% 50%;     /* focus spre dreapta (coastele) */
+  display:block;
+}
+    /* mobil: mută puțin focusul în sus */
+@media (max-width:980px){
+  .hero-media img{ object-position:center 30%; }
+}
     /* Sections */
     section{padding:68px 0; scroll-margin-top:90px}
     .section-title{font-family:"Playfair Display",serif;font-size:clamp(28px,4.2vw,40px);margin:0 0 14px}
