@@ -56,7 +56,7 @@
 
     /* ========== Hero ========== */
     .hero{position:relative;isolation:isolate;min-height:100svh;display:grid;align-items:center}
-/* Overlay mai închis pe imaginea din hero */
+/* Overlay mai deschis pe imaginea din hero */
 .hero-media::before{
   content:"";
   position:absolute; inset:0; pointer-events:none;
@@ -68,7 +68,7 @@
   );
 }
 
-/* pe mobil îl închidem și mai tare ca textul să fie super lizibil */
+/* pe mobil îl deschidem și mai tare ca textul să fie super lizibil */
 @media (max-width: 640px){
   .hero-media::before{
     background:linear-gradient(
