@@ -256,53 +256,432 @@
     </div>
   </section>
 
-  <!-- Formular de comandă pe Home -->
-  <section id="formular" class="container" aria-label="Formular de comandă">
-    <h2 class="section-title">Cere o ofertă rapid</h2>
-    <p class="muted">Completează detaliile și revenim în scurt timp.</p>
-    <div class="order" style="margin-top:12px">
-      <form id="hp-form">
-        <div>
-          <label>Oraș</label>
-          <input id="hp-f-city" placeholder="București" required />
-        </div>
-        <div>
-          <label>Data</label>
-          <input id="hp-f-date" type="date" required />
-        </div>
-        <div>
-          <label>Nr. persoane</label>
-          <input id="hp-f-persons" type="number" min="1" value="6" required />
-        </div>
-        <div>
-          <label>Tip eveniment</label>
-          <select id="hp-f-type">
-            <option>Cină privată</option>
-            <option>Eveniment corporate</option>
-            <option>Meniuri zilnice</option>
-            <option>Altele</option>
-          </select>
-        </div>
-        <div>
-          <label>Telefon (opțional)</label>
-          <input id="hp-f-phone" type="tel" placeholder="07xx xxx xxx" />
-        </div>
-        <div>
-          <label>Email (opțional)</label>
-          <input id="hp-f-email" type="email" placeholder="nume@exemplu.ro" />
-        </div>
-        <div class="full">
-          <label>Preferințe/observații</label>
-          <textarea id="hp-f-notes" placeholder="dietă, alergii, stil de meniu…"></textarea>
-        </div>
-        <div class="full" style="display:flex;gap:10px;justify-content:flex-end;align-items:center">
-          <button class="btn" type="reset"><i class="fa-solid fa-rotate-left"></i> Reset</button>
-          <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Trimite cererea</button>
-        </div>
-      </form>
-      <div id="hp-form-ok" style="display:none;margin-top:10px;color:#0b4a36;font-weight:800"><i class="fa-solid fa-circle-check"></i> Mulțumim! Cererea ta a fost înregistrată. Te contactăm în scurt timp.</div>
+  <!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solicită un bucătar — Eveniment (Wizard)</title>
+  <style>
+    :root{
+      --bg:#edf1ef;          /* ușor mai închis */
+      --card:#ffffff;
+      --ink:#0b0f14;
+      --muted:#6b7280;
+      --line:#dfe5e2;        /* linie puțin mai pronunțată */
+      --green:#0e7d4b;
+      --green-600:#0b6e42;
+      --green-050:#e6f5ee;
+      --radius:16px;
+      --shadow:0 10px 24px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+    .wrap{max-width:980px;margin:40px auto;padding:0 20px}
+    .header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+    .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--green),#0a5a3a);display:grid;place-items:center;color:#fff;font-weight:700}
+    h1{font-size:24px;margin:0}
+    .sub{color:var(--muted);margin:2px 0 22px}
+
+    form{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+
+    /* Wizard steps */
+    .steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+    .steps::before{content:"";position:absolute;left:0;right:0;top:18px;height:2px;background:var(--line);z-index:0}
+    .step-node{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px}
+    .dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);background:#fff;display:grid;place-items:center;font-weight:700}
+    .active .dot{border-color:var(--green)}
+    .done .dot{background:var(--green);border-color:var(--green);color:#fff}
+    .step-label{font-size:12.5px;color:var(--muted);text-align:center}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media (max-width:840px){.grid{grid-template-columns:1fr}}
+
+    .field{display:flex;flex-direction:column;gap:8px}
+    .label{font-weight:600}
+    .hint{font-size:12.5px;color:var(--muted)}
+
+    .control input[type="text"],
+    .control input[type="date"],
+    .control input[type="email"],
+    .control input[type="tel"],
+    .control select,
+    .control textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);outline:none;transition:.15s}
+    .control textarea{min-height:110px;resize:vertical}
+    .control input:focus,.control select:focus,.control textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-050)}
+
+    /* Count grids */
+    .count-wrap{display:flex;flex-direction:column;gap:8px}
+    .count-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+    @media (max-width:540px){.count-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    .count-btn{padding:10px 0;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;text-align:center;font-weight:600}
+    .count-btn.selected{border-color:var(--green);box-shadow:0 0 0 3px var(--green-050);color:var(--green-600)}
+
+    /* Chips */
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{padding:8px 12px;border-radius:999px;border:1px solid var(--line);cursor:pointer;background:#fff;user-select:none}
+    .chip.active{background:var(--green-050);border-color:var(--green);color:#0b6e42}
+
+    /* Summary */
+    .summary{margin-top:18px;border:1px dashed var(--line);border-radius:16px;padding:14px;background:#fbfefd}
+    .summary h3{margin:0 0 6px;font-size:16px}
+    .summary .rows{display:grid;grid-template-columns:1fr 1fr;gap:8px;color:#111}
+    @media (max-width:840px){.summary .rows{grid-template-columns:1fr}}
+    .rows .k{color:var(--muted)}
+
+    /* Actions */
+    .actions{display:flex;align-items:center;gap:12px;margin-top:18px}
+    .btn{appearance:none;border:0;border-radius:999px;padding:12px 18px;font-weight:800;cursor:pointer}
+    .btn-primary{background:var(--green);color:#fff}
+    .btn-primary:disabled{opacity:.6;cursor:not-allowed}
+    .btn-primary:hover:not(:disabled){background:var(--green-600)}
+    .btn-tertiary{background:#eef2f1;color:#0b0f14}
+
+    .note{font-size:12.5px;color:var(--muted)}
+    .gdpr{display:flex;align-items:flex-start;gap:8px;margin-top:8px;font-size:14px}
+    .gdpr input{margin-top:3px}
+    .divider{height:1px;background:var(--line);margin:8px 0 16px}
+
+    /* Step visibility */
+    .step{display:none}
+    .step.active{display:block}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="logo">CP</div>
+      <div>
+        <h1>Solicită un bucătar — Eveniment</h1>
+        <div class="sub">Formular în 4 pași. Răspundem în max. 60 de minute.</div>
+      </div>
     </div>
-  </section>
+
+    <form id="formul">
+      <!-- Stepper -->
+      <div class="steps" id="steps">
+        <div class="step-node" data-step="1"><div class="dot">1</div><div class="step-label">Detalii eveniment</div></div>
+        <div class="step-node" data-step="2"><div class="dot">2</div><div class="step-label">Persoane</div></div>
+        <div class="step-node" data-step="3"><div class="dot">3</div><div class="step-label">Meniu</div></div>
+        <div class="step-node" data-step="4"><div class="dot">4</div><div class="step-label">Contact & trimitere</div></div>
+      </div>
+
+      <!-- STEP 1: Detalii eveniment -->
+      <section class="step active" data-step="1">
+        <div class="grid">
+          <div class="field">
+            <label class="label" for="city">Oraș</label>
+            <div class="control">
+              <input id="city" name="city" type="text" placeholder="Ex.: București, Cluj, Iași" required />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="date">Dată</label>
+            <div class="control">
+              <input id="date" name="date" type="date" required />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="eventType">Tip eveniment</label>
+            <div class="control">
+              <select id="eventType" required>
+                <option value="" disabled selected>Alege</option>
+                <option>Cină privată</option>
+                <option>Corporate</option>
+                <option>Aniversare</option>
+                <option>Team building</option>
+                <option>Alt tip</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 2: Persoane -->
+      <section class="step" data-step="2">
+        <div class="grid">
+          <div class="field">
+            <label class="label">Număr persoane — Adulți</label>
+            <div class="count-wrap">
+              <div id="gridAdults" class="count-grid">
+                <button type="button" class="count-btn" data-val="1">1</button>
+                <button type="button" class="count-btn" data-val="2">2</button>
+                <button type="button" class="count-btn" data-val="3">3</button>
+                <button type="button" class="count-btn" data-val="4">4</button>
+                <button type="button" class="count-btn selected" data-val="6">6</button>
+                <button type="button" class="count-btn" data-val="8">8</button>
+                <button type="button" class="count-btn" data-val="10">10</button>
+                <button type="button" class="count-btn" data-val="12">12</button>
+                <button type="button" class="count-btn" data-val="15">15</button>
+                <button type="button" class="count-btn" data-val="20">20</button>
+                <button type="button" class="count-btn" data-val="25">25</button>
+                <button type="button" class="count-btn" data-val="30">30</button>
+              </div>
+              <input id="adults" type="hidden" value="6" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Număr persoane — Copii</label>
+            <div class="count-wrap">
+              <div id="gridKids" class="count-grid">
+                <button type="button" class="count-btn selected" data-val="0">0</button>
+                <button type="button" class="count-btn" data-val="1">1</button>
+                <button type="button" class="count-btn" data-val="2">2</button>
+                <button type="button" class="count-btn" data-val="3">3</button>
+                <button type="button" class="count-btn" data-val="4">4</button>
+                <button type="button" class="count-btn" data-val="5">5</button>
+                <button type="button" class="count-btn" data-val="6">6</button>
+                <button type="button" class="count-btn" data-val="8">8</button>
+                <button type="button" class="count-btn" data-val="10">10</button>
+                <button type="button" class="count-btn" data-val="12">12</button>
+              </div>
+              <input id="kids" type="hidden" value="0" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 3: Meniu -->
+      <section class="step" data-step="3">
+        <div class="grid">
+          <div class="field">
+            <label class="label" for="menuCat">Categorie meniu (lei/pers., ingrediente incluse)</label>
+            <div class="control">
+              <select id="menuCat" required>
+                <option value="" disabled selected>Alege</option>
+                <option value="traditional" data-min="90" data-max="130">Tradițional — 90–130</option>
+                <option value="fine" data-min="150" data-max="220">Fine Dining — 150–220</option>
+                <option value="vip" data-min="250" data-max="380">VIP — 250–380</option>
+              </select>
+            </div>
+            <div id="menuRange" class="hint">Prețurile includ ingredientele. Oferta finală poate varia în funcție de meniu și logistică.</div>
+          </div>
+
+          <div class="field" style="grid-column:1 / -1">
+            <label class="label" for="prefs">Preferințe / observații</label>
+            <div class="chips" id="dietChips">
+              <div class="chip" data-tag="Vegan">Vegan</div>
+              <div class="chip" data-tag="Vegetarian">Vegetarian</div>
+              <div class="chip" data-tag="Fără gluten">Fără gluten</div>
+              <div class="chip" data-tag="Fără lactoză">Fără lactoză</div>
+              <div class="chip" data-tag="Fără nuci">Fără nuci</div>
+            </div>
+            <div class="control">
+              <textarea id="prefs" placeholder="Alergii, diete, stil de servire, oră de servire…"></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 4: Contact & trimitere -->
+      <section class="step" data-step="4">
+        <div class="grid">
+          <div class="field">
+            <label class="label" for="phone">Telefon (opțional)</label>
+            <div class="control">
+              <input id="phone" type="tel" placeholder="Ex.: +40 7xx xxx xxx sau +39 3xx xxx xxxx" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="email">Email (opțional)</label>
+            <div class="control">
+              <input id="email" type="email" placeholder="Adresa ta de email" />
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <label class="gdpr"><input id="gdpr" type="checkbox" /> <span>Sunt de acord cu prelucrarea datelor personale conform <a href="#" target="_blank">Politicii de confidențialitate</a>.</span></label>
+
+        <div id="summary" class="summary" hidden>
+          <h3>Revizuiește cererea</h3>
+          <div class="rows">
+            <div><span class="k">Oraș:</span> <span id="s_city">—</span></div>
+            <div><span class="k">Data:</span> <span id="s_date">—</span></div>
+            <div><span class="k">Tip eveniment:</span> <span id="s_type">—</span></div>
+            <div><span class="k">Adulți:</span> <span id="s_adults">—</span></div>
+            <div><span class="k">Copii:</span> <span id="s_kids">—</span></div>
+            <div><span class="k">Total persoane:</span> <span id="s_total">—</span></div>
+            <div><span class="k">Categorie meniu:</span> <span id="s_menu">—</span></div>
+            <div><span class="k">Preț orientativ:</span> <span id="s_price">—</span></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button id="prevBtn" class="btn btn-tertiary" type="button">Înapoi</button>
+        <button id="nextBtn" class="btn btn-primary" type="button">Continuă</button>
+        <button id="submitBtn" class="btn btn-primary" type="submit" disabled>Trimite cererea</button>
+      </div>
+      <div class="note">Prețurile pe categorie includ ingredientele. Oferta finală se confirmă după stabilirea meniului.</div>
+    </form>
+  </div>
+
+  <script>
+    const todayISO = ()=> new Date().toISOString().slice(0,10);
+
+    // Elements
+    const form = document.getElementById('formul');
+    const stepsBar = document.getElementById('steps');
+    const stepSections = [...document.querySelectorAll('.step')];
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+
+    const city = document.getElementById('city');
+    const dateEl = document.getElementById('date');
+    const eventType = document.getElementById('eventType');
+
+    const gridAdults = document.getElementById('gridAdults');
+    const gridKids = document.getElementById('gridKids');
+    const adultsInput = document.getElementById('adults');
+    const kidsInput = document.getElementById('kids');
+
+    const menuCat = document.getElementById('menuCat');
+    const chipsWrap = document.getElementById('dietChips');
+
+    const phone = document.getElementById('phone');
+    const email = document.getElementById('email');
+    const gdpr = document.getElementById('gdpr');
+
+    const summary = document.getElementById('summary');
+    const s_city = document.getElementById('s_city');
+    const s_date = document.getElementById('s_date');
+    const s_type = document.getElementById('s_type');
+    const s_adults = document.getElementById('s_adults');
+    const s_kids = document.getElementById('s_kids');
+    const s_total = document.getElementById('s_total');
+    const s_menu = document.getElementById('s_menu');
+    const s_price = document.getElementById('s_price');
+
+    dateEl.min = todayISO();
+
+    // Stepper state
+    let step = 1; // 1..4
+
+    function setStep(n){
+      step = Math.max(1, Math.min(4, n));
+      // visibility
+      stepSections.forEach(sec=>{
+        sec.classList.toggle('active', Number(sec.dataset.step) === step);
+      });
+      // buttons
+      prevBtn.style.display = step===1 ? 'none' : 'inline-block';
+      nextBtn.style.display = step===4 ? 'none' : 'inline-block';
+      submitBtn.style.display = step===4 ? 'inline-block' : 'none';
+      // top bar
+      [...stepsBar.querySelectorAll('.step-node')].forEach(node=>{
+        const s = Number(node.dataset.step);
+        node.classList.toggle('active', s===step);
+        node.classList.toggle('done', s<step);
+      });
+      paintStepValidity();
+    }
+
+    function totalPeople(){
+      return (parseInt(adultsInput.value||'0',10) + parseInt(kidsInput.value||'0',10));
+    }
+
+    function contactValid(){
+      const ph = phone.value.trim();
+      const em = email.value.trim();
+      return ph.length>0 || em.length>0;
+    }
+
+    function isStepValid(i){
+      if(i===1){ return !!(city.value && dateEl.value && eventType.value); }
+      if(i===2){ return totalPeople()>0; }
+      if(i===3){ return !!menuCat.value; }
+      if(i===4){ return contactValid() && gdpr.checked; }
+      return false;
+    }
+
+    function paintStepValidity(){
+      // enable/disable next & submit
+      nextBtn.disabled = !isStepValid(step);
+      submitBtn.disabled = !isStepValid(4);
+      // summary visibility only on step 4 when valid
+      summary.hidden = !(step===4 && isStepValid(4));
+      if(!summary.hidden) updateSummary();
+    }
+
+    function bindCountGrid(gridEl, hiddenEl){
+      gridEl.addEventListener('click', (e)=>{
+        const btn = e.target.closest('.count-btn');
+        if(!btn) return;
+        gridEl.querySelectorAll('.count-btn').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+        hiddenEl.value = btn.dataset.val;
+        paintStepValidity();
+      });
+    }
+    bindCountGrid(gridAdults, adultsInput);
+    bindCountGrid(gridKids, kidsInput);
+
+    // Chips behavior
+    chipsWrap.addEventListener('click', (e)=>{
+      const ch = e.target.closest('.chip');
+      if(!ch) return;
+      ch.classList.toggle('active');
+    });
+
+    function menuPriceText(){
+      const opt = menuCat.options[menuCat.selectedIndex];
+      if(!opt || !opt.dataset.min) return '';
+      return `${opt.dataset.min}–${opt.dataset.max} lei/pers. (ingrediente incluse)`;
+    }
+
+    function updateSummary(){
+      s_city.textContent = city.value || '—';
+      s_date.textContent = dateEl.value || '—';
+      s_type.textContent = eventType.value || '—';
+      s_adults.textContent = adultsInput.value || '0';
+      s_kids.textContent = kidsInput.value || '0';
+      s_total.textContent = String(totalPeople());
+      s_menu.textContent = menuCat.options[menuCat.selectedIndex]?.text || '—';
+      s_price.textContent = menuPriceText() || '—';
+    }
+
+    // Listeners for validity
+    [city,dateEl,eventType,menuCat,phone,email,gdpr].forEach(el=>{
+      el.addEventListener('input', paintStepValidity);
+      el.addEventListener('change', paintStepValidity);
+    });
+
+    prevBtn.addEventListener('click', ()=>{ setStep(step-1); });
+    nextBtn.addEventListener('click', ()=>{ if(isStepValid(step)) setStep(step+1); });
+
+    // Phone sanitize
+    phone.addEventListener('input', ()=>{
+      let v = phone.value.replace(/[^+0-9]/g,'');
+      if(v.indexOf('+')>0){ v = v.replace(/[+]/g,''); }
+      phone.value = v;
+    });
+
+    // Submit (demo)
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      if(!isStepValid(4)) return;
+      alert('Cererea a fost trimisă. Vei primi oferta în 60 de minute.');
+      // reset state
+      form.reset();
+      gridAdults.querySelectorAll('.count-btn').forEach(b=>b.classList.remove('selected'));
+      gridKids.querySelectorAll('.count-btn').forEach(b=>b.classList.remove('selected'));
+      gridAdults.querySelector('[data-val="6"]').classList.add('selected');
+      gridKids.querySelector('[data-val="0"]').classList.add('selected');
+      adultsInput.value='6';
+      kidsInput.value='0';
+      setStep(1);
+      paintStepValidity();
+    });
+
+    // Init
+    setStep(1);
+  </script>
+</body>
+</html>
+
 
   <!-- Featured chefs -->
   <section class="container">
