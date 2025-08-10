@@ -341,8 +341,8 @@
     .gdpr{display:flex;align-items:flex-start;gap:8px;margin-top:8px;font-size:14px}
     .gdpr input{margin-top:3px}
     .divider{height:1px;background:var(--line);margin:8px 0 16px}
-
-   <!DOCTYPE html>
+    
+ <!DOCTYPE html>
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
@@ -604,6 +604,169 @@
   </div>
 
   <script>
+    const todayISO = ()=> new Date().toISOString().slice(0,10);
+
+    // Elements
+    const form = document.getElementById('formul');
+    const stepsBar = document.getElementById('steps');
+    const stepSections = [...document.querySelectorAll('.step')];
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+
+    const city = document.getElementById('city');
+    const dateEl = document.getElementById('date');
+    const eventType = document.getElementById('eventType');
+
+    const gridAdults = document.getElementById('gridAdults');
+    const gridKids = document.getElementById('gridKids');
+    const adultsInput = document.getElementById('adults');
+    const kidsInput = document.getElementById('kids');
+
+    const menuCat = document.getElementById('menuCat');
+    const chipsWrap = document.getElementById('dietChips');
+
+    const phone = document.getElementById('phone');
+    const email = document.getElementById('email');
+    const gdpr = document.getElementById('gdpr');
+
+    const summary = document.getElementById('summary');
+    const s_city = document.getElementById('s_city');
+    const s_date = document.getElementById('s_date');
+    const s_type = document.getElementById('s_type');
+    const s_adults = document.getElementById('s_adults');
+    const s_kids = document.getElementById('s_kids');
+    const s_total = document.getElementById('s_total');
+    const s_menu = document.getElementById('s_menu');
+    const s_price = document.getElementById('s_price');
+
+    dateEl.min = todayISO();
+
+    // Stepper state
+    let step = 1; // 1..4
+
+    function setStep(n){
+      step = Math.max(1, Math.min(4, n));
+      // visibility
+      stepSections.forEach(sec=>{
+        sec.classList.toggle('active', Number(sec.dataset.step) === step);
+      });
+      // buttons
+      prevBtn.style.display = step===1 ? 'none' : 'inline-block';
+      nextBtn.style.display = step===4 ? 'none' : 'inline-block';
+      submitBtn.style.display = step===4 ? 'inline-block' : 'none';
+      // top bar
+      [...stepsBar.querySelectorAll('.step-node')].forEach(node=>{
+        const s = Number(node.dataset.step);
+        node.classList.toggle('active', s===step);
+        node.classList.toggle('done', s<step);
+      });
+      paintStepValidity();
+    }
+
+    function totalPeople(){
+      return (parseInt(adultsInput.value||'0',10) + parseInt(kidsInput.value||'0',10));
+    }
+
+    function contactValid(){
+      const ph = phone.value.trim();
+      const em = email.value.trim();
+      return ph.length>0 || em.length>0;
+    }
+
+    function isStepValid(i){
+      if(i===1){ return !!(city.value && dateEl.value && eventType.value); }
+      if(i===2){ return totalPeople()>0; }
+      if(i===3){ return !!menuCat.value; }
+      if(i===4){ return contactValid() && gdpr.checked; }
+      return false;
+    }
+
+    function paintStepValidity(){
+      // enable/disable next & submit
+      nextBtn.disabled = !isStepValid(step);
+      submitBtn.disabled = !isStepValid(4);
+      // summary visibility only on step 4 when valid
+      summary.hidden = !(step===4 && isStepValid(4));
+      if(!summary.hidden) updateSummary();
+    }
+
+    function bindCountGrid(gridEl, hiddenEl){
+      gridEl.addEventListener('click', (e)=>{
+        const btn = e.target.closest('.count-btn');
+        if(!btn) return;
+        gridEl.querySelectorAll('.count-btn').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+        hiddenEl.value = btn.dataset.val;
+        paintStepValidity();
+      });
+    }
+    bindCountGrid(gridAdults, adultsInput);
+    bindCountGrid(gridKids, kidsInput);
+
+    // Chips behavior
+    chipsWrap.addEventListener('click', (e)=>{
+      const ch = e.target.closest('.chip');
+      if(!ch) return;
+      ch.classList.toggle('active');
+    });
+
+    function menuPriceText(){
+      const opt = menuCat.options[menuCat.selectedIndex];
+      if(!opt || !opt.dataset.min) return '';
+      return `${opt.dataset.min}–${opt.dataset.max} lei/pers. (ingrediente incluse)`;
+    }
+
+    function updateSummary(){
+      s_city.textContent = city.value || '—';
+      s_date.textContent = dateEl.value || '—';
+      s_type.textContent = eventType.value || '—';
+      s_adults.textContent = adultsInput.value || '0';
+      s_kids.textContent = kidsInput.value || '0';
+      s_total.textContent = String(totalPeople());
+      s_menu.textContent = menuCat.options[menuCat.selectedIndex]?.text || '—';
+      s_price.textContent = menuPriceText() || '—';
+    }
+
+    // Listeners for validity
+    [city,dateEl,eventType,menuCat,phone,email,gdpr].forEach(el=>{
+      el.addEventListener('input', paintStepValidity);
+      el.addEventListener('change', paintStepValidity);
+    });
+
+    prevBtn.addEventListener('click', ()=>{ setStep(step-1); });
+    nextBtn.addEventListener('click', ()=>{ if(isStepValid(step)) setStep(step+1); });
+
+    // Phone sanitize
+    phone.addEventListener('input', ()=>{
+      let v = phone.value.replace(/[^+0-9]/g,'');
+      if(v.indexOf('+')>0){ v = v.replace(/[+]/g,''); }
+      phone.value = v;
+    });
+
+    // Submit (demo)
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      if(!isStepValid(4)) return;
+      alert('Cererea a fost trimisă. Vei primi oferta în 60 de minute.');
+      // reset state
+      form.reset();
+      gridAdults.querySelectorAll('.count-btn').forEach(b=>b.classList.remove('selected'));
+      gridKids.querySelectorAll('.count-btn').forEach(b=>b.classList.remove('selected'));
+      gridAdults.querySelector('[data-val="6"]').classList.add('selected');
+      gridKids.querySelector('[data-val="0"]').classList.add('selected');
+      adultsInput.value='6';
+      kidsInput.value='0';
+      setStep(1);
+      paintStepValidity();
+    });
+
+    // Init
+    setStep(1);
+  </script>
+</body>
+</html>
+
     const todayISO = ()=> new Date().toISOString().slice(0,10);
 
     // Elements
