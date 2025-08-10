@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bucătarii Noștri | Bucătarul Personal</title>
+  <meta name="description" content="Descoperă bucătarii noștri verificați: fine dining, italian, grill, vegetarian. Filtrează după oraș și specializare și rezervă rapid un chef personal."/>
+  <link rel="canonical" href="https://www.bucatarulpersonal.ro/bucatarii.html" />
+  <meta property="og:title" content="Bucătarii Noștri" />
+  <meta property="og:description" content="Alege bucătarul ideal pentru evenimentul tău: poze, meniuri, recenzii." />
+  <meta property="og:url" content="https://www.bucatarulpersonal.ro/bucatarii.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.bucatarulpersonal.ro/static/og-bucatarul-personal.jpg" />
+  <meta name="theme-color" content="#0e5a43" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+  <link rel="mask-icon" href="/static/safari-pinned-tab.svg" color="#0e5a43">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfcbZlfrX+qGIGlG4XkGUCZ3G1xZPlhQ4KJIpKj8GQ4ZC0YJwY9QYx5w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <style>
+    :root{ --rubin:#0e5a43; --rubin-2:#0b4a36; --negru:#000; --alb:#fff; --gri-1:#f5f7f8; --gri-2:#e8ecee; --gri-3:#cfd6da; --text:#1c2226; --shadow:0 16px 48px rgba(0,0,0,.16); --radius-xl:22px; --radius-lg:16px; --radius-md:12px; }
+    *{box-sizing:border-box} html,body{margin:0} body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.45}
+    a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container{width:min(1160px,92%);margin:0 auto}
+
+    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.75);backdrop-filter:blur(10px);border-bottom:1px solid var(--gri-2)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .nav-links{display:flex;gap:22px;align-items:center}
+    .brand-logo-img{height:52px}@media(max-width:980px){.nav-links{display:none}.brand-logo-img{height:42px}}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;border:1px solid var(--gri-3);font-weight:700}
+    .btn-primary{background:var(--rubin);color:#fff;border-color:transparent}
+    .burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--gri-3);align-items:center;justify-content:center}
+    @media(max-width:980px){.burger{display:flex}}
+    .mobile{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);display:none}
+    .mobile.active{display:block}
+    .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:16px}
+    .sheet a{padding:12px 8px;border-bottom:1px solid var(--gri-2);font-weight:600}
+
+    main{padding:42px 0}
+    h1{font-family:"Playfair Display",serif;font-size:clamp(30px,5vw,48px);margin:0 0 10px}
+    .muted{color:#58636b}
+
+    .filters{position:sticky;top:74px;background:#fff;border:1px solid var(--gri-2);border-radius:16px;padding:12px;display:flex;gap:10px;align-items:center;box-shadow:var(--shadow);z-index:10}
+    .filters input,.filters select{padding:10px 12px;border:1px solid var(--gri-3);border-radius:12px;background:#fbfcfc}
+    .filters .chip{padding:8px 12px;border:1px solid var(--gri-3);border-radius:999px}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}}
+    .card{border:1px solid var(--gri-2);border-radius:20px;overflow:hidden;background:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .photo{aspect-ratio:3/2;background:#e9f3ef;overflow:hidden}
+    .photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform .4s ease}
+    .card:hover .photo img{transform:scale(1.08)}
+    .body{padding:14px}
+    .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+    .tag{font-size:12px;padding:6px 10px;border:1px solid var(--gri-3);border-radius:999px}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+    .rating{color:#e9b10a;font-weight:700}
+    .loc{color:#58636b}
+    .cta{display:flex;gap:8px;margin-top:12px}
+
+    footer{background:#000;color:#cdd6dc;padding:36px 0;margin-top:48px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="/" aria-label="Acasă"><img class="brand-logo-img" src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal"/></a>
+      <nav class="nav-links" aria-label="Navigație principală">
+        <a href="despre-noi.html">Despre noi</a>
+        <a href="bucatarii.html">Bucătării Noștri</a>
+        <a href="servicii.html">Servicii</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <div class="btn-ghost" style="padding:8px 12px; border-radius:999px; border:1px solid var(--gri-3); display:inline-flex; align-items:center; gap:8px">
+          RO <i class="fa-solid fa-caret-down" aria-hidden="true"></i>
+        </div>
+        <a href="cont.html" class="btn btn-ghost"><i class="fa-solid fa-user"></i> Contul meu</a>
+        <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> VREAU UN BUCĂTAR</a>
+      </nav>
+      <button class="burger" id="bp-burger" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <div class="mobile" id="bp-mobile" aria-hidden="true">
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu principal">
+        <div style="display:flex; justify-content:space-between; align-items:center">
+          <div class="foot-logo"><img class="brand-logo-img" src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal – logo" /><strong>Bucătarul Personal</strong></div>
+          <button class="btn btn-ghost" id="bp-close"><i class="fa-solid fa-xmark"></i> Închide</button>
+        </div>
+        <a href="despre-noi.html">Despre noi</a>
+        <a href="bucatarii.html">Bucătarii noștri</a>
+        <a href="servicii.html">Servicii</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="cont.html" class="btn btn-ghost"><i class="fa-solid fa-user"></i> Contul meu</a>
+        <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Rezervă bucătar</a><i class="fa-solid fa-utensils"></i> Rezervă bucătar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Bucătarii noștri</h1>
+    <p class="muted">Toți bucătarii sunt verificați și au portofoliu + recenzii reale. Filtrează după oraș, specializare sau caută după nume.</p>
+
+    <div class="filters" id="filters">
+      <input id="q" type="search" placeholder="Caută: nume, specializare, meniu…" aria-label="Căutare"/>
+      <select id="oras" aria-label="Filtru oraș">
+        <option value="">Toate orașele</option>
+        <option>București</option>
+        <option>Cluj</option>
+        <option>Timișoara</option>
+        <option>Iași</option>
+      </select>
+      <select id="spec" aria-label="Filtru specializare">
+        <option value="">Toate specializările</option>
+        <option>Fine Dining</option>
+        <option>Italian</option>
+        <option>Grill & BBQ</option>
+        <option>Vegetarian</option>
+        <option>Healthy & Family</option>
+      </select>
+      <button class="btn" id="reset">Resetează</button>
+      <span class="chip" id="count">0 rezultate</span>
+    </div>
+
+    <div class="grid" id="grid" aria-live="polite"></div>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <small>© <span id="bp-year"></span> Bucătarul Personal</small>
+      <a href="https://wa.me/40772893476" target="_blank" class="btn" style="background:#25D366;color:#fff;border-color:transparent"><i class="fa-brands fa-whatsapp"></i> 0772 893 476</a>
+    </div>
+  </footer>
+
+  <script>
+    // Izolare pentru a evita variabile globale (ex: 'burger')
+    (() => {
+      const $ = (s, r=document) => r.querySelector(s);
+      const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+      // Header mobil sigur – fără dublare listeners
+      const burger = document.getElementById('bp-burger');
+      const mobile = document.getElementById('bp-mobile');
+      const closeBtn = document.getElementById('bp-close');
+      const yearEl = document.getElementById('bp-year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+      if (burger && mobile && closeBtn && mobile.dataset.bound !== '1'){
+        mobile.dataset.bound = '1';
+        const open = () => mobile.classList.add('active');
+        const close = () => mobile.classList.remove('active');
+        burger.addEventListener('click', open);
+        closeBtn.addEventListener('click', close);
+        mobile.addEventListener('click', e=>{ if(e.target === mobile) close(); });
+        $$('.sheet a', mobile).forEach(a=>a.addEventListener('click', close));
+        document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
+      }
+
+      // --- Date demo pentru bucătari (fără preț) ---
+      const data = [
+        { id: 'andrei', nume: 'Chef Andrei', oras: 'București', spec: ['Fine Dining','Steak','Mediteranean'], rating: 4.9, foto: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'elisa', nume: 'Chef Elisa', oras: 'Cluj', spec: ['Italian','Seafood','Vegetarian'], rating: 4.8, foto: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'marco', nume: 'Chef Marco', oras: 'Timișoara', spec: ['Grill & BBQ','Fusion','Corporate'], rating: 4.7, foto: 'https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'ioana', nume: 'Chef Ioana', oras: 'Iași', spec: ['Healthy & Family','Dietetic','Kids friendly'], rating: 4.9, foto: 'https://images.unsplash.com/photo-1526312426976-593c2b9998d7?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'stefan', nume: 'Chef Ștefan', oras: 'București', spec: ['Italian','Fine Dining'], rating: 4.6, foto: 'https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=1200&auto=format&fit=crop' },
+        { id: 'sofia', nume: 'Chef Sofia', oras: 'Cluj', spec: ['Vegetarian','Healthy & Family'], rating: 4.8, foto: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop' }
+      ];
+
+      const grid = document.getElementById('grid');
+      const q = document.getElementById('q');
+      const oras = document.getElementById('oras');
+      const spec = document.getElementById('spec');
+      const reset = document.getElementById('reset');
+      const count = document.getElementById('count');
+
+      function render(list){
+        grid.innerHTML = '';
+        list.forEach(item => {
+          const el = document.createElement('article');
+          el.className = 'card';
+          el.innerHTML = `
+            <div class="photo"><img src="${item.foto}" alt="${item.nume}"></div>
+            <div class="body">
+              <h3 style="margin:0 0 6px">${item.nume}</h3>
+              <div class="loc">${item.oras} • <span class="rating"><i class="fa-solid fa-star"></i> ${item.rating.toFixed(1)}</span></div>
+              <div class="tags">${item.spec.map(s=>`<span class='tag'>${s}</span>`).join('')}</div>
+              <div class="meta">
+                <div class="cta">
+                  <a class="btn" href="/chef/${item.id}.html">Vezi profil</a>
+                  <a class="btn btn-primary" href="/contact.html?chef=${item.id}"><i class="fa-solid fa-calendar-check"></i> Rezervă</a>
+                </div>
+              </div>
+            </div>`;
+          grid.appendChild(el);
+        });
+        count.textContent = `${list.length} ${list.length===1?'rezultat':'rezultate'}`;
+      }
+
+      function apply(){
+        const qv = q.value.trim().toLowerCase();
+        const ov = oras.value;
+        const sv = spec.value;
+        const out = data.filter(d=>{
+          const matchQ = !qv || d.nume.toLowerCase().includes(qv) || d.spec.join(' ').toLowerCase().includes(qv);
+          const matchO = !ov || d.oras===ov;
+          const matchS = !sv || d.spec.includes(sv);
+          return matchQ && matchO && matchS;
+        });
+        render(out);
+      }
+
+      [q, oras, spec].forEach(el=> el && el.addEventListener('input', apply));
+      reset.addEventListener('click', ()=>{ q.value=''; oras.value=''; spec.value=''; apply(); });
+
+      // init
+      render(data);
+
+      // --- Teste simple ---
+      function assert(cond, msg){ if(!cond) throw new Error('TEST FAIL: '+msg); console.log('TEST OK:', msg); }
+      function runTests(){
+        assert(grid.children.length === data.length, 'render inițial');
+        q.value = 'italian'; apply(); assert(grid.children.length >= 1, 'filtru full-text');
+        reset.click(); assert(grid.children.length === data.length, 'reset');
+        console.log('[Bucătarii] teste trecute ✅');
+      }
+      if (location.hash.includes('bp-test')) { try{ runTests(); } catch(e){ console.error(e); } }
+      window.BP_CHEFS = { run: () => { try{ runTests(); } catch(e){ console.error(e); } } };
+    })();
+  </script>
+</body>
+</html>
