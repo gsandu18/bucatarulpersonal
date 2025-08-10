@@ -48,36 +48,17 @@
     .sheet a{padding:12px 8px;border-bottom:1px solid var(--g2);font-weight:700;text-align:center}
 
     /* Hero */
-    .hero{
-  position:relative; isolation:isolate;
-  min-height:100svh;    /* full-screen, safe viewport */
-  display:grid; align-items:center;
-}
-
+    .hero{position:relative;isolation:isolate}
     .hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
     .hero-media::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(9,12,12,.65), rgba(9,12,12,.4) 38%, rgba(9,12,12,.75))}
-    .hero .content{
-  color:#eaf5ef;
-  padding:clamp(48px,12vh,120px) 0 0;  /* doar top */
-}
+    .hero .content{color:#eaf5ef;padding:14vh 0 12vh}
     .kicker{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border-radius:999px;background:rgba(14,90,67,.18);border:1px solid rgba(14,90,67,.4);font-weight:800}
     .hero h1{font-family:"Playfair Display",serif; font-size: clamp(36px, 5.6vw, 68px); line-height:1.05; margin:14px 0 10px}
     .hero p{font-size: clamp(16px, 2.2vw, 20px); max-width:780px; opacity:.95}
     .hero-cta{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap}
     .hero-stats{display:flex; gap:18px; flex-wrap:wrap; margin-top:18px}
     .chip{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25)}
-    .hero-media img{
-  width:100%;
-  height:100vh;                /* fallback */
-  height:100svh !important;    /* bate stilul inline */
-  object-fit:cover;
-  object-position:60% 50%;     /* focus spre dreapta (coastele) */
-  display:block;
-}
-    /* mobil: mută puțin focusul în sus */
-@media (max-width:980px){
-  .hero-media img{ object-position:center 30%; }
-}
+
     /* Sections */
     section{padding:68px 0; scroll-margin-top:90px}
     .section-title{font-family:"Playfair Display",serif;font-size:clamp(28px,4.2vw,40px);margin:0 0 14px}
@@ -89,7 +70,7 @@
     .v-card{background:#fff;border:1px solid var(--g2);border-radius:var(--radius-xl);padding:20px;box-shadow:var(--shadow);display:flex;gap:14px}
     .v-card i{font-size:22px;background:var(--rubin);color:#fff;width:46px;height:46px;display:grid;place-items:center;border-radius:12px}
 
-    /* How it works – icon simplu (fără cerc) */
+    /* How it works – redesigned (doar icon, fără cerc) */
     .hiw{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
     @media (max-width:980px){.hiw{grid-template-columns:1fr}}
     .hiw-card{background:#fff;border:1px solid var(--g2);border-radius:var(--radius-xl);padding:22px;box-shadow:var(--shadow);text-align:center}
@@ -219,6 +200,16 @@
     </div>
   </section>
 
+  <!-- Trust bar -->
+  <section class="container" aria-label="Branduri partenere">
+    <div class="trust">
+      <img alt="Logo partener" src="https://dummyimage.com/140x26/ebeff2/777&text=Eccellenze+Italiane" loading="lazy" />
+      <img alt="Logo partener" src="https://dummyimage.com/110x26/ebeff2/777&text=Gourmet" loading="lazy" />
+      <img alt="Logo partener" src="https://dummyimage.com/120x26/ebeff2/777&text=Event+Pro" loading="lazy" />
+      <img alt="Logo partener" src="https://dummyimage.com/130x26/ebeff2/777&text=Luxury+Home" loading="lazy" />
+    </div>
+  </section>
+
   <!-- Value props -->
   <section class="container">
     <h2 class="section-title">De ce noi</h2>
@@ -242,13 +233,13 @@
         <span class="hiw-step">Pasul 1</span>
       </article>
       <article class="hiw-card">
-      <div class="hiw-icon" aria-hidden="true"><i class="fa-solid fa-bowl-food"></i></div>
+        <div class="hiw-icon" aria-hidden="true"><i class="fa-solid fa-hat-chef"></i></div>
         <h3 style="margin:6px 0">Primești propuneri</h3>
         <p class="muted" style="margin:0">Potrivim bucătari potriviți, cu meniu & ofertă clară.</p>
         <span class="hiw-step">Pasul 2</span>
       </article>
       <article class="hiw-card">
-      <div class="hiw-icon" aria-hidden="true"><i class="fa-solid fa-champagne-glasses"></i></div>
+        <div class="hiw-icon" aria-hidden="true"><i class="fa-solid fa-champagne-glasses"></i></div>
         <h3 style="margin:6px 0">Te bucuri de eveniment</h3>
         <p class="muted" style="margin:0">Chef-ul gătește și lasă bucătăria impecabilă.</p>
         <span class="hiw-step">Pasul 3</span>
@@ -256,92 +247,6 @@
     </div>
   </section>
 
-  <!DOCTYPE html>
-<html lang="ro">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Solicită un bucătar — Eveniment (Wizard)</title>
-  <style>
-    :root{
-      --bg:#edf1ef;          /* ușor mai închis */
-      --card:#ffffff;
-      --ink:#0b0f14;
-      --muted:#6b7280;
-      --line:#dfe5e2;        /* linie puțin mai pronunțată */
-      --green:#0e7d4b;
-      --green-600:#0b6e42;
-      --green-050:#e6f5ee;
-      --radius:16px;
-      --shadow:0 10px 24px rgba(0,0,0,.08);
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-    .wrap{max-width:980px;margin:40px auto;padding:0 20px}
-    .header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
-    .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--green),#0a5a3a);display:grid;place-items:center;color:#fff;font-weight:700}
-    h1{font-size:24px;margin:0}
-    .sub{color:var(--muted);margin:2px 0 22px}
-
-    form{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
-
-    /* Wizard steps */
-    .steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
-    .steps::before{content:"";position:absolute;left:0;right:0;top:18px;height:2px;background:var(--line);z-index:0}
-    .step-node{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px}
-    .dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);background:#fff;display:grid;place-items:center;font-weight:700}
-    .active .dot{border-color:var(--green)}
-    .done .dot{background:var(--green);border-color:var(--green);color:#fff}
-    .step-label{font-size:12.5px;color:var(--muted);text-align:center}
-
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media (max-width:840px){.grid{grid-template-columns:1fr}}
-
-    .field{display:flex;flex-direction:column;gap:8px}
-    .label{font-weight:600}
-    .hint{font-size:12.5px;color:var(--muted)}
-
-    .control input[type="text"],
-    .control input[type="date"],
-    .control input[type="email"],
-    .control input[type="tel"],
-    .control select,
-    .control textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);outline:none;transition:.15s}
-    .control textarea{min-height:110px;resize:vertical}
-    .control input:focus,.control select:focus,.control textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-050)}
-
-    /* Count grids */
-    .count-wrap{display:flex;flex-direction:column;gap:8px}
-    .count-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
-    @media (max-width:540px){.count-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-    .count-btn{padding:10px 0;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;text-align:center;font-weight:600}
-    .count-btn.selected{border-color:var(--green);box-shadow:0 0 0 3px var(--green-050);color:var(--green-600)}
-
-    /* Chips */
-    .chips{display:flex;flex-wrap:wrap;gap:8px}
-    .chip{padding:8px 12px;border-radius:999px;border:1px solid var(--line);cursor:pointer;background:#fff;user-select:none}
-    .chip.active{background:var(--green-050);border-color:var(--green);color:#0b6e42}
-
-    /* Summary */
-    .summary{margin-top:18px;border:1px dashed var(--line);border-radius:16px;padding:14px;background:#fbfefd}
-    .summary h3{margin:0 0 6px;font-size:16px}
-    .summary .rows{display:grid;grid-template-columns:1fr 1fr;gap:8px;color:#111}
-    @media (max-width:840px){.summary .rows{grid-template-columns:1fr}}
-    .rows .k{color:var(--muted)}
-
-    /* Actions */
-    .actions{display:flex;align-items:center;gap:12px;margin-top:18px}
-    .btn{appearance:none;border:0;border-radius:999px;padding:12px 18px;font-weight:800;cursor:pointer}
-    .btn-primary{background:var(--green);color:#fff}
-    .btn-primary:disabled{opacity:.6;cursor:not-allowed}
-    .btn-primary:hover:not(:disabled){background:var(--green-600)}
-    .btn-tertiary{background:#eef2f1;color:#0b0f14}
-
-    .note{font-size:12.5px;color:var(--muted)}
-    .gdpr{display:flex;align-items:flex-start;gap:8px;margin-top:8px;font-size:14px}
-    .gdpr input{margin-top:3px}
-    .divider{height:1px;background:var(--line);margin:8px 0 16px}
-    
  <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -604,277 +509,6 @@
   </div>
 
   <script>
-    
-    const todayISO = ()=> new Date().toISOString().slice(0,10);
-
-    // Elements
-    const form = document.getElementById('formul');
-    const stepsBar = document.getElementById('steps');
-    const stepSections = [...document.querySelectorAll('.step')];
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const submitBtn = document.getElementById('submitBtn');
-
-    const city = document.getElementById('city');
-    const dateEl = document.getElementById('date');
-    const eventType = document.getElementById('eventType');
-
-    const gridAdults = document.getElementById('gridAdults');
-    const gridKids = document.getElementById('gridKids');
-    const adultsInput = document.getElementById('adults');
-    const kidsInput = document.getElementById('kids');
-
-    const menuCat = document.getElementById('menuCat');
-    const chipsWrap = document.getElementById('dietChips');
-
-    const phone = document.getElementById('phone');
-    const email = document.getElementById('email');
-    const gdpr = document.getElementById('gdpr');
-
-    const summary = document.getElementById('summary');
-    const s_city = document.getElementById('s_city');
-    const s_date = document.getElementById('s_date');
-    const s_type = document.getElementById('s_type');
-    const s_adults = document.getElementById('s_adults');
-    const s_kids = document.getElementById('s_kids');
-    const s_total = document.getElementById('s_total');
-    const s_menu = document.getElementById('s_menu');
-    const s_price = document.getElementById('s_price');
-    dateEl.min = todayISO();
-
-    // Stepper state
-    let step = 1; // 1..4
-
-    function setStep(n){
-      step = Math.max(1, Math.min(4, n));
-      // visibility
-      stepSections.forEach(sec=>{
-        sec.classList.toggle('active', Number(sec.dataset.step) === step);
-      });
-      // buttons
-      prevBtn.style.display = step===1 ? 'none' : 'inline-block';
-      nextBtn.style.display = step===4 ? 'none' : 'inline-block';
-      submitBtn.style.display = step===4 ? 'inline-block' : 'none';
-      // top bar
-      [...stepsBar.querySelectorAll('.step-node')].forEach(node=>{
-        const s = Number(node.dataset.step);
-        node.classList.toggle('active', s===step);
-        node.classList.toggle('done', s<step);
-      });
-      paintStepValidity();
-    }
-
-    function totalPeople(){
-      return (parseInt(adultsInput.value||'0',10) + parseInt(kidsInput.value||'0',10));
-    }
-
-    function contactValid(){
-      const ph = phone.value.trim();
-      const em = email.value.trim();
-      return ph.length>0 || em.length>0;
-    }
-
-    function isStepValid(i){
-      if(i===1){ return !!(city.value && dateEl.value && eventType.value); }
-      if(i===2){ return totalPeople()>0; }
-      if(i===3){ return !!menuCat.value; }
-      if(i===4){ return contactValid() && gdpr.checked; }
-      return false;
-    }
-
-    function paintStepValidity(){
-      // enable/disable next & submit
-      nextBtn.disabled = !isStepValid(step);
-      submitBtn.disabled = !isStepValid(4);
-      // summary visibility only on step 4 when valid
-      summary.hidden = !(step===4 && isStepValid(4));
-      if(!summary.hidden) updateSummary();
-    }
-
-    function bindCountGrid(gridEl, hiddenEl){
-      gridEl.addEventListener('click', (e)=>{
-        const btn = e.target.closest('.count-btn');
-        if(!btn) return;
-        gridEl.querySelectorAll('.count-btn').forEach(b=>b.classList.remove('selected'));
-        btn.classList.add('selected');
-        hiddenEl.value = btn.dataset.val;
-        paintStepValidity();
-      });
-    }
-    bindCountGrid(gridAdults, adultsInput);
-    bindCountGrid(gridKids, kidsInput);
-
-    // Chips behavior
-    chipsWrap.addEventListener('click', (e)=>{
-      const ch = e.target.closest('.chip');
-      if(!ch) return;
-      ch.classList.toggle('active');
-    });
-
-    function menuPriceText(){
-      const opt = menuCat.options[menuCat.selectedIndex];
-      if(!opt || !opt.dataset.min) return '';
-      return `${opt.dataset.min}–${opt.dataset.max} lei/pers. (ingrediente incluse)`;
-    }
-
-    function updateSummary(){
-      s_city.textContent = city.value || '—';
-      s_date.textContent = dateEl.value || '—';
-      s_type.textContent = eventType.value || '—';
-      s_adults.textContent = adultsInput.value || '0';
-      s_kids.textContent = kidsInput.value || '0';
-      s_total.textContent = String(totalPeople());
-      s_menu.textContent = menuCat.options[menuCat.selectedIndex]?.text || '—';
-      s_price.textContent = menuPriceText() || '—';
-    }
-
-    // Listeners for validity
-    [city,dateEl,eventType,menuCat,phone,email,gdpr].forEach(el=>{
-      el.addEventListener('input', paintStepValidity);
-      el.addEventListener('change', paintStepValidity);
-    });
-
-    prevBtn.addEventListener('click', ()=>{ setStep(step-1); });
-    nextBtn.addEventListener('click', ()=>{ if(isStepValid(step)) setStep(step+1); });
-
-    // Phone sanitize
-    phone.addEventListener('input', ()=>{
-      let v = phone.value.replace(/[^+0-9]/g,'');
-      if(v.indexOf('+')>0){ v = v.replace(/[+]/g,''); }
-      phone.value = v;
-    });
-
-    // Submit (demo)
-    form.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      if(!isStepValid(4)) return;
-      alert('Cererea a fost trimisă. Vei primi oferta în 60 de minute.');
-      // reset state
-      form.reset();
-      gridAdults.querySelectorAll('.count-btn').forEach(b=>b.classList.remove('selected'));
-      gridKids.querySelectorAll('.count-btn').forEach(b=>b.classList.remove('selected'));
-      gridAdults.querySelector('[data-val="6"]').classList.add('selected');
-      gridKids.querySelector('[data-val="0"]').classList.add('selected');
-      adultsInput.value='6';
-      kidsInput.value='0';
-      setStep(1);
-      paintStepValidity();
-    });
-
-    // Init
-    setStep(1);
-  </script>
-</body>
-</html>
-
-    
-      });
-      paintStepValidity();
-    }
-
-    function totalPeople(){
-      return (parseInt(adultsInput.value||'0',10) + parseInt(kidsInput.value||'0',10));
-    }
-
-    function contactValid(){
-      const ph = phone.value.trim();
-      const em = email.value.trim();
-      return ph.length>0 || em.length>0;
-    }
-
-    function isStepValid(i){
-      if(i===1){ return !!(city.value && dateEl.value && eventType.value); }
-      if(i===2){ return totalPeople()>0; }
-      if(i===3){ return !!menuCat.value; }
-      if(i===4){ return contactValid() && gdpr.checked; }
-      return false;
-    }
-
-    function paintStepValidity(){
-      // enable/disable next & submit
-      nextBtn.disabled = !isStepValid(step);
-      submitBtn.disabled = !isStepValid(4);
-      // summary visibility only on step 4 when valid
-      summary.hidden = !(step===4 && isStepValid(4));
-      if(!summary.hidden) updateSummary();
-    }
-
-    function bindCountGrid(gridEl, hiddenEl){
-      gridEl.addEventListener('click', (e)=>{
-        const btn = e.target.closest('.count-btn');
-        if(!btn) return;
-        gridEl.querySelectorAll('.count-btn').forEach(b=>b.classList.remove('selected'));
-        btn.classList.add('selected');
-        hiddenEl.value = btn.dataset.val;
-        paintStepValidity();
-      });
-    }
-    bindCountGrid(gridAdults, adultsInput);
-    bindCountGrid(gridKids, kidsInput);
-
-    // Chips behavior
-    chipsWrap.addEventListener('click', (e)=>{
-      const ch = e.target.closest('.chip');
-      if(!ch) return;
-      ch.classList.toggle('active');
-    });
-
-    function menuPriceText(){
-      const opt = menuCat.options[menuCat.selectedIndex];
-      if(!opt || !opt.dataset.min) return '';
-      return `${opt.dataset.min}–${opt.dataset.max} lei/pers. (ingrediente incluse)`;
-    }
-
-    function updateSummary(){
-      s_city.textContent = city.value || '—';
-      s_date.textContent = dateEl.value || '—';
-      s_type.textContent = eventType.value || '—';
-      s_adults.textContent = adultsInput.value || '0';
-      s_kids.textContent = kidsInput.value || '0';
-      s_total.textContent = String(totalPeople());
-      s_menu.textContent = menuCat.options[menuCat.selectedIndex]?.text || '—';
-      s_price.textContent = menuPriceText() || '—';
-    }
-
-    // Listeners for validity
-    [city,dateEl,eventType,menuCat,phone,email,gdpr].forEach(el=>{
-      el.addEventListener('input', paintStepValidity);
-      el.addEventListener('change', paintStepValidity);
-    });
-
-    prevBtn.addEventListener('click', ()=>{ setStep(step-1); });
-    nextBtn.addEventListener('click', ()=>{ if(isStepValid(step)) setStep(step+1); });
-
-    // Phone sanitize
-    phone.addEventListener('input', ()=>{
-      let v = phone.value.replace(/[^+0-9]/g,'');
-      if(v.indexOf('+')>0){ v = v.replace(/[+]/g,''); }
-      phone.value = v;
-    });
-
-    // Submit (demo)
-    form.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      if(!isStepValid(4)) return;
-      alert('Cererea a fost trimisă. Vei primi oferta în 60 de minute.');
-      // reset state
-      form.reset();
-      gridAdults.querySelectorAll('.count-btn').forEach(b=>b.classList.remove('selected'));
-      gridKids.querySelectorAll('.count-btn').forEach(b=>b.classList.remove('selected'));
-      gridAdults.querySelector('[data-val="6"]').classList.add('selected');
-      gridKids.querySelector('[data-val="0"]').classList.add('selected');
-      adultsInput.value='6';
-      kidsInput.value='0';
-      setStep(1);
-      paintStepValidity();
-    });
-
-    // Init
-    setStep(1);
-  </script>
-</body>
-</html>
-
     const todayISO = ()=> new Date().toISOString().slice(0,10);
 
     // Elements
@@ -1037,7 +671,6 @@
   </script>
 </body>
 </html>
-
 
   <!-- Featured chefs -->
   <section class="container">
@@ -1054,7 +687,10 @@
         <div class="chef-body">
           <h3 style="margin:0 0 6px">Chef Andrei</h3>
           <p class="muted" style="margin:0 0 6px">Fine Dining • 10+ ani</p>
-          <div class="rating" data-chef-id="andrei"></div>
+          <div class="rating" aria-label="4.9 din 5 stele">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            <span class="score">4.9</span>
+          </div>
           <div class="tag">Mediteranean</div><div class="tag">Steak</div><div class="tag">Plating artistic</div>
         </div>
       </article>
@@ -1068,7 +704,10 @@
         <div class="chef-body">
           <h3 style="margin:0 0 6px">Chef Elisa</h3>
           <p class="muted" style="margin:0 0 6px">Italian • 8+ ani</p>
-          <div class="rating" data-chef-id="elisa"></div>
+          <div class="rating" aria-label="4.8 din 5 stele">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            <span class="score">4.8</span>
+          </div>
           <div class="tag">Pasta</div><div class="tag">Seafood</div><div class="tag">Vegetarian</div>
         </div>
       </article>
@@ -1082,7 +721,10 @@
         <div class="chef-body">
           <h3 style="margin:0 0 6px">Chef Marco</h3>
           <p class="muted" style="margin:0 0 6px">Grill & Events • 12+ ani</p>
-          <div class="rating" data-chef-id="marco"></div>
+          <div class="rating" aria-label="4.7 din 5 stele">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            <span class="score">4.7</span>
+          </div>
           <div class="tag">BBQ</div><div class="tag">Fusion</div><div class="tag">Corporate</div>
         </div>
       </article>
@@ -1096,7 +738,10 @@
         <div class="chef-body">
           <h3 style="margin:0 0 6px">Chef Ioana</h3>
           <p class="muted" style="margin:0 0 6px">Healthy & Family • 6+ ani</p>
-          <div class="rating" data-chef-id="ioana"></div>
+          <div class="rating" aria-label="4.9 din 5 stele">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            <span class="score">4.9</span>
+          </div>
           <div class="tag">Dietetic</div><div class="tag">Family style</div><div class="tag">Kids friendly</div>
         </div>
       </article>
@@ -1194,6 +839,7 @@
     const yearEl = document.getElementById('hp-year');
     if(yearEl) yearEl.textContent = new Date().getFullYear();
 
+    // Header mobile (nu blocăm restul dacă lipsesc elemente)
     if(burger && mobile && closeBtn){
       if(mobile.dataset.bound==='1') return; // gardă anti dublare
       mobile.dataset.bound='1';
@@ -1214,45 +860,28 @@
     }, { rootMargin:'120px' }) : null;
     document.querySelectorAll('img.img-fade').forEach(img=>{ if(io) io.observe(img); else img.classList.add('loaded'); });
 
-    // ---- RATING DINAMIC (JSON) ----
-    // Fallback local dacă nu există fișierul pe server
-    const FALLBACK_RATINGS = {
-      andrei: { rating: 4.9, reviews: 38 },
-      elisa:  { rating: 4.8, reviews: 24 },
-      marco:  { rating: 4.7, reviews: 19 },
-      ioana:  { rating: 4.9, reviews: 41 }
-    };
-
-    function renderStars(el, value, reviews){
-      const val = Math.max(0, Math.min(5, Number(value)||0));
-      const rounded = Math.round(val*2)/2; // la 0.5
-      const full = Math.floor(rounded);
-      const half = (rounded-full)===0.5;
-      let html='';
-      for(let i=1;i<=5;i++){
-        if(i<=full) html += '<i class="fa-solid fa-star" aria-hidden="true"></i>';
-        else if(i===full+1 && half) html += '<i class="fa-solid fa-star-half-stroke" aria-hidden="true"></i>';
-        else html += '<i class="fa-regular fa-star" aria-hidden="true"></i>';
-      }
-      html += `<span class="score">${val.toFixed(1)}</span>`;
-      if(reviews) html += `<span class="sr-only"> / 5 pe baza a ${reviews} recenzii</span>`;
-      el.innerHTML = html;
-      el.setAttribute('aria-label', `${val.toFixed(1)} din 5 pe baza a ${reviews||0} recenzii`);
-    }
-
-    async function hydrateRatings(){
-      let map = FALLBACK_RATINGS;
-      try{
-        const res = await fetch('/_data/ratings.json', {cache:'no-store'});
-        if(res.ok){ map = await res.json(); }
-      }catch(err){ console.warn('[HP] ratings.json lipsește, folosesc fallback'); }
-      document.querySelectorAll('.rating[data-chef-id]').forEach(el=>{
-        const id = el.dataset.chefId;
-        const rec = map[id] || {rating: 4.8, reviews: 0};
-        renderStars(el, rec.rating, rec.reviews);
+    // Formular – salvare demo în localStorage
+    const leadForm = document.getElementById('hp-form');
+    const ok = document.getElementById('hp-form-ok');
+    if(leadForm){
+      leadForm.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const data = {
+          city: document.getElementById('hp-f-city').value.trim(),
+          date: document.getElementById('hp-f-date').value,
+          persons: parseInt(document.getElementById('hp-f-persons').value||'0',10),
+          type: document.getElementById('hp-f-type').value,
+          phone: document.getElementById('hp-f-phone').value.trim(),
+          email: document.getElementById('hp-f-email').value.trim(),
+          notes: document.getElementById('hp-f-notes').value.trim(),
+          createdAt: new Date().toISOString()
+        };
+        const k='HP_LEADS'; const arr = JSON.parse(localStorage.getItem(k)||'[]');
+        arr.unshift(data); localStorage.setItem(k, JSON.stringify(arr));
+        leadForm.reset(); if(ok){ ok.style.display='block'; setTimeout(()=> ok.style.display='none', 4000); }
+        console.log('[HP] lead salvat', data);
       });
     }
-    hydrateRatings();
 
     // Mini autotest (nu afectează UI)
     function assert(c,m){ if(!c) throw new Error('TEST FAIL: '+m); console.log('TEST OK:', m); }
