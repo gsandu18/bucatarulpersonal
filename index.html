@@ -177,35 +177,14 @@
   </header>
 
   <!-- Hero -->
- /* Hero */
-.hero{
-  position:relative; isolation:isolate;
-  min-height:100svh;           /* full-screen, safe viewport */
-  display:grid; align-items:center;
-}
-
-.hero-media{position:absolute; inset:0; z-index:-1; overflow:hidden}
-.hero-media::before{content:""; position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(9,12,12,.65), rgba(9,12,12,.4) 38%, rgba(9,12,12,.75))
-}
-
-.hero .content{color:#eaf5ef; padding:clamp(48px,12vh,120px) 0 0}  /* doar top */
-
-.hero-media img{
-  width:100%;
-  height:100vh;                 /* fallback */
-  height:100svh !important;     /* bate stilul inline */
-  object-fit:cover;
-  object-position:60% 50%;      /* focus dreapta-centru (coastele) */
-  display:block;
-}
-
-/* mobil: mută puțin focusul în sus */
-@media (max-width:980px){
-  .hero-media img{ object-position:center 30%; }
-}
-
-}
+  <section class="hero" aria-label="Intro">
+    <div class="hero-media" aria-hidden="true">
+      <picture>
+        <source srcset="https://images.unsplash.com/photo-1544025162-d76694265947?w=2400&auto=format&fit=crop&q=70&fm=webp" type="image/webp">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2400&auto=format&fit=crop" alt="Bucătar pregătind un plating gourmet" loading="eager" style="width:100%;height:88vh;object-fit:cover" />
+      </picture>
+    </div>
+    <div class="container content">
       <span class="kicker"><i class="fa-solid fa-shield-heart"></i> Premium • Verificați • Contract & Factură</span>
       <h1>Chefs de top, la tine acasă. <br/>Pentru cine private, evenimente și meniuri zilnice.</h1>
       <p>Rezervă rapid un bucătar personal oriunde în România. Profesioniști verificați, meniuri personalizate și experiențe memorabile.</p>
