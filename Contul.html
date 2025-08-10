@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contul meu | Bucătarul Personal</title>
+  <meta name="description" content="Autentificare pentru clienți și înregistrare ca bucătar pe Bucătarul Personal."/>
+  <link rel="canonical" href="https://www.bucatarulpersonal.ro/cont.html" />
+  <meta property="og:title" content="Contul meu" />
+  <meta property="og:description" content="Intră în cont sau înregistrează-te ca bucătar." />
+  <meta property="og:url" content="https://www.bucatarulpersonal.ro/cont.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.bucatarulpersonal.ro/static/og-bucatarul-personal.jpg" />
+  <meta name="theme-color" content="#0e5a43" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+  <link rel="mask-icon" href="/static/safari-pinned-tab.svg" color="#0e5a43">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfcbZlfrX+qGIGlG4XkGUCZ3G1xZPlhQ4KJIpKj8GQ4ZC0YJwY9QYx5w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <style>
+    :root{ --rubin:#0e5a43; --negru:#000; --alb:#fff; --gri-1:#f5f7f8; --gri-2:#e8ecee; --gri-3:#cfd6da; --text:#1c2226; --shadow:0 16px 48px rgba(0,0,0,.16); --radius-xl:22px; --radius-lg:16px; --radius-md:12px; }
+    *{box-sizing:border-box} html,body{margin:0} body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.45}
+    a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container{width:min(1160px,92%);margin:0 auto}
+
+    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.75);backdrop-filter:blur(10px);border-bottom:1px solid var(--gri-2)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .nav-links{display:flex;gap:22px;align-items:center}
+    .brand-logo-img{height:52px}
+    @media(max-width:980px){.nav-links{display:none}.brand-logo-img{height:42px}}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:1px solid var(--gri-3);font-weight:700;background:#fff}
+    .btn-primary{background:var(--rubin);color:#fff;border-color:transparent}
+    .btn-ghost{background:#fff}
+    .burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--gri-3);align-items:center;justify-content:center}
+    @media(max-width:980px){.burger{display:flex}}
+    .mobile{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);display:none}
+    .mobile.active{display:block}
+    .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:16px}
+    .sheet a{padding:12px 8px;border-bottom:1px solid var(--gri-2);font-weight:600}
+
+    main{padding:42px 0}
+    h1{font-family:"Playfair Display",serif;font-size:clamp(30px,5vw,48px);margin:0 0 10px}
+    .muted{color:#58636b}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:18px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}}
+    .card{border:1px solid var(--gri-2);border-radius:20px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+    .card .hd{padding:16px 18px;border-bottom:1px solid var(--gri-2);display:flex;align-items:center;gap:10px}
+    .card .bd{padding:18px}
+    label{font-size:14px;font-weight:700;color:#3a444b}
+    input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--gri-3);background:#fbfcfc}
+    .form-row{display:grid;grid-template-columns:1fr;gap:12px}
+    .tips{background:linear-gradient(135deg,#ffffff,#f6fbf8);border:1px dashed var(--rubin);border-radius:16px;padding:14px;color:#334}
+    .hl{background:rgba(14,90,67,.1);border:1px solid rgba(14,90,67,.25);padding:6px 10px;border-radius:999px;font-weight:700}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="/" aria-label="Acasă"><img class="brand-logo-img" src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal"/></a>
+      <nav class="nav-links">
+        <a href="despre-noi.html">Despre noi</a>
+        <a href="bucatarii.html">Bucătarii Noștri</a>
+        <a href="servicii.html">Servicii</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="cont.html" class="btn-ghost" aria-current="page"><i class="fa-solid fa-user"></i> Contul meu</a>
+        <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> VREAU UN BUCĂTAR</a>
+      </nav>
+      <button class="burger" id="bp-burger" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <div class="mobile" id="bp-mobile" aria-hidden="true">
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu principal">
+        <div style="display:flex; justify-content:space-between; align-items:center">
+          <div style="display:flex; align-items:center; gap:10px"><img class="brand-logo-img" src="/static/logo-bucatarul-personal.png" alt="Logo" style="height:38px"/><strong>Bucătarul Personal</strong></div>
+          <button class="btn" id="bp-close"><i class="fa-solid fa-xmark"></i> Închide</button>
+        </div>
+        <a href="despre-noi.html">Despre noi</a>
+        <a href="bucatarii.html">Bucătarii noștri</a>
+        <a href="servicii.html">Servicii</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="cont.html" class="btn-ghost"><i class="fa-solid fa-user"></i> Contul meu</a>
+        <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Rezervă bucătar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Contul meu</h1>
+    <p class="muted">Alege una dintre opțiuni:</p>
+
+    <div class="grid">
+      <!-- Col 1: Ai cont (Login) -->
+      <section class="card" aria-labelledby="hd-login">
+        <div class="hd" id="hd-login"><i class="fa-solid fa-right-to-bracket"></i> <strong>Ai cont</strong></div>
+        <div class="bd">
+          <form id="form-login" novalidate>
+            <div class="form-row">
+              <div>
+                <label for="login-email">Email</label>
+                <input id="login-email" name="email" type="email" placeholder="email@exemplu.ro" required />
+              </div>
+              <div>
+                <label for="login-pass">Parolă</label>
+                <input id="login-pass" name="password" type="password" placeholder="••••••••" minlength="6" required />
+              </div>
+              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-arrow-right"></i> Intră în cont</button>
+              <a class="btn-ghost" href="#" id="forgot">Ai uitat parola?</a>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Col 2: Înregistrează-te ca bucătar -->
+      <section class="card" aria-labelledby="hd-chef">
+        <div class="hd" id="hd-chef"><i class="fa-solid fa-hat-chef"></i> <strong>Înregistrează-te ca bucătar</strong></div>
+        <div class="bd">
+          <form id="form-chef" novalidate>
+            <div class="form-row">
+              <div>
+                <label for="chef-nume">Nume și prenume</label>
+                <input id="chef-nume" name="nume" type="text" placeholder="Nume Prenume" required />
+              </div>
+              <div>
+                <label for="chef-email">Email</label>
+                <input id="chef-email" name="email" type="email" placeholder="email@exemplu.ro" required />
+              </div>
+              <div>
+                <label for="chef-telefon">Telefon</label>
+                <input id="chef-telefon" name="telefon" type="tel" placeholder="07xx xxx xxx" required />
+              </div>
+              <div>
+                <label for="chef-oras">Oraș</label>
+                <input id="chef-oras" name="oras" type="text" placeholder="București / Cluj / ..." required />
+              </div>
+              <div>
+                <label for="chef-spec">Specializări</label>
+                <input id="chef-spec" name="specializari" type="text" placeholder="ex. Italian, Fine Dining, BBQ" required />
+              </div>
+              <div>
+                <label for="chef-link">Portofoliu (URL)</label>
+                <input id="chef-link" name="portofoliu" type="url" placeholder="https://instagram.com/… / site" />
+              </div>
+              <div class="tips">
+                <span class="hl"><i class="fa-solid fa-circle-info"></i> Sfat</span>
+                <div style="margin-top:6px">Contul tău va fi verificat înainte de listare. Te vom contacta pe email pentru pașii următori.</div>
+              </div>
+              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Trimite aplicația</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;border-top:1px solid var(--gri-2);color:#667">
+      <small>© <span id="bp-year"></span> Bucătarul Personal</small>
+      <a href="https://wa.me/40772893476" target="_blank" class="btn" style="background:#25D366;color:#fff;border-color:transparent"><i class="fa-brands fa-whatsapp"></i> 0772 893 476</a>
+    </div>
+  </footer>
+
+  <script>
+    // Izolare pentru a evita variabile globale sau redeclarări (ex: burger)
+    (() => {
+      const qs = (s, r=document) => r.querySelector(s);
+
+      // Header mobil sigur
+      const burger = document.getElementById('bp-burger');
+      const mobile = document.getElementById('bp-mobile');
+      const closeBtn = document.getElementById('bp-close');
+      const yearEl = document.getElementById('bp-year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+      if (burger && mobile && closeBtn && mobile.dataset.bound !== '1'){
+        mobile.dataset.bound = '1';
+        const open = () => mobile.classList.add('active');
+        const close = () => mobile.classList.remove('active');
+        burger.addEventListener('click', open);
+        closeBtn.addEventListener('click', close);
+        mobile.addEventListener('click', e=>{ if(e.target === mobile) close(); });
+        mobile.querySelectorAll('.sheet a').forEach(a=>a.addEventListener('click', close));
+        document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
+      }
+
+      // Validări simple + demo submit
+      function toast(msg){ alert(msg); }
+
+      qs('#form-login')?.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const email = qs('#login-email').value.trim();
+        const pass = qs('#login-pass').value.trim();
+        if(!email || !pass){ toast('Completează email și parolă'); return; }
+        toast('Autentificare trimisă. (demo)');
+      });
+
+      qs('#form-chef')?.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const required = ['#chef-nume','#chef-email','#chef-telefon','#chef-oras','#chef-spec'];
+        for (const sel of required){ if(!qs(sel).value.trim()){ toast('Te rugăm să completezi toate câmpurile obligatorii.'); return; } }
+        toast('Aplicația ta a fost trimisă. Te contactăm pe email! (demo)');
+      });
+
+      // Teste rapide (opțional)
+      function assert(c,m){ if(!c) throw new Error('TEST FAIL: '+m); console.log('TEST OK:', m); }
+      window.BP_ACCOUNT = { run: () => { try {
+        assert(!!qs('#form-login'), 'formular login există');
+        assert(!!qs('#form-chef'), 'formular chef există');
+        console.log('[Cont] teste trecute ✅');
+      } catch(e){ console.error(e); } } };
+    })();
+  </script>
+</body>
+</html>
