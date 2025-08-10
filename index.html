@@ -161,6 +161,75 @@
       .chip{background:rgba(0,0,0,.35);color:#fff;border-color:rgba(255,255,255,.28)}
       .hero-media picture img{height:100vh !important;object-fit:cover;object-position:62% 55%}
     }
+    /* =========================
+   HERO – patch complet
+   (lipit la finalul CSS-ului tău)
+   ========================= */
+
+/* Siguranță: scroll lin și containerul media corect poziționat */
+html { scroll-behavior: smooth; }
+.hero{ position:relative; isolation:isolate; min-height:100svh; display:grid; align-items:center; }
+.hero-media{ position:absolute; inset:0; z-index:-1; overflow:hidden; }
+.hero-media picture, .hero-media img{ width:100%; height:100%; display:block; }
+.hero-media img{ object-fit:cover; object-position:60% 50%; }
+
+/* Overlay mai închis peste imagine (desktop) */
+.hero-media::before{
+  content:"";
+  position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(
+    180deg,
+    rgba(9,12,12,.82) 0%,
+    rgba(9,12,12,.62) 40%,
+    rgba(9,12,12,.88) 100%
+  );
+}
+
+/* Pe mobil îl închidem și mai tare ca textul să fie perfect lizibil */
+@media (max-width:640px){
+  .hero-media::before{
+    background:linear-gradient(
+      180deg,
+      rgba(9,12,12,.92) 0%,
+      rgba(9,12,12,.74) 38%,
+      rgba(9,12,12,.94) 100%
+    );
+  }
+}
+
+/* TEXT pe alb + umbră, deasupra imaginii */
+.hero .content{ position:relative; z-index:1; color:#fff; }
+.hero h1{
+  color:rgba(255,255,255,.98);
+  text-shadow:0 2px 12px rgba(0,0,0,.35);
+}
+.hero p{
+  color:rgba(255,255,255,.92);
+  text-shadow:0 1px 8px rgba(0,0,0,.28);
+}
+
+/* Badge („kicker”) și „chip”-uri translucide albe */
+.kicker{
+  color:#fff;
+  background:rgba(255,255,255,.10);
+  border-color:rgba(255,255,255,.28);
+}
+.chip{
+  color:#fff;
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.22);
+}
+
+/* Polish mobil: titlu mai compact, spacing și butoane pe lățime */
+@media (max-width:640px){
+  .hero .content{ padding:12vh 0 6vh; }
+  .hero h1{ font-size:clamp(28px,7.2vw,36px); line-height:1.1; }
+  .hero-cta .btn{ width:100%; justify-content:center; }
+  .hero-stats{ gap:10px; }
+  .hero-media picture img{
+    height:100svh !important; object-fit:cover; object-position:62% 55%;
+  }
+}
 
     /* ========== Sections & cards ========== */
     section{padding:68px 0;scroll-margin-top:90px}
