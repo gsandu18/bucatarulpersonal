@@ -228,6 +228,31 @@ html { scroll-behavior: smooth; }
   .hero-stats{ gap:10px; }
   .hero-media picture img{
     height:100svh !important; object-fit:cover; object-position:62% 55%;
+    /* Hero overlay – mai deschis */
+.hero-media::before{
+  background:linear-gradient(
+    180deg,
+    rgba(9,12,12,.72) 0%,
+    rgba(9,12,12,.48) 40%,
+    rgba(9,12,12,.82) 100%
+  );
+}
+
+/* Pe mobil – tot mai lejer */
+@media (max-width:640px){
+  .hero-media::before{
+    background:linear-gradient(
+      180deg,
+      rgba(9,12,12,.80) 0%,
+      rgba(9,12,12,.56) 38%,
+      rgba(9,12,12,.88) 100%
+    );
+  }
+}
+
+/* Badge & chips ușor mai diafane (opțional) */
+.kicker{ background:rgba(0,0,0,.16); border-color:rgba(255,255,255,.2); }
+.chip{ border-color:rgba(255,255,255,.24); }
   }
 }
 
