@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meniuri zilnice – Abonamente Esențial, Comfort, Premium | Bucătarul Personal</title>
+  <meta name="description" content="Abonamente de meniu zilnic gătite de un chef personal: Esențial, Comfort, Premium. Ingrediente livrate, gătire în avans (batch cooking), meniuri pentru copii, servire și depozitare. România." />
+  <link rel="canonical" href="https://www.bucatarulpersonal.ro/servicii_meniuri_zilnice" />
+  <meta property="og:title" content="Meniuri zilnice – Abonamente" />
+  <meta property="og:description" content="Esențial, Comfort, Premium – alege pachetul potrivit și scapă de grija gătitului toată săptămâna." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Bucătarul Personal" />
+  <meta name="theme-color" content="#0e5a43" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root{
+      --rubin:#0e5a43; --rubin-2:#0b4a36; --negru:#000; --alb:#fff; --gri-1:#f5f7f8; --gri-2:#e8ecee; --gri-3:#cfd6da; --text:#1c2226; --shadow:0 16px 48px rgba(0,0,0,.16); --radius-xl:22px; --radius-lg:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.5}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{width:min(1160px,92%);margin:0 auto}
+
+    /* Header (prefix mz-) */
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.78);backdrop-filter:blur(10px);border-bottom:1px solid var(--gri-2)}
+    .mz-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .mz-brand{display:flex;align-items:center;gap:12px}
+    .mz-brand img{height:48px}
+    .mz-links{display:flex;gap:20px;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:11px 16px;border-radius:999px;border:1px solid var(--gri-3);font-weight:700;background:#fff;cursor:pointer}
+    .btn-primary{background:var(--rubin);border-color:transparent;color:#fff}
+    .btn-primary:hover{background:#0a4c36}
+    .btn-ghost{background:#fff}
+    .mz-burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--gri-3);align-items:center;justify-content:center}
+    @media (max-width:980px){.mz-links{display:none}.mz-burger{display:flex}}
+    .mz-mobile{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);display:none}
+    .mz-mobile.active{display:block}
+    .mz-sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+    .mz-sheet a{padding:12px 8px;border-bottom:1px solid var(--gri-2);font-weight:700}
+
+    /* Hero */
+    .hero{position:relative;isolation:isolate}
+    .hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
+    .hero-media::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,10,.70),rgba(8,12,10,.45) 40%, rgba(8,12,10,.80));}
+    .hero .content{padding:14vh 0 12vh;color:#eaf5ef}
+    .kicker{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(14,90,67,.12);border:1px solid rgba(14,90,67,.35);font-weight:800;color:#fff}
+    .hero h1{font-family:"Playfair Display",serif;font-size:clamp(34px,5.6vw,56px);line-height:1.05;margin:14px 0 8px}
+    .hero p{font-size:clamp(16px,2.4vw,20px);max-width:780px}
+
+    section{padding:64px 0;scroll-margin-top:90px}
+    .section-title{font-family:"Playfair Display",serif;font-size:clamp(28px,4.8vw,40px);margin:0 0 12px}
+    .muted{color:#58636b}
+
+    /* Cards abonamente */
+    .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    @media (max-width:980px){.plans{grid-template-columns:1fr}}
+    .plan{background:#fff;border:1px solid var(--gri-2);border-radius:var(--radius-xl);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .plan-header{padding:18px;border-bottom:1px solid var(--gri-2);display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,#0e5a43,#0b4a36);color:#fff}
+    .plan-header h3{margin:0;font-size:22px}
+    .badge{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.5)}
+    .plan-body{padding:18px;display:grid;gap:10px}
+    .plan-body .row{display:flex;gap:10px;align-items:flex-start}
+    .plan-body i{flex:0 0 auto;width:26px;height:26px;display:grid;place-items:center;border-radius:8px;background:rgba(14,90,67,.12);color:#0e5a43}
+    .plan-footer{padding:16px 18px;border-top:1px solid var(--gri-2);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+    .price{font-weight:800;font-size:22px}
+    .per{font-weight:600;color:#3a444b}
+
+    /* Note */
+    .notice{border:1px dashed var(--rubin);border-radius:18px;padding:16px;background:linear-gradient(135deg,#ffffff,#f6fbf8)}
+
+    /* FAQ mini */
+    details{border:1px solid var(--gri-2);border-radius:14px;padding:12px 14px}
+    details+details{margin-top:10px}
+
+    /* Footer */
+    footer{background:#0b0f12;color:#cdd6dc;padding:46px 0 20px;margin-top:46px}
+    .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:18px}
+    @media(max-width:980px){.foot-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){.foot-grid{grid-template-columns:1fr}}
+    .legal{border-top:1px solid #2c353b;margin-top:16px;padding-top:12px;font-size:13px;color:#99a5ad}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container mz-nav">
+      <a class="mz-brand" href="/" aria-label="Acasă">
+        <img src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal – logo" />
+        <strong>Bucătarul Personal</strong>
+      </a>
+      <nav class="mz-links" aria-label="Navigație">
+        <a href="/despre-noi.html">Despre noi</a>
+        <a href="/bucatarii.html">Bucătari</a>
+        <a href="/servicii.html">Servicii</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/contul_meu" class="btn"><i class="fa-solid fa-user"></i> Contul meu</a>
+        <a href="/contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Vreau un bucătar</a>
+      </nav>
+      <button id="mz-burger" class="mz-burger" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <div id="mz-mobile" class="mz-mobile" aria-hidden="true">
+      <div class="mz-sheet" role="dialog" aria-modal="true" aria-label="Meniu principal">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong>Menu</strong>
+          <button id="mz-close" class="btn"><i class="fa-solid fa-xmark"></i> Închide</button>
+        </div>
+        <a href="/despre-noi.html">Despre noi</a>
+        <a href="/bucatarii.html">Bucătari</a>
+        <a href="/servicii.html">Servicii</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/contul_meu" class="btn"><i class="fa-solid fa-user"></i> Contul meu</a>
+        <a href="/contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Rezervă bucătar</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-media" aria-hidden="true">
+      <picture>
+        <source srcset="https://images.unsplash.com/photo-1533777324565-a040eb52fac1?w=2400&auto=format&fit=crop&q=65&fm=webp" type="image/webp">
+        <img src="https://images.unsplash.com/photo-1533777324565-a040eb52fac1?q=80&w=2400&auto=format&fit=crop" alt="Preparate pentru toată săptămâna" loading="eager" style="width:100%;height:72vh;object-fit:cover" />
+      </picture>
+    </div>
+    <div class="container content">
+      <span class="kicker"><i class="fa-solid fa-bowl-food"></i> Meniuri zilnice gătite de chef</span>
+      <h1>Mănânci bine în fiecare zi – fără stres</h1>
+      <p>Îți livrăm ingredientele, gătim la tine acasă în sesiuni programate (batch cooking) și lăsăm totul curat și etichetat. Alege pachetul potrivit familiei tale.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px">
+        <a href="#abonamente" class="btn btn-primary"><i class="fa-solid fa-list-check"></i> Vezi abonamentele</a>
+        <a href="/contact.html" class="btn"><i class="fa-solid fa-paper-plane"></i> Solicită ofertă</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Abonamente -->
+  <section id="abonamente" class="container">
+    <h2 class="section-title">Abonamente meniu zilnic</h2>
+    <p class="muted">Toate pachetele includ ingrediente atent selectate și gătire la tine acasă. <strong>*La aceste prețuri se adaugă costul alimentelor.</strong></p>
+
+    <div class="plans" style="margin-top:16px">
+      <!-- ESENȚIAL -->
+      <article class="plan" id="plan-esential">
+        <div class="plan-header">
+          <h3>ESENȚIAL</h3>
+          <span class="badge">Practic</span>
+        </div>
+        <div class="plan-body">
+          <div class="row"><i class="fa-solid fa-truck"></i><div>Achiziționarea și livrarea ingredientelor atent selectate, necesare meniurilor convenite</div></div>
+          <div class="row"><i class="fa-solid fa-pot-food"></i><div>Gătirea a <strong>6 preparate pe vizită</strong> (batch cooking pentru toată săptămâna)</div></div>
+          <div class="row"><i class="fa-solid fa-kitchen-set"></i><div>Meniuri tradiționale personalizate</div></div>
+          <div class="row"><i class="fa-solid fa-children"></i><div>Meniuri pentru copii</div></div>
+          <div class="row"><i class="fa-solid fa-broom"></i><div>Curățarea spațiului folosit pentru gătit</div></div>
+          <div class="row"><i class="fa-solid fa-box-archive"></i><div>Depozitarea și etichetarea preparatelor pentru zilele următoare</div></div>
+        </div>
+        <div class="plan-footer">
+          <div>
+            <div class="per">4 vizite/lună · 24 preparate</div>
+            <div class="price">2.500 lei/lună</div>
+          </div>
+          <a class="btn btn-primary" href="/contact.html?abonament=Esențial"><i class="fa-solid fa-calendar-check"></i> Comandă</a>
+        </div>
+      </article>
+
+      <!-- COMFORT -->
+      <article class="plan" id="plan-comfort">
+        <div class="plan-header">
+          <h3>COMFORT</h3>
+          <span class="badge">Popular</span>
+        </div>
+        <div class="plan-body">
+          <div class="row"><i class="fa-solid fa-truck"></i><div>Achiziționare și livrare ingrediente atent selectate, necesare meniurilor convenite</div></div>
+          <div class="row"><i class="fa-solid fa-pot-food"></i><div>Gătirea a <strong>4 preparate per vizită</strong> (ex: prânz și cină în ziua vizitei + prânz și cină pentru ziua următoare)</div></div>
+          <div class="row"><i class="fa-solid fa-kitchen-set"></i><div>Meniuri tradiționale personalizate</div></div>
+          <div class="row"><i class="fa-solid fa-children"></i><div>Meniuri pentru copii</div></div>
+          <div class="row"><i class="fa-solid fa-broom"></i><div>Curățarea spațiului folosit pentru gătit</div></div>
+          <div class="row"><i class="fa-solid fa-box-archive"></i><div>Depozitare și etichetare preparate pentru zilele următoare</div></div>
+          <div class="row"><i class="fa-solid fa-earth-europe"></i><div><strong>Meniuri internaționale</strong> personalizate</div></div>
+          <div class="row"><i class="fa-solid fa-bell-concierge"></i><div>Servirea la masă</div></div>
+        </div>
+        <div class="plan-footer">
+          <div>
+            <div class="per">8 vizite/lună · 32 preparate</div>
+            <div class="price">2.900 lei/lună</div>
+          </div>
+          <a class="btn btn-primary" href="/contact.html?abonament=Comfort"><i class="fa-solid fa-calendar-check"></i> Comandă</a>
+        </div>
+      </article>
+
+      <!-- PREMIUM -->
+      <article class="plan" id="plan-premium">
+        <div class="plan-header">
+          <h3>PREMIUM</h3>
+          <span class="badge">Maxim</span>
+        </div>
+        <div class="plan-body">
+          <div class="row"><i class="fa-solid fa-truck"></i><div>Achiziționare și livrare ingrediente atent selectate, necesare meniurilor convenite</div></div>
+          <div class="row"><i class="fa-solid fa-pot-food"></i><div>Gătirea a <strong>4 preparate per vizită</strong> (ex: prânz și cină în ziua vizitei + prânz și cină pentru ziua următoare)</div></div>
+          <div class="row"><i class="fa-solid fa-kitchen-set"></i><div>Meniuri tradiționale personalizate</div></div>
+          <div class="row"><i class="fa-solid fa-children"></i><div>Meniuri pentru copii</div></div>
+          <div class="row"><i class="fa-solid fa-broom"></i><div>Curățarea spațiului folosit pentru gătit</div></div>
+          <div class="row"><i class="fa-solid fa-box-archive"></i><div>Depozitare și etichetare preparate pentru zilele următoare</div></div>
+          <div class="row"><i class="fa-solid fa-earth-europe"></i><div><strong>Meniuri internaționale</strong> personalizate</div></div>
+          <div class="row"><i class="fa-solid fa-bell-concierge"></i><div>Servirea la masă</div></div>
+          <div class="row"><i class="fa-solid fa-list-ul"></i><div>Crearea meniurilor conform unui <strong>plan alimentar</strong> prestabilit</div></div>
+          <div class="row"><i class="fa-solid fa-lightbulb"></i><div><strong>Sfaturi culinare</strong> personalizate</div></div>
+          <div class="row"><i class="fa-solid fa-badge-percent"></i><div><strong>Reducere 15%</strong> pentru evenimente private</div></div>
+        </div>
+        <div class="plan-footer">
+          <div>
+            <div class="per">12 vizite/lună · 48 preparate</div>
+            <div class="price">3.900 lei/lună</div>
+          </div>
+          <a class="btn btn-primary" href="/contact.html?abonament=Premium"><i class="fa-solid fa-calendar-check"></i> Comandă</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="notice" style="margin-top:16px">
+      <strong>Notă importantă:</strong> la aceste prețuri se vor adăuga și costurile pentru alimente.
+    </div>
+
+    <div class="container" style="padding:0; margin-top:18px">
+      <div class="notice" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div>
+          <strong>Nu te regăsești într-unul din pachete?</strong>
+          <div>Alege una dintre variantele de mai sus sau <strong>creează-ți propriul abonament</strong> cu un număr personalizat de vizite și preparate gătite de către bucătar.</div>
+        </div>
+        <a href="/contact.html?abonament=Personalizat" class="btn btn-primary"><i class="fa-solid fa-sliders"></i> Abonament personalizat</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ scurt -->
+  <section class="container">
+    <h2 class="section-title">Întrebări frecvente</h2>
+    <details>
+      <summary>Ingredientele sunt incluse în preț?</summary>
+      <div>Serviciul include <em>achiziționarea și livrarea</em> ingredientelor, însă <strong>costul alimentelor se facturează separat</strong>, conform bonurilor.</div>
+    </details>
+    <details>
+      <summary>Unde operați?</summary>
+      <div>Acoperire națională, în funcție de disponibilitatea rețelei de bucătari. Spune-ne orașul tău în formularul de contact.</div>
+    </details>
+    <details>
+      <summary>Ce înseamnă „batch cooking”?</summary>
+      <div>Gătim mai multe preparate într-o singură vizită, apoi le <strong>portionăm, etichetăm și depozităm</strong> pentru zilele următoare.</div>
+    </details>
+  </section>
+
+  <!-- Footer (ca pe pagina principală) -->
+  <footer>
+    <div class="container foot-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px"><img src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal – logo" style="height:46px" /><strong style="color:#eaf5ef">Bucătarul Personal</strong></div>
+        <p style="color:#b7c2c8;margin:10px 0 0">Servicii premium de chef personal pentru evenimente private și corporate, plus meniuri zilnice.</p>
+      </div>
+      <div>
+        <strong style="color:#eaf5ef">Companie</strong>
+        <ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px">
+          <li><a href="/despre-noi.html">Despre noi</a></li>
+          <li><a href="/servicii.html">Servicii</a></li>
+          <li><a href="/bucatarii.html">Bucătari</a></li>
+          <li><a href="/testimoniale.html">Testimoniale</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong style="color:#eaf5ef">Legal</strong>
+        <ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px">
+          <li><a href="#">Termeni & Condiții</a></li>
+          <li><a href="#">Politica de confidențialitate</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong style="color:#eaf5ef">Contact rapid</strong>
+        <div style="display:flex;gap:10px;margin-top:10px;align-items:center">
+          <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i> 0772 893 476</a>
+        </div>
+      </div>
+    </div>
+    <div class="container legal">© <span id="mz-year"></span> Bucătarul Personal — Toate drepturile rezervate.</div>
+  </footer>
+
+  <!-- WhatsApp floating CTA -->
+  <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="Scrie pe WhatsApp" style="position:fixed;right:18px;bottom:18px;width:54px;height:54px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 10px 24px rgba(0,0,0,.18);z-index:60"><i class="fa-brands fa-whatsapp" style="font-size:24px"></i></a>
+
+  <script>
+    // JS izolat (prefix mz-) pentru a evita variabile duplicate (ex: "burger")
+    (()=>{
+      const burger = document.getElementById('mz-burger');
+      const mobile = document.getElementById('mz-mobile');
+      const closeBtn = document.getElementById('mz-close');
+      const yearEl = document.getElementById('mz-year');
+      if(yearEl) yearEl.textContent = new Date().getFullYear();
+      if(!burger || !mobile || !closeBtn) return;
+
+      if(mobile.dataset.bound==='1') return; // previne reatașări dacă scriptul e injectat de mai multe ori
+      mobile.dataset.bound='1';
+
+      const open = () => mobile.classList.add('active');
+      const close = () => mobile.classList.remove('active');
+      burger.addEventListener('click', open);
+      closeBtn.addEventListener('click', close);
+      mobile.addEventListener('click', (e)=>{ if(e.target===mobile) close(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
+      mobile.querySelectorAll('a').forEach(a=> a.addEventListener('click', close));
+
+      // --- Mini teste pentru UX (nu afectează producția) ---
+      function assert(c,m){ if(!c) throw new Error('TEST FAIL: '+m); console.log('TEST OK: '+m); }
+      window.MZ_TEST = { run: () => { try{
+        open(); assert(mobile.classList.contains('active'),'deschidere meniu mobil');
+        close(); assert(!mobile.classList.contains('active'),'închidere meniu');
+        console.log('[MZ] All tests passed ✅');
+      } catch(e){ console.error(e); } } };
+    })();
+  </script>
+</body>
+</html>
