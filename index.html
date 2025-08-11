@@ -504,150 +504,55 @@ html { scroll-behavior: smooth; }
           <div class="step-node" data-step="4"><div class="dot">4</div><div class="step-label">Contact & trimitere</div></div>
         </div>
 
-        <!-- STEP 1 -->
-        <section class="step active" data-step="1">
-          <div class="grid">
-            <div class="field">
-              <label class="label" for="city">Oraș</label>
-              <div class="control"><input id="city" name="city" type="text" placeholder="Ex.: București, Cluj, Iași" required /></div>
-            </div>
-            <div class="field">
-              <label class="label" for="date">Dată</label>
-              <div class="control"><input id="date" name="date" type="date" required /></div>
-            </div>
-            <div class="field">
-              <label class="label" for="eventType">Tip eveniment</label>
-              <div class="control">
-                <select id="eventType" required>
-                  <option value="" disabled selected>Alege</option>
-                  <option>Cină privată</option>
-                  <option>Corporate</option>
-                  <option>Aniversare</option>
-                  <option>Team building</option>
-                  <option>Alt tip</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- STEP 2 -->
-        <section class="step" data-step="2">
-          <div class="grid">
-            <div class="field">
-              <label class="label">Număr persoane — Adulți</label>
-              <div class="count-wrap">
-                <div id="gridAdults" class="count-grid">
-                  <button type="button" class="count-btn" data-val="1">1</button>
-                  <button type="button" class="count-btn" data-val="2">2</button>
-                  <button type="button" class="count-btn" data-val="3">3</button>
-                  <button type="button" class="count-btn" data-val="4">4</button>
-                  <button type="button" class="count-btn selected" data-val="6">6</button>
-                  <button type="button" class="count-btn" data-val="8">8</button>
-                  <button type="button" class="count-btn" data-val="10">10</button>
-                  <button type="button" class="count-btn" data-val="12">12</button>
-                  <button type="button" class="count-btn" data-val="15">15</button>
-                  <button type="button" class="count-btn" data-val="20">20</button>
-                  <button type="button" class="count-btn" data-val="25">25</button>
-                  <button type="button" class="count-btn" data-val="30">30</button>
-                </div>
-                <input id="adults" type="hidden" value="6" />
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">Număr persoane — Copii</label>
-              <div class="count-wrap">
-                <div id="gridKids" class="count-grid">
-                  <button type="button" class="count-btn selected" data-val="0">0</button>
-                  <button type="button" class="count-btn" data-val="1">1</button>
-                  <button type="button" class="count-btn" data-val="2">2</button>
-                  <button type="button" class="count-btn" data-val="3">3</button>
-                  <button type="button" class="count-btn" data-val="4">4</button>
-                  <button type="button" class="count-btn" data-val="5">5</button>
-                  <button type="button" class="count-btn" data-val="6">6</button>
-                  <button type="button" class="count-btn" data-val="8">8</button>
-                  <button type="button" class="count-btn" data-val="10">10</button>
-                  <button type="button" class="count-btn" data-val="12">12</button>
-                </div>
-                <input id="kids" type="hidden" value="0" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- STEP 3 -->
-        <section class="step" data-step="3">
-          <div class="grid">
-            <div class="field">
-              <label class="label" for="menuCat">Categorie meniu (lei/pers., ingrediente incluse)</label>
-              <div class="control">
-                <select id="menuCat" required>
-                  <option value="" disabled selected>Alege</option>
-                  <option value="traditional" data-min="90" data-max="130">Tradițional — 90–130</option>
-                  <option value="fine" data-min="150" data-max="220">Fine Dining — 150–220</option>
-                  <option value="vip" data-min="250" data-max="380">VIP — 250–380</option>
-                </select>
-              </div>
-              <div id="menuRange" class="hint">Prețurile includ ingredientele. Oferta finală poate varia în funcție de meniu și logistică.</div>
-            </div>
-
-            <div class="field" style="grid-column:1 / -1">
-              <label class="label" for="prefs">Preferințe / observații</label>
-              <div class="chips" id="dietChips">
-                <div class="chip" data-tag="Vegan">Vegan</div>
-                <div class="chip" data-tag="Vegetarian">Vegetarian</div>
-                <div class="chip" data-tag="Fără gluten">Fără gluten</div>
-                <div class="chip" data-tag="Fără lactoză">Fără lactoză</div>
-                <div class="chip" data-tag="Fără nuci">Fără nuci</div>
-              </div>
-              <div class="control">
-                <textarea id="prefs" placeholder="Alergii, diete, stil de servire, oră de servire…"></textarea>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- STEP 4 -->
-        <section class="step" data-step="4">
-          <div class="grid">
-            <div class="field">
-              <label class="label" for="phone">Telefon (opțional)</label>
-              <div class="control"><input id="phone" type="tel" placeholder="Ex.: +40 7xx xxx xxx sau +39 3xx xxx xxxx" /></div>
-            </div>
-            <div class="field">
-              <label class="label" for="email">Email (opțional)</label>
-              <div class="control"><input id="email" type="email" placeholder="Adresa ta de email" /></div>
-            </div>
-          </div>
-
-          <div class="divider"></div>
-
-          <label class="gdpr"><input id="gdpr" type="checkbox" /> <span>Sunt de acord cu prelucrarea datelor personale conform <a href="#" target="_blank">Politicii de confidențialitate</a>.</span></label>
-
-          <div id="summary" class="summary" hidden>
-            <h3>Revizuiește cererea</h3>
-            <div class="rows">
-              <div><span class="k">Oraș:</span> <span id="s_city">—</span></div>
-              <div><span class="k">Data:</span> <span id="s_date">—</span></div>
-              <div><span class="k">Tip eveniment:</span> <span id="s_type">—</span></div>
-              <div><span class="k">Adulți:</span> <span id="s_adults">—</span></div>
-              <div><span class="k">Copii:</span> <span id="s_kids">—</span></div>
-              <div><span class="k">Total persoane:</span> <span id="s_total">—</span></div>
-              <div><span class="k">Categorie meniu:</span> <span id="s_menu">—</span></div>
-              <div><span class="k">Preț orientativ:</span> <span id="s_price">—</span></div>
-            </div>
-          </div>
-        </section>
-
-        <div class="actions">
-          <button id="prevBtn" class="btn-small btn-tertiary" type="button">Înapoi</button>
-          <button id="nextBtn" class="btn-small btn-primary-small" type="button">Continuă</button>
-          <button id="submitBtn" class="btn-small btn-primary-small" type="submit" disabled>Trimite cererea</button>
-        </div>
-        <div class="note">Prețurile pe categorie includ ingredientele. Oferta finală se confirmă după stabilirea meniului.</div>
-      </form>
+        <div class="hiw">
+  <!-- Pas 1 -->
+  <article class="hiw-card">
+    <div class="hiw-thumb">
+      <picture>
+        <source type="image/webp" srcset="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&auto=format&fit=crop&q=70&fm=webp">
+        <img loading="lazy" alt="Completezi rapid formularul de cerere"
+             src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&auto=format&fit=crop&q=80">
+      </picture>
     </div>
-  </section>
+    <div class="hiw-body">
+      <h3 style="margin:6px 0">Completezi cererea</h3>
+      <p class="muted" style="margin:0">Data, locația, numărul de persoane și preferințe.</p>
+      <span class="hiw-step">Pasul 1</span>
+    </div>
+  </article>
+
+  <!-- Pas 2 -->
+  <article class="hiw-card">
+    <div class="hiw-thumb">
+      <picture>
+        <source type="image/webp" srcset="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=1200&auto=format&fit=crop&q=70&fm=webp">
+        <img loading="lazy" alt="Chef verificat propune meniuri și ofertă"
+             src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=1200&auto=format&fit=crop&q=80">
+      </picture>
+    </div>
+    <div class="hiw-body">
+      <h3 style="margin:6px 0">Primești propuneri</h3>
+      <p class="muted" style="margin:0">Potrivim bucătari potriviți, cu meniu & ofertă clară.</p>
+      <span class="hiw-step">Pasul 2</span>
+    </div>
+  </article>
+
+  <!-- Pas 3 -->
+  <article class="hiw-card">
+    <div class="hiw-thumb">
+      <picture>
+        <source type="image/webp" srcset="https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=1200&auto=format&fit=crop&q=70&fm=webp">
+        <img loading="lazy" alt="Te bucuri de cină și de eveniment"
+             src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=1200&auto=format&fit=crop&q=80">
+      </picture>
+    </div>
+    <div class="hiw-body">
+      <h3 style="margin:6px 0">Te bucuri de eveniment</h3>
+      <p class="muted" style="margin:0">Gătim, servim și lăsăm bucătăria impecabilă.</p>
+      <span class="hiw-step">Pasul 3</span>
+    </div>
+  </article>
+</div>
 
   <!-- Featured chefs -->
   <section class="container">
