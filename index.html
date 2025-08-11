@@ -173,30 +173,26 @@ html { scroll-behavior: smooth; }
 .hero-media picture, .hero-media img{ width:100%; height:100%; display:block; }
 .hero-media img{ object-fit:cover; object-position:60% 50%; }
 
-/* Overlay mai închis peste imagine (desktop) */
+/* Overlay hero – mai deschis */
 .hero-media::before{
-  content:"";
-  position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(
+  background: linear-gradient(
     180deg,
-    rgba(9,12,12,.82) 0%,
-    rgba(9,12,12,.62) 40%,
-    rgba(9,12,12,.88) 100%
+    rgba(9,12,12,.60) 0%,
+    rgba(9,12,12,.36) 40%,
+    rgba(9,12,12,.72) 100%
   );
 }
 
-/* Pe mobil îl închidem și mai tare ca textul să fie perfect lizibil */
+/* Mobil – puțin mai deschis decât desktop */
 @media (max-width:640px){
   .hero-media::before{
-    background:linear-gradient(
+    background: linear-gradient(
       180deg,
-      rgba(9,12,12,.92) 0%,
-      rgba(9,12,12,.74) 38%,
-      rgba(9,12,12,.94) 100%
+      rgba(9,12,12,.70) 0%,
+      rgba(9,12,12,.44) 38%,
+      rgba(9,12,12,.82) 100%
     );
   }
-}
-
 /* TEXT pe alb + umbră, deasupra imaginii */
 .hero .content{ position:relative; z-index:1; color:#fff; }
 .hero h1{
