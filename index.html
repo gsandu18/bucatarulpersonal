@@ -461,50 +461,7 @@ html { scroll-behavior: smooth; }
   </section>
 
   <!-- Cum funcționează -->
-  <section id="cum-functioneaza" class="container">
-    <h2 class="section-title">Cum funcționează</h2>
-    <p class="muted">Trei pași simpli până la masa perfectă.</p>
-    <div class="hiw">
-      <article class="hiw-card">
-        <div class="hiw-icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></div>
-        <h3 style="margin:6px 0">Completezi cererea</h3>
-        <p class="muted" style="margin:0">Data, locația, nr. persoane și preferințe.</p>
-        <span class="hiw-step">Pasul 1</span>
-      </article>
-      <article class="hiw-card">
-        <div class="hiw-icon" aria-hidden="true"><i class="fa-solid fa-hat-chef"></i></div>
-        <h3 style="margin:6px 0">Primești propuneri</h3>
-        <p class="muted" style="margin:0">Potrivim bucătari potriviți, cu meniu & ofertă clară.</p>
-        <span class="hiw-step">Pasul 2</span>
-      </article>
-      <article class="hiw-card">
-        <div class="hiw-icon" aria-hidden="true"><i class="fa-solid fa-champagne-glasses"></i></div>
-        <h3 style="margin:6px 0">Te bucuri de eveniment</h3>
-        <p class="muted" style="margin:0">Chef-ul gătește și lasă bucătăria impecabilă.</p>
-        <span class="hiw-step">Pasul 3</span>
-      </article>
-    </div>
-  </section>
-
-  <!-- ========== FORMULAR – Drop-in (integrat) ========== -->
-  <section id="formular" class="form-hero">
-    <div class="wrap">
-      <div class="header">
-        <div>
-          <h1>Vreau un Bucătar</h1>
-          <div class="sub">Formular în 4 pași. Răspundem în max. 60 de minute.</div>
-        </div>
-      </div>
-
-      <form id="formul" class="dropin" novalidate>
-        <div class="steps" id="steps">
-          <div class="step-node" data-step="1"><div class="dot">1</div><div class="step-label">Detalii eveniment</div></div>
-          <div class="step-node" data-step="2"><div class="dot">2</div><div class="step-label">Persoane</div></div>
-          <div class="step-node" data-step="3"><div class="dot">3</div><div class="step-label">Meniu</div></div>
-          <div class="step-node" data-step="4"><div class="dot">4</div><div class="step-label">Contact & trimitere</div></div>
-        </div>
-
-        <div class="hiw">
+ <div class="hiw">
   <!-- Pas 1 -->
   <article class="hiw-card">
     <div class="hiw-thumb">
@@ -553,6 +510,56 @@ html { scroll-behavior: smooth; }
     </div>
   </article>
 </div>
+  <!-- ========== FORMULAR – Drop-in (integrat) ========== -->
+  <  <!-- Formular + pachete -->
+  <section id="formular" class="container">
+    <h2 class="section-title">Vreau un bucătar</h2>
+    <p class="muted">Completează detaliile și revenim în scurt timp.</p>
+
+    <div class="order">
+      <form id="hp-form">
+        <div>
+          <label for="hp-f-city">Oraș</label>
+          <input id="hp-f-city" type="text" placeholder="Ex.: București, Cluj, Iași" required>
+        </div>
+        <div>
+          <label for="hp-f-date">Dată</label>
+          <input id="hp-f-date" type="date" required>
+        </div>
+        <div>
+          <label for="hp-f-persons">Nr. persoane</label>
+          <select id="hp-f-persons">
+            <option>2</option><option>4</option><option selected>6</option><option>8</option><option>10</option><option>12</option><option>15</option><option>20</option>
+          </select>
+        </div>
+        <div>
+          <label for="hp-f-type">Tip eveniment</label>
+          <select id="hp-f-type">
+            <option selected>Cină privată</option>
+            <option>Corporate</option>
+            <option>Aniversare</option>
+            <option>Team building</option>
+            <option>Alt tip</option>
+          </select>
+        </div>
+        <div>
+          <label for="hp-f-phone">Telefon (opțional)</label>
+          <input id="hp-f-phone" type="tel" placeholder="07xx xxx xxx">
+        </div>
+        <div>
+          <label for="hp-f-email">Email (opțional)</label>
+          <input id="hp-f-email" type="email" placeholder="nume@exemplu.ro">
+        </div>
+        <div class="full">
+          <label for="hp-f-notes">Preferințe/observații</label>
+          <textarea id="hp-f-notes" placeholder="dietă, alergii, stil de meniu, oră servire etc."></textarea>
+        </div>
+        <div class="full" style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" type="reset"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+          <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Trimite cererea</button>
+          <span id="hp-form-ok" style="display:none;color:var(--rubin);font-weight:700;align-self:center">Cerere trimisă. Revenim în max. 60 minute.</span>
+        </div>
+      </form>
 
   <!-- Featured chefs -->
   <section class="container">
