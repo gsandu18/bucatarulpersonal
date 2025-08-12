@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Devino bucătar pe Bucătarul Personal – înscrie‑te și primește evenimente</title>
+  <meta name="description" content="Alătură‑te rețelei Bucătarul Personal: program flexibil, tarife corecte, clienți verificați, plăți sigure. Creează profilul, urcă documentele și primește cereri." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <style>
+    :root{
+      --rubin:#0e5a43; --rubin-2:#0b4a36; --negru:#000; --alb:#fff; --gri1:#f5f7f8; --gri2:#e8ecee; --gri3:#cfd6da; --text:#1c2226;
+      --shadow:0 16px 48px rgba(0,0,0,.14); --radius-lg:22px; --radius-md:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.5}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1160px,92%);margin:0 auto}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.8);backdrop-filter:blur(8px);border-bottom:1px solid var(--gri2)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{height:46px}
+    .links{display:flex;gap:18px;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid var(--gri3);font-weight:700;cursor:pointer;background:#fff}
+    .btn-primary{background:var(--rubin);color:#fff;border-color:transparent}
+    .btn-ghost{background:#fff}
+    .menu-btn{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--gri3);align-items:center;justify-content:center}
+    @media(max-width:980px){.links{display:none}.menu-btn{display:flex}}
+    .mobile{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none}
+    .mobile.active{display:block}
+    .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;box-shadow:var(--shadow);padding:20px;display:flex;flex-direction:column;gap:10px}
+    .sheet a{padding:12px 6px;border-bottom:1px solid var(--gri2);font-weight:700}
+
+    /* Hero */
+    .hero{position:relative;isolation:isolate}
+    .hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
+    .hero-media::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,10,.70),rgba(8,12,10,.45) 40%, rgba(8,12,10,.70));}
+    .hero .content{padding:14vh 0 12vh;color:#eaf5ef}
+    .kicker{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(14,90,67,.22);font-weight:800}
+    .hero h1{font-family:Playfair Display,serif;font-weight:700;font-size:clamp(36px,5.8vw,64px);line-height:1.05;margin:16px 0}
+    .hero p{font-size:clamp(16px,2vw,20px);max-width:780px}
+    .hero-cta{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
+
+    /* Sections */
+    section{padding:64px 0;scroll-margin-top:90px}
+    .section-title{font-family:Playfair Display,serif;font-size:clamp(28px,4.5vw,40px);margin:0 0 10px}
+    .muted{color:#65737c}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media(max-width:980px){.grid-3{grid-template-columns:1fr}}
+    .card{background:#fff;border:1px solid var(--gri2);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow)}
+
+    /* Benefits */
+    .benefit{display:flex;gap:14px}
+    .benefit i{font-size:22px;background:var(--rubin);color:#fff;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;box-shadow:0 8px 20px rgba(14,90,67,.3)}
+
+    /* Steps */
+    .step{display:flex;align-items:flex-start;gap:16px}
+    .step .num{width:36px;height:36px;border-radius:10px;background:var(--rubin);color:#fff;display:grid;place-items:center;font-weight:800}
+
+    /* Join requirements */
+    .req-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media(max-width:700px){.req-list{grid-template-columns:1fr}}
+    .req-list li{display:flex;gap:10px;align-items:flex-start}
+    .req-list i{color:var(--rubin)}
+
+    /* Calculator */
+    .calc{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+    @media(max-width:980px){.calc{grid-template-columns:1fr}}
+    .calc .stat{border:1px solid var(--gri2);border-radius:var(--radius-md);padding:14px;background:linear-gradient(135deg,#f0faf5,#fff)}
+    .calc strong{font-size:22px}
+
+    /* FAQ */
+    details{border:1px solid var(--gri2);border-radius:12px;padding:12px;background:#fff}
+    details+details{margin-top:10px}
+    summary{cursor:pointer;font-weight:700}
+
+    /* Footer */
+    footer{background:var(--negru);color:#cdd6dc;padding:46px 0 20px;margin-top:46px}
+    .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:18px}
+    @media(max-width:980px){.foot-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){.foot-grid{grid-template-columns:1fr}}
+    .legal{border-top:1px solid #2c353b;margin-top:16px;padding-top:12px;font-size:13px;color:#99a5ad}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="Acasă">
+        <img src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal – logo" />
+        <strong>Bucătarul Personal</strong>
+      </a>
+      <nav class="links" aria-label="Navigație">
+        <a href="/" class="btn btn-ghost">Pentru clienți</a>
+        <a href="#beneficii">Beneficii</a>
+        <a href="#cum">Cum funcționează</a>
+        <a href="#cerinte">Cerințe</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#faq">Întrebări</a>
+        <a class="btn btn-primary" href="/contul_meu"><i class="fa-solid fa-user-plus"></i> Aplică acum</a>
+      </nav>
+      <button id="cj-menu" class="menu-btn" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <div id="cj-mobile" class="mobile" aria-hidden="true">
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <strong>Menu</strong>
+          <button id="cj-close" class="btn btn-ghost"><i class="fa-solid fa-xmark"></i> Închide</button>
+        </div>
+        <a href="/">Pentru clienți</a>
+        <a href="#beneficii">Beneficii</a>
+        <a href="#cum">Cum funcționează</a>
+        <a href="#cerinte">Cerințe</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#faq">Întrebări</a>
+        <a class="btn btn-primary" href="/contul_meu"><i class="fa-solid fa-user-plus"></i> Aplică acum</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero-media" aria-hidden="true">
+      <picture>
+        <source srcset="https://images.unsplash.com/photo-1544025162-d76694265947?w=2200&auto=format&fit=crop&q=65&fm=webp" type="image/webp">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2200&auto=format&fit=crop" alt="Chef în acțiune într-o bucătărie profesionistă" loading="eager" style="width:100%;height:82vh;object-fit:cover" />
+      </picture>
+    </div>
+    <div class="container content">
+      <span class="kicker"><i class="fa-solid fa-hat-chef"></i> Pentru bucătari profesioniști</span>
+      <h1>Devino bucătar pe Bucătarul Personal</h1>
+      <p>Primești cereri reale de la clienți din toată țara, îți alegi programul și tarifele, iar noi ne ocupăm de promovare și de plăți sigure.</p>
+      <div class="hero-cta">
+        <a href="/contul_meu" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Aplică acum</a>
+        <a href="#beneficii" class="btn btn-ghost"><i class="fa-solid fa-circle-down"></i> Vezi beneficii</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beneficii -->
+  <section id="beneficii" class="container">
+    <h2 class="section-title">De ce să te alături</h2>
+    <p class="muted">Platformă creată pentru bucătari independenți și echipe de catering mic – cu focus pe experiență premium pentru client.</p>
+    <div class="grid-3" style="margin-top:16px">
+      <div class="card benefit"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i><div><h3 style="margin:0 0 6px">Tarife corecte</h3><p style="margin:0">Setezi tarifele pe preparat/persoană. Comision transparent.</p></div></div>
+      <div class="card benefit"><i class="fa-solid fa-clock" aria-hidden="true"></i><div><h3 style="margin:0 0 6px">Program flexibil</h3><p style="margin:0">Alegi doar evenimentele și zilele care ți se potrivesc.</p></div></div>
+      <div class="card benefit"><i class="fa-solid fa-shield-heart" aria-hidden="true"></i><div><h3 style="margin:0 0 6px">Clienți verificați</h3><p style="margin:0">Cereri reale, cu bugete clare și date complete.</p></div></div>
+      <div class="card benefit"><i class="fa-solid fa-wallet" aria-hidden="true"></i><div><h3 style="margin:0 0 6px">Plăți sigure</h3><p style="margin:0">Contract & factură. Banii ajung rapid în contul tău.</p></div></div>
+      <div class="card benefit"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i><div><h3 style="margin:0 0 6px">Promovare inclusă</h3><p style="margin:0">Portofoliul tău apare în căutările clienților din zonă.</p></div></div>
+      <div class="card benefit"><i class="fa-solid fa-seedling" aria-hidden="true"></i><div><h3 style="margin:0 0 6px">Crești constant</h3><p style="margin:0">Feedback, recenzii și recomandări pentru evenimente viitoare.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Cum funcționează pentru bucătari -->
+  <section id="cum" class="container">
+    <h2 class="section-title">Cum funcționează</h2>
+    <p class="muted">În 5 pași simpli – de la profil complet la evenimente plătite.</p>
+    <div class="grid-3" style="margin-top:16px">
+      <div class="card step"><div class="num">1</div><div><h3>Îți creezi profilul</h3><p>Completezi datele, orașele acoperite și specializările.</p></div></div>
+      <div class="card step"><div class="num">2</div><div><h3>Urcă documente & galerie</h3><p>Diplomă, CI și 6 poze cu preparate – pentru verificare.</p></div></div>
+      <div class="card step"><div class="num">3</div><div><h3>Primești cereri & chat</h3><p>Discuți direct cu clientul, confirmi meniul și detaliile.</p></div></div>
+      <div class="card step"><div class="num">4</div><div><h3>Gătești & servești</h3><p>Evenimentul se desfășoară la standardele tale.</p></div></div>
+      <div class="card step"><div class="num">5</div><div><h3>Încasezi</h3><p>Plăți sigure în contul tău bancar, comision transparent.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Cerințe pentru înscriere -->
+  <section id="cerinte" class="container">
+    <h2 class="section-title">Ce ai nevoie pentru a te înscrie</h2>
+    <ul class="req-list" style="margin-top:10px">
+      <li><i class="fa-solid fa-id-card"></i> <span>Carte de identitate valabilă</span></li>
+      <li><i class="fa-solid fa-certificate"></i> <span>Diplomă/atestat de bucătar (minim Ajutor de Bucătar)</span></li>
+      <li><i class="fa-solid fa-camera"></i> <span>6 fotografii cu preparatele tale (calitate bună)</span></li>
+      <li><i class="fa-solid fa-user"></i> <span>Poză de profil (față, lumină bună, 1:1)</span></li>
+      <li><i class="fa-solid fa-file-invoice-dollar"></i> <span>Date pentru facturare (PFA/firmă sau contract colaborare)</span></li>
+      <li><i class="fa-solid fa-handshake-angle"></i> <span>Atitudine profesională & punctualitate</span></li>
+    </ul>
+    <div class="card" style="margin-top:16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+      <div>
+        <strong>Gata? Hai să pornim!</strong>
+        <div class="muted">Completarea profilului durează ~5 minute.</div>
+      </div>
+      <a class="btn btn-primary" href="/contul_meu"><i class="fa-solid fa-user-plus"></i> Creează cont de bucătar</a>
+    </div>
+  </section>
+
+  <!-- Calculator câștig estimat -->
+  <section id="calculator" class="container">
+    <h2 class="section-title">Calculator de câștig (estimativ)</h2>
+    <p class="muted">Formula: <code>preț bucătar = persoane × preparate × tarif</code> → <strong>preț total client = preț bucătar × (1 + comision/100)</strong>.</p>
+    <div class="calc" style="margin-top:12px">
+      <div class="card">
+        <div class="grid-3" style="grid-template-columns:repeat(2,1fr);gap:12px">
+          <div>
+            <label for="cj-pers">Nr. persoane</label>
+            <input id="cj-pers" type="number" min="1" value="10" />
+          </div>
+          <div>
+            <label for="cj-prep">Nr. preparate</label>
+            <input id="cj-prep" type="number" min="1" value="5" />
+          </div>
+          <div>
+            <label for="cj-tarif">Tarif (lei/preparat/pers)</label>
+            <input id="cj-tarif" type="number" min="0" step="5" value="35" />
+          </div>
+          <div>
+            <label for="cj-comm">Comision platformă (%)</label>
+            <input id="cj-comm" type="number" min="0" max="100" value="20" />
+          </div>
+        </div>
+        <p class="muted" style="margin:10px 0 0">*Costul ingredientelor este separat și se adaugă conform bonurilor.</p>
+      </div>
+      <div class="stat">
+        <div class="muted">Preț bucătar</div>
+        <strong id="cj-chef">—</strong>
+        <div class="muted" style="margin-top:8px">Preț total client</div>
+        <strong id="cj-total">—</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimoniale -->
+  <section class="container">
+    <h2 class="section-title">Ce spun bucătarii din rețea</h2>
+    <div class="grid-3" style="margin-top:16px">
+      <div class="card"><p>„Mi-am umplut calendarul în 2 luni. Clienții sunt serioși, iar plățile rapide.”</p><p class="muted">— Chef Andrei, București</p></div>
+      <div class="card"><p>„Îmi setez singură disponibilitatea și aleg doar evenimentele care îmi plac.”</p><p class="muted">— Chef Ioana, Cluj</p></div>
+      <div class="card"><p>„Galeria cu poze m-a ajutat enorm. Am primit cereri pe specialitatea mea.”</p><p class="muted">— Chef Luca, Brașov</p></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="container">
+    <h2 class="section-title">Întrebări frecvente</h2>
+    <details><summary>Trebuie să am firmă/PFA?</summary><p>Poți emite factură prin PFA/firma proprie sau colaborăm prin contract de prestări servicii unde este posibil legal.</p></details>
+    <details><summary>Pot refuza o cerere?</summary><p>Da. Alegi doar evenimentele care îți convin ca dată, locație și buget.</p></details>
+    <details><summary>Cine cumpără ingredientele?</summary><p>În pachetele standard, bucătarul achiziționează ingredientele (costul se decontează separat). Pentru unele evenimente, clientul poate dori să cumpere el.</p></details>
+    <details><summary>Ce se întâmplă dacă un client anulează?</summary><p>Aplicăm termeni clari de anulare; vei primi compensații conform condițiilor comunicate în ofertă/contract.</p></details>
+  </section>
+
+  <!-- Contact / CTA -->
+  <section class="container">
+    <div class="card" style="display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:linear-gradient(135deg,var(--rubin),#000);color:#eaf5ef">
+      <div>
+        <h3 style="margin:0 0 6px">Ești gata să gătești pentru clienți noi?</h3>
+        <div class="muted" style="color:#cfe7db">Aplică acum și primești primele cereri în 24–72 h după verificare.</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn btn-ghost" href="https://wa.me/40772893476" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Întrebări rapide</a>
+        <a class="btn btn-primary" href="/contul_meu"><i class="fa-solid fa-user-plus"></i> Creează cont</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container foot-grid">
+      <div>
+        <strong style="color:#eaf5ef">Bucătarul Personal</strong>
+        <p style="margin:10px 0 0;color:#b7c2c8">Rețea de bucătari personali pentru cine private, evenimente corporate și meniuri zilnice.</p>
+      </div>
+      <div>
+        <strong style="color:#eaf5ef">Companie</strong>
+        <ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px">
+          <li><a href="/despre-noi.html">Despre noi</a></li>
+          <li><a href="/servicii.html">Servicii</a></li>
+          <li><a href="/bucatarii.html">Bucătari</a></li>
+          <li><a href="/testimoniale.html">Testimoniale</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong style="color:#eaf5ef">Legal</strong>
+        <ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px">
+          <li><a href="#">Termeni & Condiții</a></li>
+          <li><a href="#">Politica de confidențialitate</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong style="color:#eaf5ef">Contact</strong>
+        <div style="display:flex;gap:10px;margin-top:10px;align-items:center">
+          <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i> 0772 893 476</a>
+        </div>
+      </div>
+    </div>
+    <div class="container legal">© <span id="cj-year"></span> Bucătarul Personal — Toate drepturile rezervate.</div>
+  </footer>
+
+  <!-- WhatsApp floating -->
+  <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="Scrie pe WhatsApp" style="position:fixed;right:18px;bottom:18px;width:54px;height:54px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 10px 24px rgba(0,0,0,.18);z-index:50"><i class="fa-brands fa-whatsapp" style="font-size:24px"></i></a>
+
+  <script>
+    // Izolare + prefix "cj-" pentru a evita coliziuni
+    (()=>{
+      const y=document.getElementById('cj-year'); if(y) y.textContent=new Date().getFullYear();
+      const btn=document.getElementById('cj-menu'); const mob=document.getElementById('cj-mobile'); const x=document.getElementById('cj-close');
+      if(btn && mob && x){
+        if(mob.dataset.bound==='1') return; mob.dataset.bound='1';
+        const open=()=> mob.classList.add('active'); const close=()=> mob.classList.remove('active');
+        btn.addEventListener('click',open); x.addEventListener('click',close); mob.addEventListener('click',e=>{ if(e.target===mob) close(); });
+        document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+        mob.querySelectorAll('a').forEach(a=> a.addEventListener('click',close));
+      }
+      // Calculator
+      const ip=(id)=>document.getElementById(id);
+      const pers=ip('cj-pers'), prep=ip('cj-prep'), tarif=ip('cj-tarif'), comm=ip('cj-comm'), chef=ip('cj-chef'), total=ip('cj-total');
+      const nf=new Intl.NumberFormat('ro-RO'); const fmt=(n)=> nf.format(Math.round(+n||0)).replace(/\./g,' ')+ ' lei';
+      const recalc=()=>{ const p=+pers.value||0, n=+prep.value||0, t=+tarif.value||0, c=Math.max(0,+comm.value||0)/100; const chefVal=Math.max(0,p*n*t); const totalVal=chefVal*(1+c); chef.textContent=fmt(chefVal); total.textContent=fmt(totalVal); };
+      ;[pers,prep,tarif,comm].forEach(el=> el && el.addEventListener('input',recalc)); recalc();
+    })();
+  </script>
+</body>
+</html>
