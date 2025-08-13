@@ -544,40 +544,54 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container foot-grid">
+  <footer class="site-footer">
+  <div class="container footer-grid">
+    <!-- Col 1: Brand + descriere -->
+    <div class="footer-brand">
+      <img src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal – logo">
       <div>
-        <div style="display:flex;align-items:center;gap:12px"><img src="IMG_6413.png" alt="Bucătarul Personal – logo" style="height:46px" /><strong style="color:#eaf5ef">Bucătarul Personal</strong></div>
-        <p style="color:#b7c2c8;margin:10px 0 0">Servicii premium de chef personal pentru evenimente private și corporate.</p>
-      </div>
-      <div>
-        <strong style="color:#eaf5ef">Companie</strong>
-        <ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px">
-          <li><a href="/despre-noi.html">Despre noi</a></li>
-          <li><a href="/servicii.html">Servicii</a></li>
-          <li><a href="/bucatarii.html">Bucătari</a></li>
-          <li><a href="/testimoniale.html">Testimoniale</a></li>
-        </ul>
-      </div>
-      <div>
-        <strong style="color:#eaf5ef">Legal</strong>
-        <ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px">
-          <li><a href="/termeni.html">Termeni & Condiții</a></li>
-          <li><a href="/confidentialitate.html">Politica de confidențialitate</a></li>
-          <li><a href="/cookies.html">Cookies</a></li>
-        </ul>
-      </div>
-      <div>
-        <strong style="color:#eaf5ef">Contact</strong>
-        <div style="display:flex;gap:10px;margin-top:10px;align-items:center">
-          <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i> 0772 893 476</a>
-        </div>
+        <strong style="font-size:18px">Bucătarul Personal</strong>
+        <p>Servicii premium de chef personal pentru evenimente private și corporate.</p>
       </div>
     </div>
-    <div class="container legal">© <span id="hp-year"></span> Bucătarul Personal — Toate drepturile rezervate.</div>
-  </footer>
 
+    <!-- Col 2: Companie -->
+    <nav class="footer-col" aria-label="Companie">
+      <h4>Companie</h4>
+      <ul class="footer-list">
+        <li><a href="/despre-noi.html">Despre noi</a></li>
+        <li><a href="/servicii.html">Servicii</a></li>
+        <li><a href="/bucatarii.html">Bucătari</a></li>
+        <li><a href="/testimoniale.html">Testimoniale</a></li>
+      </ul>
+    </nav>
+
+    <!-- Col 3: Legal -->
+    <nav class="footer-col" aria-label="Legal">
+      <h4>Legal</h4>
+      <ul class="footer-list">
+        <li><a href="/termeni.html">Termeni &amp; Condiții</a></li>
+        <li><a href="/confidentialitate.html">Politica de confidențialitate</a></li>
+        <li><a href="/cookies.html">Cookies</a></li>
+      </ul>
+    </nav>
+
+    <!-- Col 4: Contact -->
+    <div class="footer-col footer-contact">
+      <h4>Contact</h4>
+      <p>
+        <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i> 0772 893 476
+        </a>
+      </p>
+      <p style="color:var(--footer-muted)">L–V 9:00–18:00</p>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    © <span id="hp-year"></span> Bucătarul Personal — Toate drepturile rezervate.
+  </div>
+</footer>
   <!-- WhatsApp floating CTA -->
   <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="Scrie pe WhatsApp" style="position:fixed; right:18px; bottom:18px; width:54px; height:54px; border-radius:50%; background:#25D366; color:#fff; display:grid; place-items:center; box-shadow:0 10px 24px rgba(0,0,0,.18); z-index:70"><i class="fa-brands fa-whatsapp" style="font-size:24px"></i></a>
 
