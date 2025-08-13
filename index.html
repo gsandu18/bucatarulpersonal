@@ -176,6 +176,69 @@ footer{background:var(--negru);color:#cdd6dc;padding:46px 0 22px;margin-top:54px
     @media (max-width:980px){.foot-grid{grid-template-columns:1fr 1fr}}
     @media (max-width:640px){.foot-grid{grid-template-columns:1fr}}
     .legal{border-top:1px solid #2c353b;margin-top:18px;padding-top:12px;font-size:13px;color:#fff;
+  :root {
+  --negru: #0b3d2e; /* verde închis premium */
+  --text-gri: #cdd6dc;
+  --accent: #99a5ad;
+}
+
+footer {
+  background: var(--negru);
+  color: var(--text-gri);
+  padding: 46px 0 22px;
+  margin-top: 54px;
+  font-family: 'Inter', sans-serif;
+}
+
+footer h4 {
+  color: white;
+  margin-bottom: 12px;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+footer ul li {
+  margin-bottom: 6px;
+}
+
+footer ul li a {
+  color: var(--text-gri);
+  text-decoration: none;
+}
+
+footer ul li a:hover {
+  color: white;
+}
+
+.foot-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 980px) {
+  .foot-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .foot-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.legal {
+  border-top: 1px solid #2c353b;
+  margin-top: 18px;
+  padding-top: 12px;
+  font-size: 13px;
+  color: var(--accent);
+  text-align: center;
+}    
     /* Desktop polish */
     @media (min-width:1280px){ .container{ width:min(1240px,90%) } }
     @media (min-width:1440px){ .container{ width:min(1320px,88%) } header .nav{padding:16px 0} .nav-links a{padding:12px 10px} }
@@ -474,52 +537,48 @@ footer{background:var(--negru);color:#cdd6dc;padding:46px 0 22px;margin-top:54px
     </div>
   </section>
 
-  <footer class="site-footer">
-  <div class="container footer-grid">
-    <!-- Col 1: Brand + descriere -->
-    <div class="footer-brand">
-      <img src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal – logo">
-      <div>
-        <strong style="font-size:18px">Bucătarul Personal</strong>
-        <p>Servicii premium de chef personal pentru evenimente private și corporate.</p>
-      </div>
+  <footer>
+  <div class="container foot-grid">
+    
+    <!-- Col 1: Logo și descriere -->
+    <div>
+      <img src="logo-bucatarulpersonal.png" alt="Bucătarul Personal" style="max-width:180px; margin-bottom:15px;">
+      <p>Servicii premium de chef personal pentru evenimente private și corporate.</p>
     </div>
 
     <!-- Col 2: Companie -->
-    <nav class="footer-col" aria-label="Companie">
+    <div>
       <h4>Companie</h4>
-      <ul class="footer-list">
-        <li><a href="/despre-noi.html">Despre noi</a></li>
-        <li><a href="/servicii.html">Servicii</a></li>
-        <li><a href="/bucatarii.html">Bucătari</a></li>
-        <li><a href="/testimoniale.html">Testimoniale</a></li>
+      <ul>
+        <li><a href="despre-noi.html">Despre noi</a></li>
+        <li><a href="servicii.html">Servicii</a></li>
+        <li><a href="bucatari.html">Bucătari</a></li>
+        <li><a href="testimoniale.html">Testimoniale</a></li>
       </ul>
-    </nav>
+    </div>
 
     <!-- Col 3: Legal -->
-    <nav class="footer-col" aria-label="Legal">
+    <div>
       <h4>Legal</h4>
-      <ul class="footer-list">
-        <li><a href="/termeni.html">Termeni &amp; Condiții</a></li>
-        <li><a href="/confidentialitate.html">Politica de confidențialitate</a></li>
-        <li><a href="/cookies.html">Cookies</a></li>
+      <ul>
+        <li><a href="termeni-conditii.html">Termeni & Condiții</a></li>
+        <li><a href="confidentialitate.html">Politica de confidențialitate</a></li>
+        <li><a href="cookies.html">Cookies</a></li>
       </ul>
-    </nav>
+    </div>
 
     <!-- Col 4: Contact -->
-    <div class="footer-col footer-contact">
+    <div>
       <h4>Contact</h4>
-      <p>
-        <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="WhatsApp">
-          <i class="fa-brands fa-whatsapp"></i> 0772 893 476
-        </a>
-      </p>
-      <p style="color:var(--footer-muted)">L–V 9:00–18:00</p>
+      <p>📞 0772 893 476</p>
+      <p>✉ contact@bucatarulpersonal.ro</p>
+      <p>🌐 România</p>
     </div>
+
   </div>
 
-  <div class="container footer-bottom">
-    © <span id="hp-year"></span> Bucătarul Personal — Toate drepturile rezervate.
+  <div class="legal container">
+    © 2025 Bucătarul Personal — Toate drepturile rezervate.
   </div>
 </footer>
   <!-- WhatsApp floating CTA -->
