@@ -545,8 +545,7 @@
       for(let i=0;i<full;i++) html += star('full');
       if(hasHalf) html += halfStar;
       for(let i=0;i<empty;i++) html += star('empty');
-      html += `<span class="pct">${pct}% • ${rating.toFixed(1)}/5</span>`;
-      // premium & events
+      
       const root = container.closest('.chef-card');
       if(root){
         const ev = Number(root.dataset.events||0);
