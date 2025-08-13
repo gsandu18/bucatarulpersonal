@@ -171,60 +171,35 @@
         <p>Servicii premium de chef personal pentru evenimente private și corporate.</p>
       </div>
     </div>
-/* ===== Footer – premium, responsive ===== */
-:root{
-  --footer-bg-green:#0b3d2e;
-  --footer-bg-black:#0c0f11;
-  --footer-ink:#e7f1ed;
-  --footer-muted:#b7c5bf;
-  --footer-line:rgba(255,255,255,.12);
-}
-
-.site-footer{
-  background:var(--footer-bg-verde:# ;
-  color:var(--footer-ink);
-  padding:48px 0 22px;
-  margin-top:56px;
-}
-
-.site-footer.footer--green{ --footer-bg:var(--footer-bg-green); }
-.site-footer.footer--black{ --footer-bg:var(--footer-bg-black); }
-
-.site-footer a{ color:var(--footer-muted); text-decoration:none; }
-.site-footer a:hover{ color:#fff; }
-
-.foot-grid{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr 1.2fr;
-  gap:22px;
-  align-items:start;
-}
-@media (max-width:980px){ .foot-grid{ grid-template-columns:1fr 1fr } }
-@media (max-width:640px){ .foot-grid{ grid-template-columns:1fr } }
-
-.footer-brand{ display:flex; align-items:center; gap:14px }
-.footer-brand img{ height:46px; display:block }
-.footer-desc{ margin:10px 0 0; color:var(--footer-muted) }
-
-.foot-col h4{
-  margin:0 0 10px;
-  font-size:16px;
-  letter-spacing:.2px;
-  color:#f4faf7;
-}
-.foot-links{ list-style:none; padding:0; margin:0; display:grid; gap:8px }
-
-.foot-contact{ display:grid; gap:10px; }
-.foot-contact a, .foot-contact div{ display:flex; align-items:center; gap:10px }
-
-.footer-legal{
-  border-top:1px solid var(--footer-line);
-  margin-top:22px;
-  padding-top:12px;
-  font-size:13px;
-  color:#cfd8d4;
-}
-
+/* Footer */
+    footer {
+      background: var(--negru);
+      color: #cdd6dc;
+      padding: 46px 0 22px;
+      margin-top: 54px;
+    }
+    .foot-grid {
+      display:grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap:18px;
+      padding: 0 20px;
+    }
+    .foot-grid h4 {color: var(--alb); margin-bottom:10px;}
+    .foot-grid ul {list-style:none;}
+    .foot-grid ul li {margin-bottom:8px;}
+    .foot-grid a {color: #cdd6dc; text-decoration:none;}
+    .foot-grid a:hover {text-decoration:underline;}
+    .legal {
+      border-top:1px solid #2c353b;
+      margin-top:18px;
+      padding-top:12px;
+      font-size:13px;
+      color:#99a5ad;
+      text-align:center;
+    }
+    @media (max-width:980px){.foot-grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.foot-grid{grid-template-columns:1fr}}
+  </style>
     /* Desktop polish */
     @media (min-width:1280px){ .container{ width:min(1240px,90%) } }
     @media (min-width:1440px){ .container{ width:min(1320px,88%) } header .nav{padding:16px 0} .nav-links a{padding:12px 10px} }
