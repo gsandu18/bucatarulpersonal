@@ -171,7 +171,11 @@
         <p>Servicii premium de chef personal pentru evenimente private și corporate.</p>
       </div>
     </div>
-
+footer{background:var(--negru);color:#cdd6dc;padding:46px 0 22px;margin-top:54px}
+    .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:18px}
+    @media (max-width:980px){.foot-grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.foot-grid{grid-template-columns:1fr}}
+    .legal{border-top:1px solid #2c353b;margin-top:18px;padding-top:12px;font-size:13px;color:#99a5ad}
 /* ==== Footer premium ==== */
 :root{
   --footer-bg:#0b3d2e;           /* verde premium, închis */
