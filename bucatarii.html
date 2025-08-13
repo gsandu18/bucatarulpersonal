@@ -334,6 +334,42 @@
 
     // First render
     render();
+    <script>
+(() => {
+  const sheet   = document.getElementById('filterSheet');
+  const overlay = document.getElementById('filterOverlay');
+  const chips   = document.getElementById('citiesChips');
+
+  function closeFilters(){
+    sheet && sheet.classList.remove('active');
+    overlay && overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // opțional: scrollează la începutul listei după alegere
+  function goToResultsTop(){
+    const anchor = document.getElementById('resultsTop');
+    if(anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // delegare: prinde click pe orice chip de oraș
+  chips?.addEventListener('click', (e) => {
+    const chip = e.target.closest('[data-city]');
+    if(!chip) return;
+
+    // aici pui logica ta de filtrare pe oraș (dacă nu există deja)
+    // ex: applyCityFilter(chip.dataset.city);
+
+    // închide panoul + scroll la rezultate
+    closeFilters();
+    goToResultsTop();
+  });
+
+  // închidere și când utilizatorul apasă overlay-ul
+  overlay?.addEventListener('click', closeFilters);
+})();
+</script>
   </script>
+  
 </body>
 </html>
