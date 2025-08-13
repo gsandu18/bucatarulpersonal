@@ -4,66 +4,68 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Bucătarii noștri | Bucătarul Personal</title>
-<meta name="description" content="Descoperă bucătarii noștri verificați. Filtrează după oraș și specializare, caută rapid și cere o ofertă." />
+<meta name="description" content="Caută și filtrează bucătarii verificați după oraș și specializare. Cere rapid o ofertă." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png" />
 <style>
-  :root{
-    --rubin:#0e5a43; --ink:#172026; --muted:#6b7580; --line:#e7ecef;
-    --shadow:0 18px 50px rgba(0,0,0,.14); --radius:18px;
-  }
+  :root{ --rubin:#0e5a43; --ink:#172026; --muted:#6b7580; --line:#e8ecee; --shadow:0 16px 48px rgba(0,0,0,.14); --radius:18px; }
   *{box-sizing:border-box} html,body{margin:0}
   body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:#fff}
   a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
-  .container{width:min(1120px,94%);margin:0 auto}
+  .container{width:min(1160px,92%);margin:0 auto}
 
-  /* Hero */
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+  .brand img{height:52px}
+  .nav-links{display:flex;gap:22px;align-items:center}
+  .nav-links a{font-weight:600}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:800;cursor:pointer}
+  .btn-primary{background:var(--rubin);color:#fff;border-color:transparent}
+  .burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);align-items:center;justify-content:center}
+  @media (max-width:980px){.nav-links{display:none}.burger{display:flex}}
+  .mobile{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(3px);display:none}
+  .mobile.active{display:block}
+  .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+  .sheet a{padding:12px 8px;border-bottom:1px solid var(--line);font-weight:700;text-align:center}
+
+  /* Hero scurt */
   .hero{background:linear-gradient(180deg,#0f1a17,#0b0f12);color:#eaf5ef}
-  .hero-wrap{padding:50px 0}
-  .hero h1{font-family:"Playfair Display",serif;font-size:clamp(32px,5vw,48px);margin:0 0 6px}
+  .hero-wrap{padding:38px 0}
+  .hero h1{font-family:"Playfair Display",serif;font-size:clamp(30px,4.2vw,46px);margin:0 0 6px}
   .hero p{margin:0;opacity:.92}
 
-  /* Filtre bar */
-  .filters-bar{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--line)}
+  /* Bară filtre */
+  .filters{position:sticky;top:72px;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
   .row{display:flex;gap:12px;align-items:center;padding:12px 0}
   .search{flex:1;display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:12px 16px;background:#fff}
   .search input{border:0;outline:0;width:100%;font:inherit}
-  .btn{display:inline-flex;align-items:center;gap:10px;padding:11px 16px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:800}
-  .btn-primary{background:var(--rubin);color:#fff;border-color:transparent}
-  .btn-outline{border-color:var(--rubin);color:var(--rubin)}
-  .btn-outline:hover{background:var(--rubin);color:#fff}
   .btn-icon{width:44px;height:44px;justify-content:center}
   .chips{display:flex;gap:10px;flex-wrap:wrap;padding:8px 0 14px}
-  .chip{padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:#fff;cursor:pointer;font-weight:600;white-space:nowrap;transition:.2s}
-  .chip.active{border-color:var(--rubin);color:var(--rubin);background:#ecf6f1;box-shadow:0 6px 18px rgba(14,90,67,.12)}
-  .chips-desktop{} /* marcat pentru media-query */
+  .chip{padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:#fff;cursor:pointer;font-weight:600;white-space:nowrap}
+  .chip.active{border-color:var(--rubin);background:#ecf6f1;color:var(--rubin);box-shadow:0 8px 18px rgba(14,90,67,.12)}
+  .chips-desktop{}
+  @media (max-width:860px){ .chips-desktop{display:none} }
+  @media (min-width:861px){ .btn-filters, .sheet, .sheet-overlay{display:none !important} }
 
-  /* Panou retractabil (mobil) */
-  .sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:.22s}
-  .sheet{position:fixed;right:0;top:0;height:100%;width:min(420px,92%);max-width:480px;background:#fff;box-shadow:var(--shadow);
-         transform:translateX(100%);transition:transform .26s cubic-bezier(.2,.8,.2,1);padding:18px;display:flex;flex-direction:column;gap:14px}
-  .sheet-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:8px}
-  .sheet[aria-hidden="false"]{transform:none}
+  /* Sheet (mobil) */
+  .sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:.2s}
+  .side{position:fixed;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;transform:translateX(100%);transition:.26s cubic-bezier(.2,.8,.2,1);box-shadow:var(--shadow);padding:18px;display:flex;flex-direction:column;gap:14px}
+  .side[aria-hidden="false"]{transform:none}
   .sheet-overlay[aria-hidden="false"]{opacity:1;pointer-events:auto}
+  .side-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px}
 
-  /* Desktop: filtre vizibile; Mobil: ascunse în bară */
-  @media (max-width:860px){
-    .chips-desktop{display:none}
-  }
-  @media (min-width:861px){
-    .btn-filters{display:none}
-    .sheet,.sheet-overlay{display:none!important}
-  }
-
-  /* Rezultate */
+  /* Grid rezultate */
   #resultsTop{height:1px}
   .meta{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:14px 0}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:16px 0 28px}
   @media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:640px){.grid{grid-template-columns:1fr}}
-  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);transition:transform .15s}
-  .card:hover{transform:translateY(-2px)}
+  .card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
   .photo{aspect-ratio:1/1;background:#eef3f0}
   .photo img{width:100%;height:100%;object-fit:cover}
   .body{padding:14px}
@@ -72,21 +74,57 @@
   .tags{display:flex;gap:8px;flex-wrap:wrap}
   .tag{border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px}
   .empty{padding:22px;border:1px dashed var(--line);border-radius:14px;text-align:center;color:var(--muted)}
+
+  /* Desktop polish extra */
+  @media (min-width:1440px){ .container{width:min(1320px,88%)} .grid{grid-template-columns:repeat(4,1fr);gap:20px} }
+  @media (min-width:1760px){ .container{width:min(1440px,86%)} .grid{grid-template-columns:repeat(5,1fr);gap:22px} }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
+<!-- Header -->
+<header>
+  <div class="container nav">
+    <a href="/index.html" class="brand" aria-label="Acasă">
+      <img src="/IMG_6413.png" alt="Bucătarul Personal – logo" />
+    </a>
+    <nav class="nav-links" aria-label="Navigație principală">
+      <a href="/despre-noi.html">Despre noi</a>
+      <a href="/bucatarii.html" aria-current="page" style="font-weight:800;color:var(--rubin)">Bucătarii noștri</a>
+      <a href="/servicii.html">Servicii</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/contul.html" class="btn"><i class="fa-solid fa-user"></i> Contul meu</a>
+      <a href="/index.html#formular" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Vreau un bucătar</a>
+    </nav>
+    <button class="burger" id="nav-burger" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
+  </div>
+  <div class="mobile" id="nav-mobile" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu principal">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <strong>Meniu</strong>
+        <button class="btn" id="nav-close"><i class="fa-solid fa-xmark"></i> Închide</button>
+      </div>
+      <a href="/despre-noi.html">Despre noi</a>
+      <a href="/bucatarii.html">Bucătarii noștri</a>
+      <a href="/servicii.html">Servicii</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/contul.html" class="btn"><i class="fa-solid fa-user"></i> Contul meu</a>
+      <a href="/index.html#formular" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Rezervă bucătar</a>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
 <section class="hero">
   <div class="container hero-wrap">
-    <span class="chip" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.25)"><i class="fa-solid fa-shield-heart"></i> Verificați</span>
+    <span class="chip" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)">Verificați</span>
     <h1>Bucătarii noștri</h1>
     <p>Filtrează după oraș și specializare. Pe mobil, panoul de filtre apare la „Filtre” și se închide automat după selecție.</p>
   </div>
 </section>
 
-<!-- FILTRE TOP -->
-<div class="filters-bar">
+<!-- Filtre -->
+<div class="filters">
   <div class="container">
     <div class="row">
       <div class="search">
@@ -125,14 +163,13 @@
   </div>
 </div>
 
-<!-- PANOU RETRACTABIL (mobil) -->
+<!-- Sheet mobil -->
 <div id="sheetOverlay" class="sheet-overlay" aria-hidden="true"></div>
-<aside id="filterSheet" class="sheet" aria-hidden="true" aria-label="Filtre">
-  <div class="sheet-head">
+<aside id="filterSheet" class="side" aria-hidden="true" aria-label="Filtre">
+  <div class="side-head">
     <strong style="font-weight:800">Filtre</strong>
     <button id="btnCloseFilters" class="btn"><i class="fa-solid fa-xmark"></i> Închide</button>
   </div>
-
   <div>
     <div style="font-weight:700;margin:10px 0 6px">Oraș</div>
     <div id="citiesChipsMobile" class="chips">
@@ -146,7 +183,6 @@
       <button class="chip" data-city="timisoara">Timișoara</button>
     </div>
   </div>
-
   <div>
     <div style="font-weight:700;margin:10px 0 6px">Specializare</div>
     <div id="specChipsMobile" class="chips">
@@ -162,10 +198,8 @@
   </div>
 </aside>
 
-<!-- ANCORĂ -->
+<!-- Rezultate -->
 <div id="resultsTop"></div>
-
-<!-- META + GRID -->
 <section class="container">
   <div class="meta">
     <div id="resultsCount">0 rezultate</div>
@@ -173,64 +207,50 @@
   </div>
 
   <div id="grid" class="grid">
-    <!-- CARDURI DEMO -->
+    <!-- CARDURI DEMO (poți adăuga/edita liber) -->
     <article class="card" data-city="bucuresti" data-spec="fine,romanesc,seafood" data-name="valeriu">
       <div class="photo">
-        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=900&auto=format&fit=crop"
-             alt="Chef Valeriu"
-             onerror="this.onerror=null;this.src='/static/placeholder-chef.webp'">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=900&auto=format&fit=crop" alt="Chef Valeriu">
       </div>
       <div class="body">
         <h3 style="margin:0 0 4px">Valeriu <span class="chip" style="margin-left:6px">Verificat</span></h3>
         <div class="muted">București • Fine Dining & Românească • 12+ ani</div>
         <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><strong>4.9</strong></div>
         <div class="tags"><span class="tag">Fine Dining</span><span class="tag">Românească</span><span class="tag">Seafood</span></div>
-        <div class="actions"><a class="btn btn-outline" href="#">Vezi profil</a><a class="btn btn-primary" href="/index.html#formular">Cere ofertă</a></div>
+        <div class="actions"><a class="btn" href="#">Vezi profil</a> <a class="btn btn-primary" href="/index.html#formular">Cere ofertă</a></div>
       </div>
     </article>
 
     <article class="card" data-city="cluj" data-spec="healthy,vegetarian" data-name="ioana">
-      <div class="photo">
-        <img src="https://images.unsplash.com/photo-1526312426976-593c2b9998d7?q=80&w=900&auto=format&fit=crop"
-             alt="Chef Ioana"
-             onerror="this.onerror=null;this.src='/static/placeholder-chef.webp'">
-      </div>
+      <div class="photo"><img src="https://images.unsplash.com/photo-1526312426976-593c2b9998d7?q=80&w=900&auto=format&fit=crop" alt="Chef Ioana"></div>
       <div class="body">
         <h3 style="margin:0 0 4px">Ioana</h3>
         <div class="muted">Cluj-Napoca • Healthy & Family • 6+ ani</div>
         <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><strong>4.8</strong></div>
         <div class="tags"><span class="tag">Healthy</span><span class="tag">Vegetarian</span></div>
-        <div class="actions"><a class="btn btn-outline" href="#">Vezi profil</a><a class="btn btn-primary" href="/index.html#formular">Cere ofertă</a></div>
+        <div class="actions"><a class="btn" href="#">Vezi profil</a> <a class="btn btn-primary" href="/index.html#formular">Cere ofertă</a></div>
       </div>
     </article>
 
     <article class="card" data-city="brasov" data-spec="bbq,corporate" data-name="marco">
-      <div class="photo">
-        <img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=900&auto=format&fit=crop"
-             alt="Chef Marco"
-             onerror="this.onerror=null;this.src='/static/placeholder-chef.webp'">
-      </div>
+      <div class="photo"><img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=900&auto=format&fit=crop" alt="Chef Marco"></div>
       <div class="body">
         <h3 style="margin:0 0 4px">Marco</h3>
         <div class="muted">Brașov • Grill & Events • 12+ ani</div>
         <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><strong>4.7</strong></div>
         <div class="tags"><span class="tag">BBQ</span><span class="tag">Corporate</span></div>
-        <div class="actions"><a class="btn btn-outline" href="#">Vezi profil</a><a class="btn btn-primary" href="/index.html#formular">Cere ofertă</a></div>
+        <div class="actions"><a class="btn" href="#">Vezi profil</a> <a class="btn btn-primary" href="/index.html#formular">Cere ofertă</a></div>
       </div>
     </article>
 
     <article class="card" data-city="sibiu" data-spec="italian,seafood,fine" data-name="elisa">
-      <div class="photo">
-        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=900&auto=format&fit=crop"
-             alt="Chef Elisa"
-             onerror="this.onerror=null;this.src='/static/placeholder-chef.webp'">
-      </div>
+      <div class="photo"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=900&auto=format&fit=crop" alt="Chef Elisa"></div>
       <div class="body">
         <h3 style="margin:0 0 4px">Elisa</h3>
         <div class="muted">Sibiu • Italian • 8+ ani</div>
         <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><strong>4.8</strong></div>
         <div class="tags"><span class="tag">Italian</span><span class="tag">Seafood</span><span class="tag">Fine Dining</span></div>
-        <div class="actions"><a class="btn btn-outline" href="#">Vezi profil</a><a class="btn btn-primary" href="/index.html#formular">Cere ofertă</a></div>
+        <div class="actions"><a class="btn" href="#">Vezi profil</a> <a class="btn btn-primary" href="/index.html#formular">Cere ofertă</a></div>
       </div>
     </article>
   </div>
@@ -238,9 +258,29 @@
   <div id="emptyState" class="empty" style="display:none">Nu am găsit rezultate pentru filtrul curent.</div>
 </section>
 
+<!-- Footer scurt -->
+<footer style="border-top:1px solid var(--line);margin-top:18px">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:22px 0;color:#667">
+    <small>© <span id="year"></span> Bucătarul Personal</small>
+    <a href="https://wa.me/40772893476" target="_blank" class="btn" style="background:#25D366;color:#fff;border-color:transparent"><i class="fa-brands fa-whatsapp"></i> 0772 893 476</a>
+  </div>
+</footer>
+
 <script>
 (() => {
-  // Elemente
+  // Header mobil
+  const burger = document.getElementById('nav-burger');
+  const mobile = document.getElementById('nav-mobile');
+  const closeB = document.getElementById('nav-close');
+  const open = ()=> mobile.classList.add('active');
+  const close= ()=> mobile.classList.remove('active');
+  burger?.addEventListener('click', open);
+  closeB?.addEventListener('click', close);
+  mobile?.addEventListener('click', e=>{ if(e.target===mobile) close(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Elemente filtre
   const sheet   = document.getElementById('filterSheet');
   const overlay = document.getElementById('sheetOverlay');
   const openBtn = document.getElementById('btnOpenFilters');
@@ -260,23 +300,21 @@
   const resultsCount = document.getElementById('resultsCount');
   const emptyState   = document.getElementById('emptyState');
 
-  // Stare
   let state = { city:'all', spec:'all', q:'' };
 
-  // Utils UI
-  function setHidden(el, hidden){ el.setAttribute('aria-hidden', hidden ? 'true' : 'false'); }
-  function isSheetOpen(){ return sheet.getAttribute('aria-hidden') === 'false'; }
-  function openSheet(){ setHidden(sheet,false); setHidden(overlay,false); openBtn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-  function closeSheet(){ setHidden(sheet,true);  setHidden(overlay,true);  openBtn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+  // Sheet helpers
+  const setHidden = (el, hidden)=> el?.setAttribute('aria-hidden', hidden?'true':'false');
+  const isOpen = ()=> sheet.getAttribute('aria-hidden')==='false';
+  const openSheet = ()=>{ setHidden(sheet,false); setHidden(overlay,false); openBtn?.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; };
+  const closeSheet= ()=>{ setHidden(sheet,true);  setHidden(overlay,true);  openBtn?.setAttribute('aria-expanded','false'); document.body.style.overflow=''; };
   openBtn?.addEventListener('click', openSheet);
   closeBtn?.addEventListener('click', closeSheet);
   overlay?.addEventListener('click', closeSheet);
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeSheet(); });
 
-  function scrollToTop(){ resultsTop?.scrollIntoView({behavior:'smooth', block:'start'}); }
-  function setActive(group, key, attr){
-    group?.querySelectorAll(`.chip[data-${attr}]`).forEach(c => c.classList.toggle('active', c.dataset[attr]===key));
+  const setActive = (group, key, attr)=>{
+    group?.querySelectorAll(`.chip[data-${attr}]`).forEach(c=> c.classList.toggle('active', c.dataset[attr]===key));
   }
+  const scrollToTop = ()=> resultsTop?.scrollIntoView({behavior:'smooth', block:'start'});
   const normalize = s => (s||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
 
   function applyFilters(){
@@ -296,7 +334,7 @@
     emptyState.style.display = visible ? 'none' : 'block';
   }
 
-  // CITY chips (desktop + mobil). Pe mobil închide automat cu mic delay (iOS)
+  // CITY chips (desk+mob) + auto close
   [chipsCityDesk, chipsCityMob].forEach(group=>{
     group?.addEventListener('click', (e)=>{
       const chip = e.target.closest('.chip[data-city]'); if(!chip) return;
@@ -304,12 +342,12 @@
       setActive(chipsCityDesk, state.city, 'city');
       setActive(chipsCityMob,  state.city, 'city');
       applyFilters();
-      if(isSheetOpen()) setTimeout(closeSheet, 80);
+      if(isOpen()) setTimeout(closeSheet, 80);
       scrollToTop();
     });
   });
 
-  // SPEC chips (desktop + mobil)
+  // SPEC chips (desk+mob) + auto close
   [chipsSpecDesk, chipsSpecMob].forEach(group=>{
     group?.addEventListener('click', (e)=>{
       const chip = e.target.closest('.chip[data-spec]'); if(!chip) return;
@@ -317,12 +355,12 @@
       setActive(chipsSpecDesk, state.spec, 'spec');
       setActive(chipsSpecMob,  state.spec, 'spec');
       applyFilters();
-      if(isSheetOpen()) setTimeout(closeSheet, 80);
+      if(isOpen()) setTimeout(closeSheet, 80);
       scrollToTop();
     });
   });
 
-  // Căutare și reset
+  // Search + reset
   qInput?.addEventListener('input', ()=>{ state.q = qInput.value; applyFilters(); });
   resetBtn?.addEventListener('click', ()=>{
     state = { city:'all', spec:'all', q:'' };
@@ -334,13 +372,7 @@
 
   // Init
   applyFilters();
-
-  // Debug imagini lipsă (opțional)
-  document.addEventListener('error', (e)=>{
-    const t = e.target; if(t.tagName==='IMG') console.warn('[IMG MISSING]', t.currentSrc || t.src);
-  }, true);
 })();
 </script>
-
 </body>
 </html>
