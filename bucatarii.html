@@ -1,375 +1,252 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Bucătarii noștri – Bucătarul Personal</title>
-  <meta name="description" content="Descoperă bucătari verificați pentru cine private, evenimente și meniuri zilnice. Filtrează după oraș, specializare și rating."/>
-  <meta name="theme-color" content="#0e5a43"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bucătarii noștri – Filtrare oraș</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+<style>
+  :root{
+    --rubin:#0e5a43; --line:#e7ecef; --ink:#172026; --muted:#6b7580;
+    --bg:#fff; --shadow:0 14px 40px rgba(0,0,0,.12); --radius:18px;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--ink); background:#fff}
+  .container{width:min(1100px,94%); margin:0 auto}
 
-  <!-- Fonts + Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous"/>
+  /* Bară filtre top */
+  .filters-bar{position:sticky; top:0; z-index:20; background:#fff; border-bottom:1px solid var(--line)}
+  .filters-wrap{display:flex; align-items:center; gap:12px; padding:10px 0}
+  .search{flex:1; display:flex; align-items:center; gap:8px; border:1px solid var(--line); border-radius:999px; padding:10px 14px}
+  .search input{border:0; outline:0; width:100%; font:inherit}
+  .btn{display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; border:1px solid var(--line); background:#fff; cursor:pointer}
+  .btn-primary{background:var(--rubin); color:#fff; border-color:transparent}
+  .btn-icon{width:44px; height:44px; justify-content:center}
+  .chips{display:flex; gap:10px; flex-wrap:wrap; padding:10px 0 14px}
+  .chip{padding:9px 14px; border-radius:999px; border:1px solid var(--line); background:#fff; cursor:pointer; user-select:none; white-space:nowrap; font-weight:600}
+  .chip.active{border-color:var(--rubin); color:var(--rubin); background:#ecf6f1}
 
-  <style>
-    :root{
-      --green:#0e5a43;
-      --green-2:#0a4734;
-      --ink:#172026;
-      --muted:#5b6770;
-      --line:#e6ece9;
-      --g1:#f6faf7;
-      --white:#fff;
-      --radius-xl:22px;
-      --radius-lg:16px;
-      --shadow:0 16px 44px rgba(0,0,0,.10);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.5}
+  /* Off-canvas sheet (mobil) */
+  .sheet-overlay{position:fixed; inset:0; background:rgba(0,0,0,.45); display:none}
+  .sheet{position:fixed; right:0; top:0; height:100%; width:min(420px,92%); background:#fff; box-shadow:var(--shadow); padding:18px; display:flex; flex-direction:column; gap:14px; transform:translateX(100%); transition:transform .25s ease}
+  .sheet-head{display:flex; justify-content:space-between; align-items:center}
+  .sheet.active{transform:none} .sheet-overlay.active{display:block}
+  @media(min-width: 860px){ .btn-filters{display:none} .sheet, .sheet-overlay{display:none !important} }
 
-    /* Header (același stil ca pe home) */
-    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-    .nav{width:min(1160px,92%);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand img{height:46px}
-    .nav-links{display:flex;gap:22px;align-items:center}
-    .nav-links>a{font-weight:700;text-decoration:none;color:inherit;padding:10px 8px}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:800}
-    .btn-primary{background:var(--green);color:#fff;border-color:transparent}
-    .btn-outline{border-color:var(--green);color:var(--green);background:#fff}
-    .btn-outline:hover{background:var(--green);color:#fff}
-    .burger{display:none}
-    @media (max-width:980px){.nav-links{display:none}.burger{display:block}}
-
-    /* Hero mic */
-    .hero{position:relative;isolation:isolate}
-    .hero .wrap{width:min(1160px,92%);margin:0 auto;padding:38px 0 22px}
-    .hero h1{font-family:"Playfair Display",serif;font-size:clamp(32px,5vw,48px);margin:0}
-    .hero p{color:var(--muted);margin:.5rem 0 0}
-
-    /* Filtre */
-    .filters{position:sticky;top:72px;z-index:40;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-    .filters .wrap{width:min(1160px,92%);margin:0 auto;padding:12px 0;display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center}
-    @media (max-width:980px){.filters .wrap{grid-template-columns:1fr}}
-    .search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:10px 14px;background:#fff}
-    .search input{border:0;outline:0;width:100%}
-    .chips{display:flex;flex-wrap:wrap;gap:8px}
-    .chip{padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;cursor:pointer;user-select:none;font-weight:600}
-    .chip.active{background:var(--g1);border-color:var(--green);color:var(--green)}
-    .sort{display:flex;gap:8px}
-    .sort select,.sort button{padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:600}
-    .sort button.reset{background:#f4f6f5}
-
-    /* Grid carduri */
-    .grid{width:min(1160px,92%);margin:22px auto;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-    @media (max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
-    @media (max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:560px){.grid{grid-template-columns:1fr}}
-    .card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column}
-    .photo{aspect-ratio:4/3;background:#e8f2ee;overflow:hidden}
-    .photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform .35s}
-    .card:hover .photo img{transform:scale(1.07)}
-    .body{padding:14px}
-    .name{display:flex;align-items:center;gap:8px;margin:0 0 4px}
-    .badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:4px 8px;border-radius:999px;background:var(--g1);border:1px solid var(--line);color:var(--green);font-weight:700}
-    .meta{color:var(--muted);margin:0 0 6px}
-    .rating{display:flex;align-items:center;gap:6px;margin:6px 0;color:#f5b301}
-    .rating .score{color:var(--muted);font-weight:700}
-    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-    .tag{display:inline-block;font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px}
-    .actions{display:flex;gap:8px;margin-top:10px}
-    .actions .btn{flex:1;justify-content:center}
-    .empty{width:min(1160px,92%);margin:28px auto;color:var(--muted)}
-
-    .load-more{display:block;margin:12px auto 40px;padding:12px 18px;border:1px solid var(--line);border-radius:999px;background:#fff;font-weight:800}
-    .load-more:hover{border-color:var(--green);color:var(--green)}
-  </style>
+  /* Listă carduri */
+  #resultsTop{height:1px}
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:14px 0 24px}
+  @media(max-width:1000px){ .grid{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:640px){ .grid{grid-template-columns:1fr} }
+  .card{border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:#fff; box-shadow:var(--shadow)}
+  .photo{aspect-ratio:1/1; background:#eef3f0}
+  .photo img{width:100%; height:100%; object-fit:cover}
+  .body{padding:14px}
+  .muted{color:var(--muted)}
+  .rating{display:flex; align-items:center; gap:6px; color:#f5b301; margin:6px 0}
+  .tags{display:flex; flex-wrap:wrap; gap:8px}
+  .tag{border:1px solid var(--line); border-radius:999px; padding:6px 10px; font-size:12px}
+  .actions{display:flex; gap:10px; margin-top:12px}
+  .btn-outline{border-color:var(--rubin); color:var(--rubin)}
+  .btn-outline:hover{background:var(--rubin); color:#fff}
+</style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="nav">
-      <a class="brand" href="/"><img src="/IMG_6413.png" alt="Bucătarul Personal"></a>
-      <nav class="nav-links">
-        <a href="/despre-noi">Despre noi</a>
-        <a href="/bucatarii" aria-current="page" style="color:var(--green);font-weight:800">Bucătarii noștri</a>
-        <a href="/servicii">Servicii</a>
-        <a href="/contact">Contact</a>
-        <a href="/contul_meu" class="btn"><i class="fa-solid fa-user"></i> Contul meu</a>
-        <a href="/#formular" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Vreau un bucătar</a>
-      </nav>
-      <button class="burger btn"><i class="fa-solid fa-bars"></i></button>
-      <!-- containerul cu chip-urile de orașe -->
-<div class="chips" id="citiesChips">
-  <button class="chip" data-city="all">Toate orașele</button>
-  <button class="chip" data-city="brasov">Brașov</button>
-  <button class="chip" data-city="bucuresti">București</button>
-  <!-- ... -->
+<!-- FILTRE TOP -->
+<div class="filters-bar">
+  <div class="container">
+    <div class="filters-wrap">
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="q" type="text" placeholder="Caută nume, stil culinar, etichete…">
+      </div>
+      <button id="btnOpenFilters" class="btn btn-icon btn-filters" aria-label="Deschide filtre"><i class="fa-solid fa-sliders"></i></button>
+      <button id="btnReset" class="btn" title="Resetează"><i class="fa-solid fa-rotate-left"></i> Resetează</button>
+    </div>
+
+    <!-- chips orase (vizibil pe desktop) -->
+    <div id="citiesChips" class="chips" aria-label="Alege oraș">
+      <button class="chip active" data-city="all">Toate orașele</button>
+      <button class="chip" data-city="brasov">Brașov</button>
+      <button class="chip" data-city="bucuresti">București</button>
+      <button class="chip" data-city="cluj">Cluj-Napoca</button>
+      <button class="chip" data-city="constanta">Constanța</button>
+      <button class="chip" data-city="iasi">Iași</button>
+      <button class="chip" data-city="oradea">Oradea</button>
+      <button class="chip" data-city="sibiu">Sibiu</button>
+      <button class="chip" data-city="timisoara">Timișoara</button>
+    </div>
+  </div>
 </div>
 
-<!-- off-canvas filtre -->
-<div class="filter-sheet" id="filterSheet"> ... </div>
-<div class="filter-overlay" id="filterOverlay"></div>
+<!-- OFF-CANVAS FILTRE (mobil) -->
+<div id="sheetOverlay" class="sheet-overlay"></div>
+<aside id="filterSheet" class="sheet" aria-label="Filtre">
+  <div class="sheet-head">
+    <strong>Filtre</strong>
+    <button id="btnCloseFilters" class="btn"><i class="fa-solid fa-xmark"></i> Închide</button>
+  </div>
+  <div>
+    <div style="font-weight:700; margin:8px 0 6px">Oraș</div>
+    <div id="citiesChipsMobile" class="chips">
+      <!-- aceleași valori ca sus -->
+      <button class="chip active" data-city="all">Toate orașele</button>
+      <button class="chip" data-city="brasov">Brașov</button>
+      <button class="chip" data-city="bucuresti">București</button>
+      <button class="chip" data-city="cluj">Cluj-Napoca</button>
+      <button class="chip" data-city="constanta">Constanța</button>
+      <button class="chip" data-city="iasi">Iași</button>
+      <button class="chip" data-city="oradea">Oradea</button>
+      <button class="chip" data-city="sibiu">Sibiu</button>
+      <button class="chip" data-city="timisoara">Timișoara</button>
+    </div>
+  </div>
+</aside>
 
-<!-- ancora de început rezultate -->
+<!-- ANCORĂ TOP LISTĂ -->
 <div id="resultsTop"></div>
-    </div>
-  </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="wrap">
-      <h1>Bucătarii noștri</h1>
-      <p>Profesioniști verificați pentru cine private, evenimente corporate și meniuri zilnice. Alege orașul, specializarea și consultă recenziile.</p>
-    </div>
-  </section>
-
-  <!-- Filtre -->
-  <section class="filters" aria-label="Filtre">
-    <div class="wrap">
-      <div class="search">
-        <i class="fa-solid fa-magnifying-glass" style="color:var(--muted)"></i>
-        <input id="search" type="text" placeholder="Caută nume, stil culinar, etichete…" />
+<!-- LISTĂ CARDURI -->
+<main class="container">
+  <div id="grid" class="grid">
+    <!-- EXEMPLU CARDURI (setează data-city corect) -->
+    <article class="card" data-city="bucuresti" data-tags="fine romanesc seafood" data-name="valeriu">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop" alt="Valeriu"></div>
+      <div class="body">
+        <h3 style="margin:0 0 4px">Valeriu <span class="chip" style="margin-left:6px">Verificat</span></h3>
+        <div class="muted">București • Fine Dining & Românească • 12+ ani</div>
+        <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><strong>4.9</strong></div>
+        <div class="tags"><span class="tag">Fine Dining</span><span class="tag">Românească</span><span class="tag">Seafood</span></div>
+        <div class="actions"><a class="btn btn-outline">Vezi profil</a><a class="btn btn-primary">Cere ofertă</a></div>
       </div>
+    </article>
 
-      <div class="chips" id="cityChips" aria-label="Orașe"></div>
-
-      <div class="sort">
-        <select id="specSelect" aria-label="Specializare">
-          <option value="">Toate specializările</option>
-        </select>
-        <select id="sort" aria-label="Sortează după">
-          <option value="rating">Popularitate (rating)</option>
-          <option value="experience">Experiență (ani)</option>
-          <option value="name">Nume A–Z</option>
-        </select>
-        <button class="reset" id="resetBtn" type="button"><i class="fa-solid fa-rotate-left"></i> Resetează</button>
+    <article class="card" data-city="cluj" data-tags="healthy family" data-name="ioana">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1526312426976-593c2b9998d7?q=80&w=800&auto=format&fit=crop" alt="Ioana"></div>
+      <div class="body">
+        <h3 style="margin:0 0 4px">Ioana</h3>
+        <div class="muted">Cluj-Napoca • Healthy & Family • 6+ ani</div>
+        <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><strong>4.8</strong></div>
+        <div class="tags"><span class="tag">Healthy</span><span class="tag">Kids friendly</span></div>
+        <div class="actions"><a class="btn btn-outline">Vezi profil</a><a class="btn btn-primary">Cere ofertă</a></div>
       </div>
-    </div>
-  </section>
+    </article>
 
-  <!-- Grid -->
-  <main>
-    <div id="grid" class="grid" aria-live="polite"></div>
-    <p id="empty" class="empty" hidden>Nu am găsit rezultate pentru filtrele selectate. Încearcă să cureți câteva filtre.</p>
-    <button id="moreBtn" class="load-more" hidden>Încarcă mai multe</button>
-  </main>
+    <article class="card" data-city="brasov" data-tags="bbq corporate" data-name="marco">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=800&auto=format&fit=crop" alt="Marco"></div>
+      <div class="body">
+        <h3 style="margin:0 0 4px">Marco</h3>
+        <div class="muted">Brașov • Grill & Events • 12+ ani</div>
+        <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><strong>4.7</strong></div>
+        <div class="tags"><span class="tag">BBQ</span><span class="tag">Corporate</span></div>
+        <div class="actions"><a class="btn btn-outline">Vezi profil</a><a class="btn btn-primary">Cere ofertă</a></div>
+      </div>
+    </article>
 
-  <script>
-    // ====== Date demo (fără prețuri) ======
-    const CHEFS = [
-      {id:99538,name:"Valeriu",city:"București",years:12,rating:4.9,verified:true,
-       specs:["Fine Dining","Românească","Seafood"], tags:["Plating artistic","Degustare"], 
-       photo:"https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop"},
-      {id:10011,name:"Andrei",city:"Cluj-Napoca",years:10,rating:4.8,verified:true,
-       specs:["Mediterranean","Steak"], tags:["BBQ","Corporate"], 
-       photo:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop"},
-      {id:10012,name:"Elisa",city:"București",years:8,rating:4.8,verified:true,
-       specs:["Italian","Seafood","Vegetarian"], tags:["Pasta","Family style"],
-       photo:"https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1200&auto=format&fit=crop"},
-      {id:10013,name:"Marco",city:"Timișoara",years:12,rating:4.7,verified:false,
-       specs:["Grill","Fusion"], tags:["BBQ","Events"],
-       photo:"https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=1200&auto=format&fit=crop"},
-      {id:10014,name:"Ioana",city:"Iași",years:6,rating:4.9,verified:true,
-       specs:["Healthy","Family"], tags:["Dietetic","Kids friendly"],
-       photo:"https://images.unsplash.com/photo-1526312426976-593c2b9998d7?q=80&w=1200&auto=format&fit=crop"},
-      {id:10015,name:"Radu",city:"Brașov",years:9,rating:4.6,verified:false,
-       specs:["Românească","Grill"], tags:["Slow-cook","Rustic"],
-       photo:"https://images.unsplash.com/photo-1525081905268-fc0b18b7b56b?q=80&w=1200&auto=format&fit=crop"},
-      {id:10016,name:"Mara",city:"Constanța",years:7,rating:4.8,verified:true,
-       specs:["Seafood","Mediterranean"], tags:["Pește proaspăt"],
-       photo:"https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=1200&auto=format&fit=crop"},
-      {id:10017,name:"Luca",city:"București",years:11,rating:4.7,verified:true,
-       specs:["International","Fusion"], tags:["Fine sauces"],
-       photo:"https://images.unsplash.com/photo-1526366003456-b6c1f1b4d3d2?q=80&w=1200&auto=format&fit=crop"},
-      {id:10018,name:"Ana",city:"Sibiu",years:5,rating:4.6,verified:false,
-       specs:["Vegan","Vegetarian"], tags:["Farm-to-table"],
-       photo:"https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=1200&auto=format&fit=crop"},
-      {id:10019,name:"Victor",city:"Oradea",years:13,rating:4.9,verified:true,
-       specs:["Steak","BBQ"], tags:["Dry-aged"], 
-       photo:"https://images.unsplash.com/photo-1528697203043-733bfdca3271?q=80&w=1200&auto=format&fit=crop"},
-      {id:10020,name:"Carmen",city:"Cluj-Napoca",years:7,rating:4.7,verified:true,
-       specs:["Patiserie","Desert"], tags:["Fine pastry"],
-       photo:"https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1200&auto=format&fit=crop"},
-      {id:10021,name:"Alex",city:"București",years:9,rating:4.8,verified:true,
-       specs:["Corporate","Buffet"], tags:["Scalable service"],
-       photo:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop"}
-    ];
+    <article class="card" data-city="sibiu" data-tags="fine italian" data-name="elisa">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=800&auto=format&fit=crop" alt="Elisa"></div>
+      <div class="body">
+        <h3 style="margin:0 0 4px">Elisa</h3>
+        <div class="muted">Sibiu • Italian • 8+ ani</div>
+        <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><strong>4.8</strong></div>
+        <div class="tags"><span class="tag">Pasta</span><span class="tag">Seafood</span></div>
+        <div class="actions"><a class="btn btn-outline">Vezi profil</a><a class="btn btn-primary">Cere ofertă</a></div>
+      </div>
+    </article>
+  </div>
+</main>
 
-    // ====== Elemente UI ======
-    const grid = document.getElementById('grid');
-    const empty = document.getElementById('empty');
-    const moreBtn = document.getElementById('moreBtn');
-    const search = document.getElementById('search');
-    const cityChips = document.getElementById('cityChips');
-    const specSelect = document.getElementById('specSelect');
-    const sortSel = document.getElementById('sort');
-    const resetBtn = document.getElementById('resetBtn');
-
-    // ====== Seturi pentru filtre ======
-    const allCities = [...new Set(CHEFS.map(c=>c.city))].sort((a,b)=>a.localeCompare(b,'ro'));
-    const allSpecs  = [...new Set(CHEFS.flatMap(c=>c.specs))].sort((a,b)=>a.localeCompare(b,'ro'));
-
-    // Populate UI
-    cityChips.innerHTML = `<div class="chip active" data-city="">Toate orașele</div>` + 
-      allCities.map(c=>`<div class="chip" data-city="${c}">${c}</div>`).join('');
-
-    specSelect.innerHTML += allSpecs.map(s=>`<option>${s}</option>`).join('');
-
-    // State
-    let selCity = "";
-    let selSpec = "";
-    let q = "";
-    let sortKey = "rating";
-    let page = 1;
-    const PAGE_SIZE = 9;
-
-    // Events
-    cityChips.addEventListener('click', (e)=>{
-      const chip = e.target.closest('.chip'); if(!chip) return;
-      cityChips.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-      chip.classList.add('active');
-      selCity = chip.dataset.city || "";
-      page = 1; render();
-    });
-
-    specSelect.addEventListener('change', ()=>{
-      selSpec = specSelect.value || "";
-      page = 1; render();
-    });
-
-    search.addEventListener('input', ()=>{
-      q = search.value.trim().toLowerCase();
-      page = 1; render();
-    });
-
-    sortSel.addEventListener('change', ()=>{
-      sortKey = sortSel.value;
-      page = 1; render();
-    });
-
-    resetBtn.addEventListener('click', ()=>{
-      selCity=""; selSpec=""; q=""; sortKey="rating"; page=1;
-      cityChips.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-      cityChips.querySelector('[data-city=""]').classList.add('active');
-      specSelect.value="";
-      sortSel.value="rating";
-      search.value="";
-      render();
-    });
-
-    moreBtn.addEventListener('click', ()=>{ page++; render(true); });
-
-    // Helpers
-    function bySort(a,b){
-      if(sortKey==="rating") return b.rating - a.rating;
-      if(sortKey==="experience") return b.years - a.years;
-      return a.name.localeCompare(b.name,'ro');
-    }
-    function matches(c){
-      if(selCity && c.city!==selCity) return false;
-      if(selSpec && !c.specs.includes(selSpec)) return false;
-      if(q){
-        const hay = (c.name+" "+c.city+" "+c.specs.join(" ")+" "+(c.tags||[]).join(" ")).toLowerCase();
-        if(!hay.includes(q)) return false;
-      }
-      return true;
-    }
-    function stars(r){
-      const full = Math.floor(r);
-      const half = r - full >= .25 && r - full < .75;
-      const extra = r - full >= .75 ? 1 : 0;
-      const totalFull = full + extra;
-      const totalEmpty = 5 - totalFull - (half?1:0);
-      return '★'.repeat(totalFull) + (half?'☆':'') + '☆'.repeat(totalEmpty);
-    }
-
-    // Render
-    function render(append=false){
-      const results = CHEFS.filter(matches).sort(bySort);
-      const totalShown = Math.min(results.length, page*PAGE_SIZE);
-      const slice = results.slice(0,totalShown);
-
-      empty.hidden = results.length>0;
-      moreBtn.hidden = totalShown >= results.length;
-
-      const cards = slice.map(c=>`
-        <article class="card">
-          <a class="photo" href="/bucatar/${c.id}/${encodeURIComponent(c.name)}" aria-label="Deschide profil ${c.name}">
-            <img loading="lazy" src="${c.photo}" alt="Chef ${c.name} – ${c.specs[0]||''}"/>
-          </a>
-          <div class="body">
-            <h3 class="name">
-              ${c.name}
-              ${c.verified ? `<span class="badge"><i class="fa-solid fa-shield-heart"></i> Verificat</span>`:''}
-            </h3>
-            <p class="meta">${c.city} • ${c.specs.slice(0,2).join(" & ")} • ${c.years}+ ani</p>
-            <div class="rating" aria-label="${c.rating} din 5 stele">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star-half-stroke"></i>
-              <span class="score">${c.rating.toFixed(1)}</span>
-            </div>
-            <div class="tags">
-              ${c.specs.map(s=>`<span class="tag">${s}</span>`).join('')}
-            </div>
-            <div class="actions">
-              <a class="btn btn-outline" href="/bucatar/${c.id}/${encodeURIComponent(c.name)}">Vezi profil</a>
-              <a class="btn btn-primary" href="/#formular"><i class="fa-solid fa-paper-plane"></i> Cere ofertă</a>
-            </div>
-          </div>
-        </article>
-      `).join('');
-
-      if(append){
-        grid.insertAdjacentHTML('beforeend', cards);
-      }else{
-        grid.innerHTML = cards;
-      }
-    }
-
-    // First render
-    render();
-    <script>
+<script>
 (() => {
-  const sheet   = document.getElementById('filterSheet');
-  const overlay = document.getElementById('filterOverlay');
-  const chips   = document.getElementById('citiesChips');
+  // Elemente UI
+  const sheet        = document.getElementById('filterSheet');
+  const overlay      = document.getElementById('sheetOverlay');
+  const openBtn      = document.getElementById('btnOpenFilters');
+  const closeBtn     = document.getElementById('btnCloseFilters');
+  const chipsDesk    = document.getElementById('citiesChips');
+  const chipsMobile  = document.getElementById('citiesChipsMobile');
+  const searchInput  = document.getElementById('q');
+  const resetBtn     = document.getElementById('btnReset');
+  const grid         = document.getElementById('grid');
+  const cards        = Array.from(grid.querySelectorAll('.card'));
+  const resultsTop   = document.getElementById('resultsTop');
 
-  function closeFilters(){
-    sheet && sheet.classList.remove('active');
-    overlay && overlay.classList.remove('active');
-    document.body.style.overflow = '';
+  // Stare filtre
+  let state = { city:'all', q:'' };
+
+  // Deschidere/închidere sheet (mobil)
+  function openSheet(){
+    sheet.classList.add('active'); overlay.classList.add('active');
+    document.body.style.overflow='hidden';
+  }
+  function closeSheet(){
+    sheet.classList.remove('active'); overlay.classList.remove('active');
+    document.body.style.overflow='';
+  }
+  openBtn?.addEventListener('click', openSheet);
+  closeBtn?.addEventListener('click', closeSheet);
+  overlay?.addEventListener('click', closeSheet);
+
+  // Utilitare
+  function scrollToTop(){ resultsTop?.scrollIntoView({behavior:'smooth', block:'start'}); }
+  function setActiveChip(groupEl, cityVal){
+    groupEl.querySelectorAll('.chip[data-city]').forEach(c => c.classList.toggle('active', c.dataset.city===cityVal));
   }
 
-  // opțional: scrollează la începutul listei după alegere
-  function goToResultsTop(){
-    const anchor = document.getElementById('resultsTop');
-    if(anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Aplică filtrul pe listă
+  function applyFilters(){
+    const q = state.q.trim().toLowerCase();
+    const city = state.city;
+
+    cards.forEach(card=>{
+      const inCity = (city==='all') || (card.dataset.city===city);
+      const hay = (card.dataset.name + ' ' + (card.dataset.tags||'') + ' ' + (card.textContent||'')).toLowerCase();
+      const inSearch = !q || hay.includes(q);
+      card.style.display = (inCity && inSearch) ? 'block' : 'none';
+    });
   }
 
-  // delegare: prinde click pe orice chip de oraș
-  chips?.addEventListener('click', (e) => {
-    const chip = e.target.closest('[data-city]');
-    if(!chip) return;
-
-    // aici pui logica ta de filtrare pe oraș (dacă nu există deja)
-    // ex: applyCityFilter(chip.dataset.city);
-
-    // închide panoul + scroll la rezultate
-    closeFilters();
-    goToResultsTop();
+  // Selectare oraș – DESKTOP: închide nimic (e bară deschisă)
+  chipsDesk?.addEventListener('click', (e)=>{
+    const chip = e.target.closest('.chip[data-city]'); if(!chip) return;
+    state.city = chip.dataset.city;
+    setActiveChip(chipsDesk, state.city);
+    setActiveChip(chipsMobile, state.city); // sincronizează cu mobil
+    applyFilters();
+    scrollToTop(); // te duce sus la rezultate
   });
 
-  // închidere și când utilizatorul apasă overlay-ul
-  overlay?.addEventListener('click', closeFilters);
+  // Selectare oraș – MOBIL: aplică + închide sheet
+  chipsMobile?.addEventListener('click', (e)=>{
+    const chip = e.target.closest('.chip[data-city]'); if(!chip) return;
+    state.city = chip.dataset.city;
+    setActiveChip(chipsMobile, state.city);
+    setActiveChip(chipsDesk, state.city); // sincron desktop
+    applyFilters();
+    closeSheet();     // <- închide panoul
+    scrollToTop();    // <- urcă la începutul listei
+  });
+
+  // Căutare
+  searchInput?.addEventListener('input', ()=>{
+    state.q = searchInput.value;
+    applyFilters();
+  });
+
+  // Reset
+  resetBtn?.addEventListener('click', ()=>{
+    state = { city:'all', q:'' };
+    searchInput.value='';
+    setActiveChip(chipsDesk, 'all');
+    setActiveChip(chipsMobile, 'all');
+    applyFilters();
+    scrollToTop();
+  });
+
+  // Init
+  applyFilters();
 })();
 </script>
-  </script>
-  
 </body>
 </html>
