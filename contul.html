@@ -110,6 +110,14 @@
               <div>
                 <label for="login-pass">Parolă</label>
                 <input id="login-pass" name="password" type="password" placeholder="••••••••" minlength="6" required />
+                <!-- în <form id="form-login">, după câmpul parolă -->
+<div>
+  <label for="login-role">Intră ca</label>
+  <select id="login-role" required>
+    <option value="client" selected>Client</option>
+    <option value="bucatar">Bucătar</option>
+  </select>
+</div>
               </div>
               <button class="btn btn-primary" type="submit"><i class="fa-solid fa-arrow-right"></i> Intră în cont</button>
               <a class="btn-ghost" href="#" id="forgot">Ai uitat parola?</a>
