@@ -176,69 +176,59 @@ footer{background:var(--negru);color:#cdd6dc;padding:46px 0 22px;margin-top:54px
     @media (max-width:980px){.foot-grid{grid-template-columns:1fr 1fr}}
     @media (max-width:640px){.foot-grid{grid-template-columns:1fr}}
     .legal{border-top:1px solid #2c353b;margin-top:18px;padding-top:12px;font-size:13px;color:#fff;
-  :root {
-  --negru: #0b3d2e; /* verde închis premium */
-  --text-gri: #cdd6dc;
-  --accent: #99a5ad;
+/* ===== Footer – premium, responsive ===== */
+:root{
+  --footer-bg-green:#0b3d2e;
+  --footer-bg-black:#0c0f11;
+  --footer-ink:#e7f1ed;
+  --footer-muted:#b7c5bf;
+  --footer-line:rgba(255,255,255,.12);
 }
 
-footer {
-  background: var(--negru);
-  color: var(--text-gri);
-  padding: 46px 0 22px;
-  margin-top: 54px;
-  font-family: 'Inter', sans-serif;
+.site-footer{
+  background:var(--footer-bg, var(--footer-bg-green));
+  color:var(--footer-ink);
+  padding:48px 0 22px;
+  margin-top:56px;
 }
 
-footer h4 {
-  color: white;
-  margin-bottom: 12px;
-}
+.site-footer.footer--green{ --footer-bg:var(--footer-bg-green); }
+.site-footer.footer--black{ --footer-bg:var(--footer-bg-black); }
 
-footer ul {
-  list-style: none;
-  padding: 0;
-}
+.site-footer a{ color:var(--footer-muted); text-decoration:none; }
+.site-footer a:hover{ color:#fff; }
 
-footer ul li {
-  margin-bottom: 6px;
+.foot-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1.2fr;
+  gap:22px;
+  align-items:start;
 }
+@media (max-width:980px){ .foot-grid{ grid-template-columns:1fr 1fr } }
+@media (max-width:640px){ .foot-grid{ grid-template-columns:1fr } }
 
-footer ul li a {
-  color: var(--text-gri);
-  text-decoration: none;
+.footer-brand{ display:flex; align-items:center; gap:14px }
+.footer-brand img{ height:46px; display:block }
+.footer-desc{ margin:10px 0 0; color:var(--footer-muted) }
+
+.foot-col h4{
+  margin:0 0 10px;
+  font-size:16px;
+  letter-spacing:.2px;
+  color:#f4faf7;
 }
+.foot-links{ list-style:none; padding:0; margin:0; display:grid; gap:8px }
 
-footer ul li a:hover {
-  color: white;
+.foot-contact{ display:grid; gap:10px; }
+.foot-contact a, .foot-contact div{ display:flex; align-items:center; gap:10px }
+
+.footer-legal{
+  border-top:1px solid var(--footer-line);
+  margin-top:22px;
+  padding-top:12px;
+  font-size:13px;
+  color:#cfd8d4;
 }
-
-.foot-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 18px;
-}
-
-@media (max-width: 980px) {
-  .foot-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .foot-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.legal {
-  border-top: 1px solid #2c353b;
-  margin-top: 18px;
-  padding-top: 12px;
-  font-size: 13px;
-  color: var(--accent);
-  text-align: center;
-}    
     /* Desktop polish */
     @media (min-width:1280px){ .container{ width:min(1240px,90%) } }
     @media (min-width:1440px){ .container{ width:min(1320px,88%) } header .nav{padding:16px 0} .nav-links a{padding:12px 10px} }
@@ -537,48 +527,53 @@ footer ul li a:hover {
     </div>
   </section>
 
-  <footer>
+  <footer class="site-footer footer--green">
   <div class="container foot-grid">
-    
-    <!-- Col 1: Logo și descriere -->
+    <!-- Col 1: brand + descriere -->
     <div>
-      <img src="logo-bucatarulpersonal.png" alt="Bucătarul Personal" style="max-width:180px; margin-bottom:15px;">
-      <p>Servicii premium de chef personal pentru evenimente private și corporate.</p>
+      <div class="footer-brand">
+        <img src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal – logo">
+        <strong style="font-size:18px">Bucătarul Personal</strong>
+      </div>
+      <p class="footer-desc">
+        Servicii premium de chef personal pentru evenimente private și corporate.
+      </p>
     </div>
 
     <!-- Col 2: Companie -->
-    <div>
+    <div class="foot-col">
       <h4>Companie</h4>
-      <ul>
-        <li><a href="despre-noi.html">Despre noi</a></li>
-        <li><a href="servicii.html">Servicii</a></li>
-        <li><a href="bucatari.html">Bucătari</a></li>
-        <li><a href="testimoniale.html">Testimoniale</a></li>
+      <ul class="foot-links">
+        <li><a href="/despre-noi">Despre noi</a></li>
+        <li><a href="/servicii">Servicii</a></li>
+        <li><a href="/bucatarii">Bucătari</a></li>
+        <li><a href="/testimoniale">Testimoniale</a></li>
       </ul>
     </div>
 
     <!-- Col 3: Legal -->
-    <div>
+    <div class="foot-col">
       <h4>Legal</h4>
-      <ul>
-        <li><a href="termeni-conditii.html">Termeni & Condiții</a></li>
-        <li><a href="confidentialitate.html">Politica de confidențialitate</a></li>
-        <li><a href="cookies.html">Cookies</a></li>
+      <ul class="foot-links">
+        <li><a href="/termeni">Termeni &amp; Condiții</a></li>
+        <li><a href="/confidentialitate">Politica de confidențialitate</a></li>
+        <li><a href="/cookies">Cookies</a></li>
       </ul>
     </div>
 
     <!-- Col 4: Contact -->
-    <div>
+    <div class="foot-col">
       <h4>Contact</h4>
-      <p>📞 0772 893 476</p>
-      <p>✉ contact@bucatarulpersonal.ro</p>
-      <p>🌐 România</p>
+      <div class="foot-contact">
+        <a href="tel:+40772893476"><i class="fa-solid fa-phone"></i> 0772 893 476</a>
+        <a href="mailto:contact@bucatarulpersonal.ro"><i class="fa-solid fa-envelope"></i> contact@bucatarulpersonal.ro</a>
+        <div><i class="fa-solid fa-globe"></i> România</div>
+      </div>
     </div>
-
   </div>
 
-  <div class="legal container">
-    © 2025 Bucătarul Personal — Toate drepturile rezervate.
+  <div class="container footer-legal">
+    © <span id="hp-year"></span> Bucătarul Personal — Toate drepturile rezervate.
   </div>
 </footer>
   <!-- WhatsApp floating CTA -->
