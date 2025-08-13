@@ -873,6 +873,75 @@ html { scroll-behavior: smooth; }
 
     setStep(1);
   })();
+    
   </script>
+      /* ===== Desktop polish ===== */
+
+/* 1) Container mai lat pe ecrane mari */
+.container{ width:min(1160px,92%) }           /* default (<=1280px) */
+@media (min-width:1280px){ .container{ width:min(1240px,90%) } }
+@media (min-width:1440px){ .container{ width:min(1320px,88%) } }
+@media (min-width:1680px){ .container{ width:min(1440px,86%) } }
+@media (min-width:1920px){ .container{ width:min(1560px,84%) } }
+
+/* 2) Tipografie fluidă pe desktop */
+h1{ font-size: clamp(32px, 3.2vw, 56px); line-height:1.08 }
+h2.section-title{ font-size: clamp(28px, 2.2vw, 42px) }
+body{ font-size: clamp(15px, .95vw, 18px) }  /* textul crește ușor pe ecrane mari */
+
+/* 3) Header: mai compact la 1440+ */
+@media (min-width:1440px){
+  header .nav{ padding: 16px 0 }
+  .nav-links a{ padding: 12px 10px }
+}
+
+/* 4) Hero pe desktop: imaginea nu mai „taie” conținutul */
+.hero{ min-height: 76vh }
+.hero-media img{ height: 76vh !important; object-position: 60% 45% }
+
+/* 5) Grile mai bogate pe desktop */
+.values{ display:grid; grid-template-columns: repeat(3,1fr); gap:22px }
+@media (min-width:1280px){ .values{ gap:24px } }
+
+.hiw{ display:grid; grid-template-columns: repeat(3,1fr); gap:22px }
+@media (min-width:1600px){ .hiw{ gap:26px } }
+
+.chef-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:18px }
+@media (min-width:1280px){ .chef-grid{ grid-template-columns: repeat(5,1fr); gap:20px } }
+@media (min-width:1600px){ .chef-grid{ grid-template-columns: repeat(6,1fr); gap:22px } }
+
+.menu-visual{ display:grid; grid-template-columns: repeat(3,1fr); gap:22px }
+
+/* 6) Carduri: imagini clare, fără „salturi” */
+.chef-photo,
+.menu-card .bg{ aspect-ratio: 4/3 }               /* poți schimba în 1/1 dacă preferi pătrate */
+.chef-photo img,
+.menu-card .bg img{ width:100%; height:100%; object-fit:cover }
+
+/* 7) Filtre (pagina Bucătarii noștri) – layout desktop */
+.filters-bar{ position: sticky; top: 0 }
+.grid{ grid-template-columns: repeat(3, 1fr); gap: 18px }
+@media (min-width:1440px){ .grid{ grid-template-columns: repeat(4,1fr); gap: 20px } }
+@media (min-width:1760px){ .grid{ grid-template-columns: repeat(5,1fr); gap: 22px } }
+
+/* 8) CTA & footer – spațiere mai generoasă */
+.cta{ padding: 34px 32px }
+footer .foot-grid{ gap:22px }
+@media (min-width:1440px){ footer{ padding-top: 56px } }
+
+/* 9) Imagini mari din galerii – aspect consistent */
+.gallery .item{ aspect-ratio: 4/3; overflow:hidden }
+.gallery .item img{ width:100%; height:100%; object-fit:cover }
+
+/* 10) Mic retuș la butoane pe ecrane mari */
+@media (min-width:1440px){
+  .btn{ padding: 12px 18px; font-weight:800 }
+}
+
+/* 11) Anti „max-height” la hero pe ultrawide */
+@media (min-width:1920px){
+  .hero{ min-height: 72vh }
+  .hero-media img{ height: 72vh !important }
+}
 </body>
 </html>
