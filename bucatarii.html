@@ -1,252 +1,220 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bucătarii noștri – Filtrare oraș</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-<style>
-  :root{
-    --rubin:#0e5a43; --line:#e7ecef; --ink:#172026; --muted:#6b7580;
-    --bg:#fff; --shadow:0 14px 40px rgba(0,0,0,.12); --radius:18px;
-  }
-  *{box-sizing:border-box} html,body{margin:0}
-  body{font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--ink); background:#fff}
-  .container{width:min(1100px,94%); margin:0 auto}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contul meu | Bucătarul Personal</title>
+  <meta name="description" content="Autentificare pentru clienți și înregistrare ca bucătar pe Bucătarul Personal."/>
+  <link rel="canonical" href="https://www.bucatarulpersonal.ro/cont.html" />
+  <meta property="og:title" content="Contul meu" />
+  <meta property="og:description" content="Intră în cont sau înregistrează-te ca bucătar." />
+  <meta property="og:url" content="https://www.bucatarulpersonal.ro/cont.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.bucatarulpersonal.ro/static/og-bucatarul-personal.jpg" />
+  <meta name="theme-color" content="#0e5a43" />
 
-  /* Bară filtre top */
-  .filters-bar{position:sticky; top:0; z-index:20; background:#fff; border-bottom:1px solid var(--line)}
-  .filters-wrap{display:flex; align-items:center; gap:12px; padding:10px 0}
-  .search{flex:1; display:flex; align-items:center; gap:8px; border:1px solid var(--line); border-radius:999px; padding:10px 14px}
-  .search input{border:0; outline:0; width:100%; font:inherit}
-  .btn{display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; border:1px solid var(--line); background:#fff; cursor:pointer}
-  .btn-primary{background:var(--rubin); color:#fff; border-color:transparent}
-  .btn-icon{width:44px; height:44px; justify-content:center}
-  .chips{display:flex; gap:10px; flex-wrap:wrap; padding:10px 0 14px}
-  .chip{padding:9px 14px; border-radius:999px; border:1px solid var(--line); background:#fff; cursor:pointer; user-select:none; white-space:nowrap; font-weight:600}
-  .chip.active{border-color:var(--rubin); color:var(--rubin); background:#ecf6f1}
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+  <link rel="mask-icon" href="/static/safari-pinned-tab.svg" color="#0e5a43">
+  <link rel="manifest" href="/site.webmanifest">
 
-  /* Off-canvas sheet (mobil) */
-  .sheet-overlay{position:fixed; inset:0; background:rgba(0,0,0,.45); display:none}
-  .sheet{position:fixed; right:0; top:0; height:100%; width:min(420px,92%); background:#fff; box-shadow:var(--shadow); padding:18px; display:flex; flex-direction:column; gap:14px; transform:translateX(100%); transition:transform .25s ease}
-  .sheet-head{display:flex; justify-content:space-between; align-items:center}
-  .sheet.active{transform:none} .sheet-overlay.active{display:block}
-  @media(min-width: 860px){ .btn-filters{display:none} .sheet, .sheet-overlay{display:none !important} }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfcbZlfrX+qGIGlG4XkGUCZ3G1xZPlhQ4KJIpKj8GQ4ZC0YJwY9QYx5w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <style>
+    :root{ --rubin:#0e5a43; --negru:#000; --alb:#fff; --gri-1:#f5f7f8; --gri-2:#e8ecee; --gri-3:#cfd6da; --text:#1c2226; --shadow:0 16px 48px rgba(0,0,0,.16); --radius-xl:22px; --radius-lg:16px; --radius-md:12px; }
+    *{box-sizing:border-box} html,body{margin:0} body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.45}
+    a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    .container{width:min(1160px,92%);margin:0 auto}
 
-  /* Listă carduri */
-  #resultsTop{height:1px}
-  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:14px 0 24px}
-  @media(max-width:1000px){ .grid{grid-template-columns:repeat(2,1fr)} }
-  @media(max-width:640px){ .grid{grid-template-columns:1fr} }
-  .card{border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:#fff; box-shadow:var(--shadow)}
-  .photo{aspect-ratio:1/1; background:#eef3f0}
-  .photo img{width:100%; height:100%; object-fit:cover}
-  .body{padding:14px}
-  .muted{color:var(--muted)}
-  .rating{display:flex; align-items:center; gap:6px; color:#f5b301; margin:6px 0}
-  .tags{display:flex; flex-wrap:wrap; gap:8px}
-  .tag{border:1px solid var(--line); border-radius:999px; padding:6px 10px; font-size:12px}
-  .actions{display:flex; gap:10px; margin-top:12px}
-  .btn-outline{border-color:var(--rubin); color:var(--rubin)}
-  .btn-outline:hover{background:var(--rubin); color:#fff}
-</style>
+    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.75);backdrop-filter:blur(10px);border-bottom:1px solid var(--gri-2)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .nav-links{display:flex;gap:22px;align-items:center}
+    .brand-logo-img{height:52px}
+    @media(max-width:980px){.nav-links{display:none}.brand-logo-img{height:42px}}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:1px solid var(--gri-3);font-weight:700;background:#fff}
+    .btn-primary{background:var(--rubin);color:#fff;border-color:transparent}
+    .btn-ghost{background:#fff}
+    .burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--gri-3);align-items:center;justify-content:center}
+    @media(max-width:980px){.burger{display:flex}}
+    .mobile{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);display:none}
+    .mobile.active{display:block}
+    .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:16px}
+    .sheet a{padding:12px 8px;border-bottom:1px solid var(--gri-2);font-weight:600}
+
+    main{padding:42px 0}
+    h1{font-family:"Playfair Display",serif;font-size:clamp(30px,5vw,48px);margin:0 0 10px}
+    .muted{color:#58636b}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:18px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}}
+    .card{border:1px solid var(--gri-2);border-radius:20px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+    .card .hd{padding:16px 18px;border-bottom:1px solid var(--gri-2);display:flex;align-items:center;gap:10px}
+    .card .bd{padding:18px}
+    label{font-size:14px;font-weight:700;color:#3a444b}
+    input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--gri-3);background:#fbfcfc}
+    .form-row{display:grid;grid-template-columns:1fr;gap:12px}
+    .tips{background:linear-gradient(135deg,#ffffff,#f6fbf8);border:1px dashed var(--rubin);border-radius:16px;padding:14px;color:#334}
+    .hl{background:rgba(14,90,67,.1);border:1px solid rgba(14,90,67,.25);padding:6px 10px;border-radius:999px;font-weight:700}
+  </style>
 </head>
 <body>
-
-<!-- FILTRE TOP -->
-<div class="filters-bar">
-  <div class="container">
-    <div class="filters-wrap">
-      <div class="search">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input id="q" type="text" placeholder="Caută nume, stil culinar, etichete…">
-      </div>
-      <button id="btnOpenFilters" class="btn btn-icon btn-filters" aria-label="Deschide filtre"><i class="fa-solid fa-sliders"></i></button>
-      <button id="btnReset" class="btn" title="Resetează"><i class="fa-solid fa-rotate-left"></i> Resetează</button>
+  <header>
+    <div class="container nav">
+      <a href="/" aria-label="Acasă"><img class="brand-logo-img" src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal"/></a>
+      <nav class="nav-links">
+        <a href="despre-noi.html">Despre noi</a>
+        <a href="bucatarii.html">Bucătarii Noștri</a>
+        <a href="servicii.html">Servicii</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="cont.html" class="btn-ghost" aria-current="page"><i class="fa-solid fa-user"></i> Contul meu</a>
+        <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> VREAU UN BUCĂTAR</a>
+      </nav>
+      <button class="burger" id="bp-burger" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
     </div>
-
-    <!-- chips orase (vizibil pe desktop) -->
-    <div id="citiesChips" class="chips" aria-label="Alege oraș">
-      <button class="chip active" data-city="all">Toate orașele</button>
-      <button class="chip" data-city="brasov">Brașov</button>
-      <button class="chip" data-city="bucuresti">București</button>
-      <button class="chip" data-city="cluj">Cluj-Napoca</button>
-      <button class="chip" data-city="constanta">Constanța</button>
-      <button class="chip" data-city="iasi">Iași</button>
-      <button class="chip" data-city="oradea">Oradea</button>
-      <button class="chip" data-city="sibiu">Sibiu</button>
-      <button class="chip" data-city="timisoara">Timișoara</button>
+    <div class="mobile" id="bp-mobile" aria-hidden="true">
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu principal">
+        <div style="display:flex; justify-content:space-between; align-items:center">
+          <div style="display:flex; align-items:center; gap:10px"><img class="brand-logo-img" src="/static/logo-bucatarul-personal.png" alt="Logo" style="height:38px"/><strong>Bucătarul Personal</strong></div>
+          <button class="btn" id="bp-close"><i class="fa-solid fa-xmark"></i> Închide</button>
+        </div>
+        <a href="despre-noi.html">Despre noi</a>
+        <a href="bucatarii.html">Bucătarii noștri</a>
+        <a href="servicii.html">Servicii</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="cont.html" class="btn-ghost"><i class="fa-solid fa-user"></i> Contul meu</a>
+        <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Rezervă bucătar</a>
+      </div>
     </div>
-  </div>
-</div>
+  </header>
 
-<!-- OFF-CANVAS FILTRE (mobil) -->
-<div id="sheetOverlay" class="sheet-overlay"></div>
-<aside id="filterSheet" class="sheet" aria-label="Filtre">
-  <div class="sheet-head">
-    <strong>Filtre</strong>
-    <button id="btnCloseFilters" class="btn"><i class="fa-solid fa-xmark"></i> Închide</button>
-  </div>
-  <div>
-    <div style="font-weight:700; margin:8px 0 6px">Oraș</div>
-    <div id="citiesChipsMobile" class="chips">
-      <!-- aceleași valori ca sus -->
-      <button class="chip active" data-city="all">Toate orașele</button>
-      <button class="chip" data-city="brasov">Brașov</button>
-      <button class="chip" data-city="bucuresti">București</button>
-      <button class="chip" data-city="cluj">Cluj-Napoca</button>
-      <button class="chip" data-city="constanta">Constanța</button>
-      <button class="chip" data-city="iasi">Iași</button>
-      <button class="chip" data-city="oradea">Oradea</button>
-      <button class="chip" data-city="sibiu">Sibiu</button>
-      <button class="chip" data-city="timisoara">Timișoara</button>
+  <main class="container">
+    <h1>Contul meu</h1>
+    <p class="muted">Alege una dintre opțiuni:</p>
+
+    <div class="grid">
+      <!-- Col 1: Ai cont (Login) -->
+      <section class="card" aria-labelledby="hd-login">
+        <div class="hd" id="hd-login"><i class="fa-solid fa-right-to-bracket"></i> <strong>Ai cont</strong></div>
+        <div class="bd">
+          <form id="form-login" novalidate>
+            <div class="form-row">
+              <div>
+                <label for="login-email">Email</label>
+                <input id="login-email" name="email" type="email" placeholder="email@exemplu.ro" required />
+              </div>
+              <div>
+                <label for="login-pass">Parolă</label>
+                <input id="login-pass" name="password" type="password" placeholder="••••••••" minlength="6" required />
+              </div>
+              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-arrow-right"></i> Intră în cont</button>
+              <a class="btn-ghost" href="#" id="forgot">Ai uitat parola?</a>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Col 2: Înregistrează-te ca bucătar -->
+      <section class="card" aria-labelledby="hd-chef">
+        <div class="hd" id="hd-chef"><i class="fa-solid fa-hat-chef"></i> <strong>Înregistrează-te ca bucătar</strong></div>
+        <div class="bd">
+          <form id="form-chef" novalidate>
+            <div class="form-row">
+              <div>
+                <label for="chef-nume">Nume și prenume</label>
+                <input id="chef-nume" name="nume" type="text" placeholder="Nume Prenume" required />
+              </div>
+              <div>
+                <label for="chef-email">Email</label>
+                <input id="chef-email" name="email" type="email" placeholder="email@exemplu.ro" required />
+              </div>
+              <div>
+                <label for="chef-telefon">Telefon</label>
+                <input id="chef-telefon" name="telefon" type="tel" placeholder="07xx xxx xxx" required />
+              </div>
+              <div>
+                <label for="chef-oras">Oraș</label>
+                <input id="chef-oras" name="oras" type="text" placeholder="București / Cluj / ..." required />
+              </div>
+              <div>
+                <label for="chef-spec">Specializări</label>
+                <input id="chef-spec" name="specializari" type="text" placeholder="ex. Italian, Fine Dining, BBQ" required />
+              </div>
+              <div>
+                <label for="chef-link">Portofoliu (URL)</label>
+                <input id="chef-link" name="portofoliu" type="url" placeholder="https://instagram.com/… / site" />
+              </div>
+              <div class="tips">
+                <span class="hl"><i class="fa-solid fa-circle-info"></i> Sfat</span>
+                <div style="margin-top:6px">Contul tău va fi verificat înainte de listare. Te vom contacta pe email pentru pașii următori.</div>
+              </div>
+              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Trimite aplicația</button>
+            </div>
+          </form>
+        </div>
+      </section>
     </div>
-  </div>
-</aside>
+  </main>
 
-<!-- ANCORĂ TOP LISTĂ -->
-<div id="resultsTop"></div>
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;border-top:1px solid var(--gri-2);color:#667">
+      <small>© <span id="bp-year"></span> Bucătarul Personal</small>
+      <a href="https://wa.me/40772893476" target="_blank" class="btn" style="background:#25D366;color:#fff;border-color:transparent"><i class="fa-brands fa-whatsapp"></i> 0772 893 476</a>
+    </div>
+  </footer>
 
-<!-- LISTĂ CARDURI -->
-<main class="container">
-  <div id="grid" class="grid">
-    <!-- EXEMPLU CARDURI (setează data-city corect) -->
-    <article class="card" data-city="bucuresti" data-tags="fine romanesc seafood" data-name="valeriu">
-      <div class="photo"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop" alt="Valeriu"></div>
-      <div class="body">
-        <h3 style="margin:0 0 4px">Valeriu <span class="chip" style="margin-left:6px">Verificat</span></h3>
-        <div class="muted">București • Fine Dining & Românească • 12+ ani</div>
-        <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><strong>4.9</strong></div>
-        <div class="tags"><span class="tag">Fine Dining</span><span class="tag">Românească</span><span class="tag">Seafood</span></div>
-        <div class="actions"><a class="btn btn-outline">Vezi profil</a><a class="btn btn-primary">Cere ofertă</a></div>
-      </div>
-    </article>
+  <script>
+    // Izolare pentru a evita variabile globale sau redeclarări (ex: burger)
+    (() => {
+      const qs = (s, r=document) => r.querySelector(s);
 
-    <article class="card" data-city="cluj" data-tags="healthy family" data-name="ioana">
-      <div class="photo"><img src="https://images.unsplash.com/photo-1526312426976-593c2b9998d7?q=80&w=800&auto=format&fit=crop" alt="Ioana"></div>
-      <div class="body">
-        <h3 style="margin:0 0 4px">Ioana</h3>
-        <div class="muted">Cluj-Napoca • Healthy & Family • 6+ ani</div>
-        <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><strong>4.8</strong></div>
-        <div class="tags"><span class="tag">Healthy</span><span class="tag">Kids friendly</span></div>
-        <div class="actions"><a class="btn btn-outline">Vezi profil</a><a class="btn btn-primary">Cere ofertă</a></div>
-      </div>
-    </article>
+      // Header mobil sigur
+      const burger = document.getElementById('bp-burger');
+      const mobile = document.getElementById('bp-mobile');
+      const closeBtn = document.getElementById('bp-close');
+      const yearEl = document.getElementById('bp-year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+      if (burger && mobile && closeBtn && mobile.dataset.bound !== '1'){
+        mobile.dataset.bound = '1';
+        const open = () => mobile.classList.add('active');
+        const close = () => mobile.classList.remove('active');
+        burger.addEventListener('click', open);
+        closeBtn.addEventListener('click', close);
+        mobile.addEventListener('click', e=>{ if(e.target === mobile) close(); });
+        mobile.querySelectorAll('.sheet a').forEach(a=>a.addEventListener('click', close));
+        document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
+      }
 
-    <article class="card" data-city="brasov" data-tags="bbq corporate" data-name="marco">
-      <div class="photo"><img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=800&auto=format&fit=crop" alt="Marco"></div>
-      <div class="body">
-        <h3 style="margin:0 0 4px">Marco</h3>
-        <div class="muted">Brașov • Grill & Events • 12+ ani</div>
-        <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><strong>4.7</strong></div>
-        <div class="tags"><span class="tag">BBQ</span><span class="tag">Corporate</span></div>
-        <div class="actions"><a class="btn btn-outline">Vezi profil</a><a class="btn btn-primary">Cere ofertă</a></div>
-      </div>
-    </article>
+      // Validări simple + demo submit
+      function toast(msg){ alert(msg); }
 
-    <article class="card" data-city="sibiu" data-tags="fine italian" data-name="elisa">
-      <div class="photo"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=800&auto=format&fit=crop" alt="Elisa"></div>
-      <div class="body">
-        <h3 style="margin:0 0 4px">Elisa</h3>
-        <div class="muted">Sibiu • Italian • 8+ ani</div>
-        <div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><strong>4.8</strong></div>
-        <div class="tags"><span class="tag">Pasta</span><span class="tag">Seafood</span></div>
-        <div class="actions"><a class="btn btn-outline">Vezi profil</a><a class="btn btn-primary">Cere ofertă</a></div>
-      </div>
-    </article>
-  </div>
-</main>
+      qs('#form-login')?.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const email = qs('#login-email').value.trim();
+        const pass = qs('#login-pass').value.trim();
+        if(!email || !pass){ toast('Completează email și parolă'); return; }
+        toast('Autentificare trimisă. (demo)');
+      });
 
-<script>
-(() => {
-  // Elemente UI
-  const sheet        = document.getElementById('filterSheet');
-  const overlay      = document.getElementById('sheetOverlay');
-  const openBtn      = document.getElementById('btnOpenFilters');
-  const closeBtn     = document.getElementById('btnCloseFilters');
-  const chipsDesk    = document.getElementById('citiesChips');
-  const chipsMobile  = document.getElementById('citiesChipsMobile');
-  const searchInput  = document.getElementById('q');
-  const resetBtn     = document.getElementById('btnReset');
-  const grid         = document.getElementById('grid');
-  const cards        = Array.from(grid.querySelectorAll('.card'));
-  const resultsTop   = document.getElementById('resultsTop');
+      qs('#form-chef')?.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const required = ['#chef-nume','#chef-email','#chef-telefon','#chef-oras','#chef-spec'];
+        for (const sel of required){ if(!qs(sel).value.trim()){ toast('Te rugăm să completezi toate câmpurile obligatorii.'); return; } }
+        toast('Aplicația ta a fost trimisă. Te contactăm pe email! (demo)');
+      });
 
-  // Stare filtre
-  let state = { city:'all', q:'' };
-
-  // Deschidere/închidere sheet (mobil)
-  function openSheet(){
-    sheet.classList.add('active'); overlay.classList.add('active');
-    document.body.style.overflow='hidden';
-  }
-  function closeSheet(){
-    sheet.classList.remove('active'); overlay.classList.remove('active');
-    document.body.style.overflow='';
-  }
-  openBtn?.addEventListener('click', openSheet);
-  closeBtn?.addEventListener('click', closeSheet);
-  overlay?.addEventListener('click', closeSheet);
-
-  // Utilitare
-  function scrollToTop(){ resultsTop?.scrollIntoView({behavior:'smooth', block:'start'}); }
-  function setActiveChip(groupEl, cityVal){
-    groupEl.querySelectorAll('.chip[data-city]').forEach(c => c.classList.toggle('active', c.dataset.city===cityVal));
-  }
-
-  // Aplică filtrul pe listă
-  function applyFilters(){
-    const q = state.q.trim().toLowerCase();
-    const city = state.city;
-
-    cards.forEach(card=>{
-      const inCity = (city==='all') || (card.dataset.city===city);
-      const hay = (card.dataset.name + ' ' + (card.dataset.tags||'') + ' ' + (card.textContent||'')).toLowerCase();
-      const inSearch = !q || hay.includes(q);
-      card.style.display = (inCity && inSearch) ? 'block' : 'none';
-    });
-  }
-
-  // Selectare oraș – DESKTOP: închide nimic (e bară deschisă)
-  chipsDesk?.addEventListener('click', (e)=>{
-    const chip = e.target.closest('.chip[data-city]'); if(!chip) return;
-    state.city = chip.dataset.city;
-    setActiveChip(chipsDesk, state.city);
-    setActiveChip(chipsMobile, state.city); // sincronizează cu mobil
-    applyFilters();
-    scrollToTop(); // te duce sus la rezultate
-  });
-
-  // Selectare oraș – MOBIL: aplică + închide sheet
-  chipsMobile?.addEventListener('click', (e)=>{
-    const chip = e.target.closest('.chip[data-city]'); if(!chip) return;
-    state.city = chip.dataset.city;
-    setActiveChip(chipsMobile, state.city);
-    setActiveChip(chipsDesk, state.city); // sincron desktop
-    applyFilters();
-    closeSheet();     // <- închide panoul
-    scrollToTop();    // <- urcă la începutul listei
-  });
-
-  // Căutare
-  searchInput?.addEventListener('input', ()=>{
-    state.q = searchInput.value;
-    applyFilters();
-  });
-
-  // Reset
-  resetBtn?.addEventListener('click', ()=>{
-    state = { city:'all', q:'' };
-    searchInput.value='';
-    setActiveChip(chipsDesk, 'all');
-    setActiveChip(chipsMobile, 'all');
-    applyFilters();
-    scrollToTop();
-  });
-
-  // Init
-  applyFilters();
-})();
-</script>
+      // Teste rapide (opțional)
+      function assert(c,m){ if(!c) throw new Error('TEST FAIL: '+m); console.log('TEST OK:', m); }
+      window.BP_ACCOUNT = { run: () => { try {
+        assert(!!qs('#form-login'), 'formular login există');
+        assert(!!qs('#form-chef'), 'formular chef există');
+        console.log('[Cont] teste trecute ✅');
+      } catch(e){ console.error(e); } } };
+    })();
+  </script>
 </body>
 </html>
