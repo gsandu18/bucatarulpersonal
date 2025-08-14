@@ -2,247 +2,325 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bucătarii Noștri | Bucătarul Personal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bucătarii Noștri – Fiecare farfurie spune o poveste</title>
+  <meta name="description" content="Listă de bucătari, profil, galerie și feedback cu rating. Cod robust, fără variabile globale duplicate." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --verde: #0e5a43;
-      --negru: #000;
-      --alb: #fff;
-      --gri: #f4f4f4;
+    :root{
+      --verde:#0e5a43; --alb:#fff; --text:#1c2226;
+      --gold:#ffd700; --blue:#0077b6;
+      --radius:12px; --shadow:0 4px 10px rgba(0,0,0,.1);
     }
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: var(--alb);
-      color: var(--negru);
-    }
-    header {
-      background: var(--verde);
-      color: var(--alb);
-      padding: 40px 20px;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin: 0;
-    }
-    header p#subtitle {
-      font-size: 1.2rem;
-      margin-top: 10px;
-      font-weight: 300;
-      min-height: 1.5em;
-    }
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      padding: 20px;
-      background: var(--gri);
-    }
-    .filters select,
-    .filters input {
-      padding: 10px 14px;
-      min-width: 180px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .card {
-      position: relative;
-      background: var(--alb);
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-    .card img {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
-    }
-    .card-body {
-      padding: 15px;
-    }
-    .card-body h3 {
-      margin: 0 0 5px;
-      font-size: 1.2rem;
-    }
-    .card-body p {
-      margin: 5px 0;
-      color: #555;
-    }
-    .rating {
-      font-size: 1rem;
-      color: gold;
-      margin: 6px 0;
-    }
-    .events {
-      font-weight: bold;
-      color: var(--verde);
-    }
-    .btn {
-      display: inline-block;
-      padding: 10px 14px;
-      background: var(--verde);
-      color: var(--alb);
-      border-radius: 6px;
-      text-decoration: none;
-      margin-top: 10px;
-    }
-    .btn:hover {
-      background: #0b4634;
-    }
-    .badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      padding: 5px 10px;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      font-weight: bold;
-      color: white;
-    }
-    .badge.vip {
-      background-color: #FFD700;
-      color: #000;
-    }
-    .badge.premium {
-      background-color: #0077b6;
-    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;color:var(--text);background:var(--alb);line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1100px,90%);margin:0 auto}
+
+    header{background:var(--verde);color:#fff;text-align:center;padding:40px 0}
+    header h1{font-family:"Playfair Display",serif;font-size:2.6rem;margin-bottom:6px}
+    header p{opacity:.95}
+
+    .filters{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;background:#f4f4f4;padding:16px}
+    .filters select,.filters input{padding:10px;border:1px solid #ccc;border-radius:6px;min-width:180px}
+
+    .card-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;padding:22px 0}
+    .card{position:relative;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:transform .25s ease}
+    .card:hover{transform:scale(1.02)}
+    .card img{width:100%;height:200px;object-fit:cover}
+    .card-body{padding:14px}
+    .card-body h3{margin-bottom:6px}
+    .card-body p{color:#555;margin:6px 0}
+    .rating-stars{color:gold;font-size:1.1rem}
+    .rating-score{margin-left:6px;color:var(--verde);font-weight:700}
+    .badge{position:absolute;top:10px;right:10px;padding:4px 8px;border-radius:999px;font-size:.8rem;font-weight:700;color:#fff}
+    .badge.vip{background:var(--gold);color:#000}
+    .badge.premium{background:var(--blue)}
+    .btn{display:inline-block;margin-top:10px;padding:10px 14px;background:var(--verde);color:#fff;border-radius:6px}
+    .btn:hover{background:#0b4634}
+
+    /* Profile */
+    .profile{padding:24px 0;border-top:1px solid #e9e9e9;display:none}
+    .profile-hero{text-align:center;padding:30px;background:#f7f7f7;border-radius:var(--radius)}
+    .avatar{width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 12px;border:3px solid var(--verde)}
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    .profile-hero h2{font-family:"Playfair Display",serif;font-size:2rem}
+    .chip{display:inline-block;padding:4px 10px;border-radius:999px;margin:0 4px;color:#fff}
+    .chip.vip{background:var(--gold);color:#000}
+    .chip.premium{background:var(--blue)}
+    .rating .score{margin-left:8px}
+
+    .section{margin:26px 0}
+    .section-title{font-size:1.6rem;margin-bottom:10px}
+    .box{background:#fff;padding:18px;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+    .gallery img{width:100%;height:100px;object-fit:cover;border-radius:6px}
+
+    .review{border-bottom:1px solid #eee;padding:10px 0}
+    .review:last-child{border:none}
+    .review .author{font-weight:700;color:var(--verde)}
+
+    /* Feedback form (UI only; backend optional) */
+    .feedback-form{margin-top:18px}
+    .rating-form{unicode-bidi:bidi-override;direction:rtl;text-align:center}
+    .rating-form>input{display:none}
+    .rating-form>label{font-size:2rem;color:#ccc;cursor:pointer}
+    .rating-form>input:checked~label,
+    .rating-form>label:hover,
+    .rating-form>label:hover~label{color:gold}
+    textarea{width:100%;height:80px;margin:10px 0;padding:10px;border:1px solid #ccc;border-radius:6px}
   </style>
 </head>
 <body>
+  <header>
+    <h1>Bucătarii Noștri</h1>
+    <p>Fiecare farfurie spune o poveste.</p>
+  </header>
 
-<header>
-  <h1>Bucătarii Noștri</h1>
-  <p id="subtitle">Experți culinari dedicați momentelor tale speciale.</p>
-</header>
+  <div class="filters container">
+    <select id="cityFilter">
+      <option value="">Toate orașele</option>
+      <option>București</option><option>Cluj</option><option>Timișoara</option>
+    </select>
+    <select id="catFilter">
+      <option value="">Toate categoriile</option>
+      <option>VIP</option><option>Premium</option>
+    </select>
+    <input id="search" type="text" placeholder="Caută după nume sau specializare…" />
+  </div>
 
-<div class="filters">
-  <select id="cityFilter">
-    <option value="">Toate orașele</option>
-    <option value="București">București</option>
-    <option value="Cluj">Cluj</option>
-    <option value="Timișoara">Timișoara</option>
-  </select>
+  <div class="card-list container" id="chefList"></div>
 
-  <select id="categoryFilter">
-    <option value="">Toate categoriile</option>
-    <option value="VIP">VIP</option>
-    <option value="Premium">Premium</option>
-  </select>
+  <!-- Profile view -->
+  <div class="profile container" id="chefProfile">
+    <div class="profile-hero">
+      <div class="avatar"><img id="pfAvatar" alt="Avatar bucătar" /></div>
+      <h2 id="pfName">—</h2>
+      <div class="rating"><span id="pfStars"></span><span class="score" id="pfScore"></span></div>
+      <div id="pfCategoryWrap"></div>
+    </div>
 
-  <input type="text" id="searchInput" placeholder="Caută după nume sau specializare...">
-</div>
+    <div class="section">
+      <h3 class="section-title">Despre bucătar</h3>
+      <div class="box"><p id="pfAbout"></p><div id="pfTags" style="margin-top:8px"></div></div>
+    </div>
 
-<div class="container" id="chefList">
-  <div class="card" data-city="București" data-name="Andrei Popescu" data-specializare="Fine Dining" data-rating="4.8" data-categorie="VIP">
-    <span class="badge vip">VIP</span>
-    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2" alt="Andrei Popescu">
-    <div class="card-body">
-      <h3>Andrei Popescu</h3>
-      <p>București • Fine Dining</p>
-      <div class="rating"></div>
-      <p class="events">48 evenimente finalizate</p>
-      <a href="bucatar-1.html" class="btn">Vezi profilul</a>
+    <div class="section">
+      <h3 class="section-title">Galerie foto</h3>
+      <div class="box gallery" id="pfGallery"></div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Feedback clienți</h3>
+      <div class="box" id="pfReviews"></div>
+
+      <!-- Simple client feedback (UI only) -->
+      <div class="box feedback-form">
+        <h4>Lasă feedback</h4>
+        <div class="rating-form">
+          <input type="radio" id="r5" name="star" value="5"><label for="r5">★</label>
+          <input type="radio" id="r4" name="star" value="4"><label for="r4">★</label>
+          <input type="radio" id="r3" name="star" value="3"><label for="r3">★</label>
+          <input type="radio" id="r2" name="star" value="2"><label for="r2">★</label>
+          <input type="radio" id="r1" name="star" value="1"><label for="r1">★</label>
+        </div>
+        <textarea id="pfComment" placeholder="Scrie feedback…"></textarea>
+        <button id="pfSubmit" class="btn">Trimite</button>
+      </div>
     </div>
   </div>
 
-  <div class="card" data-city="Cluj" data-name="Maria Ionescu" data-specializare="Gastronomie Italiană" data-rating="4.5" data-categorie="Premium">
-    <span class="badge premium">Premium</span>
-    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" alt="Maria Ionescu">
-    <div class="card-body">
-      <h3>Maria Ionescu</h3>
-      <p>Cluj • Gastronomie Italiană</p>
-      <div class="rating"></div>
-      <p class="events">35 evenimente finalizate</p>
-      <a href="bucatar-2.html" class="btn">Vezi profilul</a>
-    </div>
-  </div>
+  <script>
+  /* ===== SAFE, NO-GLOBAL-DUPLICATES ARCHITECTURE =====
+     We expose only `window.ChefUI` (singleton) and `window.openProfile`.
+     No global `const chefs` anymore; everything lives in a closure. */
+  (function initChefAppSingleton(){
+    if (window.ChefUI) {                      // Idempotent load guard
+      console.warn('[ChefUI] Script already loaded. Reusing singleton.');
+      return;
+    }
 
-  <div class="card" data-city="Timișoara" data-name="Alexandru Radu" data-specializare="BBQ & Grill" data-rating="4.7" data-categorie="Premium">
-    <span class="badge premium">Premium</span>
-    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d" alt="Alexandru Radu">
-    <div class="card-body">
-      <h3>Alexandru Radu</h3>
-      <p>Timișoara • BBQ & Grill</p>
-      <div class="rating"></div>
-      <p class="events">42 evenimente finalizate</p>
-      <a href="bucatar-3.html" class="btn">Vezi profilul</a>
-    </div>
-  </div>
-</div>
+    const ChefUI = (function(){
+      // ---- PRIVATE STATE (not global) ----
+      const chefs = [
+        {
+          id: 1,
+          name: "Andrei Popescu",
+          city: "București",
+          spec: "Fine Dining",
+          rating: 4.8,
+          events: 48,
+          category: "VIP",
+          avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=900&auto=format&fit=crop"
+        },
+        {
+          id: 2,
+          name: "Maria Ionescu",
+          city: "Cluj",
+          spec: "Gastronomie Italiană",
+          rating: 4.5,
+          events: 35,
+          category: "Premium",
+          avatar: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=900&auto=format&fit=crop"
+        },
+        {
+          id: 3,
+          name: "Alexandru Radu",
+          city: "Timișoara",
+          spec: "BBQ & Grill",
+          rating: 4.7,
+          events: 42,
+          category: "Premium",
+          avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=900&auto=format&fit=crop"
+        }
+      ];
 
-<script>
-function renderStars(container, rating) {
-  const fullStars = Math.floor(rating);
-  const halfStar = rating % 1 >= 0.5;
-  let starsHTML = '';
+      // ---- ELEMENT HELPERS ----
+      const $ = (id) => document.getElementById(id);
+      const listEl = $('chefList');
+      const profileEl = $('chefProfile');
 
-  for (let i = 0; i < fullStars; i++) {
-    starsHTML += '★';
-  }
-  if (halfStar) {
-    starsHTML += '☆';
-  }
-  container.innerHTML = starsHTML;
-}
+      function starStr(r){
+        return '★'.repeat(Math.floor(r)) + (r % 1 >= 0.5 ? '☆' : '');
+      }
 
-// Aplică stelele
-document.querySelectorAll('.card').forEach(card => {
-  const rating = parseFloat(card.dataset.rating);
-  renderStars(card.querySelector('.rating'), rating);
-});
+      function renderList(){
+        if (!listEl) return;
+        const city = $('cityFilter').value;
+        const cat  = $('catFilter').value;
+        const q    = $('search').value.toLowerCase().trim();
 
-// Filtrare
-document.getElementById('cityFilter').addEventListener('change', filterChefs);
-document.getElementById('categoryFilter').addEventListener('change', filterChefs);
-document.getElementById('searchInput').addEventListener('input', filterChefs);
+        listEl.innerHTML = '';
+        chefs.filter(c =>
+          (!city || c.city === city) &&
+          (!cat  || c.category === cat) &&
+          (!q || c.name.toLowerCase().includes(q) || c.spec.toLowerCase().includes(q))
+        ).forEach(c=>{
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <span class="badge ${c.category.toLowerCase()}">${c.category}</span>
+            <img src="${c.avatar}" alt="${c.name}">
+            <div class="card-body">
+              <h3>${c.name}</h3>
+              <p>${c.city} • ${c.spec}</p>
+              <div><span class="rating-stars">${starStr(c.rating)}</span>
+                   <span class="rating-score">${c.rating.toFixed(1)} /5</span></div>
+              <p><strong>${c.events} evenimente finalizate</strong></p>
+              <a href="#" class="btn" data-open-profile="${c.id}">Vezi profilul</a>
+            </div>`;
+          listEl.appendChild(card);
+        });
+      }
 
-function filterChefs() {
-  const city = document.getElementById('cityFilter').value.toLowerCase();
-  const category = document.getElementById('categoryFilter').value.toLowerCase();
-  const search = document.getElementById('searchInput').value.toLowerCase();
+      function openProfile(id){
+        const c = chefs.find(x=>x.id===id);
+        if (!c) return;
 
-  document.querySelectorAll('.card').forEach(card => {
-    const matchesCity = city === '' || card.dataset.city.toLowerCase() === city;
-    const matchesCategory = category === '' || card.dataset.categorie?.toLowerCase() === category;
-    const matchesSearch = card.dataset.name.toLowerCase().includes(search) || card.dataset.specializare.toLowerCase().includes(search);
+        // hide list (optional UX), keep it simple:
+        // document.querySelector('.filters.container').style.display='none';
+        // document.querySelector('.card-list.container').style.display='none';
 
-    card.style.display = (matchesCity && matchesCategory && matchesSearch) ? '' : 'none';
-  });
-}
+        profileEl.style.display = 'block';
+        $('pfAvatar').src   = c.avatar;
+        $('pfName').textContent = c.name;
+        $('pfStars').textContent = starStr(c.rating);
+        $('pfScore').textContent = `${c.rating.toFixed(1)}/5`;
 
-// Subtitluri dinamice
-const subtitles = [
-  "Experți culinari dedicați momentelor tale speciale.",
-  "Alege rafinamentul gustului pentru evenimentul tău.",
-  "Bucătari certificați pentru experiențe gastronomice premium.",
-  "Fiecare farfurie spune o poveste.",
-  "Descoperă profesioniștii din spatele celor mai memorabile meniuri."
-];
-let subtitleIndex = 1;
-const subtitleEl = document.getElementById('subtitle');
+        const catWrap = $('pfCategoryWrap');
+        catWrap.innerHTML = '';
+        const chip = document.createElement('span');
+        chip.className = `chip ${c.category.toLowerCase()}`;
+        chip.textContent = c.category.toUpperCase();
+        catWrap.appendChild(chip);
 
-function rotateSubtitle() {
-  if (subtitleEl) {
-    subtitleEl.textContent = subtitles[subtitleIndex];
-    subtitleIndex = (subtitleIndex + 1) % subtitles.length;
-  }
-}
-setInterval(rotateSubtitle, 4000);
-</script>
+        $('pfAbout').textContent =
+          `${c.name} este un bucătar profesionist din ${c.city}, ` +
+          `specializat în ${c.spec}, cu ${c.events} evenimente finalizate ` +
+          `și rating mediu ${c.rating.toFixed(1)}.`;
 
+        $('pfTags').innerHTML = `<span class="chip vip" style="color:#000">Plating</span>
+                                 <span class="chip premium">Seafood</span>`;
+
+        $('pfGallery').innerHTML = `
+          <img src="https://images.unsplash.com/photo-1526045431048-71d02a171c7f?q=80&w=600&auto=format&fit=crop" alt="gallery 1">
+          <img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?q=80&w=600&auto=format&fit=crop" alt="gallery 2">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop" alt="gallery 3">`;
+
+        $('pfReviews').innerHTML = `
+          <div class="review"><p>„Excelent! Mâncare și prezentare impecabile.”</p><p class="author">— Ion</p></div>
+          <div class="review"><p>„Servire rapidă, gust desăvârșit.”</p><p class="author">— Ana</p></div>`;
+
+        // feedback UI (no backend): append new review locally
+        const submitBtn = $('pfSubmit');
+        if (!submitBtn.dataset.bound){
+          submitBtn.dataset.bound = '1';
+          submitBtn.addEventListener('click', ()=>{
+            const ratingInput = document.querySelector('input[name="star"]:checked');
+            const comment = (document.getElementById('pfComment').value || '').trim();
+            if(!ratingInput){ alert('Alege un număr de stele.'); return; }
+            if(!comment){ alert('Scrie un comentariu.'); return; }
+            const stars = '★'.repeat(+ratingInput.value);
+            const div = document.createElement('div');
+            div.className='review';
+            div.innerHTML = `<p>${stars} — ${comment}</p><p class="author">— Client autentificat</p>`;
+            $('pfReviews').prepend(div);
+            document.getElementById('pfComment').value = '';
+            document.querySelectorAll('input[name="star"]').forEach(i=>i.checked=false);
+          });
+        }
+      }
+
+      // public API
+      function mount(){
+        // bind filters (once)
+        const f1 = document.getElementById('cityFilter');
+        const f2 = document.getElementById('catFilter');
+        const f3 = document.getElementById('search');
+        if (!f1.dataset.bound){ f1.dataset.bound='1'; f1.addEventListener('change', renderList); }
+        if (!f2.dataset.bound){ f2.dataset.bound='1'; f2.addEventListener('change', renderList); }
+        if (!f3.dataset.bound){ f3.dataset.bound='1'; f3.addEventListener('input',  renderList); }
+
+        // event delegation for "Vezi profilul"
+        if (!listEl.dataset.bound){
+          listEl.dataset.bound='1';
+          listEl.addEventListener('click', (e)=>{
+            const btn = e.target.closest('[data-open-profile]');
+            if (btn){
+              e.preventDefault();
+              openProfile(Number(btn.getAttribute('data-open-profile')));
+            }
+          });
+        }
+
+        renderList();
+        return { count: chefs.length };
+      }
+
+      return { mount, openProfile };
+    })();
+
+    // expose singleton & openProfile (needed by potential inline usage)
+    window.ChefUI = ChefUI;
+    window.openProfile = ChefUI.openProfile; // remains stable across reloads
+
+    // auto-mount
+    document.addEventListener('DOMContentLoaded', ()=> { try{ ChefUI.mount(); }catch(e){ console.error(e); } });
+
+    // --------- tiny self-tests (non-intrusive) ----------
+    (function selfTests(){
+      // Test 1: chefs is NOT global
+      console.assert(!('chefs' in window), '[TEST] "chefs" should not be global.');
+      // Test 2: mount can be called multiple times safely
+      try {
+        const a = ChefUI.mount();
+        const b = ChefUI.mount();
+        console.log('[TEST] mount idempotent ✅', a, b);
+      } catch (e) {
+        console.error('[TEST] mount failed ❌', e);
+      }
+    })();
+  })();
+  </script>
 </body>
 </html>
