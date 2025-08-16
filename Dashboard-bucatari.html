@@ -78,6 +78,11 @@
     .stat{border:1px solid var(--gri2);border-radius:16px;padding:14px;background:linear-gradient(135deg,#f0faf5,#fff)}
     .stat strong{font-size:22px}
     .iban{display:flex;gap:8px;align-items:center;margin-top:8px}
+
+    /* Test report (optional, mic) */
+    #dbf-test-report{margin:16px 0;padding:10px;border:1px dashed #cfe1da;border-radius:10px;background:#f8fbfa;font-size:13px}
+    #dbf-test-report summary{cursor:pointer;font-weight:800;color:#0e5a43}
+    #dbf-test-report ul{margin:8px 0 0 18px}
   </style>
 </head>
 <body>
@@ -133,7 +138,7 @@
     <!-- DOCUMENTE -->
     <section class="card dbf-section" id="dbf-documente" style="display:none">
       <h2 style="margin:0 0 8px">Documente</h2>
-      <p class="note">Încarcă diploma de bucătar, CI (demo localStorage).</p>
+      <p class="note">Încarcă diploma de bucătar, CI (demo – salvat local dacă este permis).</p>
       <div class="grid">
         <div>
           <label>Diplomă bucătar (PDF/JPG)</label>
@@ -247,9 +252,40 @@
         <div class="note" id="dbf-iban-msg"></div>
       </div>
     </section>
+
+    <!-- TEST REPORT (mic, pentru depanare) -->
+    <details id="dbf-test-report">
+      <summary>Raport teste (click pentru detalii)</summary>
+      <ul id="dbf-test-list"></ul>
+    </details>
   </div>
 
   <script>
+  // ===== Utilitare sigure de stocare (fallback dacă localStorage nu este disponibil) =====
+  const DBF = (()=>{
+    function createSafeStorage(){
+      try{
+        if(typeof window!== 'undefined' && window.localStorage){
+          const t='__dbf_test__'+Math.random();
+          window.localStorage.setItem(t,'1');
+          window.localStorage.removeItem(t);
+          return window.localStorage; // permis
+        }
+      }catch(e){ /* ignoră */ }
+      // fallback în memorie
+      const mem = new Map();
+      return {
+        getItem:k=> mem.has(k)? mem.get(k): null,
+        setItem:(k,v)=>{ try{ mem.set(k,String(v)); }catch(e){} },
+        removeItem:k=>{ try{ mem.delete(k); }catch(e){} }
+      };
+    }
+    const store = createSafeStorage();
+    const getJSON = (key, def)=>{ try{ const v = store.getItem(key); return v? JSON.parse(v): def; }catch(e){ return def; } };
+    const setJSON = (key, val)=>{ try{ store.setItem(key, JSON.stringify(val)); }catch(e){} };
+    return { store, getJSON, setJSON };
+  })();
+
   // IIFE: toate variabilele prefixate "dbf-" pentru a evita coliziuni
   (()=>{
     const nf = new Intl.NumberFormat('ro-RO');
@@ -268,7 +304,7 @@
         cereri: document.getElementById('dbf-cereri'),
         financiar: document.getElementById('dbf-financiar'),
       };
-      function show(id){ Object.entries(sections).forEach(([k,el])=> el.style.display = (k===id?'block':'none')); tabs.querySelectorAll('.tab').forEach(b=> b.classList.toggle('active', b.dataset.tab===id)); if(location.hash!==('#'+id)) history.replaceState(null,'','#'+id); }
+      function show(id){ Object.entries(sections).forEach(([k,el])=> el.style.display = (k===id?'block':'none')); tabs.querySelectorAll('.tab').forEach(b=> b.classList.toggle('active', b.dataset.tab===id)); try{ if(location.hash!==( '#'+id)) history.replaceState(null,'','#'+id); }catch(e){} }
       tabs.addEventListener('click', e=>{ const b=e.target.closest('.tab'); if(!b) return; show(b.dataset.tab); });
       document.querySelectorAll('[data-open-tab]').forEach(a=> a.addEventListener('click', ()=> show(a.dataset.openTab)));
       window.addEventListener('hashchange', ()=>{ const id=(location.hash||'#profil').slice(1); if(sections[id]) show(id); });
@@ -278,22 +314,22 @@
     // === Documente demo ===
     const DOCS_KEY='DBF_DOCS';
     const docList = document.getElementById('dbf-doc-list');
-    function renderDocs(){ const arr=JSON.parse(localStorage.getItem(DOCS_KEY)||'[]'); if(docList) docList.textContent = arr.length? arr.join(', '):'—'; }
-    ;['dbf-doc-dip','dbf-doc-ci'].forEach(id=>{ const el=document.getElementById(id); if(el){ el.addEventListener('change', ()=>{ const arr=JSON.parse(localStorage.getItem(DOCS_KEY)||'[]'); Array.from(el.files).forEach(f=> arr.push(f.name)); localStorage.setItem(DOCS_KEY, JSON.stringify(arr)); renderDocs(); el.value=''; }); }});
+    function renderDocs(){ const arr=DBF.getJSON(DOCS_KEY, []); if(docList) docList.textContent = arr.length? arr.join(', '):'—'; }
+    ;['dbf-doc-dip','dbf-doc-ci'].forEach(id=>{ const el=document.getElementById(id); if(el){ el.addEventListener('change', ()=>{ const arr=DBF.getJSON(DOCS_KEY, []); Array.from(el.files).forEach(f=> arr.push(f.name)); DBF.setJSON(DOCS_KEY, arr); renderDocs(); el.value=''; }); }});
     renderDocs();
 
     // === Galerie demo – max 6 ===
     const GAL_KEY='DBF_GAL';
     const galWrap=document.getElementById('dbf-gal-wrap');
     const galNote=document.getElementById('dbf-gal-note');
-    function renderGal(){ const arr=JSON.parse(localStorage.getItem(GAL_KEY)||'[]'); if(galWrap) galWrap.innerHTML = arr.map(src=>`<img src="${src}" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;border:1px solid #e8ecee"/>`).join(''); if(galNote) galNote.textContent = `${arr.length}/6 încărcate`; }
+    function renderGal(){ const arr=DBF.getJSON(GAL_KEY, []); if(galWrap) galWrap.innerHTML = arr.map(src=>`<img src="${src}" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;border:1px solid #e8ecee"/>`).join(''); if(galNote) galNote.textContent = `${arr.length}/6 încărcate`; }
     const galInput=document.getElementById('dbf-gal');
     if(galInput){
       galInput.addEventListener('change', ()=>{
-        let arr=JSON.parse(localStorage.getItem(GAL_KEY)||'[]');
+        let arr=DBF.getJSON(GAL_KEY, []);
         Array.from(galInput.files).forEach(file=>{
           if(arr.length>=6) return;
-          const reader=new FileReader(); reader.onload=()=>{ arr.push(reader.result); localStorage.setItem(GAL_KEY, JSON.stringify(arr)); renderGal(); }; reader.readAsDataURL(file);
+          const reader=new FileReader(); reader.onload=()=>{ arr.push(reader.result); DBF.setJSON(GAL_KEY, arr); renderGal(); }; reader.readAsDataURL(file);
         });
         galInput.value='';
       });
@@ -312,8 +348,8 @@
 
     // === Cereri + Chat ===
     const REQS_KEY='DBF_REQS';
-    let reqs=JSON.parse(localStorage.getItem(REQS_KEY)||'[]');
-    if(!reqs.length){ reqs=[{id:'CER-9001',titlu:'Cină privată 6 pers',data:'2025-08-15',oras:'București',status:'in_asteptare',buget:2500},{id:'CER-9002',titlu:'Corporate 25 pers',data:'2025-08-20',oras:'Cluj',status:'acceptata',buget:4800},{id:'CER-9003',titlu:'Family style 10 pers',data:'2025-08-22',oras:'Brașov',status:'in_asteptare',buget:2200}]; localStorage.setItem(REQS_KEY, JSON.stringify(reqs)); }
+    let reqs=DBF.getJSON(REQS_KEY, []);
+    if(!reqs.length){ reqs=[{id:'CER-9001',titlu:'Cină privată 6 pers',data:'2025-08-15',oras:'București',status:'in_asteptare',buget:2500},{id:'CER-9002',titlu:'Corporate 25 pers',data:'2025-08-20',oras:'Cluj',status:'acceptata',buget:4800},{id:'CER-9003',titlu:'Family style 10 pers',data:'2025-08-22',oras:'Brașov',status:'in_asteptare',buget:2200}]; DBF.setJSON(REQS_KEY, reqs); }
     const reqList=document.getElementById('dbf-req-list');
     const chatBox=document.getElementById('dbf-chat');
     let activeReqId=reqs[0]?reqs[0].id:null;
@@ -321,14 +357,14 @@
     const badgeText=st=> st==='acceptata'?'Acceptată':(st==='inchisa'?'Închisă':'În așteptare');
     function renderReqs(){ if(!reqList) return; reqList.innerHTML = reqs.map(r=>`<div class="req-item ${r.id===activeReqId?'active':''}" data-id="${r.id}"><div><strong>${r.titlu}</strong><div class="note">${r.data} • ${r.oras} • ${fmtRON(r.buget)}</div></div><span class="badge ${badgeClass(r.status)}">${badgeText(r.status)}</span></div>`).join(''); }
     function chatKey(id){ return 'DBF_CHAT_'+id; }
-    function openReq(id){ activeReqId=id; renderReqs(); const msgs=JSON.parse(localStorage.getItem(chatKey(id))||'[]'); renderChat(msgs); }
+    function openReq(id){ activeReqId=id; renderReqs(); const msgs=DBF.getJSON(chatKey(id), []); renderChat(msgs); }
     function renderChat(arr){ if(!chatBox) return; chatBox.innerHTML=''; arr.forEach(m=>{ const d=document.createElement('div'); d.className='msg '+(m.me?'me':'them'); d.innerHTML = m.fileName ? (`<i class=\"fa-solid fa-paperclip\"></i> ${m.fileName}`) : escapeHtml(m.text||''); chatBox.appendChild(d); }); chatBox.scrollTop=chatBox.scrollHeight; }
     function escapeHtml(t){ return (t||'').replace(/[&<>"']/g, s=>({ '&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;','\'':'&#39;' }[s])); }
     if(reqList){ reqList.addEventListener('click', e=>{ const it=e.target.closest('.req-item'); if(!it) return; openReq(it.dataset.id); }); renderReqs(); if(activeReqId) openReq(activeReqId); }
     const chatInput=document.getElementById('dbf-chat-input');
     const chatFile=document.getElementById('dbf-chat-file');
     const chatSend=document.getElementById('dbf-chat-send');
-    function appendMsg(m){ if(!activeReqId) return; const key=chatKey(activeReqId); const arr=JSON.parse(localStorage.getItem(key)||'[]'); arr.push({...m, ts:Date.now()}); localStorage.setItem(key, JSON.stringify(arr)); openReq(activeReqId); }
+    function appendMsg(m){ if(!activeReqId) return; const key=chatKey(activeReqId); const arr=DBF.getJSON(key, []); arr.push({...m, ts:Date.now()}); DBF.setJSON(key, arr); openReq(activeReqId); }
     if(chatSend){
       chatSend.addEventListener('click', ()=>{ const t=(chatInput.value||'').trim(); if(!t) return; appendMsg({me:true,text:t}); chatInput.value=''; });
       chatInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); chatSend.click(); }});
@@ -337,16 +373,16 @@
 
     // === Financiar ===
     const WALLET_KEY='DBF_WALLET';
-    let wallet=JSON.parse(localStorage.getItem(WALLET_KEY)||'{}');
-    if(typeof wallet.credit==='undefined'){ wallet.credit=5000; wallet.sold=wallet.sold||0; wallet.payments=wallet.payments||[]; localStorage.setItem(WALLET_KEY, JSON.stringify(wallet)); }
+    let wallet=DBF.getJSON(WALLET_KEY, {});
+    if(typeof wallet.credit==='undefined'){ wallet.credit=5000; wallet.sold=wallet.sold||0; wallet.payments=wallet.payments||[]; DBF.setJSON(WALLET_KEY, wallet); }
     function renderWallet(){ const c=document.getElementById('dbf-credit'); const s=document.getElementById('dbf-sold'); const p=document.getElementById('dbf-payments'); if(c) c.textContent=fmtRON(wallet.credit); if(s) s.textContent=fmtRON(wallet.sold||0); if(p) p.innerHTML = (wallet.payments||[]).slice(-3).map(x=>`${x.date} • ${x.label} • ${fmtRON(x.amount)}`).join('<br>') || '—'; }
     renderWallet();
     const IBAN_KEY='DBF_IBAN';
     const ibanInput=document.getElementById('dbf-iban');
     const ibanMsg=document.getElementById('dbf-iban-msg');
-    if(ibanInput){ ibanInput.value = localStorage.getItem(IBAN_KEY)||''; }
+    if(ibanInput){ try{ ibanInput.value = DBF.store.getItem(IBAN_KEY)||''; }catch(e){} }
     const saveIbanBtn=document.getElementById('dbf-save-iban');
-    if(saveIbanBtn){ saveIbanBtn.addEventListener('click', ()=>{ const v=(ibanInput.value||'').trim().toUpperCase(); if(!/^RO[0-9A-Z]{16,}$/.test(v)){ ibanMsg.textContent='IBAN invalid. Exemplu: RO49 AAAA 1B31 0075 9384 0000'; return; } localStorage.setItem(IBAN_KEY, v); ibanMsg.textContent='Cont bancar salvat.'; }); }
+    if(saveIbanBtn){ saveIbanBtn.addEventListener('click', ()=>{ const v=(ibanInput.value||'').trim().toUpperCase(); if(!/^RO[0-9A-Z]{16,}$/.test(v)){ ibanMsg.textContent='IBAN invalid. Exemplu: RO49 AAAA 1B31 0075 9384 0000'; return; } try{ DBF.store.setItem(IBAN_KEY, v); ibanMsg.textContent='Cont bancar salvat.'; }catch(e){ ibanMsg.textContent='Salvat doar temporar (mediu fără localStorage).'; } }); }
 
     // === Responsive labels pentru tabele (data-th) ===
     function applyResponsiveLabels(){
@@ -358,7 +394,28 @@
       });
     }
     applyResponsiveLabels();
+
+    // ===== Mini test harness (console + mic raport vizual) =====
+    const tests = [];
+    function test(name, fn){
+      try{ fn(); tests.push({name, ok:true}); }
+      catch(e){ tests.push({name, ok:false, err:e}); }
+    }
+    // Test 1: stocare sigură
+    test('Storage: set/get JSON', ()=>{ DBF.setJSON('__T__', {a:1}); const v=DBF.getJSON('__T__', null); if(!v || v.a!==1) throw new Error('JSON mismatch'); });
+    // Test 2: pricing calc
+    test('Pricing: recalculare Fine Dining', ()=>{ const p=document.getElementById('dbf-priv-pers'); const n=document.getElementById('dbf-priv-prep'); const t=document.getElementById('dbf-priv-tarif'); const c=document.getElementById('dbf-priv-comm'); const chef=document.getElementById('dbf-priv-chef'); const total=document.getElementById('dbf-priv-total'); p.value=2; n.value=3; t.value=10; c.value=10; p.dispatchEvent(new Event('input')); if(chef.value!== '60' || total.value!== '66') throw new Error(`A primit chef=${chef.value}, total=${total.value}`); });
+    // Test 3: chat append
+    test('Chat: adăugare mesaj', ()=>{ const box=document.getElementById('dbf-chat'); const before=box.children.length; const inp=document.getElementById('dbf-chat-input'); const send=document.getElementById('dbf-chat-send'); inp.value='Test mesaj'; send.click(); const after=box.children.length; if(!(after>before)) throw new Error('Mesajul nu s-a adăugat'); });
+
+    // Afișare rezultate
+    const list = document.getElementById('dbf-test-list');
+    if(list){ list.innerHTML = tests.map(t=> `<li>${t.ok?'✅':'❌'} ${t.name}${t.ok?'': ' — '+(t.err&&t.err.message||'eroare')}</li>`).join(''); }
+    console.groupCollapsed('%cDBF Teste','color:#0e5a43;font-weight:700'); tests.forEach(t=> console[t.ok?'log':'error']((t.ok?'✓':'✗'), t.name, t.err||'')); console.groupEnd();
   })();
+
+  // Log global pentru erori ne-prinse (ajută la sandbox)
+  window.addEventListener('error', e=>{ console.error('Eroare globală:', e.message); });
   </script>
 </body>
 </html>
