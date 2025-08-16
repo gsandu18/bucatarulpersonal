@@ -47,7 +47,14 @@
     .mobile.active{display:block}
     .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
     .sheet a{padding:12px 8px;border-bottom:1px solid #eceff1;font-weight:700;text-align:center}
-
+header {
+  position: sticky !important;
+  top: 0 !important;
+  background: white !important;
+  z-index: 9999 !important;
+  border-bottom: 4px solid #00432d !important;
+  display: block !important;
+}
     /* ======= Hero ======= */
     .hero{position:relative;isolation:isolate;min-height:88svh;display:grid;align-items:center}
     .hero-media{position:absolute;inset:0;z-index:-1}
