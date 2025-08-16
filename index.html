@@ -63,7 +63,9 @@
     .hero-cta{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
     .hero-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;justify-content:center}
     .chip{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.4);color:#fff}
-
+.hero .content {
+  padding-top: clamp(80px, 15vh, 140px); /* păstrează spațiu vizual și pentru header */
+}
     /* ======= Sections (generic) ======= */
     section{padding:64px 0;scroll-margin-top:90px}
     .muted{color:var(--gri-500)}
