@@ -142,13 +142,67 @@
   </header>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-slider" aria-hidden="true">
-      <!-- Slide 1: Client -->
-      <div class="hero-slide active" style="background-image:url('images/IMG_1108.png');">
-      <!-- Slide 2: Bucătari -->
-      <div class="hero-slide" style="background-image:url('images/IMG_9406.jpg');">
+  <!-- SLIDER (înlocuiește vechiul <div class="slider">…</div>) -->
+<style>
+  .slider{position:relative;width:100%;height:100vh;overflow:hidden}
+  .slide{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:20px;color:#fff;opacity:0;transition:opacity .8s ease
+  }
+  .slide.active{opacity:1}
+  .slide .bg{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0
+  }
+  .slide .overlay{
+    position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,90,67,.28),rgba(255,255,255,.55));z-index:1
+  }
+  .slide .content{position:relative;z-index:2;max-width:720px}
+  .btn{padding:12px 24px;border-radius:30px;font-weight:700;margin:6px;display:inline-block;text-decoration:none}
+  .btn-green{background:#0e5a43;color:#fff}
+  .btn-outline{background:transparent;color:#fff;border:2px solid #fff}
+</style>
+
+<div class="slider" id="hero">
+  <!-- Slide 1 (CLIENT) -->
+  <div class="slide active">
+    <!-- Poza DEMO: schimb-o dacă vrei -->
+    <img class="bg" src="https://images.unsplash.com/photo-1541542684-4a9c0a7e9f3b?q=80&w=1920&auto=format&fit=crop" alt="" loading="eager">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1>Experiență de restaurant, direct la tine acasă</h1>
+      <p>Chefs verificați, meniuri personalizate și echipă completă pentru cine private, corporate sau meniuri zilnice.</p>
+      <a href="#comanda" class="btn btn-green">Vreau un bucătar</a>
+      <a href="#cum-func" class="btn btn-outline">Cum funcționează</a>
     </div>
+  </div>
+
+  <!-- Slide 2 (BUCĂTARI) -->
+  <div class="slide">
+    <!-- PUNE FIȘIERUL ÎN ACELAȘI FOLDER CU HTML-UL: IMG_9406.jpeg -->
+    <!-- dacă e în /images, pune src="./images/IMG_9406.jpeg" -->
+    <img class="bg" src="./IMG_9406.jpeg" alt="Bucătar" loading="eager">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1>Înscrie-te ca bucătar personal</h1>
+      <p>Primești cereri verificate, contract și plăți sigure. Îți alegi programul și evenimentele.</p>
+      <a href="#inscriere" class="btn btn-green">Mă înscriu</a>
+      <a href="#detalii" class="btn btn-outline">Află mai multe</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // slider auto 5s
+  (function(){
+    const slides=[...document.querySelectorAll('#hero .slide')];
+    let i=0;
+    setInterval(()=> {
+      slides[i].classList.remove('active');
+      i = (i+1) % slides.length;
+      slides[i].classList.add('active');
+    }, 5000);
+  })();
+</script>
     <div class="hero-dots" role="tablist" aria-label="Slide-uri hero">
       <button class="hero-dot active" role="tab" aria-selected="true" aria-label="Slide 1"></button>
       <button class="hero-dot" role="tab" aria-selected="false" aria-label="Slide 2"></button>
