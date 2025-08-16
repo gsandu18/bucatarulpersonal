@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
@@ -46,7 +46,7 @@
     .sheet a{padding:12px;border-bottom:1px solid var(--line);font-weight:700;color:#163d30}
 
     /* Hero light */
-    .hero{position:relative;isolation:isolate;padding:72px 0 36px;min-height:70vh;background:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1920&q=70') center/cover no-repeat} 
+    .hero{position:relative;isolation:isolate;padding:72px 0 36px;min-height:72vh;overflow:hidden}  
     .hero .grid{display:grid;grid-template-columns:1fr;gap:24px;align-items:center} 
     @media(max-width:980px){.hero .grid{grid-template-columns:1fr}}
     .eyebrow{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:#eaf5ef;border:1px solid #d2e9df;color:#0e5a43;font-weight:800}
@@ -103,7 +103,14 @@
     .copyright{border-top:1px solid var(--line);padding:12px 0;color:#677a72;text-align:center}
 
     :focus-visible{outline:3px solid rgba(14,90,67,.35);outline-offset:2px;border-radius:12px}
-  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.78),rgba(255,255,255,.92))} 
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom, rgba(14,90,67,.28) 0%, rgba(255,255,255,.18) 40%, rgba(255,255,255,.55) 100%);z-index:1}   
+.hero-slider{position:absolute;inset:0;z-index:0}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;transition:opacity .8s ease, transform 8s ease;opacity:0}
+.hero-slide.active{opacity:1;transform:scale(1.02)}
+.hero-dots{position:absolute;z-index:2;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:8px}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(14,90,67,.35);border:1px solid rgba(14,90,67,.45);cursor:pointer}
+.hero-dot.active{background:#0e5a43}
+
 </style>
 </head>
 <body>
@@ -118,7 +125,7 @@
         <a href="#servicii">Servicii</a>
         <a href="#chefs">Bucătari</a>
         <a class="btn-outline btn" href="#formular">Contul meu</a>
-        <a class="btn btn-primary" href="#formular">Rezervă un bucătar</a>
+        <a class="btn btn-primary" id="hero-btn-primary" href="#formular">$1</a>
       </nav>
       <button class="burger" id="nav-burger" aria-label="Deschide meniul">≡</button>
     </div>
@@ -129,21 +136,31 @@
         <a href="#servicii">Servicii</a>
         <a href="#chefs">Bucătari</a>
         <a class="btn-outline btn" href="#formular">Contul meu</a>
-        <a class="btn btn-primary" href="#formular">Rezervă un bucătar</a>
+        <a class="btn btn-primary" href="#formular">Vreau un bucătar</a>
       </div>
     </div>
   </header>
 
   <!-- HERO -->
   <section class="hero">
+    <div class="hero-slider" aria-hidden="true">
+      <!-- Slide 1: Client -->
+      <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1541542684-4a9c0a7e9f3b?q=80&w=1920&auto=format&fit=crop');"></div>
+      <!-- Slide 2: Bucătari -->
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1556911073-52527ac437b0?q=80&w=1920&auto=format&fit=crop');"></div>
+    </div>
+    <div class="hero-dots" role="tablist" aria-label="Slide-uri hero">
+      <button class="hero-dot active" role="tab" aria-selected="true" aria-label="Slide 1"></button>
+      <button class="hero-dot" role="tab" aria-selected="false" aria-label="Slide 2"></button>
+    </div>
     <div class="container grid">
       <div>
         <span class="eyebrow">Premium • Verificați • Contract & Factură</span>
-        <h1>Experiență de restaurant, direct la tine acasă.</h1>
-        <p class="lead">Chefs verificați, meniuri personalizate și echipă completă pentru cine private, corporate sau meniuri zilnice. Rapid, sigur, profesionist.</p>
+        <h1 id="hero-title">Experiență de restaurant, direct la tine acasă.</h1>
+        <p class="lead" id="hero-lead">Chefs verificați, meniuri personalizate și echipă completă pentru cine private, corporate sau meniuri zilnice. Rapid, sigur, profesionist.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#formular">Rezervă acum</a>
-          <a class="btn btn-outline" href="#cum-funct">Cum funcționează</a>
+          <a class="btn btn-primary" href="#formular">Vreau un bucătar</a>
+          <a class="btn btn-outline" id="hero-btn-secondary" href="#cum-funct">$1</a>
         </div>
         <div class="chips">
           <span class="chip">⭐ 4.9/5 rating</span>
@@ -170,9 +187,9 @@
     <h2 style="font-family:'Playfair Display',serif;text-align:center;margin:0 0 8px">Servicii</h2>
     <p style="text-align:center;color:var(--muted);margin:0 0 16px">Cine private, corporate, meniuri zilnice. Standard de restaurant.</p>
     <div class="cards">
-      <article class="card"><div class="card-media"><img src="https://images.unsplash.com/photo-1533777324565-a040eb52fac1?q=80&w=1600&auto=format&fit=crop" alt="Cină privată"></div><div class="card-body"><h3 style="margin:0 0 6px">Cină privată gourmet</h3><p style="color:var(--muted);margin:0 0 10px">Chef dedicat, meniu personalizat, plating impecabil.</p><a class="btn" href="#formular">Cere ofertă</a></div></article>
-      <article class="card"><div class="card-media"><img src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=1600&auto=format&fit=crop" alt="Corporate"></div><div class="card-body"><h3 style="margin:0 0 6px">Evenimente corporate</h3><p style="color:var(--muted);margin:0 0 10px">Scalabil, oriunde în țară: team building, lansări.</p><a class="btn" href="#formular">Cere ofertă</a></div></article>
-      <article class="card"><div class="card-media"><img src="https://images.unsplash.com/photo-1526366003456-b6c1f1b4d3d2?q=80&w=1600&auto=format&fit=crop" alt="Meniuri zilnice"></div><div class="card-body"><h3 style="margin:0 0 6px">Meniuri zilnice</h3><p style="color:var(--muted);margin:0 0 10px">Plan alimentar, cumpărături, gătit și organizare.</p><a class="btn" href="#formular">Cere ofertă</a></div></article>
+      <article class="card"><div class="card-media"><img src="https://images.unsplash.com/photo-1533777324565-a040eb52fac1?q=80&w=1600&auto=format&fit=crop" alt="Cină privată"></div><div class="card-body"><h3 style="margin:0 0 6px">Cină privată gourmet</h3><p style="color:var(--muted);margin:0 0 10px">Chef dedicat, meniu personalizat, plating impecabil.</p><a class="btn" href="#formular">Vezi mai multe</a></div></article>
+      <article class="card"><div class="card-media"><img src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=1600&auto=format&fit=crop" alt="Corporate"></div><div class="card-body"><h3 style="margin:0 0 6px">Evenimente corporate</h3><p style="color:var(--muted);margin:0 0 10px">Scalabil, oriunde în țară: team building, lansări.</p><a class="btn" href="#formular">Vezi mai multe</a></div></article>
+      <article class="card"><div class="card-media"><img src="https://images.unsplash.com/photo-1526366003456-b6c1f1b4d3d2?q=80&w=1600&auto=format&fit=crop" alt="Meniuri zilnice"></div><div class="card-body"><h3 style="margin:0 0 6px">Meniuri zilnice</h3><p style="color:var(--muted);margin:0 0 10px">Plan alimentar, cumpărături, gătit și organizare.</p><a class="btn" href="#formular">Vezi mai multe</a></div></article>
     </div>
 
     <div class="cta">
@@ -264,6 +281,52 @@
       console.assert(document.querySelector('.hero')!==null, 'Test: lipsește hero');
       console.assert(document.querySelector('#servicii')!==null, 'Test: lipsește secțiunea Servicii');
       console.assert(document.querySelector('#formular')!==null, 'Test: lipsește formularul');
+    })();
+    // === HERO slider (auto + click + swipe)
+    (function(){
+      const slides=[...document.querySelectorAll('.hero-slide')];
+      const dots=[...document.querySelectorAll('.hero-dot')];
+      if(!slides.length) return;
+      const titleEl=document.getElementById('hero-title');
+      const leadEl=document.getElementById('hero-lead');
+      const pBtn=document.getElementById('hero-btn-primary');
+      const sBtn=document.getElementById('hero-btn-secondary');
+      const slidesData=[
+        // Slide 0 — client
+        {title:'Experiență de restaurant, direct la tine acasă.',
+         lead:'Chefs verificați, meniuri personalizate și echipă completă pentru cine private, corporate sau meniuri zilnice. Rapid, sigur, profesionist.',
+         bg:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1920&auto=format&fit=crop',
+         primary:{label:'Vreau un bucătar', href:'#formular'},
+         secondary:{label:'Cum funcționează', href:'#cum-funct'}},
+        // Slide 1 — bucătari
+        {title:'Înscrie-te ca bucătar personal',
+         lead:'Primești cereri verificate, contract și plăți sigure. Îți alegi programul și evenimentele.',
+         bg:'https://images.unsplash.com/photo-1543352634-8730b1f0b9a9?q=80&w=1920&auto=format&fit=crop',
+         primary:{label:'Mă înscriu', href:'/inscriere-bucatar'},
+         secondary:{label:'Află mai multe', href:'/inscriere-bucatar#detalii'}}
+      ];
+      let idx=0, timer=null, touchStartX=null;
+      function applyContent(i){
+        const d=slidesData[i%slidesData.length];
+        if(titleEl) titleEl.textContent=d.title;
+        if(leadEl) leadEl.textContent=d.lead;
+        if(pBtn){ pBtn.textContent=d.primary.label; pBtn.href=d.primary.href; }
+        if(sBtn){ sBtn.textContent=d.secondary.label; sBtn.href=d.secondary.href; }
+      }
+      function go(n){
+        idx=(n+slides.length)%slides.length;
+        slides.forEach((s,i)=> s.classList.toggle('active', i===idx));
+        dots.forEach((d,i)=>{ d.classList.toggle('active', i===idx); d.setAttribute('aria-selected', i===idx?'true':'false'); });
+        applyContent(idx);
+      }
+      function play(){ stop(); timer=setInterval(()=> go(idx+1), 5000); }
+      function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+      dots.forEach((d,i)=> d.addEventListener('click', ()=>{ go(i); play(); }));
+      const hero=document.querySelector('.hero');
+      hero?.addEventListener('touchstart', e=>{ touchStartX=e.touches[0].clientX; stop(); }, {passive:true});
+      hero?.addEventListener('touchend', e=>{ if(touchStartX==null) return; const dx=e.changedTouches[0].clientX - touchStartX; if(Math.abs(dx)>40){ go(idx + (dx<0?1:-1)); } play(); touchStartX=null; });
+      applyContent(0);
+      play();
     })();
   </script>
 </body>
