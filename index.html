@@ -57,6 +57,28 @@
     .chip{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:#000;border:1px solid var(--line);color:#183c30;font-weight:700}
     .hero-media{display:none} 
 
+    .slide .overlay {
+  position:absolute;
+  inset:0;
+  background:rgba(14,90,67,0.45); /* verde rubin transparent */
+  z-index:1;
+}
+.slide .content {
+  position:relative;
+  z-index:2;
+  color:#fff; /* alb curat */
+  text-shadow:0 2px 4px rgba(0,0,0,0.4); /* mic efect pentru lizibilitate */
+}
+.btn-green {
+  background:#0e5a43;
+  color:#fff;
+}
+.btn-outline {
+  border:2px solid #fff;
+  color:#fff;
+  background:transparent;
+}
+
     /* Cum funcționează */
     .how{padding:56px 0}
     .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -182,12 +204,15 @@
     <!-- dacă e în /images, pune src="./images/IMG_9406.jpeg" -->
     <img class="bg" src="./IMG_9406.jpeg" alt="Bucătar" loading="eager">
     <div class="overlay"></div>
-    <div class="content">
-      <h1>Înscrie-te ca bucătar personal</h1>
-      <p>Primești cereri verificate, contract și plăți sigure. Îți alegi programul și evenimentele.</p>
-      <a href="#inscriere" class="btn btn-green">Mă înscriu</a>
-      <a href="#detalii" class="btn btn-outline">Află mai multe</a>
-    </div>
+    <div class="slide">
+  <img class="bg" src="./IMG_9406.jpeg" alt="Bucătar">
+  <!-- Overlay mai închis -->
+  <div class="overlay"></div>
+  <div class="content">
+    <h1>Înscrie-te ca bucătar personal</h1>
+    <p>Primești cereri verificate, contract și plăți sigure. Îți alegi programul și evenimentele.</p>
+    <a href="#inscriere" class="btn btn-green">Mă înscriu</a>
+    <a href="#detalii" class="btn btn-outline">Află mai multe</a>
   </div>
 </div>
 
