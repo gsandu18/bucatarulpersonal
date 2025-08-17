@@ -7,17 +7,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous"/>
   <style>
-    :root{
-      --verde:#0e5a43; --verde-2:#0b4a36; --text:#1c2226; --g1:#f6fbf8; --g2:#eef3ff; --b1:#fff; --b2:#e8ecee; --b3:#cfd6da; --warn:#fff3cd; --warn-text:#856404; --shadow:0 14px 46px rgba(0,0,0,.12);
-    }
+    :root{ --verde:#0e5a43; --verde-2:#0b4a36; --text:#1c2226; --g1:#f6fbf8; --g2:#eef3ff; --b1:#fff; --b2:#e8ecee; --b3:#cfd6da; --warn:#fff3cd; --warn-text:#856404; --shadow:0 14px 46px rgba(0,0,0,.12); }
     *{box-sizing:border-box}
     html,body{margin:0}
     body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);
       background:radial-gradient(1200px 600px at -10% -10%,var(--g2),#fff 40%),radial-gradient(900px 500px at 110% -20%,var(--g1),#fff 40%);
-      min-height:100vh;
-    }
+      min-height:100vh;}
     .container{width:min(1180px,94%);margin:auto;padding-bottom:48px}
     /* Tabs */
     .tabs{position:sticky;top:0;background:#ffffffc9;border-bottom:1px solid var(--b2);backdrop-filter:saturate(140%) blur(6px);
@@ -28,10 +25,10 @@
     .card{background:#fff;border:1px solid var(--b2);border-radius:18px;padding:20px;box-shadow:var(--shadow);margin-top:18px}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
     @media(max-width:900px){.grid{grid-template-columns:1fr}}
-    label{font-size:14px;font-weight:700}
+    label{font-size:14px;font-weight:700;display:block;margin-bottom:6px}
     input,textarea,select{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--b3);background:#fbfcfc}
     textarea{min-height:90px}
-    .note{font-size:13px;color:#66707a}
+    .note{font-size:13px;color:#5c6a6f}
     .warn{background:var(--warn);color:var(--warn-text);padding:10px 12px;border-radius:10px;font-weight:700;display:flex;gap:8px;align-items:center;margin:10px 0}
     /* Chat */
     .req-layout{display:grid;grid-template-columns:0.42fr 1fr;gap:16px}
@@ -69,11 +66,30 @@
     .progress-rail{height:12px;background:#eef3ef;border-radius:999px;overflow:hidden}
     .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--verde),#23a576);transition:width .35s ease;border-radius:999px}
     .progress-head{display:flex;justify-content:space-between;align-items:center}
+    /* Documente (colaborare) */
+    .collab-note{background:#fff3cd;padding:12px;border-radius:8px;font-size:14px;margin-bottom:16px}
+    .collab-options{display:flex;gap:20px;margin-bottom:20px;flex-wrap:wrap}
+    .collab-option{flex:1;min-width:260px;border:2px solid #ddd;border-radius:10px;padding:16px;cursor:pointer;transition:all .3s;background:#fff}
+    .collab-option:hover{border-color:var(--verde);background:#f9fffb}
+    .collab-option.active{border-color:var(--verde);background:#e6f4ef}
+    .collab-option h3{margin-top:0;font-size:16px;color:var(--verde)}
+    .calc{border-top:1px solid #eee;padding-top:16px;margin-top:6px}
+    .row{display:flex;gap:16px;margin-bottom:10px;align-items:center}
+    .row label{flex:1}
+    .row input,.row select{flex:2;padding:8px;border:1px solid #ccc;border-radius:8px}
+    .result{margin-top:8px;font-weight:600;font-size:15px}
+    .btn-save{padding:10px 16px;border-radius:8px;border:1px solid var(--verde);background:var(--verde);color:#fff;font-weight:600}
+    .btn-outline{padding:10px 16px;border-radius:8px;border:1px solid var(--verde);background:#fff;color:var(--verde);font-weight:600}
+    .docs-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
+    .doc-card{border:1px solid #e0e6e8;border-radius:10px;padding:10px;background:#fbfcfc;display:flex;gap:10px;align-items:flex-start}
+    .doc-card i{font-size:18px;margin-top:2px;color:var(--verde)}
+    .doc-meta{font-size:13px;color:#48525a}
+    .doc-actions{margin-left:auto}
+    .doc-actions button{border:0;background:transparent;cursor:pointer;color:#b23;}
   </style>
 </head>
 <body>
 <div class="container">
-  <!-- Tabs -->
   <nav class="tabs" id="tabs">
     <span class="tab active" data-tab="profil">Profil</span>
     <span class="tab" data-tab="documente">Documente</span>
@@ -83,7 +99,6 @@
     <span class="tab" data-tab="financiar">Financiar</span>
   </nav>
 
-  <!-- Progress overall -->
   <section class="card progress-card" id="progress">
     <div class="progress-head">
       <strong>Progres profil</strong>
@@ -93,7 +108,6 @@
     <div id="progress-tips" class="note">Completează pașii pentru activare completă.</div>
   </section>
 
-  <!-- PROFIL -->
   <section class="card section" id="profil">
     <h2>Profil – Portret obligatoriu</h2>
     <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i> Poza trebuie să fie pătrată (min. 600×600px), <b>în tunica oficială Bucătarul Personal</b>. Se aplică automat un watermark transparent.</div>
@@ -111,45 +125,84 @@
     </div>
   </section>
 
-  <!-- DOCUMENTE (CI complet) -->
-  <section class="card section" id="documente" style="display:none">
-    <h2>Documente • Carte de identitate</h2>
-    <div class="warn"><i class="fa-solid fa-id-card-clip"></i> Completează toate datele din CI. (Demo: salvare locală)</div>
-    <div class="grid">
-      <div><label>Seria</label><input id="ci-seria" placeholder="RX"></div>
-      <div><label>Număr</label><input id="ci-numar" placeholder="123456"></div>
-      <div><label>CNP</label><input id="ci-cnp" placeholder="13 cifre"></div>
-      <div><label>Nume</label><input id="ci-nume" placeholder="Nume"></div>
-      <div><label>Prenume</label><input id="ci-prenume" placeholder="Prenume"></div>
-      <div><label>Data nașterii</label><input id="ci-nastere" type="date"></div>
-      <div><label>Eliberat la</label><input id="ci-eliberat" type="date"></div>
-      <div><label>Valabil până</label><input id="ci-expira" type="date"></div>
-      <div style="grid-column:1/-1"><label>Domiciliu</label><input id="ci-domiciliu" placeholder="Județ, Localitate, Str., nr."></div>
-      <div><label>E-mail</label><input id="ci-email" type="email" placeholder="email@exemplu.ro"></div>
-      <div><label>Telefon</label><input id="ci-telefon" placeholder="07xx xxx xxx"></div>
-    </div>
-    <div class="card" style="margin-top:12px">
-      <div class="note">Încarcă scan/foto CI (PDF/JPG/PNG) – doar listare nume în demo.</div>
-      <input type="file" id="ci-file" accept="application/pdf,image/*">
-      <div id="ci-file-name" class="note">—</div>
-      <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
-        <button id="ci-save" class="btn primary"><i class="fa-solid fa-floppy-disk"></i> Salvează</button>
-        <button id="ci-clear" class="btn"><i class="fa-solid fa-trash"></i> Șterge</button>
-        <div id="ci-msg" class="note"></div>
+  <section class="card section collab-wrap" id="documente" style="display:none">
+    <h2>Modalități de colaborare</h2>
+    <div class="collab-note">Alege varianta de colaborare cu platforma. Calculul este orientativ.</div>
+    <div class="collab-options">
+      <div class="collab-option" id="opt-firma">
+        <h3>Varianta 1 – Cu firmă (PFA/SRL)</h3>
+        <ul>
+          <li>Bucătarul emite factură către Platformă.</li>
+          <li>Plata se face integral conform onorariului agreat, <b>minus comisionul</b> de platformă.</li>
+        </ul>
       </div>
+      <div class="collab-option" id="opt-fara">
+        <h3>Varianta 2 – Fără firmă</h3>
+        <ul>
+          <li>Plata prin <b>contract de colaborare</b> (persoană fizică).</li>
+          <li>Onorariul net este diminuat cu <b>taxele legale</b>, suportate de Platformă.</li>
+          <li>Se aplică același comision de platformă.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="calc">
+      <h3>Calculator orientativ de încasare</h3>
+      <div class="row"><label for="onorariu">Onorariu bucătar (brut)</label><input type="number" id="onorariu" value="1500" /></div>
+      <div class="row"><label for="comision">Comision platformă (%)</label><input type="number" id="comision" value="20" /></div>
+      <div class="row" id="row-taxe"><label for="taxe">Taxe legale (%)</label><input type="number" id="taxe" value="0" /></div>
+      <div class="row" id="row-categorie" style="display:none"><label for="categorie">Categorie firmă</label>
+        <select id="categorie"><option value="">Alege...</option><option value="PFA">PFA</option><option value="SRL">SRL</option></select>
+      </div>
+      <div class="result" id="rezultat">Net estimat: 1.200 lei</div>
+    </div>
+
+    <div class="calc" id="formular-colaborare">
+      <h3>Formular de colaborare</h3>
+      <div class="note">Completează datele corespunzătoare variantei alese. Contractul se va genera automat cu aceste date.</div>
+      <div id="form-firma" style="display:none">
+        <div class="row"><label for="firma-denumire">Denumire firmă / Nume titular</label><input id="firma-denumire"/></div>
+        <div class="row"><label for="firma-cui">CUI / CIF (PFA: CNP)</label><input id="firma-cui"/></div>
+        <div class="row"><label for="firma-reg">Nr. Reg. Com. / Nr. autorizație</label><input id="firma-reg"/></div>
+        <div class="row"><label for="firma-sediu">Sediu social / Domiciliu</label><input id="firma-sediu"/></div>
+        <div class="row"><label for="firma-repr">Reprezentant (SRL) / Titular (PFA)</label><input id="firma-repr"/></div>
+        <div class="row"><label for="firma-email">Email</label><input id="firma-email" type="email"/></div>
+        <div class="row"><label for="firma-tel">Telefon</label><input id="firma-tel"/></div>
+        <div class="row"><label for="firma-iban">IBAN</label><input id="firma-iban"/></div>
+        <div class="row"><label for="firma-banca">Banca</label><input id="firma-banca"/></div>
+      </div>
+      <div id="form-pf" style="display:none">
+        <div class="row"><label for="pf-nume">Nume complet</label><input id="pf-nume"/></div>
+        <div class="row"><label for="pf-cnp">CNP</label><input id="pf-cnp"/></div>
+        <div class="row"><label for="pf-adresa">Adresă</label><input id="pf-adresa"/></div>
+        <div class="row"><label for="pf-email">Email</label><input id="pf-email" type="email"/></div>
+        <div class="row"><label for="pf-tel">Telefon</label><input id="pf-tel"/></div>
+        <div class="row"><label for="pf-iban">IBAN (opțional)</label><input id="pf-iban"/></div>
+        <div class="row"><label for="pf-banca">Banca (opțional)</label><input id="pf-banca"/></div>
+      </div>
+      <div class="row" style="justify-content:flex-start; gap:12px">
+        <button class="btn-save" id="form-save" type="button">Salvează formular</button>
+        <button class="btn-outline" id="form-gen" type="button">Generează contract</button>
+        <span id="form-msg" class="result" style="font-weight:500"></span>
+      </div>
+    </div>
+
+    <div class="calc" id="docs-colab">
+      <h3>Documente necesare</h3>
+      <div class="note" id="docs-req">Încarcă: CI (față/verso) + Diplomă/Certificat bucătar (PDF/JPG/PNG). Extras de cont – opțional. Max 5MB/fișier. Min. 1 fișier.</div>
+      <input type="file" id="docs-input" multiple accept="application/pdf,image/*">
+      <div id="docs-list" class="docs-list"></div>
     </div>
   </section>
 
-  <!-- GALERIE (6) -->
-  <section class="card section" id="galerie" style="display:none">
+  <section class="card section" id="galerie" style="display:none">        
     <h2>Galerie (maxim 6 poze)</h2>
-    <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i> Pozele trebuie să fie <b>reale</b>, nu copiate.</div>
+    <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i> Pozele trebuie să fie <b>reale</b>, nu copiate. (max 2MB/poză)</div>
     <input type="file" id="gal-upload" accept="image/*" multiple>
     <div id="gal-wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px"></div>
     <div class="note" id="gal-note"></div>
   </section>
 
-  <!-- MENIURI – Tradițional / Fine Dining / Premium -->
   <section class="card section" id="meniuri" style="display:none">
     <h2>Meniuri & calcule</h2>
     <p class="note">preț bucătar = persoane × preparate × tarif → total client = preț bucătar × (1 + comision/100)</p>
@@ -196,7 +249,6 @@
     </div>
   </section>
 
-  <!-- CERERI + CHAT (demo) -->
   <section class="card section" id="cereri" style="display:none">
     <h2>Cererile mele</h2>
     <div class="req-layout">
@@ -208,7 +260,6 @@
     </div>
   </section>
 
-  <!-- FINANCIAR -->
   <section class="card section" id="financiar" style="display:none">
     <h2>Financiar</h2>
     <div class="wallet">
@@ -219,8 +270,8 @@
     <div class="card" style="margin-top:12px">
       <h3 style="margin:0 0 8px">Cont bancar</h3>
       <div class="grid">
-        <div><label>Nume bancă</label><input id="bank-name" placeholder="BCR / BT / ING"></div>
-        <div><label>IBAN</label><input id="bank-iban" placeholder="ROxx BANK xxxx xxxx xxxx xxxx"></div>
+        <div><label for="bank-name">Nume bancă</label><input id="bank-name" placeholder="BCR / BT / ING"></div>
+        <div><label for="bank-iban">IBAN</label><input id="bank-iban" placeholder="ROxx BANK xxxx xxxx xxxx xxxx"></div>
       </div>
       <div style="margin-top:10px;display:flex;gap:10px;align-items:center">
         <button id="bank-save" class="btn primary"><i class="fa-solid fa-floppy-disk"></i> Salvează</button>
@@ -234,93 +285,81 @@
 
 <script>
 (()=>{
-  // ==== Safe storage
-  const Store = (()=>{try{const t='__t__';localStorage.setItem(t,'1');localStorage.removeItem(t);return localStorage;}catch(e){const mem={};return{getItem:k=>mem[k]||null,setItem:(k,v)=>mem[k]=String(v),removeItem:k=>delete mem[k]};}})();
-  const getJSON=(k,d)=>{try{const v=Store.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
-  const setJSON=(k,v)=>{try{Store.setItem(k,JSON.stringify(v))}catch(e){}};
+  // Storage helpers
+  const Store=localStorage; const getJSON=(k,d)=>{try{const v=Store.getItem(k);return v?JSON.parse(v):d}catch(_){return d}}; const setJSON=(k,v)=>{try{Store.setItem(k,JSON.stringify(v))}catch(_){}};
+  const nf=new Intl.NumberFormat('ro-RO'); const fmt=n=>nf.format(Math.round(+n||0)); const fmtRON=n=>fmt(n)+' lei';
 
-  const nf=new Intl.NumberFormat('ro-RO');
-  const fmt=n=>nf.format(Math.round(+n||0));
-  const fmtRON=n=>fmt(n)+' lei';
+  // Progress elements
+  const pb=document.getElementById('progress-bar'); const pl=document.getElementById('progress-label'); const pt=document.getElementById('progress-tips');
+  function isValidEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e||'');}
+  function isValidRomanianIBAN(ibanRaw){const iban=(ibanRaw||'').replace(/\s+/g,'').toUpperCase();if(!/^RO[0-9A-Z]{22}$/.test(iban)) return false;const rearr=iban.slice(4)+iban.slice(0,4);const expanded=rearr.replace(/[A-Z]/g,ch=>(ch.charCodeAt(0)-55).toString());let r=0;for(let i=0;i<expanded.length;i+=7){const part=(''+r)+expanded.substring(i,i+7);r=parseInt(part,10)%97;}return r===1;}
 
-  // ===== Progress =====
-  const pb=document.getElementById('progress-bar');
-  const pl=document.getElementById('progress-label');
-  const pt=document.getElementById('progress-tips');
   function computeProgress(){
     let total=5, ok=0; const tips=[];
-    // 1) Portret
-    const portrait=Store.getItem('PORTRAIT');
-    if(portrait){ ok++; } else { tips.push('Încarcă portretul în tunica oficială.'); }
-    // 2) CI complet + valid
-    const ci=getJSON('CI',{});
-    const required=['seria','numar','cnp','nume','prenume','nastere','eliberat','expira','domiciliu','email','telefon'];
-    const ciFilled=required.every(k=> (ci[k]||'').trim().length>0) && /^\d{13}$/.test(ci.cnp||'') && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ci.email||'');
-    if(ciFilled){ ok++; } else { tips.push('Completează toate câmpurile din CI.'); }
-    // 3) Galerie: 6 poze
-    const gal=getJSON('GAL',[]); if(gal.length>=6){ ok++; } else { tips.push(`Încarcă 6 poze reale (ai ${gal.length}/6).`); }
-    // 4) Meniuri: toate 3 categorii cu valori >0
+    if(Store.getItem('PORTRAIT')) ok++; else tips.push('Încarcă portretul în tunica oficială.');
+    const type=Store.getItem('COLAB_TYPE')||''; let docsCount=0; const docsKey=(type==='firma')?'DOCS_FIRMA':(type==='fara')?'DOCS_PF':null; if(docsKey){ try{ const arr=JSON.parse(Store.getItem(docsKey)||'[]'); docsCount=Array.isArray(arr)?arr.length:0; }catch(_){}}
+    let collabOK=false; if(type==='firma'){ const d=getJSON('FORM_FIRMA',{}); collabOK=(d?.denumire?.trim() && d?.email && isValidEmail(d.email) && docsCount>0); } else if(type==='fara'){ const d=getJSON('FORM_PF',{}); collabOK=(d?.nume?.trim() && d?.email && isValidEmail(d.email) && docsCount>0); }
+    if(collabOK) ok++; else tips.push('La „Modalități”: alege tipul, completează formularul și încarcă minim 1 document.');
+    const gal=getJSON('GAL',[]); if(gal.length>=6) ok++; else tips.push(`Încarcă 6 poze reale (ai ${gal.length}/6).`);
     const famOk=(+document.getElementById('fam-pers').value>0 && +document.getElementById('fam-prep').value>0 && +document.getElementById('fam-tarif').value>0);
     const privOk=(+document.getElementById('priv-pers').value>0 && +document.getElementById('priv-prep').value>0 && +document.getElementById('priv-tarif').value>0);
     const corpOk=(+document.getElementById('corp-pers').value>0 && +document.getElementById('corp-prep').value>0 && +document.getElementById('corp-tarif').value>0);
-    if(famOk && privOk && corpOk){ ok++; } else { tips.push('Completează prețurile la Tradițional, Fine Dining și Premium.'); }
-    // 5) Financiar: nume bancă + IBAN valid
-    const bank=getJSON('BANK',{}); if((bank.name||'').trim() && /^RO[0-9A-Z]{16,}$/.test((bank.iban||''))){ ok++; } else { tips.push('Adaugă numele băncii și un IBAN valid.'); }
-
-    const pct=Math.round(ok/total*100);
-    pb.style.width=pct+'%'; pl.textContent=pct+'%';
-    pt.innerHTML = (pct===100) ? '✅ Cont complet activat.' : 'Pași rămași: ' + tips.join(' • ');
+    if(famOk && privOk && corpOk) ok++; else tips.push('Completează prețurile la Tradițional, Fine Dining și Premium.');
+    const bankName=(document.getElementById('bank-name').value||'').trim(); const bankIban=(document.getElementById('bank-iban').value||'').trim(); if(bankName && isValidRomanianIBAN(bankIban)) ok++; else tips.push('Adaugă numele băncii și un IBAN RO valid.');
+    const pct=Math.round(ok/total*100); pb.style.width=pct+'%'; pl.textContent=pct+'%'; pt.innerHTML=(pct===100)?'✅ Cont complet activat.':'Pași rămași: '+tips.join(' • ');
   }
 
-  // ===== Tabs + blocare până la portret valid
-  let hasValidPortrait=false;
+  // Tabs + gate by portrait (Documente permis oricum)
+  let hasValidPortrait=!!Store.getItem('PORTRAIT');
   const tabs=document.getElementById('tabs');
   const sections={profil:'profil',documente:'documente',galerie:'galerie',meniuri:'meniuri',cereri:'cereri',financiar:'financiar'};
   function show(id){ Object.values(sections).forEach(s=>document.getElementById(s).style.display='none'); document.getElementById(id).style.display='block'; }
-  tabs.addEventListener('click',e=>{ const t=e.target.closest('.tab'); if(!t) return; if(!hasValidPortrait && t.dataset.tab!=='profil'){ document.getElementById('overlay').style.display='flex'; return; } tabs.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); t.classList.add('active'); show(sections[t.dataset.tab]); });
+  tabs.addEventListener('click',e=>{ const t=e.target.closest('.tab'); if(!t) return; const tab=t.dataset.tab; if(!hasValidPortrait && !['profil','documente'].includes(tab)){ document.getElementById('overlay').style.display='flex'; return; } tabs.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); t.classList.add('active'); show(sections[tab]); });
 
-  // ===== Profil: upload/cameră + watermark
-  const portraitPreview=document.getElementById('portraitPreview');
-  const portraitUpload=document.getElementById('portraitUpload');
-  const removePortrait=document.getElementById('removePortrait');
-  const qualityEl=document.getElementById('quality');
-  const overlay=document.getElementById('overlay');
-  const wmUpload=document.getElementById('wmUpload');
-
-  let wmLogoData=getJSON('WM_LOGO', null); // PNG dataURL sau null
+  // Profil upload + watermark
+  const portraitPreview=document.getElementById('portraitPreview'); const portraitUpload=document.getElementById('portraitUpload'); const removePortrait=document.getElementById('removePortrait'); const qualityEl=document.getElementById('quality'); const overlay=document.getElementById('overlay'); const wmUpload=document.getElementById('wmUpload');
+  let wmLogoData=getJSON('WM_LOGO', null);
   wmUpload.addEventListener('change',()=>{ const f=wmUpload.files[0]; if(!f) return; const r=new FileReader(); r.onload=e=>{ wmLogoData=e.target.result; Store.setItem('WM_LOGO', wmLogoData); alert('Logo watermark salvat.'); }; r.readAsDataURL(f); });
-
-  function checkQuality(imgW,imgH){
-    if(imgW<600||imgH<600){ qualityEl.textContent='Calitate: Slabă (minim 600×600px)'; qualityEl.style.color='#dc3545'; return false; }
-    const ratio=imgW/imgH; if(ratio<0.8||ratio>1.2){ qualityEl.textContent='Calitate: Acceptabilă (nu este pătrată)'; qualityEl.style.color='#e69500'; return false; }
-    qualityEl.textContent='Calitate: Bună'; qualityEl.style.color='#198754'; return true;
-  }
+  function checkQuality(w,h){ if(w<600||h<600){ qualityEl.textContent='Calitate: Slabă (minim 600×600px)'; qualityEl.style.color='#dc3545'; return false;} const ratio=w/h; if(ratio<0.8||ratio>1.2){ qualityEl.textContent='Calitate: Acceptabilă (nu este pătrată)'; qualityEl.style.color='#e69500'; return true;} qualityEl.textContent='Calitate: Bună'; qualityEl.style.color='#198754'; return true; }
   function cropToSquare(img){ const size=Math.min(img.width,img.height); const sx=(img.width-size)/2, sy=(img.height-size)/2; const c=document.createElement('canvas'); c.width=c.height=size; const ctx=c.getContext('2d'); ctx.drawImage(img,sx,sy,size,size,0,0,size,size); return c; }
-  function drawWatermark(canvas){ const ctx=canvas.getContext('2d'); ctx.save(); ctx.globalAlpha=0.22; ctx.translate(canvas.width/2, canvas.height/2); ctx.rotate(-Math.PI/6); ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillStyle='#0e5a43'; ctx.font=Math.round(canvas.width*0.08)+'px Inter, Arial'; ctx.fillText('BUCĂTARUL PERSONAL', 0, 0); ctx.restore(); if(wmLogoData){ const img=new Image(); img.onload=()=>{ const w=Math.min(canvas.width*0.28, img.width); const h=w*(img.height/img.width); ctx.save(); ctx.globalAlpha=0.35; ctx.drawImage(img, canvas.width-w-14, canvas.height-h-14, w, h); ctx.restore(); }; img.src=wmLogoData; } }
-  function processPortrait(dataURL){ const img=new Image(); img.onload=()=>{ const validBase=checkQuality(img.naturalWidth,img.naturalHeight); const squareCanvas=cropToSquare(img); const out=document.createElement('canvas'); out.width=out.height=900; const octx=out.getContext('2d'); octx.drawImage(squareCanvas,0,0,900,900); drawWatermark(out); const finalData=out.toDataURL('image/png'); portraitPreview.src=finalData; Store.setItem('PORTRAIT', finalData); hasValidPortrait = validBase && true; overlay.style.display = hasValidPortrait ? 'none' : 'flex'; computeProgress(); }; img.src=dataURL; }
-  const savedPortrait=Store.getItem('PORTRAIT'); if(savedPortrait){ portraitPreview.src=savedPortrait; hasValidPortrait=true; overlay.style.display='none'; qualityEl.textContent='Calitate: Bună'; qualityEl.style.color='#198754'; } else { overlay.style.display='flex'; }
+  function drawWatermark(canvas){ const ctx=canvas.getContext('2d'); ctx.save(); ctx.globalAlpha=0.22; ctx.translate(canvas.width/2, canvas.height/2); ctx.rotate(-Math.PI/6); ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillStyle='#0e5a43'; ctx.font=Math.round(canvas.width*0.08)+'px Inter, Arial'; ctx.fillText('BUCĂTARUL PERSONAL', 0, 0); ctx.restore(); if(wmLogoData){ const img=new Image(); img.onload=()=>{ const w=Math.min(canvas.width*0.28, img.width); const h=w*(img.height/img.width); const ctx2=canvas.getContext('2d'); ctx2.save(); ctx2.globalAlpha=0.35; ctx2.drawImage(img, canvas.width-w-14, canvas.height-h-14, w, h); ctx2.restore(); }; img.src=wmLogoData; } }
+  function processPortrait(dataURL){ const img=new Image(); img.onload=()=>{ const validBase=checkQuality(img.naturalWidth,img.naturalHeight); const squareCanvas=cropToSquare(img); const out=document.createElement('canvas'); out.width=out.height=900; const octx=out.getContext('2d'); octx.drawImage(squareCanvas,0,0,900,900); drawWatermark(out); const finalData=out.toDataURL('image/png'); portraitPreview.src=finalData; Store.setItem('PORTRAIT', finalData); hasValidPortrait=!!validBase; overlay.style.display = hasValidPortrait ? 'none' : 'flex'; computeProgress(); }; img.src=dataURL; }
+  const savedPortrait=Store.getItem('PORTRAIT'); if(savedPortrait){ portraitPreview.src=savedPortrait; hasValidPortrait=true; overlay.style.display='none'; qualityEl.textContent='Calitate: Bună'; qualityEl.style.color='#198754'; }
   portraitUpload.addEventListener('change',()=>{ const f=portraitUpload.files[0]; if(!f) return; if(!/image\/(png|jpeg)/.test(f.type)){ alert('Acceptăm doar JPG/PNG'); return; } const r=new FileReader(); r.onload=e=>processPortrait(e.target.result); r.readAsDataURL(f); });
   removePortrait.addEventListener('click',()=>{ Store.removeItem('PORTRAIT'); portraitPreview.src='https://via.placeholder.com/300x300.png?text=Portret'; hasValidPortrait=false; overlay.style.display='flex'; qualityEl.textContent=''; computeProgress(); });
   document.getElementById('cameraBtn').addEventListener('click', async()=>{ try{ const stream=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:1920},height:{ideal:1080}}}); const video=document.createElement('video'); video.srcObject=stream; await video.play(); setTimeout(()=>{ const c=document.createElement('canvas'); c.width=c.height=900; const ctx=c.getContext('2d'); const side=Math.min(video.videoWidth,video.videoHeight); const sx=(video.videoWidth-side)/2; const sy=(video.videoHeight-side)/2; ctx.drawImage(video, sx, sy, side, side, 0,0,900,900); drawWatermark(c); const data=c.toDataURL('image/png'); processPortrait(data); stream.getTracks().forEach(t=>t.stop()); }, 1000); }catch(err){ alert('Camera indisponibilă: '+err.message); } });
 
-  // ===== Documente (CI)
-  const ciFields=['seria','numar','cnp','nume','prenume','nastere','eliberat','expira','domiciliu','email','telefon'];
-  const ciEls={}; ciFields.forEach(f=> ciEls[f]=document.getElementById('ci-'+f));
-  const ciData=getJSON('CI',{}); Object.entries(ciEls).forEach(([k,el])=>{ if(el && ciData[k]) el.value=ciData[k]; });
-  const ciFile=document.getElementById('ci-file'); const ciFileName=document.getElementById('ci-file-name'); if(ciFile){ ciFile.addEventListener('change',()=>{ ciFileName.textContent=ciFile.files[0]?ciFile.files[0].name:'—'; }); }
-  document.getElementById('ci-save').addEventListener('click',()=>{ const d={}; ciFields.forEach(f=> d[f]=(ciEls[f]?.value||'').trim()); if(d.cnp && !/^\d{13}$/.test(d.cnp)) return (document.getElementById('ci-msg').textContent='CNP invalid.'); if(d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return (document.getElementById('ci-msg').textContent='Email invalid.'); setJSON('CI',d); document.getElementById('ci-msg').textContent='Salvat.'; computeProgress(); });
-  document.getElementById('ci-clear').addEventListener('click',()=>{ Store.removeItem('CI'); Object.values(ciEls).forEach(el=> el && (el.value='')); document.getElementById('ci-msg').textContent='Șters.'; computeProgress(); });
+  // Documente (formular + upload)
+  const optFirma=document.getElementById('opt-firma'); const optFara=document.getElementById('opt-fara'); const rowTaxe=document.getElementById('row-taxe'); const rowCat=document.getElementById('row-categorie'); const catSel=document.getElementById('categorie');
+  const formFirma=document.getElementById('form-firma'); const formPF=document.getElementById('form-pf');
+  const docsInput=document.getElementById('docs-input'); const docsList=document.getElementById('docs-list'); const docsReq=document.getElementById('docs-req');
+  function currentDocsKey(){ const t=Store.getItem('COLAB_TYPE')||'firma'; return t==='fara'?'DOCS_PF':'DOCS_FIRMA'; }
+  function readDocs(){ return getJSON(currentDocsKey(),[]); }
+  function writeDocs(a){ setJSON(currentDocsKey(),a); }
+  function renderDocs(){ const a=readDocs(); docsList.innerHTML=a.map((d,i)=>`<div class='doc-card'><i class="fa-regular fa-file"></i><div><div><strong>${d.name}</strong></div><div class='doc-meta'>${d.sizeKB||0} KB • ${d.type||''}</div></div><div class='doc-actions'><button data-i='${i}' class='doc-del' title='Șterge'>&times;</button></div></div>`).join(''); computeProgress(); }
+  docsList.addEventListener('click',e=>{ const b=e.target.closest('.doc-del'); if(!b) return; const i=+b.dataset.i; const a=readDocs(); a.splice(i,1); writeDocs(a); renderDocs(); });
+  docsInput.addEventListener('change',()=>{ const a=readDocs(); [...docsInput.files].forEach(f=>{ if(a.length>=10) return; if(!( /pdf|image\//.test(f.type) )){ alert(`Tip neacceptat: ${f.name}`); return;} if(f.size>5_000_000){ alert(`Fișier prea mare (>5MB): ${f.name}`); return;} a.push({name:f.name,sizeKB:Math.round(f.size/1024),type:f.type,ts:Date.now()}); }); writeDocs(a); docsInput.value=''; renderDocs(); });
+  function saveForms(){ const t=Store.getItem('COLAB_TYPE')||'firma'; if(t==='firma'){ const data={categorie:catSel.value,denumire:document.getElementById('firma-denumire').value,cui:document.getElementById('firma-cui').value,reg:document.getElementById('firma-reg').value,sediu:document.getElementById('firma-sediu').value,repr:document.getElementById('firma-repr').value,email:document.getElementById('firma-email').value,tel:document.getElementById('firma-tel').value,iban:document.getElementById('firma-iban').value,banca:document.getElementById('firma-banca').value}; setJSON('FORM_FIRMA',data); return data;} else { const data={nume:document.getElementById('pf-nume').value,cnp:document.getElementById('pf-cnp').value,adresa:document.getElementById('pf-adresa').value,email:document.getElementById('pf-email').value,tel:document.getElementById('pf-tel').value,iban:document.getElementById('pf-iban').value,banca:document.getElementById('pf-banca').value}; setJSON('FORM_PF',data); return data;} }
+  function loadForms(){ const t=Store.getItem('COLAB_TYPE')||'firma'; if(t==='firma'){ const d=getJSON('FORM_FIRMA',{}); if(d.categorie) catSel.value=d.categorie; ['denumire','cui','reg','sediu','repr','email','tel','iban','banca'].forEach(k=>{ const el=document.getElementById('firma-'+k); if(el) el.value=d[k]||''; }); docsReq.textContent='Încarcă: Certificat înregistrare (PDF/JPG), CI reprezentant, extras de cont (opțional). Min. 1 fișier.'; } else { const d=getJSON('FORM_PF',{}); [['nume','pf-nume'],['cnp','pf-cnp'],['adresa','pf-adresa'],['email','pf-email'],['tel','pf-tel'],['iban','pf-iban'],['banca','pf-banca']].forEach(([k,id])=>{ const el=document.getElementById(id); if(el) el.value=d[k]||''; }); docsReq.textContent='Încarcă: CI (față/verso), extras de cont (opțional). Min. 1 fișier.'; } renderDocs(); }
+  document.getElementById('form-save').addEventListener('click',()=>{ saveForms(); document.getElementById('form-msg').textContent='Formular salvat.'; computeProgress(); });
+  document.getElementById('form-gen').addEventListener('click',()=>{ saveForms(); const t=Store.getItem('COLAB_TYPE')||'firma'; const today=new Date().toLocaleDateString('ro-RO'); let html=''; if(t==='firma'){ const d=getJSON('FORM_FIRMA',{}); const cat=d.categorie||'PFA'; html=`<!doctype html><html><head><meta charset="utf-8"><title>Contract colaborare</title><style>body{font-family:Inter,Arial,sans-serif;padding:24px;line-height:1.45} h1{font-size:20px;color:#0e5a43} h2{font-size:16px;margin-top:18px}</style></head><body><h1>Contract de colaborare – ${cat}</h1><div>Data: ${today}</div><h2>Părți</h2><p><b>${d.denumire||'[denumire]'}</b>, ${cat}, CUI/CIF ${d.cui||'-'}, Reg. ${d.reg||'-'}, cu sediul în ${d.sediu||'-'}, reprezentată de ${d.repr||'-'}.</p><p>și Platforma „Bucătarul Personal”.</p><h2>Plăți</h2><p>IBAN: ${d.iban||'-'} • Banca: ${d.banca||'-'}</p><h2>Contact</h2><p>Email: ${d.email||'-'} • Tel: ${d.tel||'-'}</p><br><p>Semnături:</p><p>Colaborator: _____________ &nbsp;&nbsp; Platforma: _____________</p></body></html>`; } else { const d=getJSON('FORM_PF',{}); html=`<!doctype html><html><head><meta charset="utf-8"><title>Contract colaborare PF</title><style>body{font-family:Inter,Arial,sans-serif;padding:24px;line-height:1.45} h1{font-size:20px;color:#0e5a43} h2{font-size:16px;margin-top:18px}</style></head><body><h1>Contract de colaborare – Persoană fizică</h1><div>Data: ${today}</div><h2>Părți</h2><p><b>${d.nume||'[nume complet]'}</b>, CNP ${d.cnp||'-'}, domiciliat(ă) în ${d.adresa||'-'}.</p><p>și Platforma „Bucătarul Personal”.</p><h2>Plăți</h2><p>IBAN: ${d.iban||'-'} • Banca: ${d.banca||'-'}</p><h2>Contact</h2><p>Email: ${d.email||'-'} • Tel: ${d.tel||'-'}</p><br><p>Semnături:</p><p>Colaborator: _____________ &nbsp;&nbsp; Platforma: _____________</p></body></html>`; }
+    const w=window.open('about:blank','_blank'); if(!w){ alert('Deblochează pop‑up‑urile.'); return;} w.document.write(html); w.document.close(); try{ w.focus(); w.print(); }catch(_){ }
+  });
+  function applyTypeUI(){ const t=Store.getItem('COLAB_TYPE')||'firma'; if(t==='firma'){ formFirma.style.display='block'; formPF.style.display='none'; rowTaxe.style.display='none'; rowCat.style.display='flex'; } else { formFirma.style.display='none'; formPF.style.display='block'; rowTaxe.style.display='flex'; rowCat.style.display='none'; } loadForms(); computeProgress(); }
+  optFirma.addEventListener('click',()=>{ Store.setItem('COLAB_TYPE','firma'); optFirma.classList.add('active'); optFara.classList.remove('active'); applyTypeUI(); });
+  optFara.addEventListener('click',()=>{ Store.setItem('COLAB_TYPE','fara'); optFara.classList.add('active'); optFirma.classList.remove('active'); applyTypeUI(); });
+  (Store.getItem('COLAB_TYPE')==='fara'?optFara:optFirma).click();
 
-  // ===== Galerie (6)
+  // Galerie
   const gInput=document.getElementById('gal-upload'); const gWrap=document.getElementById('gal-wrap'); const gNote=document.getElementById('gal-note');
   function renderGal(){ const arr=getJSON('GAL',[]); gWrap.innerHTML=arr.map(s=>`<img src="${s}" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;border:1px solid #e8ecee"/>`).join(''); gNote.textContent=`${arr.length}/6 încărcate`; computeProgress(); }
-  if(gInput){ gInput.addEventListener('change',()=>{ let arr=getJSON('GAL',[]); [...gInput.files].forEach(f=>{ if(arr.length>=6) return; const r=new FileReader(); r.onload=e=>{ arr.push(e.target.result); setJSON('GAL',arr); renderGal(); }; r.readAsDataURL(f); }); gInput.value=''; }); renderGal(); }
+  gInput.addEventListener('change',()=>{ let arr=getJSON('GAL',[]); [...gInput.files].forEach(f=>{ if(arr.length>=6) return; if(f.size>2_000_000){ alert(`"${f.name}" depășește 2MB.`); return;} const r=new FileReader(); r.onload=e=>{ arr.push(e.target.result); setJSON('GAL',arr); renderGal(); }; r.readAsDataURL(f); }); gInput.value=''; }); renderGal();
 
-  // ===== Meniuri calc
-  function bindCalc(p){ const id=s=>document.getElementById(`${p}-${s}`); const pers=id('pers'),prep=id('prep'),tarif=id('tarif'),comm=id('comm'),chef=id('chef'),total=id('total'); const rec=()=>{ const pp=+pers.value||0, nn=+prep.value||0, tt=+tarif.value||0, cc=(+comm.value||0)/100; const chefV=Math.max(0,pp*nn*tt); const tot=chefV*(1+cc); chef.value=fmt(chefV); total.value=fmt(tot); computeProgress(); }; [pers,prep,tarif,comm].forEach(el=>el&&el.addEventListener('input',rec)); rec(); }
+  // Meniuri calc
+  function bindCalc(p){ const id=s=>document.getElementById(`${p}-${s}`); const pers=id('pers'),prep=id('prep'),tarif=id('tarif'),comm=id('comm'),chef=id('chef'),total=id('total'); const rec=()=>{ const pp=+pers.value||0, nn=+prep.value||0, tt=+tarif.value||0, cc=(+comm.value||0)/100; const chefV=Math.max(0,pp*nn*tt); const tot=chefV*(1+cc); chef.value=fmt(chefV); total.value=fmt(tot); computeProgress(); }; [pers,prep,tarif,comm].forEach(el=>el.addEventListener('input',rec)); rec(); }
   ['fam','priv','corp'].forEach(bindCalc);
 
-  // ===== Cereri + chat (demo)
+  // Cereri + chat demo
   const reqList=document.getElementById('req-list'); const chat=document.getElementById('chat'); const chatInput=document.getElementById('chat-input');
   let reqs=getJSON('REQS',[]); if(!reqs.length){ reqs=[{id:'CER-9001',titlu:'Cină privată 6 pers',data:'2025-08-20',oras:'București',status:'pending',buget:2500}]; setJSON('REQS',reqs); }
   let active=reqs[0].id; function renderReqs(){ reqList.innerHTML=reqs.map(r=>`<div class="req-item ${r.id===active?'active':''}" data-id="${r.id}"><div><strong>${r.titlu}</strong><div class="note">${r.data} • ${r.oras} • ${fmtRON(r.buget)}</div></div><span class="badge ${r.status}">${r.status}</span></div>`).join(''); }
@@ -328,12 +367,11 @@
   reqList.addEventListener('click',e=>{ const it=e.target.closest('.req-item'); if(!it) return; openReq(it.dataset.id); }); renderReqs(); openReq(active);
   document.getElementById('chat-send').addEventListener('click',()=>{ const t=(chatInput.value||'').trim(); if(!t) return; const k='CHAT_'+active; const arr=getJSON(k,[]); arr.push({me:true,text:t,ts:Date.now()}); setJSON(k,arr); chatInput.value=''; openReq(active); });
 
-  // ===== Financiar – bancă + IBAN
+  // Financiar
   const bankName=document.getElementById('bank-name'); const bankIban=document.getElementById('bank-iban'); const bankMsg=document.getElementById('bank-msg');
-  const bank=getJSON('BANK',{}); if(bank.name) bankName.value=bank.name; if(bank.iban) bankIban.value=bank.iban;
-  document.getElementById('bank-save').addEventListener('click',()=>{ const name=(bankName.value||'').trim(); const iban=(bankIban.value||'').trim().toUpperCase(); if(!name){bankMsg.textContent='Introdu numele băncii.';return;} if(!/^RO[0-9A-Z]{16,}$/.test(iban)){bankMsg.textContent='IBAN invalid (ex: RO49 AAAA 1B31 0075 9384 0000)';return;} setJSON('BANK',{name,iban}); bankMsg.textContent='Date bancare salvate.'; computeProgress(); });
+  document.getElementById('bank-save').addEventListener('click',()=>{ const name=(bankName.value||'').trim(); const iban=(bankIban.value||'').trim().toUpperCase(); if(!name){bankMsg.textContent='Introdu numele băncii.';return;} if(!isValidRomanianIBAN(iban)){bankMsg.textContent='IBAN invalid.';return;} setJSON('BANK_META',{name,iban_mask: iban.replace(/\s+/g,'').replace(/^(.{6}).+(.{4})$/,'$1••••••••••••$2')}); bankMsg.textContent='Date bancare salvate. (IBAN mascat)'; computeProgress(); });
 
-  // initial
+  // init progress
   computeProgress();
 })();
 </script>
