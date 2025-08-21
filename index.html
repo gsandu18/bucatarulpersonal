@@ -41,26 +41,26 @@ header{position:fixed;inset:0 0 auto 0;z-index:50}
 .hamb{display:none;background:none;border:0;padding:10px}
 .hamb span{display:block;width:26px;height:2px;background:#fff;border-radius:2px;margin:6px 0}
 .mobile{display:none;position:fixed;inset:76px 0 0 0;background:#06110fee;color:#fff;padding:16px}
-.mobile a{display:block;padding:14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.mobile a{display:block;padding:14px;border-bottom:1px solid rgba(255,255,255,./* HERO — Înlocuiește definiția existentă */
+.hero{
+  position:relative;
+  min-height:560px;
+  height:100dvh;       /* iOS 16+ */
+  height:100svh;       /* fallback modern */
+  color:#fff;overflow:hidden;
+}
 
-/* HERO */
-.hero{position:relative;height:100svh;min-height:560px;color:#fff;overflow:hidden}
-.slide{position:absolute;inset:0;background-position:center;background-size:cover;opacity:0;transition:opacity 1.1s ease}
-.slide.active{opacity:1}
-.hero::after{content:"";position:absolute;inset:0;background:
-  linear-gradient(180deg,rgba(0,0,0,.52),rgba(0,0,0,.66)),
-  radial-gradient(70% 60% at 50% 20%, rgba(0,76,63,.55), transparent 70%)}
-.hero__inner{position:relative;z-index:2;height:100%;display:grid;place-items:center;text-align:center;padding:0 16px}
-h1{font-family:"Playfair Display",serif;font-weight:700;letter-spacing:.04em;font-size:clamp(32px,5.4vw,64px);line-height:1.08;margin:0}
-h1 .line{display:block}
-.sub{font-size:clamp(16px,2.4vw,24px);font-weight:500;margin:14px auto 12px;opacity:.92;max-width:860px}
-.lead{font-size:clamp(14px,2vw,18px);margin:0 0 18px;opacity:.9;max-width:740px}
-.cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-.cta .btn{min-width:200px}
-.dots{position:absolute;left:0;right:0;bottom:18px;z-index:3;display:flex;justify-content:center;gap:10px}
-.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);cursor:pointer}
-.dot.active{background:var(--accent);border-color:var(--accent-700)}
+/* Asigură spațiu pentru bara Safari jos */
+.hero__inner{
+  position:relative;z-index:2;height:100%;
+  display:grid;place-items:center;text-align:center;
+  padding:0 16px calc(32px + env(safe-area-inset-bottom));
+}
 
+/* Butoanele din HERO pe mobil – evită tăierea la margini */
+@media (max-width:680px){
+  .cta .btn{padding:12px 16px;font-size:16px;width:100%;max-width:420px}
+}
 /* Titluri secțiuni */
 .title{font-family:"Playfair Display",serif;font-size:clamp(24px,3.4vw,40px);letter-spacing:.04em;margin:0 0 14px;text-align:center;color:#0d1c18}
 .subtitle{color:var(--muted);text-align:center;margin-bottom:28px}
