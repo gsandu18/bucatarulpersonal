@@ -1,5 +1,3 @@
-Am reorganizat secțiunile în ordinea dorită (Cum funcționează → Bucătarii noștri → Formularul de comandă → Ce spun clienții → Servicii), am corectat titlul/subtitlul din HERO și am adăugat imagini + butoane call-to-action la „Servicii” cu precompletare în formular.
-
 <!doctype html>
 <html lang="ro">
 <head>
@@ -41,7 +39,8 @@ header{position:fixed;inset:0 0 auto 0;z-index:50}
 .hamb{display:none;background:none;border:0;padding:10px}
 .hamb span{display:block;width:26px;height:2px;background:#fff;border-radius:2px;margin:6px 0}
 .mobile{display:none;position:fixed;inset:76px 0 0 0;background:#06110fee;color:#fff;padding:16px}
-.mobile a{display:block;padding:14px;border-bottom:1px solid rgba(255,255,255,./* HERO — Înlocuiește definiția existentă */
+.mobile a{display:block;padding:14px;border-bottom:1px solid rgba(255,255,255,.08)}
+
 /* HERO */
 .hero{position:relative;height:100svh;min-height:560px;color:#fff;overflow:hidden}
 .slide{position:absolute;inset:0;background-position:center;background-size:cover;opacity:0;transition:opacity 1.1s ease}
@@ -59,7 +58,7 @@ h1 .line{display:block}
 .dots{position:absolute;left:0;right:0;bottom:18px;z-index:3;display:flex;justify-content:center;gap:10px}
 .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);cursor:pointer}
 .dot.active{background:var(--accent);border-color:var(--accent-700)}
-}
+
 /* Titluri secțiuni */
 .title{font-family:"Playfair Display",serif;font-size:clamp(24px,3.4vw,40px);letter-spacing:.04em;margin:0 0 14px;text-align:center;color:#0d1c18}
 .subtitle{color:var(--muted);text-align:center;margin-bottom:28px}
