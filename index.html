@@ -567,9 +567,14 @@ const hc=document.getElementById('heroContent');
 let idx=0, startX=null, timer=null;
 
 function render(i){
-  const c=heroContent[i];
+  const c = heroContent[i];
   const titleHTML = c.t.split('\n').map(line=>`<span class="line">${line}</span>`).join('');
+  // HERO (rămân doar butoanele pe mobil)
   hc.innerHTML = `<h1>${titleHTML}</h1><div class="sub">${c.s}</div><p class="lead">${c.d}</p><div class="cta">${c.c}</div>`;
+  // MASTHEAD din header (apare pe mobil)
+  const mh1 = document.getElementById('mast-h1');
+  const msub = document.getElementById('mast-sub');
+  if(mh1 && msub){ mh1.innerHTML = titleHTML; msub.textContent = c.s; }
 }
 function go(n){
   slides[idx].classList.remove('active'); dots[idx].classList.remove('active');
