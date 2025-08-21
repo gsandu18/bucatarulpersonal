@@ -9,7 +9,7 @@
 <style>
 :root{
   --primary:#004C3F; --accent:#C9A646; --accent-700:#B7983A;
-  --ink:#141915; --muted:#667178; --white:#fff;
+  --ink:#141915; --muted:#667178; --white:#fff; --black:#000;
   --rad:16px; --shadow:0 14px 40px rgba(0,0,0,.12);
 }
 *{box-sizing:border-box}
@@ -18,17 +18,19 @@ body{font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;c
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 .container{max-width:min(1200px,100% - 48px);margin-inline:auto}
-section{padding:clamp(60px,7vw,96px) 0;scroll-margin-top:90px}
+section{padding:clamp(60px,7vw,96px) 0; scroll-margin-top:90px}
 
-/* ===== HEADER COMPLET – NEGRU ===== */
+/* ===== HEADER NEGRU FULL-WIDTH ===== */
 #bp-header{position:fixed;inset:0 0 auto 0;z-index:50}
-.bp-container{max-width:min(1200px,100% - 48px);margin-inline:auto}
 .bp-nav{
-  height:76px;display:flex;align-items:center;justify-content:space-between;gap:14px;
-  background:#0f1412;color:#fff;border-bottom:1px solid #1b221f;padding-inline:12px;
-  transition:box-shadow .2s ease
+  width:100%; margin:0;                       /* full-width */
+  background:#0f1412; color:#fff;
+  border-bottom:1px solid #1b221f;
+  transition:box-shadow .2s ease;
 }
 #bp-header.scrolled .bp-nav{ box-shadow:0 8px 24px rgba(0,0,0,.22) }
+.bp-bar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding-inline:12px}
+.bp-container{max-width:min(1200px,100% - 48px);margin-inline:auto}
 
 .bp-brand{display:flex;align-items:center;gap:12px;letter-spacing:.16em;font-weight:700;color:#fff}
 .bp-brand svg{width:30px;height:30px}
@@ -54,30 +56,6 @@ section{padding:clamp(60px,7vw,96px) 0;scroll-margin-top:90px}
 
 @media (max-width:1024px){ .bp-links{display:none} .bp-hamb{display:inline-block} }
 
-/* ===== MASTHEAD (titlu + subtitlu în header) ===== */
-.bp-masthead{
-  background:#0f1412;color:#fff;border-bottom:1px solid #1b221f;
-  text-align:center;padding:calc(10px + env(safe-area-inset-top)) 16px 14px;
-}
-.mast-title{
-  font-family:"Playfair Display",serif;font-weight:700;letter-spacing:.04em;
-  font-size:clamp(22px,6.4vw,34px);line-height:1.15;margin:0;
-}
-.mast-title .line{display:block}
-.mast-sub{margin:.55rem auto 0;opacity:.9;max-width:800px;font-size:clamp(14px,3.8vw,18px)}
-
-/* Arătăm masthead-ul pe mobil/tabletă; pe desktop rămâne HERO-ul */
-@media (min-width:1025px){ .bp-masthead{display:none} }
-
-/* Secțiunile să nu fie acoperite de header + masthead pe mobil */
-@media (max-width:1024px){ section{scroll-margin-top:150px} }
-
-/* ===== BUTOANE GENERALE (HERO/servicii) ===== */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:1px solid transparent;border-radius:999px;padding:12px 18px;font-weight:600;cursor:pointer}
-.btn--accent{background:var(--accent);color:#231f1a;border-color:var(--accent-700)}
-.btn--ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45)}
-.btn--dark{background:#000;color:#fff;border:1px solid var(--accent)}
-
 /* ===== HERO ===== */
 .hero{position:relative;min-height:560px;height:100dvh;height:100svh;color:#fff;overflow:hidden}
 .slide{position:absolute;inset:0;background-position:center;background-size:cover;opacity:0;transition:opacity 1.1s ease}
@@ -85,7 +63,8 @@ section{padding:clamp(60px,7vw,96px) 0;scroll-margin-top:90px}
 .hero::after{content:"";position:absolute;inset:0;background:
   linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.62)),
   radial-gradient(70% 60% at 50% 20%, rgba(0,76,63,.45), transparent 70%)}
-.hero__inner{position:relative;z-index:2;height:100%;display:grid;place-items:center;text-align:center;
+.hero__inner{position:relative;z-index:2;height:100%;
+  display:grid;place-items:center;text-align:center;
   padding:calc(8px + env(safe-area-inset-top)) 16px calc(32px + env(safe-area-inset-bottom))}
 h1{font-family:"Playfair Display",serif;font-weight:700;letter-spacing:.04em;font-size:clamp(32px,5.4vw,64px);line-height:1.08;margin:0}
 h1 .line{display:block}
@@ -97,9 +76,7 @@ h1 .line{display:block}
 .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);cursor:pointer}
 .dot.active{background:var(--accent);border-color:var(--accent-700)}
 
-/* Pe mobil ascundem titlul/subtitlul din HERO (le avem în masthead) */
-@media (max-width:1024px){
-  .hero__inner h1, .hero__inner .sub{display:none !important}
+@media (max-width:680px){
   .cta .btn{padding:12px 16px;font-size:16px;width:100%;max-width:420px}
 }
 
@@ -172,42 +149,38 @@ footer a{color:#cdd}
 @media (max-width:480px){ .footer{grid-template-columns:1fr} }
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
 @media (prefers-reduced-motion:reduce){ .slide{transition:none} }
+
+/* Siguranță: dacă există .bp-masthead din versiuni trecute, ascunde-o */
+.bp-masthead{display:none !important;}
 </style>
 </head>
 <body id="top">
 
-<!-- ===== HEADER ===== -->
+<!-- ===== HEADER (fără bandă, full-width) ===== -->
 <header id="bp-header" role="banner">
-  <div class="bp-nav bp-container">
-    <a class="bp-brand" href="#top" aria-label="Bucătarul Personal – pagina principală">
-      <svg viewBox="0 0 200 200" aria-hidden="true">
-        <circle cx="100" cy="100" r="80" fill="none" stroke-width="6"/>
-        <text x="100" y="116" text-anchor="middle"
-              font-family="Playfair Display,serif" font-weight="700" font-size="54" letter-spacing="2">BP</text>
-      </svg>
-      BUCĂTARUL&nbsp;PERSONAL
-    </a>
-    <nav class="bp-links" aria-label="Navigație principală">
-      <a href="#cum">Cum funcționează</a>
-      <a href="#chefi">Bucătarii noștri</a>
-      <a href="#testi">Ce spun clienții</a>
-      <a href="#servicii">Servicii</a>
-      <a href="#despre">Despre noi</a>
-      <a class="bp-btn bp-btn--accent" href="#vreau">Vreau un bucătar</a>
-    </nav>
-    <button class="bp-hamb" aria-controls="bp-mobile" aria-expanded="false" aria-label="Deschide meniul">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-
-  <!-- Titlu + subtitlu în header (masthead) -->
-  <div class="bp-masthead">
-    <div class="bp-container">
-      <h1 id="mast-h1" class="mast-title"></h1>
-      <p id="mast-sub" class="mast-sub"></p>
+  <div class="bp-nav">
+    <div class="bp-bar bp-container">
+      <a class="bp-brand" href="#top" aria-label="Bucătarul Personal – pagina principală">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle cx="100" cy="100" r="80" fill="none" stroke-width="6"/>
+          <text x="100" y="116" text-anchor="middle"
+                font-family="Playfair Display,serif" font-weight="700" font-size="54" letter-spacing="2">BP</text>
+        </svg>
+        BUCĂTARUL&nbsp;PERSONAL
+      </a>
+      <nav class="bp-links" aria-label="Navigație principală">
+        <a href="#cum">Cum funcționează</a>
+        <a href="#chefi">Bucătarii noștri</a>
+        <a href="#testi">Ce spun clienții</a>
+        <a href="#servicii">Servicii</a>
+        <a href="#despre">Despre noi</a>
+        <a class="bp-btn bp-btn--accent" href="#vreau">Vreau un bucătar</a>
+      </nav>
+      <button class="bp-hamb" aria-controls="bp-mobile" aria-expanded="false" aria-label="Deschide meniul">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
-
   <nav id="bp-mobile" aria-label="Meniu mobil">
     <a href="#cum">Cum funcționează</a>
     <a href="#chefi">Bucătarii noștri</a>
@@ -326,7 +299,7 @@ footer a{color:#cdd}
   </div>
 </section>
 
-<!-- 3) Formular -->
+<!-- 3) Formular „Vreau un bucătar” -->
 <section id="vreau" aria-labelledby="titlu-form">
   <div class="container">
     <h2 id="titlu-form" class="title">Vreau un bucătar</h2>
@@ -369,7 +342,7 @@ footer a{color:#cdd}
   </div>
 </section>
 
-<!-- 4) Testimoniale -->
+<!-- 4) Ce spun clienții -->
 <section id="testi">
   <div class="container">
     <h2 class="title">Ce spun clienții noștri</h2>
@@ -382,7 +355,7 @@ footer a{color:#cdd}
   </div>
 </section>
 
-<!-- 5) Servicii -->
+<!-- 5) Servicii (imagini + CTA) -->
 <section id="servicii">
   <div class="container">
     <h2 class="title">Serviciile noastre</h2>
@@ -545,7 +518,7 @@ bpMobile?.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=>{
   bpMobile.style.display='none'; bpHamb.setAttribute('aria-expanded','false');
 }));
 
-// HERO — copy + autoplay + swipe + dots (sincronizează masthead)
+// HERO — copy + autoplay + swipe + dots
 const heroContent=[
   {t:"Chef la tine acasă\nmeniuri personalizate",
    s:"Chefi profesioniști pentru cine private și evenimente corporate.",
@@ -563,17 +536,12 @@ const heroContent=[
 const slides=[...document.querySelectorAll('.slide')];
 const dots=[...document.querySelectorAll('.dot')];
 const hc=document.getElementById('heroContent');
-const mh1=document.getElementById('mast-h1');
-const msub=document.getElementById('mast-sub');
 let idx=0, startX=null, timer=null;
 
 function render(i){
   const c=heroContent[i];
-  const titleHTML=c.t.split('\n').map(line=>`<span class="line">${line}</span>`).join('');
-  // HERO
+  const titleHTML = c.t.split('\n').map(line=>`<span class="line">${line}</span>`).join('');
   hc.innerHTML = `<h1>${titleHTML}</h1><div class="sub">${c.s}</div><p class="lead">${c.d}</p><div class="cta">${c.c}</div>`;
-  // MASTHEAD
-  if(mh1 && msub){ mh1.innerHTML=titleHTML; msub.textContent=c.s; }
 }
 function go(n){
   slides[idx].classList.remove('active'); dots[idx].classList.remove('active');
@@ -582,14 +550,16 @@ function go(n){
 }
 function autoplay(){
   stop(); timer=setInterval(()=>go(idx+1),6000);
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) stop();
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) stop();
 }
 function stop(){ if(timer){clearInterval(timer); timer=null;} }
-render(idx); autoplay();
+
+render(idx);
+autoplay();
 dots.forEach((d,k)=>d.addEventListener('click',()=>{go(k); autoplay();}));
 document.querySelector('.hero').addEventListener('mouseenter', stop);
 document.querySelector('.hero').addEventListener('mouseleave', autoplay);
-// swipe mobil
+// swipe (mobil)
 const hero=document.querySelector('.hero');
 hero.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;},{passive:true});
 hero.addEventListener('touchend',e=>{
@@ -599,7 +569,7 @@ hero.addEventListener('touchend',e=>{
   startX=null; autoplay();
 },{passive:true});
 
-// Formular demo
+// Submit formular (demo)
 function submitForm(e){e.preventDefault();alert('Cererea ta a fost trimisă. Revenim cu chefi disponibili!');}
 
 // Rating (localStorage)
@@ -627,7 +597,7 @@ document.querySelectorAll('.svc-cta').forEach(btn=>{
     if(tip){ [...tip.options].forEach(o=>o.selected=(o.textContent.trim()===map)); }
     if(detalii){
       const prefix=detalii.value?detalii.value.trim()+"\n":"";
-      detalii.value=`${prefix}Serviciu solicitat: ${service}`;
+      detalii.value = `${prefix}Serviciu solicitat: ${service}`;
       detalii.focus();
     }
   });
