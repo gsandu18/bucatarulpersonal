@@ -96,77 +96,54 @@
     <h1>Contul meu</h1>
     <p class="muted">Alege una dintre opțiuni:</p>
 
-    <div class="grid">
-      <!-- Col 1: Ai cont (Login) -->
-      <section class="card" aria-labelledby="hd-login">
-        <div class="hd" id="hd-login"><i class="fa-solid fa-right-to-bracket"></i> <strong>Ai cont</strong></div>
-        <div class="bd">
-          <form id="form-login" novalidate>
-            <div class="form-row">
-              <div>
-                <label for="login-email">Email</label>
-                <input id="login-email" name="email" type="email" placeholder="email@exemplu.ro" required />
-              </div>
-              <div>
-                <label for="login-pass">Parolă</label>
-                <input id="login-pass" name="password" type="password" placeholder="••••••••" minlength="6" required />
-                <!-- în <form id="form-login">, după câmpul parolă -->
-<div>
-  <label for="login-role">Intră ca</label>
-  <select id="login-role" required>
-    <option value="client" selected>Client</option>
-    <option value="bucatar">Bucătar</option>
-  </select>
-</div>
-              </div>
-              <button class="btn btn-primary" type="submit"><i class="fa-solid fa-arrow-right"></i> Intră în cont</button>
-              <a class="btn-ghost" href="#" id="forgot">Ai uitat parola?</a>
-            </div>
-          </form>
-        </div>
-      </section>
+   <?php
+if ($_SERVER["REQUEST_METHOD"] !== "POST") { http_response_code(405); exit("Cerere invalidă."); }
 
-      <!-- Col 2: Înregistrează-te ca bucătar -->
-      <section class="card" aria-labelledby="hd-chef">
-        <div class="hd" id="hd-chef"><i class="fa-solid fa-hat-chef"></i> <strong>Înregistrează-te ca bucătar</strong></div>
-        <div class="bd">
-          <form id="form-chef" novalidate>
-            <div class="form-row">
-              <div>
-                <label for="chef-nume">Nume și prenume</label>
-                <input id="chef-nume" name="nume" type="text" placeholder="Nume Prenume" required />
-              </div>
-              <div>
-                <label for="chef-email">Email</label>
-                <input id="chef-email" name="email" type="email" placeholder="email@exemplu.ro" required />
-              </div>
-              <div>
-                <label for="chef-telefon">Telefon</label>
-                <input id="chef-telefon" name="telefon" type="tel" placeholder="07xx xxx xxx" required />
-              </div>
-              <div>
-                <label for="chef-oras">Oraș</label>
-                <input id="chef-oras" name="oras" type="text" placeholder="București / Cluj / ..." required />
-              </div>
-              <div>
-                <label for="chef-spec">Specializări</label>
-                <input id="chef-spec" name="specializari" type="text" placeholder="ex. Italian, Fine Dining, BBQ" required />
-              </div>
-              <div>
-                <label for="chef-link">Portofoliu (URL)</label>
-                <input id="chef-link" name="portofoliu" type="url" placeholder="https://instagram.com/… / site" />
-              </div>
-              <div class="tips">
-                <span class="hl"><i class="fa-solid fa-circle-info"></i> Sfat</span>
-                <div style="margin-top:6px">Contul tău va fi verificat înainte de listare. Te vom contacta pe email pentru pașii următori.</div>
-              </div>
-              <button class="btn btn-primary" type="submit"><i class="Dashboard-bucatari.html"></i> Trimite aplicația</button>
-            </div>
-          </form>
-        </div>
-      </section>
-    </div>
-  </main>
+function field($k){ return isset($_POST[$k]) ? trim($_POST[$k]) : ''; }
+
+$nume = htmlspecialchars(field('nume'));
+$email = htmlspecialchars(field('email'));
+$telefon = htmlspecialchars(field('telefon'));
+$oras = htmlspecialchars(field('oras'));
+$specializari = htmlspecialchars(field('specializari'));
+$portofoliu = htmlspecialchars(field('portofoliu'));
+
+if ($nume === '' || $email === '') { exit("Nume și Email sunt obligatorii."); }
+
+// 1) Salvare CSV
+$csvPath = __DIR__ . '/bucatari_aplicanti.csv';
+$fp = fopen($csvPath, 'a');
+fputcsv($fp, [$nume, $email, $telefon, $oras, $specializari, $portofoliu, date("Y-m-d H:i:s")]);
+fclose($fp);
+
+// 2) Email HTML
+$to = "contact@bucatarulpersonal.ro";
+$subject = "✅ Cerere nouă bucătar: $nume";
+$headers  = "MIME-Version: 1.0\r\n";
+$headers .= "Content-type: text/html; charset=UTF-8\r\n";
+$headers .= "From: Bucatarul Personal <no-reply@bucatarulpersonal.ro>\r\n";
+$headers .= "Reply-To: $email\r\n";
+$message = "<html><body style='font-family:Arial,sans-serif'>
+<h2 style='color:#0e5a43;margin:0 0 10px'>Cerere nouă de înregistrare</h2>
+<p><strong>Nume:</strong> {$nume}</p>
+<p><strong>Email:</strong> {$email}</p>
+<p><strong>Telefon:</strong> {$telefon}</p>
+<p><strong>Oraș:</strong> {$oras}</p>
+<p><strong>Specializări:</strong> {$specializari}</p>
+<p><strong>Portofoliu:</strong> {$portofoliu}</p>
+<p style='color:#777'><em>Trimis la:</em> ".date("Y-m-d H:i:s")."</p>
+</body></html>";
+@mail($to, $subject, $message, $headers, "-f no-reply@bucatarulpersonal.ro");
+
+// 3) Redirect la pagina de succes cu rezumat (ATENȚIE: succes.html, nu success)
+$q = http_build_query([
+  'nume'    => $nume,
+  'email'   => $email,
+  'telefon' => $telefon,
+  'oras'    => $oras
+]);
+header("Location: succes.html?$q");
+exit;
 
   <footer>
     <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;border-top:1px solid var(--gri-2);color:#667">
