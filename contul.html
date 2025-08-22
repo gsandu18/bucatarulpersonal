@@ -97,6 +97,41 @@
     /* ===== FOOTER ===== */
     footer{border-top:1px solid var(--b2);margin-top:32px}
     .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;color:#667}
+    /* FIX: nu mai stiliza checkbox-urile ca pe inputurile text */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="url"],
+select,
+textarea{
+  width:100%;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid var(--gri-3);
+  background:#fbfcfc;
+}
+
+/* Checkbox/Radio corect pe mobil */
+input[type="checkbox"],
+input[type="radio"]{
+  width:auto;
+  height:auto;
+  padding:0;
+  margin:0;
+  accent-color: var(--rubin); /* bifa verde */
+}
+
+/* Ține-mă minte pe un singur rând */
+.actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.actions.between{ justify-content:space-between; }
+.actions .remember{ display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
+
+/* Dacă ecranul e foarte îngust, păstrează alinierea stânga-dreapta */
+@media (max-width:420px){
+  .actions.between{ display:grid; grid-template-columns:auto 1fr; }
+  .actions.between .hl{ justify-self:end; }
+}
   </style>
 </head>
 <body>
