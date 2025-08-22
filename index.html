@@ -168,7 +168,54 @@ footer a{color:#cdd}
 .cta .btn{ min-width:200px; }
 @media (max-width:680px){
   .cta .btn{ padding:12px 16px; font-size:16px; width:100%; max-width:420px; }
+}/* ===== Header: aliniere + no-wrap + CTA corect ===== */
+:root{
+  --nav-h:76px;
+  --nav-gap:28px;
+  --nav-font:clamp(14px,1.05vw,18px);
+  --cta-h:46px;
 }
+
+/* bara — centru vertical și padding */
+.nav, .bp-nav{
+  height:var(--nav-h) !important;
+  display:flex; align-items:center;
+  padding-inline:12px;
+}
+
+/* brand pe un singur rând + mică corecție optică pentru SVG */
+.brand, .bp-brand{display:flex; align-items:center;}
+.brand svg, .bp-brand svg{display:block; margin-top:1px}
+
+/* MENIU: nu permite wrap + spațiere uniformă */
+.links, .bp-links{
+  display:flex; align-items:center;
+  gap:var(--nav-gap);
+  flex-wrap:nowrap;            /* NU mai rupe pe 2 rânduri */
+  white-space:nowrap;
+}
+
+/* link-urile stau pe mijlocul barei și nu se rup */
+.links a, .bp-links a{
+  display:inline-flex; align-items:center;
+  height:var(--nav-h); line-height:1;
+  padding:0 6px;               /* aer mic fără să lărgim prea mult */
+  font-size:var(--nav-font);
+}
+
+/* CTA din dreapta — dimensiune fixă, nu iese în afara containerului */
+.links .btn, .bp-links .btn, .bp-links .bp-btn{
+  height:var(--cta-h); line-height:1;
+  padding:0 20px; border-radius:999px;
+  margin-left:var(--nav-gap);
+  white-space:nowrap;
+}
+
+/* ușor mai lat containerul pe desktop ca să încapă toate item-urile */
+@media (min-width:1200px){
+  .container{max-width:min(1260px,100% - 48px);}
+}
+  
 </style>
 </head>
 <body id="top">
