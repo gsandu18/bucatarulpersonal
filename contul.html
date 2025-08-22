@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contul meu | Bucătarul Personal</title>
+  <title>| Bucătarul Personal</title>
   <meta name="description" content="Autentificare clienți, creare cont și înregistrare ca bucătar pe Bucătarul Personal." />
   <link rel="canonical" href="https://www.bucatarulpersonal.ro/cont.html" />
 
@@ -30,8 +30,10 @@
 
   <style>
     :root{
-      --rubin:#0e5a43; --rubin-2:#0b4a36; --text:#1c2226; --muted:#5c6a6f;
-      --b1:#fff; --b2:#e8ecee; --b3:#cfd6da; --g1:#f6fbf8;
+      --rubin:#0e5a43; --rubin-2:#0b4a36;
+      --text:#1c2226; --muted:#5c6a6f;
+      --b1:#fff; --b2:#e8ecee; --b3:#cfd6da;
+      --g1:#f6fbf8;
       --max:1160px; --shadow:0 16px 48px rgba(0,0,0,.12);
       /* bară dark ca în poză */
       --dark:#0f1614; --gold:#d4b24f;
@@ -47,7 +49,11 @@
     header{position:sticky;top:0;z-index:50;background:var(--dark);border-bottom:none}
     .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
     .brand{display:flex;align-items:center;gap:12px}
-    .bp{width:34px;height:34px;border-radius:999px;border:2px solid var(--gold);display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;letter-spacing:.5px}
+    .bp{
+      width:34px;height:34px;border-radius:999px;
+      border:2px solid var(--gold);display:grid;place-items:center;
+      color:#fff;font-weight:800;font-size:14px;letter-spacing:.5px
+    }
     .name{color:#fff;font-weight:800;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap}
     .links{display:flex;gap:22px;align-items:center}
     .links a{color:#fff;font-weight:600;opacity:.9}
@@ -97,41 +103,27 @@
     /* ===== FOOTER ===== */
     footer{border-top:1px solid var(--b2);margin-top:32px}
     .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;color:#667}
-    /* FIX: nu mai stiliza checkbox-urile ca pe inputurile text */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="tel"],
-input[type="url"],
-select,
-textarea{
-  width:100%;
-  padding:12px 14px;
-  border-radius:12px;
-  border:1px solid var(--gri-3);
-  background:#fbfcfc;
-}
-
-/* Checkbox/Radio corect pe mobil */
-input[type="checkbox"],
-input[type="radio"]{
-  width:auto;
-  height:auto;
-  padding:0;
-  margin:0;
-  accent-color: var(--rubin); /* bifa verde */
-}
-
-/* Ține-mă minte pe un singur rând */
-.actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-.actions.between{ justify-content:space-between; }
-.actions .remember{ display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
-
-/* Dacă ecranul e foarte îngust, păstrează alinierea stânga-dreapta */
-@media (max-width:420px){
-  .actions.between{ display:grid; grid-template-columns:auto 1fr; }
-  .actions.between .hl{ justify-self:end; }
-}
+  /* --- Mobile fixes: input types + terms row --- */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="url"],
+    select,
+    textarea{
+      width:100%;
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid var(--b3);
+      background:#fbfcfc;
+    }
+    input[type="checkbox"],
+    input[type="radio"]{
+      width:auto; height:auto; padding:0; margin:0; accent-color: var(--rubin);
+    }
+    .agree{ display:flex; align-items:center; gap:8px; margin-top:6px; flex-wrap:wrap; }
+    .agree .link-terms{ color:var(--rubin); font-weight:700; text-decoration:underline; border:0; background:transparent; padding:0; }
+    .agree .link-terms:hover{ text-decoration:none; }
   </style>
 </head>
 <body>
@@ -143,7 +135,7 @@ input[type="radio"]{
         <span class="name">Bucătarul Personal</span>
       </a>
 
-      <!-- Ordinea ca în poză -->
+      <!-- ORDINEA cerută -->
       <nav class="links" aria-label="Navigație principală">
         <a href="/cum-functioneaza.html">Cum funcționează</a>
         <a href="/bucatarii.html">Bucătarii noștri</a>
@@ -173,6 +165,15 @@ input[type="radio"]{
         <a href="/despre-noi.html">Despre noi</a>
         <a href="/cont.html" class="btn-ghost"><i class="fa-solid fa-user"></i> Contul meu</a>
         <a href="/contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Vreau un bucătar</a>
+      </div>
+          <button class="btn btn-ghost" id="bp-close"><i class="fa-solid fa-xmark"></i> Închide</button>
+        </div>
+        <a href="/cum-functioneaza.html">Cum funcționează</a>
+        <a href="/bucatarii.html">Bucătarii noștri</a>
+        <a href="/testimoniale.html">Ce spun clienții</a>
+        <a href="/servicii.html">Servicii</a>
+        <a href="/despre-noi.html">Despre noi</a>
+        <a href="/cont.html" class="btn-ghost"><i class="fa-solid fa-user"></i> </a>
       </div>
     </div>
   </header>
@@ -248,7 +249,7 @@ input[type="radio"]{
                   </div>
                   <div>
                     <label for="reg-telefon">Telefon</label>
-                    <input id="reg-telefon" name="telefon" type="tel" inputmode="tel" pattern="^[0-9+\s\\-()]{7,}$" placeholder="07xx xxx xxx" required />
+                    <input id="reg-telefon" name="telefon" type="tel" inputmode="tel" pattern="^[0-9+\s\-()]{7,}$" placeholder="07xx xxx xxx" required />
                   </div>
                 </div>
                 <div class="row two">
@@ -261,9 +262,11 @@ input[type="radio"]{
                     <input id="reg-pass2" name="password2" type="password" minlength="6" placeholder="Repetă parola" required />
                   </div>
                 </div>
-                <label style="display:inline-flex;align-items:center;gap:8px;margin-top:6px">
-                  <input type="checkbox" required> Sunt de acord cu <a class="hl" href="/termeni.html" style="margin-left:6px">Termenii & Politica de confidențialitate</a>
-                </label>
+                <label class="agree" for="agree-terms">
+                  <input id="agree-terms" type="checkbox" required />
+                  <span>Sunt de acord cu termenii si conditii
+                  <a href="/termeni.html" class="link-terms">Termenii &amp; Politica de confidențialitate
+               
                 <div class="actions" style="margin-top:10px">
                   <button class="btn btn-primary" type="submit"><i class="fa-solid fa-user-plus"></i> Creează cont</button>
                 </div>
@@ -279,6 +282,7 @@ input[type="radio"]{
         <div class="card">
           <div class="hd"><i class="fa-solid fa-hat-chef"></i><strong>Înregistrare ca Bucătar</strong></div>
           <div class="bd">
+            <!-- ACTUALIZEAZĂ action către endpointul tău real -->
             <form id="form-chef" class="row" method="POST" action="/api/chef_apply.php" enctype="multipart/form-data">
               <div class="row two">
                 <div>
@@ -297,7 +301,7 @@ input[type="radio"]{
                 </div>
                 <div>
                   <label for="chef-telefon">Telefon *</label>
-                  <input id="chef-telefon" name="telefon" type="tel" inputmode="tel" pattern="^[0-9+\s\\-()]{7,}$" placeholder="+40 7xx xxx xxx" required />
+                  <input id="chef-telefon" name="telefon" type="tel" inputmode="tel" pattern="^[0-9+\s\-()]{7,}$" placeholder="+40 7xx xxx xxx" required />
                 </div>
               </div>
               <div class="row">
@@ -329,12 +333,15 @@ input[type="radio"]{
               <label style="display:inline-flex;align-items:center;gap:8px">
                 <input type="checkbox" name="gdpr" required> Sunt de acord cu prelucrarea datelor mele în scop de recrutare.
               </label>
+              <!-- honeypot anti-bot -->
               <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
               <div class="actions" style="margin-top:10px">
                 <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Trimite aplicația</button>
                 <span class="muted">Timp completare: ~2 minute</span>
               </div>
-              <p class="tip" style="margin-top:10px">După trimitere, primești confirmarea pe email. Dacă fișierele sunt mari, pune link în câmpul Portofoliu.</p>
+              <p class="tip" style="margin-top:10px">
+                După trimitere, primești confirmarea pe email. Dacă fișierele sunt mari, îți recomandăm Google Drive sau WeTransfer în câmpul Portofoliu.
+              </p>
             </form>
           </div>
         </div>
@@ -367,10 +374,10 @@ input[type="radio"]{
         const open = () => mobile.classList.add('active');
         const close = () => mobile.classList.remove('active');
         burger.addEventListener('click', open);
-        mobile.addEventListener('click', e=>{ if(e.target === mobile) close(); });
         closeBtn?.addEventListener('click', close);
-        document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
+        mobile.addEventListener('click', e=>{ if(e.target === mobile) close(); });
         mobile.querySelectorAll('.sheet a').forEach(a=>a.addEventListener('click', close));
+        document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
       }
 
       // Tabs
@@ -388,21 +395,25 @@ input[type="radio"]{
       tabClient.addEventListener('click', ()=>selectTab('client'));
       tabChef.addEventListener('click', ()=>selectTab('chef'));
 
-      // Toggle parolă
+      // Password toggle
       (function togglePass(btnId, inputId){
         const btn = qs(btnId), input = qs(inputId);
         btn?.addEventListener('click', (e)=>{
           e.preventDefault();
           if(!input) return;
-          input.type = input.type === 'password' ? 'text' : 'password';
+          const t = input.getAttribute('type') === 'password' ? 'text' : 'password';
+          input.setAttribute('type', t);
         });
       })('#toggle-login-pass', '#login-pass');
 
-      // Validare parolă identică la înregistrare
+      // Register: same password check
       qs('#form-register')?.addEventListener('submit', (e)=>{
         const p1 = qs('#reg-pass').value;
         const p2 = qs('#reg-pass2').value;
-        if(p1 !== p2){ e.preventDefault(); alert('Parolele nu coincid.'); }
+        if(p1 !== p2){
+          e.preventDefault();
+          alert('Parolele nu coincid.');
+        }
       });
     })();
   </script>
