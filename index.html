@@ -20,41 +20,164 @@ img{max-width:100%;display:block}
 .container{max-width:min(1200px,100% - 48px);margin-inline:auto}
 section{padding:clamp(60px,7vw,96px) 0; scroll-margin-top:90px}
 
-/* ===== HEADER NEGRU FULL-WIDTH ===== */
-#bp-header{position:fixed;inset:0 0 auto 0;z-index:50}
-.bp-nav{
-  width:100%; margin:0;                       /* full-width */
-  background:#0f1412; color:#fff;
-  border-bottom:1px solid #1b221f;
-  transition:box-shadow .2s ease;
-}
-#bp-header.scrolled .bp-nav{ box-shadow:0 8px 24px rgba(0,0,0,.22) }
-.bp-bar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding-inline:12px}
-.bp-container{max-width:min(1200px,100% - 48px);margin-inline:auto}
+<!-- ====== HEADER NAVBAR – Bucătarul Personal ====== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-.bp-brand{display:flex;align-items:center;gap:12px;letter-spacing:.16em;font-weight:700;color:#fff}
-.bp-brand svg{width:30px;height:30px}
-.bp-brand circle{stroke:var(--accent)}
-.bp-brand text{fill:#fff}
+<header class="site-header" role="banner">
+  <div class="container">
+    <!-- Brand -->
+    <a href="/" class="brand" aria-label="Bucătarul Personal – Acasă">
+      <span class="brand-mark">BP</span>
+      <span class="brand-name">BUCĂTARUL PERSONAL</span>
+    </a>
 
-.bp-links{display:flex;gap:22px}
-.bp-links a{color:#fff;font-weight:500}
-.bp-links a:hover{color:var(--accent)}
+    <!-- Mobile toggle -->
+    <button class="nav-toggle" aria-label="Deschide meniul" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
 
-.bp-btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;
-        padding:12px 18px;font-weight:600;border:1px solid transparent;cursor:pointer}
-.bp-btn--accent{background:var(--accent);color:#231f1a;border-color:#B7983A}
-.bp-btn--ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+    <!-- Nav -->
+    <nav class="site-nav" aria-label="Meniu principal">
+      <ul>
+        <li><a href="#cum-functioneaza">Cum funcționează</a></li>
+        <li><a href="#bucatarii-nostri">Bucătarii noștri</a></li>
+        <li><a href="#testimoniale">Ce spun clienții</a></li>
+        <li><a href="#servicii">Servicii</a></li>
+        <li><a href="#despre-noi">Despre noi</a></li>
+      </ul>
+    </nav>
 
-.bp-hamb{display:none;background:none;border:0;padding:10px}
-.bp-hamb span{display:block;width:26px;height:2px;background:#fff;border-radius:2px;margin:6px 0}
+    <!-- CTA -->
+    <a class="cta" href="/vreau-un-bucatar">Vreau un bucătar</a>
+  </div>
+</header>
 
-#bp-mobile{display:none;position:fixed;inset:76px 0 0 0;background:#0f1412;color:#fff;padding:16px;
-           box-shadow:0 14px 40px rgba(0,0,0,.25)}
-#bp-mobile a{display:block;padding:14px;border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
-#bp-mobile .bp-btn{margin-top:10px;display:inline-flex}
+<style>
+  :root{
+    --bg:#0f1614;         /* negru foarte închis (bara) */
+    --text:#ffffff;       /* alb */
+    --muted:#cbd5e1;      /* gri deschis pentru hover light */
+    --gold:#caa243;       /* auriu buton */
+    --gold-2:#b48e33;     /* auriu închis hover */
+    --max:1200px;         /* lățime container */
+    --h:76px;             /* înălțimea barei pe desktop */
+  }
 
-@media (max-width:1024px){ .bp-links{display:none} .bp-hamb{display:inline-block} }
+  .site-header{
+    position: sticky; top:0; z-index:1000;
+    background: var(--bg); color: var(--text);
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .site-header .container{
+    max-width: var(--max); margin:0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* brand | nav centrat | cta dreapta */
+    align-items: center;
+    gap: 16px;
+    height: var(--h);
+  }
+
+  /* Brand */
+  .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text);}
+  .brand-mark{
+    width:38px; height:38px; display:inline-grid; place-items:center;
+    border:2px solid var(--gold); border-radius:999px; font-weight:800; letter-spacing:.5px;
+    font-size:14px;
+  }
+  .brand-name{
+    font-weight:800; letter-spacing:6px; font-size:18px; white-space:nowrap;
+  }
+
+  /* Nav */
+  .site-nav ul{
+    display:flex; justify-content:center; align-items:center;
+    gap: 40px; list-style:none; margin:0; padding:0;
+  }
+  .site-nav a{
+    color:var(--text); text-decoration:none; font-weight:700; font-size:20px;
+    display:inline-block; line-height:1; padding:10px 0;
+  }
+  .site-nav a:hover, .site-nav a:focus{
+    color:var(--muted);
+  }
+  .site-nav a.active, .site-nav a[aria-current="page"]{
+    position:relative;
+  }
+  .site-nav a.active::after, .site-nav a[aria-current="page"]::after{
+    content:""; position:absolute; left:0; right:0; bottom:-8px; height:2px; background:var(--gold);
+  }
+
+  /* CTA */
+  .cta{
+    display:inline-flex; align-items:center; justify-content:center;
+    background: var(--gold); color:#1b1b1b; text-decoration:none;
+    padding:14px 22px; border-radius:999px; font-weight:800; font-size:20px;
+    transition:transform .15s ease, background .2s ease;
+    white-space:nowrap;
+  }
+  .cta:hover{ background:var(--gold-2); transform:translateY(-1px); }
+  .cta:active{ transform:translateY(0); }
+
+  /* Toggle (mobil) */
+  .nav-toggle{
+    display:none; width:42px; height:42px; border:1px solid rgba(255,255,255,.18);
+    border-radius:10px; background:transparent; cursor:pointer;
+  }
+  .nav-toggle .bar{display:block; width:22px; height:2px; margin:4px auto; background:var(--text);}
+
+  /* ===== Responsive ===== */
+  @media (max-width: 1100px){
+    .site-nav a{ font-size:18px; }
+    .cta{ font-size:18px; padding:12px 18px; }
+    .site-nav ul{ gap:28px; }
+  }
+
+  @media (max-width: 920px){
+    .brand-name{ letter-spacing:4px; font-size:16px; }
+    .site-header .container{ grid-template-columns:auto auto auto; }
+    .nav-toggle{ display:inline-block; order:2; }
+    .site-nav{ position:fixed; inset: var(--h) 0 auto 0; background:var(--bg); border-top:1px solid rgba(255,255,255,.06);
+               display:none; }
+    .site-nav.open{ display:block; }
+    .site-nav ul{ flex-direction:column; align-items:flex-start; gap:8px; padding:14px 20px; }
+    .site-nav a{ padding:12px 0; font-size:18px; width:100%; }
+    .cta{ order:3; }
+  }
+
+  @media (max-width: 520px){
+    .brand-mark{ width:34px; height:34px; font-size:13px; }
+    .brand-name{ display:none; } /* economisim spațiu pe ecrane foarte mici */
+    :root{ --h:64px; }
+  }
+</style>
+
+<script>
+  // Toggle mobil
+  (function(){
+    const btn = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.site-nav');
+    if(!btn || !nav) return;
+    btn.addEventListener('click', ()=>{
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.documentElement.classList.toggle('menu-open', open);
+    });
+    // închide meniul la click pe link
+    nav.addEventListener('click', (e)=>{
+      if(e.target.matches('a')) {
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+        document.documentElement.classList.remove('menu-open');
+      }
+    });
+  })();
+</script>
 
 /* ===== HERO ===== */
 .hero{position:relative;min-height:560px;height:100dvh;height:100svh;color:#fff;overflow:hidden}
