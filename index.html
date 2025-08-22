@@ -169,38 +169,6 @@ footer a{color:#cdd}
 @media (max-width:680px){
   .cta .btn{ padding:12px 16px; font-size:16px; width:100%; max-width:420px; }
 }
-  /* ===== Header alignment fix (brand + meniuri + CTA) ===== */
-:root{ --nav-h:76px; --cta-h:46px; }
-
-/* Înălțime unică pentru bară */
-.nav, .bp-nav{
-  height:var(--nav-h) !important;
-  display:flex; align-items:center;            /* centru vertical */
-  padding-inline:12px;
-}
-
-/* Grupuri din bară: întindere pe înălțimea barei + centru vertical */
-.brand, .links, .bp-links{
-  display:flex; align-items:center; height:100%;
-}
-
-/* SVG-ul monogramei să nu mai „lase” spațiu pe baseline */
-.brand svg{ display:block; margin-top:1px; }   /* corecție optică foarte mică */
-
-/* Linkuri din meniu: înălțime 100% și line-height normalizat */
-.links a, .bp-links a{
-  display:flex; align-items:center; height:100%;
-  line-height:1; padding:0 10px;
-}
-
-/* CTA din bară – aceeași înălțime peste tot */
-.btn, .bp-btn{
-  display:inline-flex; align-items:center; justify-content:center;
-  height:var(--cta-h); padding:0 18px; line-height:1; border-radius:999px;
-}
-
-/* (opțional) mic spațiu între brand și meniu pentru respirare */
-.nav{ gap:22px; }
 </style>
 </head>
 <body id="top">
