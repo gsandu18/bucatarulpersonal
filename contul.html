@@ -35,7 +35,7 @@
       --b1:#fff; --b2:#e8ecee; --b3:#cfd6da;
       --g1:#f6fbf8;
       --max:1160px; --shadow:0 16px 48px rgba(0,0,0,.12);
-      /* bară dark ca în poză */
+      /* bară dark */
       --dark:#0f1614; --gold:#d4b24f;
     }
     *{box-sizing:border-box}
@@ -65,7 +65,7 @@
     .mobile{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);display:none}
     .mobile.active{display:block}
     .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#111514;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;color:#fff}
-    .sheet a{padding:12px 8px;border-bottom:1px solid rgba(255,255,255,.12);font-weight:600;color:#fff}
+    .sheet a, .sheet button.action{padding:12px 8px;border-bottom:1px solid rgba(255,255,255,.12);font-weight:600;color:#fff;background:transparent;border:none;text-align:left}
 
     /* ===== PAGE ===== */
     main{padding:42px 0}
@@ -96,34 +96,19 @@
     .actions.between{justify-content:space-between}
     .hl{display:inline-flex;align-items:center;white-space:nowrap;background:rgba(14,90,67,.08);border:1px solid rgba(14,90,67,.25);padding:6px 10px;border-radius:999px;font-weight:700}
 
-  /* Footer */
-footer{background:#0f1412;color:#cdd;border-top:2px solid var(--accent);padding:40px 0 18px}
-.footer{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:22px}
-footer h4{margin:0 0 10px;color:#fff}
-footer a{color:#cdd}
-.social{display:flex;gap:10px}
-.social a{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;border:1px solid #2c2f2d}
-.social a:hover{border-color:var(--accent);color:#fff}
-.legal{margin-top:16px;border-top:1px solid #262b28;padding-top:12px;font-size:13px;color:#9fb}
+    /* Footer */
+    footer{background:#0f1412;color:#cdd;border-top:2px solid var(--accent);padding:40px 0 18px}
+    .footer{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:22px}
+    footer h4{margin:0 0 10px;color:#fff}
+    footer a{color:#cdd}
+    .social{display:flex;gap:10px}
+    .social a{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;border:1px solid #2c2f2d}
+    .social a:hover{border-color:var(--accent);color:#fff}
+    .legal{margin-top:16px;border-top:1px solid #262b28;padding-top:12px;font-size:13px;color:#9fb}
 
-  /* --- Mobile fixes: input types + terms row --- */
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="tel"],
-    input[type="url"],
-    select,
-    textarea{
-      width:100%;
-      padding:12px 14px;
-      border-radius:12px;
-      border:1px solid var(--b3);
-      background:#fbfcfc;
-    }
-    input[type="checkbox"],
-    input[type="radio"]{
-      width:auto; height:auto; padding:0; margin:0; accent-color: var(--rubin);
-    }
+    /* --- Mobile fixes: input types + terms row --- */
+    input[type="text"], input[type="email"], input[type="password"], input[type="tel"], input[type="url"], select, textarea{ width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--b3); background:#fbfcfc; }
+    input[type="checkbox"], input[type="radio"]{ width:auto; height:auto; padding:0; margin:0; accent-color: var(--rubin); }
     .agree{ display:flex; align-items:center; gap:8px; margin-top:6px; flex-wrap:wrap; }
     .agree .link-terms{ color:var(--rubin); font-weight:700; text-decoration:underline; border:0; background:transparent; padding:0; }
     .agree .link-terms:hover{ text-decoration:none; }
@@ -143,8 +128,10 @@ footer a{color:#cdd}
         <a href="/despre-noi.html">Despre noi</a>
         <a href="/bucatarii.html">Bucătarii noștri</a>
         <a href="/servicii.html">Servicii</a>
-        <a href="/blog.html"<Blog</a>
-          <a href="/cont.html" class="btn-ghost">Contul meu</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/cont.html" class="btn-ghost auth-cont" hidden>Contul meu</a>
+        <a href="/cont.html" class="btn-ghost auth-login">Autentificare</a>
+        <button type="button" class="btn btn-ghost auth-logout" hidden>Ieșire</button>
       </nav>
 
       <button class="burger" id="bp-burger" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
@@ -160,10 +147,12 @@ footer a{color:#cdd}
           <button class="btn btn-ghost" id="bp-close"><i class="fa-solid fa-xmark"></i> Închide</button>
         </div>
         <a href="/despre-noi.html">Despre noi</a>
-        <a href="/bucatarii.html">Bucătarii noștri</a>
+        <a href="/bucatarii.html">Bucătării noștri</a>
         <a href="/servicii.html">Servicii</a>
-        <a href="/servicii.html">Blog</a>
-        <a href="/cont.html" class="btn-ghost">Contul meu</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/cont.html" class="action auth-cont" hidden>Contul meu</a>
+        <a href="/cont.html" class="action auth-login">Autentificare</a>
+        <button type="button" class="action auth-logout" hidden>Ieșire</button>
       </div>
     </div>
   </header>
@@ -339,52 +328,52 @@ footer a{color:#cdd}
     </section>
   </main>
 
-<!-- Footer -->
-<footer role="contentinfo">
-  <div class="container footer">
-    <div>
-      <div style="display:flex;align-items:center;gap:10px;color:#fff;margin-bottom:8px">
-        <svg viewBox="0 0 200 200" width="26" height="26" aria-hidden="true">
-          <circle cx="100" cy="100" r="80" fill="none" stroke="#C9A646" stroke-width="6"/>
-          <text x="100" y="116" text-anchor="middle"
-                font-family="Playfair Display,serif" font-weight="700" font-size="54" letter-spacing="2"
-                fill="#fff">BP</text>
-        </svg>
-        <strong>BUCĂTARUL PERSONAL</strong>
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <div class="container footer">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;color:#fff;margin-bottom:8px">
+          <svg viewBox="0 0 200 200" width="26" height="26" aria-hidden="true">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#C9A646" stroke-width="6"/>
+            <text x="100" y="116" text-anchor="middle"
+                  font-family="Playfair Display,serif" font-weight="700" font-size="54" letter-spacing="2"
+                  fill="#fff">BP</text>
+          </svg>
+          <strong>BUCĂTARUL PERSONAL</strong>
+        </div>
+        <p style="margin:0 0 10px">Experiențe culinare premium cu chefi profesioniști.</p>
+        <div class="social" aria-label="Social media">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="TikTok">tt</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+        </div>
       </div>
-      <p style="margin:0 0 10px">Experiențe culinare premium cu chefi profesioniști.</p>
-      <div class="social" aria-label="Social media">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Instagram">ig</a>
-        <a href="#" aria-label="TikTok">tt</a>
-        <a href="#" aria-label="LinkedIn">in</a>
+      <div>
+        <h4>Navigație</h4>
+        <a href="#cum">Cum funcționează</a><br>
+        <a href="#chefi">Bucătarii noștri</a><br>
+        <a href="#vreau">Vreau un bucătar</a><br>
+        <a href="#testi">Ce spun clienții</a><br>
+        <a href="#servicii">Servicii</a><br>
+        <a href="#despre">Despre noi</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="#">Termeni & condiții</a><br>
+        <a href="#">Politica de confidențialitate</a><br>
+        <a href="#">Politica Cookie</a><br>
+        <a href="#">GDPR</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:contact@bucatarulpersonal.ro">contact@bucatarulpersonal.ro</a><br>
+        <a href="tel:+40700000000">+40 700 000 000</a><br>
+        <a class="bp-btn bp-btn--accent" href="#vreau" style="margin-top:8px">Vreau un bucătar</a>
       </div>
     </div>
-    <div>
-      <h4>Navigație</h4>
-      <a href="#cum">Cum funcționează</a><br>
-      <a href="#chefi">Bucătarii noștri</a><br>
-      <a href="#vreau">Vreau un bucătar</a><br>
-      <a href="#testi">Ce spun clienții</a><br>
-      <a href="#servicii">Servicii</a><br>
-      <a href="#despre">Despre noi</a>
-    </div>
-    <div>
-      <h4>Legal</h4>
-      <a href="#">Termeni & condiții</a><br>
-      <a href="#">Politica de confidențialitate</a><br>
-      <a href="#">Politica Cookie</a><br>
-      <a href="#">GDPR</a>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <a href="mailto:contact@bucatarul-personal.ro">contact@bucatarul-personal.ro</a><br>
-      <a href="tel:+40700000000">+40 700 000 000</a><br>
-      <a class="bp-btn bp-btn--accent" href="#vreau" style="margin-top:8px">Vreau un bucătar</a>
-    </div>
-  </div>
-  <div class="container legal">© 2025 Bucătarul Personal — Toate drepturile rezervate.</div>
-</footer>
+    <div class="container legal">© 2025 Bucătarul Personal — Toate drepturile rezervate.</div>
+  </footer>
 
   <script>
     (() => {
@@ -394,8 +383,6 @@ footer a{color:#cdd}
       const burger = qs('#bp-burger');
       const mobile = qs('#bp-mobile');
       const closeBtn = qs('#bp-close');
-      const yearEl = qs('#bp-year');
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
       if (burger && mobile && !mobile.dataset.bound){
         mobile.dataset.bound = '1';
         const open = () => mobile.classList.add('active');
@@ -403,7 +390,7 @@ footer a{color:#cdd}
         burger.addEventListener('click', open);
         closeBtn?.addEventListener('click', close);
         mobile.addEventListener('click', e=>{ if(e.target === mobile) close(); });
-        mobile.querySelectorAll('.sheet a').forEach(a=>a.addEventListener('click', close));
+        mobile.querySelectorAll('.sheet a, .sheet button.action').forEach(el=>el.addEventListener('click', close));
         document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
       }
 
@@ -443,53 +430,47 @@ footer a{color:#cdd}
         }
       });
     })();
-    <!-- Firebase Auth: afișează Contul meu / Autentificare și butonul de Ieșire -->
-<script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import { getAuth, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+  </script>
 
-// 1) COMPLETEAZĂ cu datele tale din Firebase Console (Project settings -> General -> SDK setup and configuration)
-const firebaseConfig = {
-apiKey: "REPLACE_ME",
-authDomain: "REPLACE_ME.firebaseapp.com",
-projectId: "REPLACE_ME",
-appId: "REPLACE_ME"
-};
+  <!-- Firebase Auth UI control: Contul meu / Autentificare / Ieșire -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+    import { getAuth, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-// persistă sesiunea în browser
-setPersistence(auth, browserLocalPersistence).catch(()=>{});
+    // COMPLETARE: datele tale din Firebase Console (Project settings → General → SDK setup and configuration)
+    const firebaseConfig = {
+      apiKey: 'REPLACE_ME',
+      authDomain: 'REPLACE_ME.firebaseapp.com',
+      projectId: 'REPLACE_ME',
+      appId: 'REPLACE_ME'
+    };
 
-const contLink = document.getElementById('contLink');
-const loginLink = document.getElementById('loginLink');
-const logoutBtn = document.getElementById('logoutBtn');
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    setPersistence(auth, browserLocalPersistence).catch(()=>{});
 
-onAuthStateChanged(auth, (user)=>{
-if (user){
-contLink?.removeAttribute('hidden');
-logoutBtn?.removeAttribute('hidden');
-loginLink?.setAttribute('hidden','');
-} else {
-contLink?.setAttribute('hidden','');
-logoutBtn?.setAttribute('hidden','');
-loginLink?.removeAttribute('hidden');
-}
-});
+    const show = (selector, visible) => document.querySelectorAll(selector).forEach(el => el.hidden = !visible);
 
-logoutBtn?.addEventListener('click', async ()=>{
-try {
-await signOut(auth);
-// opțional: curăță hashul meniului mobil
-nav.classList.remove('open');
-// redirecționează acasă
-window.location.href = '/';
-} catch (e){
-alert('Nu te-am putut deloga acum. Încearcă din nou.');
-console.error(e);
-}
-});
-</script>
+    onAuthStateChanged(auth, (user) => {
+      const isAuth = !!user;
+      show('.auth-cont',   isAuth);
+      show('.auth-logout', isAuth);
+      show('.auth-login',  !isAuth);
+    });
+
+    document.querySelectorAll('.auth-logout').forEach(btn => btn.addEventListener('click', async () => {
+      try{
+        await signOut(auth);
+        // Închide meniul mobil dacă e deschis
+        const mobile = document.getElementById('bp-mobile');
+        mobile?.classList.remove('active');
+        // Redirecționează acasă
+        window.location.href = '/';
+      }catch(e){
+        alert('Nu te-am putut deloga acum. Încearcă din nou.');
+        console.error(e);
+      }
+    }));
   </script>
 </body>
 </html>
