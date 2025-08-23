@@ -160,17 +160,19 @@ footer a{color:#cdd}
     .panel{padding:18px}
   </style>
 </head>
-<body>
-  <!-- ===== HEADER ===== -->
-  <header>
-    <div class="container nav">
-      <a href="/" class="brand" aria-label="Acasă">
-        <span class="bp">BP</span>
-        <span class="name">Bucătarul Personal</span>
+<!-- ===== HEADER (fără bandă, full-width) ===== -->
+<header id="bp-header" role="banner">
+  <div class="bp-nav">
+    <div class="bp-bar bp-container">
+      <a class="bp-brand" href="#top" aria-label="Bucătarul Personal – pagina principală">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle cx="100" cy="100" r="80" fill="none" stroke-width="6"/>
+          <text x="100" y="116" text-anchor="middle"
+                font-family="Playfair Display,serif" font-weight="700" font-size="54" letter-spacing="2">BP</text>
+        </svg>
+        BUCĂTARUL&nbsp;PERSONAL
       </a>
-
-      <!-- ORDINEA cerută -->
-       <nav class="bp-links" aria-label="Navigație principală">
+      <nav class="bp-links" aria-label="Navigație principală">
         <a href="#despre">Despre noi</a> 
         <a href="bucatarii.html">Bucătarii noștri</a>
          <a href="#servicii">Servicii</a>        
@@ -188,10 +190,8 @@ footer a{color:#cdd}
          <a href="#servicii">Servicii</a>        
         <a href="blog.html">Blog</a>
         <a href="contul.html">Contul meu</a>
-    </nav>
-      </div>
-    </div>
-  </header>
+  </nav>
+</header>
 
   <!-- ===== CONTENT ===== -->
   <main class="container">
