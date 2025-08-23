@@ -175,44 +175,38 @@ footer a{color:#cdd}
   </style>
 </head>
 <body>
-  <!-- ===== HEADER ===== -->
-  <header>
-    <div class="container nav">
-      <a href="/" class="brand" aria-label="Acasă">
-        <span class="bp">BP</span>
-        <span class="name">Bucătarul Personal</span>
+ <!-- ===== HEADER (fără bandă, full-width) ===== -->
+<header id="bp-header" role="banner">
+  <div class="bp-nav">
+    <div class="bp-bar bp-container">
+      <a class="bp-brand" href="#top" aria-label="Bucătarul Personal – pagina principală">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle cx="100" cy="100" r="80" fill="none" stroke-width="6"/>
+          <text x="100" y="116" text-anchor="middle"
+                font-family="Playfair Display,serif" font-weight="700" font-size="54" letter-spacing="2">BP</text>
+        </svg>
+        BUCĂTARUL&nbsp;PERSONAL
       </a>
-
-      <!-- ORDINEA cerută -->
-      <nav class="links" aria-label="Navigație principală">
-        <a href="/cum-functioneaza.html">Cum funcționează</a>
-        <a href="/bucatarii.html">Bucătarii noștri</a>
-        <a href="/testimoniale.html">Ce spun clienții</a>
-        <a href="/servicii.html">Servicii</a>
-        <a href="/despre-noi.html">Despre noi</a>
-        <a href="/cont.html" class="btn-ghost">Contul meu</a>
+      <nav class="bp-links" aria-label="Navigație principală">
+        <a href="#despre">Despre noi</a> 
+        <a href="bucatarii.html">Bucătarii noștri</a>
+         <a href="#servicii">Servicii</a>        
+        <a href="blog.html">Blog</a>
+        <a href="contul.html">Contul meu</a>
       </nav>
-
-      <button class="burger" id="bp-burger" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
+      <button class="bp-hamb" aria-controls="bp-mobile" aria-expanded="false" aria-label="Deschide meniul">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-
-    <!-- MENIU MOBIL -->
-    <div class="mobile" id="bp-mobile" aria-hidden="true">
-      <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu principal">
-        <div style="display:flex; justify-content:space-between; align-items:center">
-          <div style="display:flex; align-items:center; gap:10px">
-            <span class="bp">BP</span><strong style="color:#fff">Bucătarul Personal</strong>
-          </div>
-          <button class="btn btn-ghost" id="bp-close"><i class="fa-solid fa-xmark"></i> Închide</button>
-        </div>
-        <a href="/cum-functioneaza.html">Cum funcționează</a>
-        <a href="/bucatarii.html">Bucătarii noștri</a>
-        <a href="/testimoniale.html">Ce spun clienții</a>
-        <a href="/servicii.html">Servicii</a>
-        <a href="/despre-noi.html">Despre noi</a>
-        <a href="/cont.html" class="btn-ghost">Contul meu</a>
-    </div>
-  </header>
+  </div>
+  <nav id="bp-mobile" aria-label="Meniu mobil">
+    <a href="#despre">Despre noi</a> 
+        <a href="bucatarii.html">Bucătarii noștri</a>
+         <a href="#servicii">Servicii</a>        
+        <a href="blog.html">Blog</a>
+        <a href="contul.html">Contul meu</a>
+  </nav>
+</header>
 
   <!-- ===== CONTENT ===== -->
   <main class="container">
