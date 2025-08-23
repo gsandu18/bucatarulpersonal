@@ -443,6 +443,53 @@ footer a{color:#cdd}
         }
       });
     })();
+    <!-- Firebase Auth: afișează Contul meu / Autentificare și butonul de Ieșire -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { getAuth, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+
+// 1) COMPLETEAZĂ cu datele tale din Firebase Console (Project settings -> General -> SDK setup and configuration)
+const firebaseConfig = {
+apiKey: "REPLACE_ME",
+authDomain: "REPLACE_ME.firebaseapp.com",
+projectId: "REPLACE_ME",
+appId: "REPLACE_ME"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+// persistă sesiunea în browser
+setPersistence(auth, browserLocalPersistence).catch(()=>{});
+
+const contLink = document.getElementById('contLink');
+const loginLink = document.getElementById('loginLink');
+const logoutBtn = document.getElementById('logoutBtn');
+
+onAuthStateChanged(auth, (user)=>{
+if (user){
+contLink?.removeAttribute('hidden');
+logoutBtn?.removeAttribute('hidden');
+loginLink?.setAttribute('hidden','');
+} else {
+contLink?.setAttribute('hidden','');
+logoutBtn?.setAttribute('hidden','');
+loginLink?.removeAttribute('hidden');
+}
+});
+
+logoutBtn?.addEventListener('click', async ()=>{
+try {
+await signOut(auth);
+// opțional: curăță hashul meniului mobil
+nav.classList.remove('open');
+// redirecționează acasă
+window.location.href = '/';
+} catch (e){
+alert('Nu te-am putut deloga acum. Încearcă din nou.');
+console.error(e);
+}
+});
+</script>
   </script>
 </body>
 </html>
