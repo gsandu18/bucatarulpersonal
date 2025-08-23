@@ -96,9 +96,16 @@
     .actions.between{justify-content:space-between}
     .hl{display:inline-flex;align-items:center;white-space:nowrap;background:rgba(14,90,67,.08);border:1px solid rgba(14,90,67,.25);padding:6px 10px;border-radius:999px;font-weight:700}
 
-    /* ===== FOOTER ===== */
-    footer{border-top:1px solid var(--b2);margin-top:32px}
-    .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;color:#667}
+  /* Footer */
+footer{background:#0f1412;color:#cdd;border-top:2px solid var(--accent);padding:40px 0 18px}
+.footer{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:22px}
+footer h4{margin:0 0 10px;color:#fff}
+footer a{color:#cdd}
+.social{display:flex;gap:10px}
+.social a{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;border:1px solid #2c2f2d}
+.social a:hover{border-color:var(--accent);color:#fff}
+.legal{margin-top:16px;border-top:1px solid #262b28;padding-top:12px;font-size:13px;color:#9fb}
+
   /* --- Mobile fixes: input types + terms row --- */
     input[type="text"],
     input[type="email"],
