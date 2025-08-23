@@ -98,16 +98,51 @@
     .actions.between{justify-content:space-between}
     .hl{display:inline-flex;align-items:center;white-space:nowrap;background:rgba(212,178,79,.12);border:1px solid rgba(212,178,79,.45);padding:6px 10px;border-radius:999px;font-weight:700}
 
-  /* Footer */
-footer{background:#0f1412;color:#cdd;border-top:2px solid var(--accent);padding:40px 0 18px}
-.footer{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:22px}
-footer h4{margin:0 0 10px;color:#fff}
-footer a{color:#cdd}
-.social{display:flex;gap:10px}
-.social a{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;border:1px solid #2c2f2d}
-.social a:hover{border-color:var(--accent);color:#fff}
-.legal{margin-top:16px;border-top:1px solid #262b28;padding-top:12px;font-size:13px;color:#9fb}
-
+    /* ===== FOOTER ===== */
+    footer{border-top:1px solid var(--b2);margin-top:32px}
+    .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;color:#667}
+  /* --- Mobile fixes: input types + terms row --- */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="url"],
+    select,
+    textarea{
+      width:100%;
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid var(--b3);
+      background:#fbfcfc;
+    }
+    input[type="checkbox"],
+    input[type="radio"]{
+      width:auto; height:auto; padding:0; margin:0; accent-color: var(--rubin);
+    }
+    .agree{ display:flex; align-items:center; gap:8px; margin-top:6px; flex-wrap:wrap; }
+    .agree .link-terms{ color:var(--rubin); font-weight:700; text-decoration:underline; border:0; background:transparent; padding:0; }
+    .agree .link-terms:hover{ text-decoration:none; }
+  .sec-title{font-family:"Playfair Display",serif;font-size:clamp(24px,4vw,34px);margin:10px 0 6px}
+    .stack{margin-top:18px}
+    .stack+.stack{margin-top:26px}
+  .grid.single{grid-template-columns:min(680px,100%);justify-content:center}
+  .split{display:grid;grid-template-columns:1fr 1fr;border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+    @media(max-width:980px){.split{grid-template-columns:1fr}}
+    .pane{padding:28px}
+    .pane-title{font-family:"Playfair Display",serif;font-size:clamp(26px,4vw,38px);text-align:center;margin:0 0 16px}
+    .pane.left{background:#eef3f9}
+    .pane.right{background:#53b36a;color:#fff}
+    .pane.right label{color:#fff}
+    .pane.right .btn-primary.inv{background:#fff;color:#1d1f1e;border-color:transparent}
+    .pane.left .btn-primary{background:#53b36a;color:#fff;border-color:transparent}
+    .pane.right input, .pane.right select, .pane.right textarea{background:#fff;border-color:transparent;box-shadow:0 6px 14px rgba(0,0,0,.12)}
+    .pane.left input, .pane.left select, .pane.left textarea{border:1px solid #94cda3}
+    .g-recaptcha{transform-origin:left top}
+  .tabs{margin-top:18px;border:1px solid var(--b2);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#fff,#fafcfa)}
+    .tablist{display:flex;gap:6px;padding:8px;background:#fff;border-bottom:1px solid var(--b2)}
+    .tab{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:10px;border:1px solid var(--b2);background:#fff;font-weight:700;cursor:pointer}
+    .tab[aria-selected="true"]{background:var(--g1);border-color:rgba(14,90,67,.35);color:var(--rubin)}
+    .panel{padding:18px}
   </style>
 </head>
 <body>
@@ -121,11 +156,14 @@ footer a{color:#cdd}
 
       <!-- ORDINEA cerută -->
       <nav class="links" aria-label="Navigație principală">
-        <a href="/despre-noi.html">Despre noi</a>
+        <a href="/cum-functioneaza.html">Cum funcționează</a>
         <a href="/bucatarii.html">Bucătarii noștri</a>
+        <a href="/testimoniale.html">Ce spun clienții</a>
         <a href="/servicii.html">Servicii</a>
+        <a href="/despre-noi.html">Despre noi</a>
         <a href="/cont.html" class="btn-ghost">Contul meu</a>
-    
+        <a href="/contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Vreau un bucătar</a>
+      </nav>
 
       <button class="burger" id="bp-burger" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
     </div>
@@ -133,122 +171,166 @@ footer a{color:#cdd}
     <!-- MENIU MOBIL -->
     <div class="mobile" id="bp-mobile" aria-hidden="true">
       <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu principal">
-       
-        
-      <div style="display:flex; justify-content:space-between; align-items:center">
+        <div style="display:flex; justify-content:space-between; align-items:center">
           <div style="display:flex; align-items:center; gap:10px">
             <span class="bp">BP</span><strong style="color:#fff">Bucătarul Personal</strong>
           </div>
           <button class="btn btn-ghost" id="bp-close"><i class="fa-solid fa-xmark"></i> Închide</button>
         </div>
-         <a href="/despre-noi.html">Despre noi</a>
+        <a href="/cum-functioneaza.html">Cum funcționează</a>
         <a href="/bucatarii.html">Bucătarii noștri</a>
+        <a href="/testimoniale.html">Ce spun clienții</a>
         <a href="/servicii.html">Servicii</a>
+        <a href="/despre-noi.html">Despre noi</a>
         <a href="/cont.html" class="btn-ghost">Contul meu</a>
+        <a href="/contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Vreau un bucătar</a>
+      </div>
     </div>
   </header>
 
   <!-- ===== CONTENT ===== -->
-</div>
-<div class="row two">
-<div>
-<label for="chef-email">Email *</label>
-<input id="chef-email" name="email" type="email" placeholder="nume@exemplu.com" required />
-</div>
-<div>
-<label for="chef-telefon">Telefon *</label>
-<input id="chef-telefon" name="telefon" type="tel" inputmode="tel" placeholder="+40 7xx xxx xxx" required />
-</div>
-</div>
-<div class="row">
-<div>
-<label for="chef-spec">Specializări (ex: italian, grill, pastry) *</label>
-<input id="chef-spec" name="specializari" type="text" placeholder="Italian, Grill, Sushi, Vegan..." required />
-</div>
-</div>
-<div class="row two">
-<div>
-<label for="chef-portofoliu">Portofoliu (URL)</label>
-<input id="chef-portofoliu" name="portofoliu" type="url" placeholder="https://linktr.ee/..." />
-</div>
-<div>
-<label for="chef-social">Profil social (URL)</label>
-<input id="chef-social" name="social" type="url" placeholder="https://instagram.com/..." />
-</div>
-</div>
-<div class="row two">
-<div>
-<label for="chef-diploma">Certificat de calificare (PDF/JPG) *</label>
-<input id="chef-diploma" name="diploma" type="file" accept=".pdf,.jpg,.jpeg,.png" required />
-</div>
-<div>
-<label for="chef-cv">CV (opțional)</label>
-<input id="chef-cv" name="cv" type="file" accept=".pdf,.doc,.docx" />
-</div>
-</div>
-<label style="display:inline-flex;align-items:center;gap:8px">
-<input type="checkbox" name="gdpr" required> Sunt de acord cu prelucrarea datelor mele în scop de recrutare.
-</label>
-<input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
-<div class="actions" style="margin-top:10px">
-<button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Trimite aplicația</button>
-<span class="muted">Timp completare: ~2 minute</span>
-</div>
-</form>
-</div>
-</div>
-</div>
-</section>
+  <main class="container">
+    <div class="page-head">
+      <h1>Contul meu</h1>
+      <p class="muted">Autentifică-te. Contul client se creează automat după prima comandă — vei primi pe email o parolă temporară pe care o poți schimba ulterior. Dacă ești bucătar, te poți înregistra pentru colaborare.</p>
+    </div>
+
+    <section class="tabs" id="tabs">
+      <div class="tablist" role="tablist" aria-label="Tip cont">
+        <button class="tab" role="tab" id="tab-client" aria-controls="panel-client" aria-selected="true">
+          <i class="fa-solid fa-user"></i> Client
+        </button>
+        <button class="tab" role="tab" id="tab-bucatar" aria-controls="panel-bucatar" aria-selected="false">
+          <i class="fa-solid fa-hat-chef"></i> Înregistrare Bucătar
+        </button>
+      </div>
+
+      <!-- Panel: Client -->
+      <div class="panel" id="panel-client" role="tabpanel" aria-labelledby="tab-client">
+        <div class="grid">
+          <!-- Login Client -->
+          <div class="card">
+            <div class="hd"><i class="fa-solid fa-right-to-bracket"></i><strong>Autentificare</strong></div>
+            <div class="bd">
+              <form id="form-login" class="row" method="POST" action="/auth/login">
+                <div class="row">
+                  <label for="login-email">Email</label>
+                  <input id="login-email" name="email" type="email" placeholder="nume@exemplu.com" required />
+                </div>
+                <div class="row">
+                  <label for="login-pass">Parolă</label>
+                  <div style="position:relative">
+                    <input id="login-pass" name="password" type="password" placeholder="••••••••" required />
+                    <button type="button" class="btn" id="toggle-login-pass" style="position:absolute;right:6px;top:6px;padding:8px 12px"><i class="fa-solid fa-eye"></i></button>
+                  </div>
+                </div>
+                <div class="actions between">
+                  <label style="display:inline-flex;align-items:center;gap:8px">
+                    <input type="checkbox" name="remember" value="1"> Ține-mă minte
+                  </label>
+                  <a class="hl" href="/auth/forgot">Ai uitat parola?</a>
+                </div>
+                <div class="actions" style="margin-top:10px">
+                  <button class="btn btn-primary" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Intră în cont</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Info/creare cont client (respectăm designul, dar explicăm fluxul automat) -->
+          <div class="card">
+            <div class="hd"><i class="fa-solid fa-hat-chef"></i><strong>Înregistrează-te ca Bucătar</strong></div>
+            <div class="bd">
+              <p class="muted" style="margin-top:0">Vrei să colaborezi cu noi? Creează-ți cont de bucătar și primește cereri pentru evenimente.</p>
+              <div class="actions">
+                <button class="btn btn-primary" id="go-chef"><i class="fa-solid fa-hat-chef"></i> Înregistrează-te ca bucătar</button>
+              </div>
+              <p class="tip" style="margin-top:12px">Ai deja cont? Autentifică-te din secțiunea <strong>Autentificare</strong>.</p>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Panel: Bucătar -->
+      <div class="panel" id="panel-bucatar" role="tabpanel" aria-labelledby="tab-bucatar" hidden>
+        <div class="card">
+          <div class="hd"><i class="fa-solid fa-hat-chef"></i><strong>Înregistrare Bucătar</strong></div>
+          <div class="bd">
+            <form id="form-chef" class="row" method="POST" action="/api/chef_apply.php" enctype="multipart/form-data">
+              <div class="row two">
+                <div>
+                  <label for="chef-nume">Nume complet *</label>
+                  <input id="chef-nume" name="nume" type="text" placeholder="Nume și prenume" required />
+                </div>
+                <div>
+                  <label for="chef-oras">Oraș *</label>
+                  <input id="chef-oras" name="oras" type="text" placeholder="București / Milano / Roma" required />
+                </div>
+              </div>
+              <div class="row two">
+                <div>
+                  <label for="chef-email">Email *</label>
+                  <input id="chef-email" name="email" type="email" placeholder="nume@exemplu.com" required />
+                </div>
+                <div>
+                  <label for="chef-telefon">Telefon *</label>
+                  <input id="chef-telefon" name="telefon" type="tel" inputmode="tel" placeholder="+40 7xx xxx xxx" required />
+                </div>
+              </div>
+              <div class="row">
+                <div>
+                  <label for="chef-spec">Specializări (ex: italian, grill, pastry) *</label>
+                  <input id="chef-spec" name="specializari" type="text" placeholder="Italian, Grill, Sushi, Vegan..." required />
+                </div>
+              </div>
+              <div class="row two">
+                <div>
+                  <label for="chef-portofoliu">Portofoliu (URL)</label>
+                  <input id="chef-portofoliu" name="portofoliu" type="url" placeholder="https://linktr.ee/..." />
+                </div>
+                <div>
+                  <label for="chef-social">Profil social (URL)</label>
+                  <input id="chef-social" name="social" type="url" placeholder="https://instagram.com/..." />
+                </div>
+              </div>
+              <div class="row two">
+                <div>
+                  <label for="chef-diploma">Certificat de calificare (PDF/JPG) *</label>
+                  <input id="chef-diploma" name="diploma" type="file" accept=".pdf,.jpg,.jpeg,.png" required />
+                </div>
+                <div>
+                  <label for="chef-cv">CV (opțional)</label>
+                  <input id="chef-cv" name="cv" type="file" accept=".pdf,.doc,.docx" />
+                </div>
+              </div>
+              <label style="display:inline-flex;align-items:center;gap:8px">
+                <input type="checkbox" name="gdpr" required> Sunt de acord cu prelucrarea datelor mele în scop de recrutare.
+              </label>
+              <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+              <div class="actions" style="margin-top:10px">
+                <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Trimite aplicația</button>
+                <span class="muted">Timp completare: ~2 minute</span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
 
     
   </main>
 
- <!-- Footer -->
-<footer role="contentinfo">
-  <div class="container footer">
-    <div>
-      <div style="display:flex;align-items:center;gap:10px;color:#fff;margin-bottom:8px">
-        <svg viewBox="0 0 200 200" width="26" height="26" aria-hidden="true">
-          <circle cx="100" cy="100" r="80" fill="none" stroke="#C9A646" stroke-width="6"/>
-          <text x="100" y="116" text-anchor="middle"
-                font-family="Playfair Display,serif" font-weight="700" font-size="54" letter-spacing="2"
-                fill="#fff">BP</text>
-        </svg>
-        <strong>BUCĂTARUL PERSONAL</strong>
-      </div>
-      <p style="margin:0 0 10px">Experiențe culinare premium cu chefi profesioniști.</p>
-      <div class="social" aria-label="Social media">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Instagram">ig</a>
-        <a href="#" aria-label="TikTok">tt</a>
-        <a href="#" aria-label="LinkedIn">in</a>
-      </div>
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container foot">
+      <small>© <span id="bp-year"></span> Bucătarul Personal</small>
+      <a href="https://wa.me/40772893476" target="_blank" class="btn" style="background:#25D366;color:#fff;border-color:transparent">
+        <i class="fa-brands fa-whatsapp"></i> 0772 893 476
+      </a>
     </div>
-    <div>
-      <h4>Navigație</h4>
-      <a href="#cum">Cum funcționează</a><br>
-      <a href="#chefi">Bucătarii noștri</a><br>
-      <a href="#vreau">Vreau un bucătar</a><br>
-      <a href="#testi">Ce spun clienții</a><br>
-      <a href="#servicii">Servicii</a><br>
-      <a href="#despre">Despre noi</a>
-    </div>
-    <div>
-      <h4>Legal</h4>
-      <a href="#">Termeni & condiții</a><br>
-      <a href="#">Politica de confidențialitate</a><br>
-      <a href="#">Politica Cookie</a><br>
-      <a href="#">GDPR</a>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <a href="mailto:contact@bucatarul-personal.ro">contact@bucatarul-personal.ro</a><br>
-      <a href="tel:+40700000000">+40 700 000 000</a><br>
-      <a class="bp-btn bp-btn--accent" href="#vreau" style="margin-top:8px">Vreau un bucătar</a>
-    </div>
-  </div>
-  <div class="container legal">© 2025 Bucătarul Personal — Toate drepturile rezervate.</div>
-</footer>
+  </footer>
+
   <script>
     (() => {
       const qs = (s, r=document) => r.querySelector(s);
