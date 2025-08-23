@@ -432,45 +432,6 @@
     })();
   </script>
 
-  <!-- Firebase Auth UI control: Contul meu / Autentificare / Ieșire -->
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-    import { getAuth, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-
-    // COMPLETARE: datele tale din Firebase Console (Project settings → General → SDK setup and configuration)
-    const firebaseConfig = {
-      apiKey: 'REPLACE_ME',
-      authDomain: 'REPLACE_ME.firebaseapp.com',
-      projectId: 'REPLACE_ME',
-      appId: 'REPLACE_ME'
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    setPersistence(auth, browserLocalPersistence).catch(()=>{});
-
-    const show = (selector, visible) => document.querySelectorAll(selector).forEach(el => el.hidden = !visible);
-
-    onAuthStateChanged(auth, (user) => {
-      const isAuth = !!user;
-      show('.auth-cont',   isAuth);
-      show('.auth-logout', isAuth);
-      show('.auth-login',  !isAuth);
-    });
-
-    document.querySelectorAll('.auth-logout').forEach(btn => btn.addEventListener('click', async () => {
-      try{
-        await signOut(auth);
-        // Închide meniul mobil dacă e deschis
-        const mobile = document.getElementById('bp-mobile');
-        mobile?.classList.remove('active');
-        // Redirecționează acasă
-        window.location.href = '/';
-      }catch(e){
-        alert('Nu te-am putut deloga acum. Încearcă din nou.');
-        console.error(e);
-      }
-    }));
-  </script>
+ 
 </body>
 </html>
