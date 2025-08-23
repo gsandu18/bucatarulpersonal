@@ -45,28 +45,42 @@
     img{max-width:100%;display:block}
     .container{width:min(var(--max),92%);margin:0 auto}
 
-    /* ===== HEADER (dark) ===== */
-    header{position:sticky;top:0;z-index:50;background:var(--dark);border-bottom:none}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
-    .brand{display:flex;align-items:center;gap:12px}
-    .bp{width:28px;height:28px;border-radius:999px;border:2px solid var(--gold);display:grid;place-items:center;color:#fff;font-weight:800;font-size:12px;letter-spacing:.4px}
-    .name{color:#fff;font-weight:800;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;font-size:clamp(13px,2.4vw,18px)}
-    .links{display:flex;gap:18px;align-items:center}
-    .links a{color:#fff;font-weight:600;opacity:.9}
-    .links a:hover{opacity:1}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:1px solid var(--b3);font-weight:700;background:#fff}
-    .btn-ghost{background:transparent;border-color:rgba(255,255,255,.2);color:#fff}
-    .btn-primary{background:var(--gold);color:#0b0d0c;border-color:transparent}
-    .btn-primary:hover{filter:brightness(.95)}
-    .btn-primary:hover{filter:brightness(.95)}
-    .burger{display:none;width:36px;height:36px;border-radius:10px;border:1px solid rgba(255,255,255,.25);align-items:center;justify-content:center;background:transparent;color:#fff}
-    @media(max-width:980px){.links{display:none}.burger{display:flex}}
+    /* ===== HEADER NEGRU FULL-WIDTH ===== */
+#bp-header{position:fixed;inset:0 0 auto 0;z-index:50}
+.bp-nav{
+  width:100%; margin:0;                       /* full-width */
+  background:#0f1412; color:#fff;
+  border-bottom:1px solid #1b221f;
+  transition:box-shadow .2s ease;
+}
+#bp-header.scrolled .bp-nav{ box-shadow:0 8px 24px rgba(0,0,0,.22) }
+.bp-bar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding-inline:12px}
+.bp-container{max-width:min(1200px,100% - 48px);margin-inline:auto}
 
-    /* mobil sheet în temă închisă */
-    .mobile{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);display:none}
-    .mobile.active{display:block}
-    .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#111514;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;color:#fff}
-    .sheet a{padding:12px 8px;border-bottom:1px solid rgba(255,255,255,.12);font-weight:600;color:#fff}
+.bp-brand{display:flex;align-items:center;gap:12px;letter-spacing:.16em;font-weight:700;color:#fff}
+.bp-brand svg{width:30px;height:30px}
+.bp-brand circle{stroke:var(--accent)}
+.bp-brand text{fill:#fff}
+
+.bp-links{display:flex;gap:22px}
+.bp-links a{color:#fff;font-weight:500}
+.bp-links a:hover{color:var(--accent)}
+
+.bp-btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;
+        padding:12px 18px;font-weight:600;border:1px solid transparent;cursor:pointer}
+.bp-btn--accent{background:var(--accent);color:#231f1a;border-color:#B7983A}
+.bp-btn--ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+
+.bp-hamb{display:none;background:none;border:0;padding:10px}
+.bp-hamb span{display:block;width:26px;height:2px;background:#fff;border-radius:2px;margin:6px 0}
+
+#bp-mobile{display:none;position:fixed;inset:76px 0 0 0;background:#0f1412;color:#fff;padding:16px;
+           box-shadow:0 14px 40px rgba(0,0,0,.25)}
+#bp-mobile a{display:block;padding:14px;border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
+#bp-mobile .bp-btn{margin-top:10px;display:inline-flex}
+
+@media (max-width:1024px){ .bp-links{display:none} .bp-hamb{display:inline-block} }
+
 
     /* ===== PAGE ===== */
     main{padding:42px 0}
@@ -333,16 +347,52 @@ footer a{color:#cdd}
     
   </main>
 
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="container foot">
-      <small>© <span id="bp-year"></span> Bucătarul Personal</small>
-      <a href="https://wa.me/40772893476" target="_blank" class="btn" style="background:#25D366;color:#fff;border-color:transparent">
-        <i class="fa-brands fa-whatsapp"></i> 0772 893 476
-      </a>
+ <!-- Footer -->
+<footer role="contentinfo">
+  <div class="container footer">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;color:#fff;margin-bottom:8px">
+        <svg viewBox="0 0 200 200" width="26" height="26" aria-hidden="true">
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#C9A646" stroke-width="6"/>
+          <text x="100" y="116" text-anchor="middle"
+                font-family="Playfair Display,serif" font-weight="700" font-size="54" letter-spacing="2"
+                fill="#fff">BP</text>
+        </svg>
+        <strong>BUCĂTARUL PERSONAL</strong>
+      </div>
+      <p style="margin:0 0 10px">Experiențe culinare premium cu chefi profesioniști.</p>
+      <div class="social" aria-label="Social media">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="TikTok">tt</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+      </div>
     </div>
-  </footer>
-
+    <div>
+      <h4>Navigație</h4>
+      <a href="#cum">Cum funcționează</a><br>
+      <a href="#chefi">Bucătarii noștri</a><br>
+      <a href="#vreau">Vreau un bucătar</a><br>
+      <a href="#testi">Ce spun clienții</a><br>
+      <a href="#servicii">Servicii</a><br>
+      <a href="#despre">Despre noi</a>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <a href="#">Termeni & condiții</a><br>
+      <a href="#">Politica de confidențialitate</a><br>
+      <a href="#">Politica Cookie</a><br>
+      <a href="#">GDPR</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="mailto:contact@bucatarul-personal.ro">contact@bucatarul-personal.ro</a><br>
+      <a href="tel:+40700000000">+40 700 000 000</a><br>
+      <a class="bp-btn bp-btn--accent" href="#vreau" style="margin-top:8px">Vreau un bucătar</a>
+    </div>
+  </div>
+  <div class="container legal">© 2025 Bucătarul Personal — Toate drepturile rezervate.</div>
+</footer>
   <script>
     (() => {
       const qs = (s, r=document) => r.querySelector(s);
