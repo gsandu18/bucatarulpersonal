@@ -115,213 +115,62 @@
   </style>
 </head>
 <body>
-  <!-- ===== HEADER ===== -->
-  <header>
-    <div class="container nav">
-      <a href="/" class="brand" aria-label="Acasă">
-        <span class="bp">BP</span>
-        <span class="name">Bucătarul Personal</span>
-      </a>
+ <!-- ===== HEADER ===== -->
+<label for="chef-oras">Oraș *</label>
+<input id="chef-oras" name="oras" type="text" placeholder="București / Milano / Roma" required />
+</div>
+</div>
+<div class="row two">
+<div>
+<label for="chef-email">Email *</label>
+<input id="chef-email" name="email" type="email" placeholder="nume@exemplu.com" required />
+</div>
+<div>
+<label for="chef-telefon">Telefon *</label>
+<input id="chef-telefon" name="telefon" type="tel" inputmode="tel" placeholder="+40 7xx xxx xxx" required />
+</div>
+</div>
+<div class="row">
+<div>
+<label for="chef-spec">Specializări (ex: italian, grill, pastry) *</label>
+<input id="chef-spec" name="specializari" type="text" placeholder="Italian, Grill, Sushi, Vegan..." required />
+</div>
+</div>
+<div class="row two">
+<div>
+<label for="chef-portofoliu">Portofoliu (URL)</label>
+<input id="chef-portofoliu" name="portofoliu" type="url" placeholder="https://linktr.ee/..." />
+</div>
+<div>
+<label for="chef-social">Profil social (URL)</label>
+<input id="chef-social" name="social" type="url" placeholder="https://instagram.com/..." />
+</div>
+</div>
+<div class="row two">
+<div>
+<label for="chef-diploma">Certificat de calificare (PDF/JPG) *</label>
+<input id="chef-diploma" name="diploma" type="file" accept=".pdf,.jpg,.jpeg,.png" required />
+</div>
+<div>
+<label for="chef-cv">CV (opțional)</label>
+<input id="chef-cv" name="cv" type="file" accept=".pdf,.doc,.docx" />
+</div>
+</div>
+<label style="display:inline-flex;align-items:center;gap:8px">
+<input type="checkbox" name="gdpr" required> Sunt de acord cu prelucrarea datelor mele în scop de recrutare.
+</label>
+<input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+<div class="actions" style="margin-top:10px">
+<button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Trimite aplicația</button>
+<span class="muted">Timp completare: ~2 minute</span>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
 
-      <!-- ORDINEA cerută -->
-      <nav class="links" aria-label="Navigație principală">
-        <a href="/despre-noi.html">Despre noi</a>
-        <a href="/bucatarii.html">Bucătarii noștri</a>
-        <a href="/servicii.html">Servicii</a>
-        <a href="/blog.html">Blog</a>
-        <a href="/cont.html" class="btn-ghost auth-cont" hidden>Contul meu</a>
-      </nav>
 
-      <button class="burger" id="bp-burger" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
-    </div>
-
-    <!-- MENIU MOBIL -->
-    <div class="mobile" id="bp-mobile" aria-hidden="true">
-      <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu principal">
-        <div style="display:flex; justify-content:space-between; align-items:center">
-          <div style="display:flex; align-items:center; gap:10px">
-            <span class="bp">BP</span><strong style="color:#fff">Bucătarul Personal</strong>
-          </div>
-          <button class="btn btn-ghost" id="bp-close"><i class="fa-solid fa-xmark"></i> Închide</button>
-        </div>
-        <a href="/despre-noi.html">Despre noi</a>
-        <a href="/bucatarii.html">Bucătării noștri</a>
-        <a href="/servicii.html">Servicii</a>
-        <a href="/blog.html">Blog</a>
-        <a href="/cont.html" class="action auth-cont" hidden>Contul meu</a>
-    </div>
-  </header>
-
-  <!-- ===== CONTENT ===== -->
-  <main class="container">
-    <div class="page-head">
-      <h1>Contul meu</h1>
-      <p class="muted">Autentifică-te sau creează-ți un cont. Dacă ești bucătar, te poți înregistra pentru colaborare.</p>
-    </div>
-
-    <section class="tabs" id="tabs">
-      <div class="tablist" role="tablist" aria-label="Tip cont">
-        <button class="tab" role="tab" id="tab-client" aria-controls="panel-client" aria-selected="true">
-          <i class="fa-solid fa-user"></i> Client
-        </button>
-        <button class="tab" role="tab" id="tab-bucatar" aria-controls="panel-bucatar" aria-selected="false">
-          <i class="fa-solid fa-hat-chef"></i> Bucătar
-        </button>
-      </div>
-
-      <!-- Panel: Client -->
-      <div class="panel" id="panel-client" role="tabpanel" aria-labelledby="tab-client">
-        <div class="grid">
-          <!-- Login -->
-          <div class="card">
-            <div class="hd"><i class="fa-solid fa-right-to-bracket"></i><strong>Autentificare</strong></div>
-            <div class="bd">
-              <form id="form-login" class="row" method="POST" action="/auth/login">
-                <div class="row">
-                  <label for="login-email">Email</label>
-                  <input id="login-email" name="email" type="email" placeholder="nume@exemplu.com" required />
-                </div>
-                <div class="row">
-                  <label for="login-pass">Parolă</label>
-                  <div style="position:relative">
-                    <input id="login-pass" name="password" type="password" placeholder="••••••••" required />
-                    <button type="button" class="btn" id="toggle-login-pass" style="position:absolute;right:6px;top:6px;padding:8px 12px"><i class="fa-solid fa-eye"></i></button>
-                  </div>
-                </div>
-                <div class="actions between">
-                  <label style="display:inline-flex;align-items:center;gap:8px">
-                    <input type="checkbox" name="remember" value="1"> Ține-mă minte
-                  </label>
-                  <a class="hl" href="/auth/forgot">Ai uitat parola?</a>
-                </div>
-                <div class="actions" style="margin-top:10px">
-                  <button class="btn btn-primary" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Intră în cont</button>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <!-- Register -->
-          <div class="card">
-            <div class="hd"><i class="fa-solid fa-user-plus"></i><strong>Creează cont client</strong></div>
-            <div class="bd">
-              <form id="form-register" class="row" method="POST" action="/auth/register">
-                <div class="row two">
-                  <div>
-                    <label for="reg-nume">Nume</label>
-                    <input id="reg-nume" name="nume" type="text" placeholder="Nume complet" required />
-                  </div>
-                  <div>
-                    <label for="reg-oras">Oraș</label>
-                    <input id="reg-oras" name="oras" type="text" placeholder="București" required />
-                  </div>
-                </div>
-                <div class="row two">
-                  <div>
-                    <label for="reg-email">Email</label>
-                    <input id="reg-email" name="email" type="email" placeholder="nume@exemplu.com" required />
-                  </div>
-                  <div>
-                    <label for="reg-telefon">Telefon</label>
-                    <input id="reg-telefon" name="telefon" type="tel" inputmode="tel" pattern="^[0-9+\s\-()]{7,}$" placeholder="07xx xxx xxx" required />
-                  </div>
-                </div>
-                <div class="row two">
-                  <div>
-                    <label for="reg-pass">Parolă</label>
-                    <input id="reg-pass" name="password" type="password" minlength="6" placeholder="Minim 6 caractere" required />
-                  </div>
-                  <div>
-                    <label for="reg-pass2">Repetă parola</label>
-                    <input id="reg-pass2" name="password2" type="password" minlength="6" placeholder="Repetă parola" required />
-                  </div>
-                </div>
-                <label class="agree" for="agree-terms">
-                  <input id="agree-terms" type="checkbox" required />
-                  <span>Sunt de acord cu</span>
-                  <a href="/termeni.html" class="link-terms">Termenii &amp; Politica de confidențialitate</a>
-                </label>
-                <div class="actions" style="margin-top:10px">
-                  <button class="btn btn-primary" type="submit"><i class="fa-solid fa-user-plus"></i> Creează cont</button>
-                </div>
-                <p class="tip" style="margin-top:10px">Contul client îți permite să soliciți rapid un bucătar, să salvezi preferințe și să urmărești rezervările.</p>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel: Bucătar -->
-      <div class="panel" id="panel-bucatar" role="tabpanel" aria-labelledby="tab-bucatar" hidden>
-        <div class="card">
-          <div class="hd"><i class="fa-solid fa-hat-chef"></i><strong>Înregistrare ca Bucătar</strong></div>
-          <div class="bd">
-            <!-- ACTUALIZEAZĂ action către endpointul tău real -->
-            <form id="form-chef" class="row" method="POST" action="/api/chef_apply.php" enctype="multipart/form-data">
-              <div class="row two">
-                <div>
-                  <label for="chef-nume">Nume complet *</label>
-                  <input id="chef-nume" name="nume" type="text" placeholder="Nume și prenume" required />
-                </div>
-                <div>
-                  <label for="chef-oras">Oraș *</label>
-                  <input id="chef-oras" name="oras" type="text" placeholder="București / Milano / Roma" required />
-                </div>
-              </div>
-              <div class="row two">
-                <div>
-                  <label for="chef-email">Email *</label>
-                  <input id="chef-email" name="email" type="email" placeholder="nume@exemplu.com" required />
-                </div>
-                <div>
-                  <label for="chef-telefon">Telefon *</label>
-                  <input id="chef-telefon" name="telefon" type="tel" inputmode="tel" pattern="^[0-9+\s\-()]{7,}$" placeholder="+40 7xx xxx xxx" required />
-                </div>
-              </div>
-              <div class="row">
-                <div>
-                  <label for="chef-spec">Specializări (ex: italian, grill, pastry) *</label>
-                  <input id="chef-spec" name="specializari" type="text" placeholder="Italian, Grill, Sushi, Vegan..." required />
-                </div>
-              </div>
-              <div class="row two">
-                <div>
-                  <label for="chef-portofoliu">Portofoliu (URL)</label>
-                  <input id="chef-portofoliu" name="portofoliu" type="url" placeholder="https://linktr.ee/..." />
-                </div>
-                <div>
-                  <label for="chef-social">Profil social (URL)</label>
-                  <input id="chef-social" name="social" type="url" placeholder="https://instagram.com/..." />
-                </div>
-              </div>
-              <div class="row two">
-                <div>
-                  <label for="chef-diploma">Certificat de calificare (PDF/JPG) *</label>
-                  <input id="chef-diploma" name="diploma" type="file" accept=".pdf,.jpg,.jpeg,.png" required />
-                </div>
-                <div>
-                  <label for="chef-cv">CV (opțional)</label>
-                  <input id="chef-cv" name="cv" type="file" accept=".pdf,.doc,.docx" />
-                </div>
-              </div>
-              <label style="display:inline-flex;align-items:center;gap:8px">
-                <input type="checkbox" name="gdpr" required> Sunt de acord cu prelucrarea datelor mele în scop de recrutare.
-              </label>
-              <!-- honeypot anti-bot -->
-              <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
-              <div class="actions" style="margin-top:10px">
-                <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Trimite aplicația</button>
-                <span class="muted">Timp completare: ~2 minute</span>
-              </div>
-              <p class="tip" style="margin-top:10px">
-                După trimitere, primești confirmarea pe email. Dacă fișierele sunt mari, îți recomandăm Google Drive sau WeTransfer în câmpul Portofoliu.
-              </p>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
 
   <!-- Footer -->
   <footer role="contentinfo">
