@@ -45,43 +45,27 @@
     img{max-width:100%;display:block}
     .container{width:min(var(--max),92%);margin:0 auto}
 
-    /* ===== HEADER NEGRU FULL-WIDTH ===== */
-#bp-header{position:fixed;inset:0 0 auto 0;z-index:50}
-.bp-nav{
-  width:100%; margin:0;                       /* full-width */
-  background:#0f1412; color:#fff;
-  border-bottom:1px solid #1b221f;
-  transition:box-shadow .2s ease;
-}
-#bp-header.scrolled .bp-nav{ box-shadow:0 8px 24px rgba(0,0,0,.22) }
-.bp-bar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding-inline:12px}
-.bp-container{max-width:min(1200px,100% - 48px);margin-inline:auto}
+<!-- ===== HEADER ===== -->
+<header>
+<div class="container nav">
+<a href="/" class="brand" aria-label="Acasă">
+<span class="bp">BP</span>
+<span class="name">Bucătarul Personal</span>
+</a>
 
-.bp-brand{display:flex;align-items:center;gap:12px;letter-spacing:.16em;font-weight:700;color:#fff}
-.bp-brand svg{width:30px;height:30px}
-.bp-brand circle{stroke:var(--accent)}
-.bp-brand text{fill:#fff}
+<!-- ORDINEA cerută -->
+<nav class="links" aria-label="Navigație principală">
+<a href="/cum-functioneaza.html">Cum funcționează</a>
+<a href="/bucatarii.html">Bucătarii noștri</a>
+<a href="/testimoniale.html">Ce spun clienții</a>
+<a href="/servicii.html">Servicii</a>
+<a href="/despre-noi.html">Despre noi</a>
+<a href="/cont.html" class="btn-ghost">Contul meu</a>
+<a href="/contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Vreau un bucătar</a>
+</nav>
 
-.bp-links{display:flex;gap:22px}
-.bp-links a{color:#fff;font-weight:500}
-.bp-links a:hover{color:var(--accent)}
-
-.bp-btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;
-        padding:12px 18px;font-weight:600;border:1px solid transparent;cursor:pointer}
-.bp-btn--accent{background:var(--accent);color:#231f1a;border-color:#B7983A}
-.bp-btn--ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
-
-.bp-hamb{display:none;background:none;border:0;padding:10px}
-.bp-hamb span{display:block;width:26px;height:2px;background:#fff;border-radius:2px;margin:6px 0}
-
-#bp-mobile{display:none;position:fixed;inset:76px 0 0 0;background:#0f1412;color:#fff;padding:16px;
-           box-shadow:0 14px 40px rgba(0,0,0,.25)}
-#bp-mobile a{display:block;padding:14px;border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
-#bp-mobile .bp-btn{margin-top:10px;display:inline-flex}
-
-@media (max-width:1024px){ .bp-links{display:none} .bp-hamb{display:inline-block} }
-
-
+<button class="burger" id="bp-burger" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
+</div>
     /* ===== PAGE ===== */
     main{padding:42px 0}
     h1{font-family:"Playfair Display",serif;font-size:clamp(30px,5vw,46px);margin:0 0 10px}
