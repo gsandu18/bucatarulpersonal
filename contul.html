@@ -177,24 +177,18 @@ footer a{color:#cdd}
         <a href="blog.html">Blog</a>
         <a href="contul.html">Contul meu</a>
       </nav>
-
-      <button class="burger" id="bp-burger" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
+      <button class="bp-hamb" aria-controls="bp-mobile" aria-expanded="false" aria-label="Deschide meniul">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-
-    <!-- MENIU MOBIL -->
-    <div class="mobile" id="bp-mobile" aria-hidden="true">
-      <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu principal">
-        <div style="display:flex; justify-content:space-between; align-items:center">
-          <div style="display:flex; align-items:center; gap:10px">
-            <span class="bp">BP</span><strong style="color:#fff">Bucătarul Personal</strong>
-          </div>
-          <button class="btn btn-ghost" id="bp-close"><i class="fa-solid fa-xmark"></i> Închide</button>
-        </div>
-        <a href="#despre">Despre noi</a> 
+  </div>
+  <nav id="bp-mobile" aria-label="Meniu mobil">
+    <a href="#despre">Despre noi</a> 
         <a href="bucatarii.html">Bucătarii noștri</a>
          <a href="#servicii">Servicii</a>        
         <a href="blog.html">Blog</a>
         <a href="contul.html">Contul meu</a>
+    </nav>
       </div>
     </div>
   </header>
