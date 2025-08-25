@@ -108,6 +108,14 @@
     /* ===== FOOTER ===== */
     footer{border-top:1px solid var(--b2);margin-top:28px}
     .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:20px 0;color:#667}
+    .link-terms {
+  color: var(--rubin);
+  font-weight: 600;
+  text-decoration: underline;
+}
+.link-terms:hover {
+  text-decoration: none;
+}
   </style>
 </head>
 <body>
@@ -275,9 +283,10 @@
                 </div>
               </div>
 
-              <label class="remember" style="margin-top:4px">
-                <input type="checkbox" name="gdpr" required> Sunt de acord cu prelucrarea datelor mele în scop de recrutare.
-              </label>
+             <label class="remember" style="margin-top:4px">
+  <input type="checkbox" name="gdpr" required>
+  Sunt de acord cu <a href="/politica-confidentialitate.html" target="_blank" class="link-terms">Politica de confidențialitate</a> și <a href="/termeni-conditii.html" target="_blank" class="link-terms">Termenii & Condițiile</a>.
+</label>
               <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
 
               <div class="actions" style="margin-top:10px">
@@ -293,15 +302,16 @@
     </section>
   </main>
 
-  <!-- ===== FOOTER ===== -->
   <footer>
-    <div class="container foot">
-      <small>© <span id="bp-year"></span> Bucătarul Personal</small>
-      <a href="https://wa.me/40772893476" target="_blank" class="hl" style="background:#25D366;border-color:transparent;color:#fff">
-        <i class="fa-brands fa-whatsapp"></i>&nbsp;0772 893 476
-      </a>
-    </div>
-  </footer>
+  <div class="container foot">
+    <small>© <span id="bp-year"></span> Bucătarul Personal</small>
+    <nav style="display:flex;gap:18px;flex-wrap:wrap">
+      <a href="/termeni-conditii.html" class="link-terms">Termeni și condiții</a>
+      <a href="/politica-confidentialitate.html" class="link-terms">Politica de confidențialitate</a>
+      <a href="/gdpr.html" class="link-terms">GDPR</a>
+    </nav>
+  </div>
+</footer>
 
   <script>
     (() => {
