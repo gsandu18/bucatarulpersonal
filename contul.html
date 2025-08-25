@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Contul meu | Bucătarul Personal</title>
-  <meta name="description" content="Autentificare clienți, creare cont și înregistrare ca bucătar pe Bucătarul Personal." />
+  <meta name="description" content="Autentificare clienți și înregistrare ca bucătar. Responsive, prietenos pe mobil." />
   <link rel="canonical" href="https://www.bucatarulpersonal.ro/cont.html" />
 
   <!-- Open Graph -->
@@ -12,14 +12,13 @@
   <meta property="og:description" content="Intră în cont sau înregistrează-te ca bucătar." />
   <meta property="og:url" content="https://www.bucatarulpersonal.ro/cont.html" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://www.bucatarulpersonal.ro/static/og-bucatarul-personal.jpg" />
+  <meta property="og:image" content="/static/og-bucatarul-personal.jpg" />
   <meta name="theme-color" content="#0e5a43" />
 
   <!-- Icons -->
   <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
-  <link rel="mask-icon" href="/static/safari-pinned-tab.svg" color="#0e5a43">
   <link rel="manifest" href="/site.webmanifest">
 
   <!-- Fonts & Icons -->
@@ -30,46 +29,42 @@
 
   <style>
     :root{
-      --rubin:#0e5a43; --rubin-2:#0b4a36;
+      --rubin:#0e5a43; --rubin-2:#0b4a36; --gold:#d4b24f;
       --text:#1c2226; --muted:#5c6a6f;
       --b1:#fff; --b2:#e8ecee; --b3:#cfd6da;
-      --g1:#f6fbf8;
-      --max:1160px; --shadow:0 16px 48px rgba(0,0,0,.12);
-      --dark:#0f1614; --gold:#d4b24f;
+      --g1:#f6fbf8; --max:1160px; --shadow:0 16px 48px rgba(0,0,0,.12);
+      --dark:#0f1614;
     }
     *{box-sizing:border-box}
-    html{-webkit-text-size-adjust:100%}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.5}
-
+    html{-webkit-text-size-adjust:100%} /* iOS anti-zoom */
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.55}
     a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
     .container{width:min(var(--max),92%);margin:0 auto}
 
-    /* ===== HEADER (dark) ===== */
+    /* ===== HEADER ===== */
     header{position:sticky;top:0;z-index:50;background:var(--dark);border-bottom:1px solid rgba(255,255,255,.12);padding:env(safe-area-inset-top) 0 0}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
-    .brand{display:flex;align-items:center;gap:14px}
-    .bp{width:30px;height:30px;border-radius:999px;border:2px solid var(--gold);display:grid;place-items:center;color:#fff;font-weight:800;font-size:12px;letter-spacing:.4px}
-    .name{color:#fff;font-weight:800;letter-spacing:.28em;text-transform:uppercase;white-space:nowrap;font-size:clamp(13px,2.4vw,18px)}
-    .links{display:flex;gap:36px;align-items:center}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .bp{width:30px;height:30px;border-radius:999px;border:2px solid var(--gold);display:grid;place-items:center;color:#fff;font-weight:800;font-size:12px}
+    .name{color:#fff;font-weight:800;letter-spacing:.28em;text-transform:uppercase;font-size:clamp(13px,2.4vw,18px)}
+    .links{display:flex;gap:28px;align-items:center}
     .links a{color:#fff;font-weight:600;opacity:.9}
     .links a:hover{opacity:1}
     .burger{display:none;width:36px;height:36px;border-radius:10px;border:1px solid rgba(255,255,255,.25);align-items:center;justify-content:center;background:transparent;color:#fff}
     @media(max-width:980px){.links{display:none}.burger{display:flex}}
 
-    /* MENIU MOBIL */
     .mobile{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);display:none}
     .mobile.active{display:block}
     .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#111514;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;color:#fff}
     .sheet a{padding:12px 8px;border-bottom:1px solid rgba(255,255,255,.12);font-weight:600;color:#fff}
 
     /* ===== PAGE ===== */
-    main{padding:42px 0}
-    h1{font-family:"Playfair Display",serif;font-size:clamp(30px,5vw,46px);margin:0 0 10px}
+    main{padding:36px 0}
+    h1{font-family:"Playfair Display",serif;font-size:clamp(30px,5vw,44px);margin:0 0 10px}
     .muted{color:var(--muted)}
-    .page-head{text-align:center;margin:8px 0 18px}
+    .page-head{text-align:center;margin-bottom:14px}
 
-    .tabs{margin-top:18px;border:1px solid var(--b2);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#fff,#fafcfa)}
+    .tabs{margin-top:16px;border:1px solid var(--b2);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#fff,#fafcfa)}
     .tablist{display:flex;gap:6px;padding:8px;background:#fff;border-bottom:1px solid var(--b2)}
     .tab{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:10px;border:1px solid var(--b2);background:#fff;font-weight:700;cursor:pointer}
     .tab[aria-selected="true"]{background:var(--g1);border-color:rgba(14,90,67,.35);color:var(--rubin)}
@@ -93,9 +88,26 @@
     .actions.between{justify-content:space-between}
     .hl{display:inline-flex;align-items:center;white-space:nowrap;background:rgba(212,178,79,.12);border:1px solid rgba(212,178,79,.45);padding:6px 10px;border-radius:999px;font-weight:700}
 
+    /* ---- Mobile improvements ---- */
+    @media (max-width: 768px){
+      .row.two{grid-template-columns:1fr !important;}
+    }
+    .remember{display:flex;align-items:center;gap:8px;font-size:14px}
+    #toggle-login-pass{
+      background:#fff;border:1px solid var(--b3);border-radius:8px;font-size:13px;color:var(--rubin);cursor:pointer;padding:6px 10px
+    }
+
+    /* File inputs custom */
+    input[type="file"]{display:none}
+    .file-label{
+      display:inline-block;padding:10px 14px;border:1px solid var(--b3);border-radius:10px;background:#fff;cursor:pointer;font-size:14px;font-weight:600;color:var(--rubin)
+    }
+    .file-label:hover{background:#f6fbf8}
+    .file-name{font-size:13px;color:var(--muted);margin-left:6px;vertical-align:middle}
+
     /* ===== FOOTER ===== */
-    footer{border-top:1px solid var(--b2);margin-top:32px}
-    .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;color:#667}
+    footer{border-top:1px solid var(--b2);margin-top:28px}
+    .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:20px 0;color:#667}
   </style>
 </head>
 <body>
@@ -109,7 +121,7 @@
 
       <nav class="links" aria-label="Navigație principală">
         <a href="/despre-noi.html">Despre noi</a>
-        <a href="/bucatarii.html">Bucătării noștri</a>
+        <a href="/bucatarii.html">Bucătarii noștri</a>
         <a href="/servicii.html">Servicii</a>
         <a href="/blog.html">Blog</a>
         <a href="/cont.html" aria-current="page">Contul meu</a>
@@ -120,7 +132,7 @@
       </button>
     </div>
 
-    <!-- MENIU MOBIL (fixat) -->
+    <!-- MENIU MOBIL -->
     <div class="mobile" id="bp-mobile" aria-hidden="true">
       <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu principal">
         <div style="display:flex; justify-content:space-between; align-items:center">
@@ -130,7 +142,7 @@
           <button class="burger" id="bp-close" aria-label="Închide meniul"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <a href="/despre-noi.html">Despre noi</a>
-        <a href="/bucatarii.html">Bucătării noștri</a>
+        <a href="/bucatarii.html">Bucătarii noștri</a>
         <a href="/servicii.html">Servicii</a>
         <a href="/blog.html">Blog</a>
         <a href="/cont.html">Contul meu</a>
@@ -142,7 +154,7 @@
   <main class="container">
     <div class="page-head">
       <h1>Contul meu</h1>
-      <p class="muted">Autentifică-te. Contul client se creează automat după prima comandă — vei primi pe email o parolă temporară pe care o poți schimba ulterior. Dacă ești bucătar, te poți înregistra pentru colaborare.</p>
+      <p class="muted">Autentifică-te. Contul client se creează automat după prima comandă — primești pe email o parolă temporară. Ești bucătar? Înscrie-te pentru colaborare.</p>
     </div>
 
     <section class="tabs" id="tabs">
@@ -158,7 +170,6 @@
       <!-- Panel: Client -->
       <div class="panel" id="panel-client" role="tabpanel" aria-labelledby="tab-client">
         <div class="grid">
-          <!-- Login Client -->
           <div class="card">
             <div class="hd"><i class="fa-solid fa-right-to-bracket"></i><strong>Autentificare</strong></div>
             <div class="bd">
@@ -171,12 +182,13 @@
                   <label for="login-pass">Parolă</label>
                   <div style="position:relative">
                     <input id="login-pass" name="password" type="password" placeholder="••••••••" required />
-                    <button type="button" class="hl" id="toggle-login-pass" style="position:absolute;right:6px;top:6px">arată</button>
+                    <button type="button" id="toggle-login-pass" aria-label="Arată parola"
+                            style="position:absolute;right:6px;top:6px">arată</button>
                   </div>
                 </div>
                 <div class="actions between">
-                  <label style="display:inline-flex;align-items:center;gap:8px">
-                    <input type="checkbox" name="remember" value="1"> Ține-mă minte
+                  <label class="remember" for="remember">
+                    <input id="remember" type="checkbox" name="remember" value="1"> Ține-mă minte
                   </label>
                   <a class="hl" href="/auth/forgot">Ai uitat parola?</a>
                 </div>
@@ -189,7 +201,6 @@
             </div>
           </div>
 
-          <!-- CTA Chef -->
           <div class="card">
             <div class="hd"><i class="fa-solid fa-hat-chef"></i><strong>Înregistrează-te ca Bucătar</strong></div>
             <div class="bd">
@@ -247,20 +258,28 @@
                   <input id="chef-social" name="social" type="url" placeholder="https://instagram.com/..." />
                 </div>
               </div>
+
+              <!-- File inputs custom -->
               <div class="row two">
                 <div>
-                  <label for="chef-diploma">Certificat de calificare (PDF/JPG) *</label>
+                  <label class="label" for="chef-diploma">Certificat de calificare (PDF/JPG) *</label>
+                  <label for="chef-diploma" class="file-label">📎 Alege fișierul</label>
+                  <span class="file-name" id="file-diploma-name">Niciun fișier</span>
                   <input id="chef-diploma" name="diploma" type="file" accept=".pdf,.jpg,.jpeg,.png" required />
                 </div>
                 <div>
-                  <label for="chef-cv">CV (opțional)</label>
+                  <label class="label" for="chef-cv">CV (opțional)</label>
+                  <label for="chef-cv" class="file-label">📎 Alege fișierul</label>
+                  <span class="file-name" id="file-cv-name">Niciun fișier</span>
                   <input id="chef-cv" name="cv" type="file" accept=".pdf,.doc,.docx" />
                 </div>
               </div>
-              <label style="display:inline-flex;align-items:center;gap:8px">
+
+              <label class="remember" style="margin-top:4px">
                 <input type="checkbox" name="gdpr" required> Sunt de acord cu prelucrarea datelor mele în scop de recrutare.
               </label>
               <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+
               <div class="actions" style="margin-top:10px">
                 <button class="hl" style="background:var(--gold);border-color:transparent;color:#0b0d0c" type="submit">
                   <i class="fa-solid fa-paper-plane"></i>&nbsp;Trimite aplicația
@@ -288,34 +307,23 @@
     (() => {
       const qs = (s, r=document) => r.querySelector(s);
 
+      // Year
+      const yearEl = qs('#bp-year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
+
       // Header mobil
       const burger = qs('#bp-burger');
       const mobile = qs('#bp-mobile');
       const closeBtn = qs('#bp-close');
-      const yearEl = qs('#bp-year');
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-      const openMenu = () => {
-        mobile.classList.add('active');
-        burger.setAttribute('aria-expanded','true');
-        document.body.style.overflow='hidden';
-      };
-      const closeMenu = () => {
-        mobile.classList.remove('active');
-        burger.setAttribute('aria-expanded','false');
-        document.body.style.overflow='';
-      };
-
+      const openMenu = () => { mobile.classList.add('active'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; };
+      const closeMenu = () => { mobile.classList.remove('active'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; };
       burger?.addEventListener('click', openMenu);
       closeBtn?.addEventListener('click', closeMenu);
       mobile?.addEventListener('click', e=>{ if(e.target === mobile) closeMenu(); });
       document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
 
-      // Tabs (client/bucătar)
-      const tabClient = document.getElementById('tab-client');
-      const tabChef = document.getElementById('tab-bucatar');
-      const panelClient = document.getElementById('panel-client');
-      const panelChef = document.getElementById('panel-bucatar');
+      // Tabs
+      const tabClient = qs('#tab-client'), tabChef = qs('#tab-bucatar');
+      const panelClient = qs('#panel-client'), panelChef = qs('#panel-bucatar');
       function selectTab(which){
         const isClient = which === 'client';
         tabClient.setAttribute('aria-selected', isClient?'true':'false');
@@ -325,21 +333,25 @@
       }
       tabClient?.addEventListener('click', ()=>selectTab('client'));
       tabChef?.addEventListener('click', ()=>selectTab('chef'));
+      qs('#go-chef')?.addEventListener('click', (e)=>{ e.preventDefault(); selectTab('chef'); panelChef?.scrollIntoView({behavior:'smooth'}); });
 
-      // CTA: treci pe tabul Bucătar
-      document.getElementById('go-chef')?.addEventListener('click', (e)=>{
+      // Toggle parolă (login)
+      qs('#toggle-login-pass')?.addEventListener('click', (e)=>{
         e.preventDefault();
-        selectTab('chef');
-        document.getElementById('panel-bucatar')?.scrollIntoView({behavior:'smooth', block:'start'});
-      });
-
-      // Toggle parolă la login
-      document.getElementById('toggle-login-pass')?.addEventListener('click', (e)=>{
-        e.preventDefault();
-        const inp = document.getElementById('login-pass');
-        if(!inp) return;
+        const inp = qs('#login-pass'); if(!inp) return;
         inp.type = (inp.type === 'password') ? 'text' : 'password';
+        e.currentTarget.textContent = (inp.type === 'password') ? 'arată' : 'ascunde';
       });
+
+      // File inputs names
+      function bindFile(idInput, idLabel){
+        const input = qs(idInput), out = qs(idLabel);
+        input?.addEventListener('change', e=>{
+          out.textContent = e.target.files?.length ? e.target.files[0].name : 'Niciun fișier';
+        });
+      }
+      bindFile('#chef-diploma','#file-diploma-name');
+      bindFile('#chef-cv','#file-cv-name');
     })();
   </script>
 </body>
