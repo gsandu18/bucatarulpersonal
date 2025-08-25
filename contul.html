@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Contul meu | Bucătarul Personal</title>
-  <meta name="description" content="Autentificare clienți și înregistrare ca bucătar. Responsive, prietenos pe mobil." />
+  <meta name="description" content="Autentificare clienți și înregistrare ca bucătar. Include consimțământ GDPR cu afișare termeni pe scurt." />
   <link rel="canonical" href="https://www.bucatarulpersonal.ro/cont.html" />
 
   <!-- Open Graph -->
@@ -36,7 +36,7 @@
       --dark:#0f1614;
     }
     *{box-sizing:border-box}
-    html{-webkit-text-size-adjust:100%} /* iOS anti-zoom */
+    html{-webkit-text-size-adjust:100%}
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.55}
     a{color:inherit;text-decoration:none}
     .container{width:min(var(--max),92%);margin:0 auto}
@@ -89,33 +89,28 @@
     .hl{display:inline-flex;align-items:center;white-space:nowrap;background:rgba(212,178,79,.12);border:1px solid rgba(212,178,79,.45);padding:6px 10px;border-radius:999px;font-weight:700}
 
     /* ---- Mobile improvements ---- */
-    @media (max-width: 768px){
-      .row.two{grid-template-columns:1fr !important;}
-    }
-    .remember{display:flex;align-items:center;gap:8px;font-size:14px}
+    @media (max-width: 768px){ .row.two{grid-template-columns:1fr !important;} }
+    .remember{display:flex;align-items:center;gap:8px;font-size:14px;flex-wrap:wrap}
     #toggle-login-pass{
       background:#fff;border:1px solid var(--b3);border-radius:8px;font-size:13px;color:var(--rubin);cursor:pointer;padding:6px 10px
     }
 
     /* File inputs custom */
     input[type="file"]{display:none}
-    .file-label{
-      display:inline-block;padding:10px 14px;border:1px solid var(--b3);border-radius:10px;background:#fff;cursor:pointer;font-size:14px;font-weight:600;color:var(--rubin)
-    }
+    .file-label{display:inline-block;padding:10px 14px;border:1px solid var(--b3);border-radius:10px;background:#fff;cursor:pointer;font-size:14px;font-weight:600;color:var(--rubin)}
     .file-label:hover{background:#f6fbf8}
     .file-name{font-size:13px;color:var(--muted);margin-left:6px;vertical-align:middle}
 
-    /* ===== FOOTER ===== */
+    /* Linkuri legale + drawer */
+    .link-terms{ color:var(--rubin); font-weight:600; text-decoration:underline; cursor:pointer; }
+    .link-terms:hover{ text-decoration:none; }
+    .legal-drawer{
+      margin-top:8px; padding:12px 14px; background:#f6fbf8; border:1px solid var(--b3);
+      border-radius:12px; box-shadow:0 6px 14px rgba(0,0,0,.06) inset; font-size:14px
+    }
+    .legal-drawer ul{ margin:8px 0 0 18px; padding:0; }
     footer{border-top:1px solid var(--b2);margin-top:28px}
     .foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:20px 0;color:#667}
-    .link-terms {
-  color: var(--rubin);
-  font-weight: 600;
-  text-decoration: underline;
-}
-.link-terms:hover {
-  text-decoration: none;
-}
   </style>
 </head>
 <body>
@@ -283,10 +278,32 @@
                 </div>
               </div>
 
-             <label class="remember" style="margin-top:4px">
-  <input type="checkbox" name="gdpr" required>
-  Sunt de acord cu <a href="/politica-confidentialitate.html" target="_blank" class="link-terms">Politica de confidențialitate</a> și <a href="/termeni-conditii.html" target="_blank" class="link-terms">Termenii & Condițiile</a>.
-</label>
+              <!-- Consimțământ + termeni (drawer la bifare) -->
+              <label class="remember" style="margin-top:4px">
+                <input type="checkbox" id="gdpr-consent" name="gdpr" required>
+                Sunt de acord cu <a href="/politica-confidentialitate.html" target="_blank" class="link-terms">Politica de confidențialitate</a>
+                și <a href="/termeni-conditii.html" target="_blank" class="link-terms">Termenii & Condițiile</a>.
+              </label>
+
+              <button type="button" id="toggle-legal" class="link-terms" style="margin:6px 0 0; background:transparent; border:0; padding:0">
+                Vezi pe scurt ce accept
+              </button>
+
+              <div id="legal-drawer" class="legal-drawer" hidden aria-live="polite" aria-label="Rezumat termeni">
+                <strong>Pe scurt:</strong>
+                <ul>
+                  <li>Datele sunt folosite pentru recrutare și comunicare (programare interviu/contractare).</li>
+                  <li>Temei: executarea contractului / interes legitim / obligație legală.</li>
+                  <li>Stocare: pe durata colaborării + termene legale (ex. contabilitate).</li>
+                  <li>Drepturi: acces, rectificare, ștergere, restricționare, opoziție, portabilitate.</li>
+                </ul>
+                <p style="margin:6px 0 0">
+                  Citește integral: <a href="/politica-confidentialitate.html" class="link-terms" target="_blank">Politica de confidențialitate</a>,
+                  <a href="/termeni-conditii.html" class="link-terms" target="_blank">Termeni & Condiții</a>,
+                  <a href="/gdpr.html" class="link-terms" target="_blank">GDPR</a>.
+                </p>
+              </div>
+
               <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
 
               <div class="actions" style="margin-top:10px">
@@ -302,16 +319,17 @@
     </section>
   </main>
 
+  <!-- ===== FOOTER ===== -->
   <footer>
-  <div class="container foot">
-    <small>© <span id="bp-year"></span> Bucătarul Personal</small>
-    <nav style="display:flex;gap:18px;flex-wrap:wrap">
-      <a href="/termeni-conditii.html" class="link-terms">Termeni și condiții</a>
-      <a href="/politica-confidentialitate.html" class="link-terms">Politica de confidențialitate</a>
-      <a href="/gdpr.html" class="link-terms">GDPR</a>
-    </nav>
-  </div>
-</footer>
+    <div class="container foot">
+      <small>© <span id="bp-year"></span> Bucătarul Personal</small>
+      <nav style="display:flex;gap:18px;flex-wrap:wrap">
+        <a href="/termeni-conditii.html" class="link-terms">Termeni și condiții</a>
+        <a href="/politica-confidentialitate.html" class="link-terms">Politica de confidențialitate</a>
+        <a href="/gdpr.html" class="link-terms">GDPR</a>
+      </nav>
+    </div>
+  </footer>
 
   <script>
     (() => {
@@ -354,14 +372,25 @@
       });
 
       // File inputs names
-      function bindFile(idInput, idLabel){
-        const input = qs(idInput), out = qs(idLabel);
+      function bindFile(idInput, idOut){
+        const input = qs(idInput), out = qs(idOut);
         input?.addEventListener('change', e=>{
           out.textContent = e.target.files?.length ? e.target.files[0].name : 'Niciun fișier';
         });
       }
       bindFile('#chef-diploma','#file-diploma-name');
       bindFile('#chef-cv','#file-cv-name');
+
+      // Drawer legal: apare când bifezi consimțământul
+      (function(){
+        const cb = document.getElementById('gdpr-consent');
+        const drawer = document.getElementById('legal-drawer');
+        const toggle = document.getElementById('toggle-legal');
+        function updateDrawer(){ if(drawer) drawer.hidden = !cb.checked; }
+        cb?.addEventListener('change', updateDrawer);
+        toggle?.addEventListener('click', ()=>{ if(!drawer) return; drawer.hidden = !drawer.hidden; });
+        updateDrawer();
+      })();
     })();
   </script>
 </body>
