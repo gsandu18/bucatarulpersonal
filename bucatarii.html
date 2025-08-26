@@ -1,440 +1,433 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Recomandări de bucătari chefi – Bucătarul Personal</title>
-<meta name="description" content="Recomandări curate de bucătari chefi: filtre rapide, rating, oraș și specializări. Profesioniști verificați, Premium.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bucătarii noștri – Bucătarul Personal</title>
+<meta name="description" content="Descoperă bucătarii noștri: rating, oraș, experiență fine dining, număr de evenimente, categorii Premium & VIP.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#f5f7f8; --card:#fff; --text:#0f1916; --muted:#5f6b72; --line:#e8ecef;
-    --green:#0f6c51; --green-2:#0e5a43; --chip:#eef6f2; --gold:#f2c14e;
-    --shadow:0 10px 35px rgba(16,24,40,.12); --radius:22px; --rsm:12px;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--text)}
-  body{font:16px/1.6 "Inter",system-ui,sans-serif;padding-top:72px}
+:root{
+  --verde:#0e5a43; --verde2:#0b4a36; --gold:#d4b24f; --vip:#c59d2a;
+  --bg:#f6f7f9; --card:#fff; --text:#1c1c1c; --muted:#6b7280;
+  --line:#e6eaee; --shadow:0 12px 30px rgba(0,0,0,.08); --max:1200px;
+  --dark:#0f1614; --dark2:#0b0f0e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.65}
 
-  /* Header fix */
-  .site-header{position:fixed;inset:0 0 auto 0;height:72px;z-index:1000;
-    background:rgba(0,0,0,.35);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08)}
-  .site-header .container{max-width:1180px;margin:0 auto;height:72px;padding:0 18px;display:flex;align-items:center;justify-content:space-between}
-  .logo img{height:36px}
-  .nav{display:flex;gap:22px;align-items:center}
-  .nav a{color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-  .nav .cta{background:#1a7f5a;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.18);color:#fff}
-  .hamburger{display:none}
-  @media (max-width:980px){
-    .hamburger{display:inline-flex;width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);align-items:center;justify-content:center;gap:5px}
-    .hamburger span{width:18px;height:2px;background:#fff;border-radius:2px;display:block}
-    .nav{position:fixed;top:72px;left:0;right:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);display:none;flex-direction:column;padding:14px 16px;gap:12px}
-    .nav.open{display:flex}
-  }
+/* ===== Hero cu imagine ===== */
+.hero{
+  position:relative;color:#fff;min-height:280px;display:grid;place-items:center;text-align:center;overflow:hidden;
+  background:var(--dark);
+}
+.hero::before{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.55)),
+    url('https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+  filter:saturate(1.05);
+}
+.hero .inner{position:relative;z-index:1;padding:70px 16px 60px;max-width:var(--max);width:min(var(--max),92%)}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,44px);margin:0 0 10px}
+.hero p{margin:0;opacity:.95;font-size:1.05rem}
 
-  /* Hero */
-  .hero{background:linear-gradient(180deg,#0c1d17,#0c1d1700),url('https://images.unsplash.com/photo-1495546968767-f0573cca821e?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;color:#fff}
-  .hero .wrap{max-width:1180px;margin:0 auto;padding:56px 18px 34px}
-  .hero h1{font-family:"Playfair Display",serif;font-weight:800;font-size:clamp(32px,4.2vw,52px);margin:0 0 8px}
-  .hero p{margin:0;opacity:.95;font-size:18px}
-  .wrap{max-width:1180px;margin:0 auto;padding:22px 18px 80px}
+/* ===== Toolbar filtre ===== */
+.toolbar{max-width:var(--max);margin:-34px auto 18px;padding:0 16px}
+.filters{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px}
+.filters .row{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1fr 1fr 1fr;gap:10px}
+@media (max-width: 1000px){ .filters .row{grid-template-columns:1fr 1fr} }
+@media (max-width: 580px){ .filters .row{grid-template-columns:1fr} }
+.input,select{width:100%;padding:10px 12px;border:1px solid #d9dee3;border-radius:10px;background:#fff}
+label{font-size:.9rem;font-weight:700;color:#334155;margin-bottom:6px;display:block}
+.small{font-size:.85rem;color:var(--muted)}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid #d9dee3;background:#fff;font-weight:700;cursor:pointer}
+.btn-primary{background:var(--verde);border-color:var(--verde);color:#fff}
+.btn-ghost{background:#fff}
+select.sort{min-width:210px}
 
-  /* FILTER BAR – desktop */
-  .filter-bar{position:sticky;top:74px;z-index:900;background:var(--card);border:1px solid var(--line);
-    box-shadow:0 12px 28px rgba(16,24,40,.10);border-radius:18px;margin-top:-18px;padding:12px}
-  .fb-row{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center}
-  .tabs{display:flex;gap:8px;flex-wrap:wrap}
-  .tab{padding:10px 12px;border-radius:999px;border:1px solid #dfe7ea;background:#f6faf8;color:#113c31;font-weight:800;cursor:pointer}
-  .tab.active{background:#dff1e9;border-color:#bfe2d2}
-  .select, .sort{position:relative}
-  select{appearance:none;background:#f8fafb;border:1px solid var(--line);border-radius:12px;padding:10px 36px 10px 12px;font-weight:700;cursor:pointer}
-  .select:after, .sort:after{content:"";position:absolute;right:12px;top:50%;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:7px solid #7d8b91;transform:translateY(-35%)}
-  .search{position:relative}
-  .search input{width:100%;height:42px;border-radius:12px;border:1px solid var(--line);background:#f8fafb;padding:10px 12px 10px 38px;font-weight:600}
-  .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.6}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-  .chip{background:var(--chip);border:1px solid #d7ebe2;color:#113c31;padding:8px 12px;border-radius:999px;font-weight:800;cursor:pointer}
-  .chip.active{background:#dff1e9;border-color:#bfe2d2}
-  .quick{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
-  .link{background:#fff;border:1px solid #cfe1da;border-radius:10px;padding:8px 10px;font-weight:800;color:#0f6c51;cursor:pointer}
-  .reset{margin-left:auto}
+/* ===== Grid chefi ===== */
+.container{max-width:var(--max);margin:16px auto 32px;padding:0 16px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+@media (max-width:1200px){ .grid{grid-template-columns:repeat(12,1fr)} }
+@media (max-width:980px){ .grid{grid-template-columns:repeat(8,1fr)} }
+@media (max-width:680px){ .grid{grid-template-columns:repeat(6,1fr)} }
+.card{grid-column:span 3;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+@media (max-width:980px){ .card{grid-column:span 4} }
+@media (max-width:680px){ .card{grid-column:span 6} }
+.thumb{position:relative;height:180px;background:#dfe7e3;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.badges{position:absolute;left:10px;top:10px;display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-size:.75rem;font-weight:800;padding:4px 8px;border-radius:999px;background:#eef4f2;color:var(--verde);border:1px solid rgba(14,90,67,.2)}
+.badge.vip{background:linear-gradient(180deg,#f6e7b5,#edd36d);color:#1b1b1b;border-color:#e9c84d}
+.badge.premium{background:#fff4d6;color:#7a5a00;border-color:#f5d37c}
 
-  /* GRID & CARD */
-  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;margin-top:24px}
-  .col-4{grid-column:span 4}
-  @media (max-width:1024px){.col-4{grid-column:span 6}}
-  @media (max-width:680px){.col-4{grid-column:span 12}}
+.body{padding:14px 14px 12px;display:flex;flex-direction:column;gap:8px}
+h3{margin:0;font-size:1.1rem;color:#0b1720}
+.meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.92rem}
+.kv{display:flex;gap:10px;flex-wrap:wrap}
+.kv span{background:#f5f7f9;border:1px solid #e8edf1;padding:6px 8px;border-radius:8px;font-size:.88rem;color:#334}
 
-  .card{background:#fff;border-radius:22px;box-shadow:var(--shadow);display:grid;grid-template-rows:auto 1fr auto;min-height:520px;overflow:hidden;border:1px solid #eef2f4}
-  .card:hover{transform:translateY(-3px);box-shadow:0 16px 42px rgba(16,24,40,.16)}
-  .media{position:relative;padding-top:72%;background:#e6f2ec}
-  .media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-top-left-radius:22px;border-top-right-radius:22px}
-  .media .label{position:absolute;left:12px;top:12px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800;background:rgba(0,0,0,.55);color:#fff;border:1px solid rgba(255,255,255,.18)}
-  .media.is-broken{display:flex;align-items:center;justify-content:center;color:#1d3b2f;font-weight:700}
-  .body{padding:18px 18px 10px}
-  .name{font-size:22px;margin:2px 0 6px;font-weight:800;color:#112822}
-  .sub{color:#5f6b72;font-size:15px;margin:0 0 10px}
-  .rating{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-  .star{width:18px;height:18px}
-  .percent{font-weight:800;color:#1a2f29}
-  .chips-inline{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
-  .chip-mini{background:var(--chip);border:1px solid #d7ebe2;padding:6px 10px;border-radius:999px;font-size:13px;font-weight:600}
-  .foot{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 18px}
-  .badge{background:#f4ead2;color:#7a5a0b;border:1px solid #ead7aa;padding:7px 10px;border-radius:999px;font-weight:800;font-size:13px}
-  .ev{background:#e8f5ee;border:1px solid #cfe9db;color:#124f3b;padding:7px 10px;border-radius:999px;font-weight:700;font-size:13px}
+.rating{display:flex;align-items:center;gap:6px}
+.stars{display:inline-flex;gap:2px}
+.stars svg{width:16px;height:16px}
+.star{fill:#e2e8f0}
+.star.full{fill:#f6c34a}
+.star.half{fill:url(#halfGrad)}
+.cta{display:flex;justify-content:space-between;align-items:center;margin-top:auto;gap:10px}
+.cta .btn{flex:1;justify-content:center}
+.btn-outline{border:1px solid var(--verde);color:var(--verde);background:#fff}
+.btn-outline:hover{background:#eef6f2}
+.btn-primary:hover{filter:brightness(.97)}
 
-  .pagination{display:flex;gap:8px;justify-content:center;margin-top:26px}
-  .page-btn{padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:700}
-  .page-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+/* Pagination */
+.pagination{display:flex;justify-content:center;gap:8px;margin-top:18px;flex-wrap:wrap}
+.pagination button{padding:8px 12px;border-radius:8px;border:1px solid #d9dee3;background:#fff;cursor:pointer}
+.pagination button.active{background:var(--verde);color:#fff;border-color:var(--verde)}
 
-  /* —— MOBILE FILTER MODAL —— */
-  @media (max-width: 768px){ .filter-bar{ display:none !important; } }
-  .fab-filters{
-    position: sticky; bottom: calc(12px + env(safe-area-inset-bottom));
-    left: 12px; z-index: 901; display:none; align-items:center; gap:8px;
-    padding: 10px 14px; border-radius:999px; border:1px solid #cfe1da;
-    background:#0f6c51; color:#fff; font-weight:800; box-shadow:0 8px 22px rgba(16,24,40,.18)
-  }
-  @media (max-width: 768px){ .fab-filters{ display:inline-flex; } }
-  .filters-modal[hidden]{ display:none; }
-  .filters-modal{
-    position: fixed; inset: 0; z-index: 1000;
-    background: rgba(0,0,0,.42); backdrop-filter: blur(4px);
-    display: grid; place-items: end center;
-    padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-  }
-  .fm-sheet{ width:100%; max-width:640px; background:#fff; border-top-left-radius:16px; border-top-right-radius:16px;
-    box-shadow:0 -16px 40px rgba(16,24,40,.24); max-height:92dvh; display:grid; grid-template-rows:auto 1fr auto }
-  .fm-header{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid #e8ecef }
-  .fm-close{ background:#fff; border:1px solid #e8ecef; border-radius:10px; padding:6px 10px; font-weight:800; cursor:pointer }
-  .fm-body{ padding:14px 16px; overflow:auto }
-  .fm-lbl{ display:block; font-size:13px; font-weight:800; color:#27443a; margin:10px 0 6px }
-  .fm-search{ position:relative }
-  .fm-search input{ width:100%; height:44px; border:1px solid #e8ecef; border-radius:12px; padding:10px 12px 10px 38px; background:#f8fafb; font-weight:600 }
-  .fm-search svg{ position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:.7 }
-  .fm-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px }
-  .fm-col select{ width:100%; height:44px; border:1px solid #e8ecef; border-radius:12px; background:#f8fafb; font-weight:700; padding:10px 12px }
-  .fm-tabs{ display:flex; gap:8px; flex-wrap:wrap }
-  .fm-tabs button{ padding:10px 12px; border-radius:999px; border:1px solid #dfe7ea; background:#f6faf8; font-weight:800; color:#113c31 }
-  .fm-tabs button.active{ background:#dff1e9; border-color:#bfe2d2 }
-  .fm-chips{ display:flex; gap:8px; flex-wrap:wrap }
-  .fm-chips button{ padding:8px 12px; border-radius:999px; border:1px solid #d7ebe2; background:#eef6f2; font-weight:800; color:#113c31 }
-  .fm-chips button.active{ background:#dff1e9; border-color:#bfe2d2 }
-  .fm-footer{ display:flex; gap:10px; justify-content:flex-end; padding:12px 16px; border-top:1px solid #e8ecef }
-  .fm-btn{ padding:10px 14px; border-radius:12px; border:1px solid #cfe1da; font-weight:800; cursor:pointer }
-  .fm-btn.primary{ background:#0f6c51; color:#fff; border-color:#0f6c51 }
-  .fm-btn.ghost{ background:#fff }
+/* ===== Modal profil ===== */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:100}
+.modal.open{display:flex}
+.modal-card{max-width:780px;width:100%;background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line)}
+.modal-body{padding:14px}
+.close{background:#fff;border:1px solid #d9dee3;border-radius:8px;padding:6px 10px;cursor:pointer}
+
+/* ===== Footer dark profesional ===== */
+footer{background:var(--dark2); color:#dfe6e2; margin-top:34px}
+.foot-wrap{max-width:var(--max); width:min(var(--max),92%); margin:0 auto; padding:22px 0}
+.foot-brand{display:flex;align-items:center;gap:12px}
+.foot-bp{width:28px;height:28px;border-radius:999px;border:2px solid var(--gold);display:grid;place-items:center;color:#fff;font-weight:800;font-size:12px}
+.foot-name{font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+.foot-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 0 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.tagline{opacity:.9}
+.social{display:flex;gap:10px}
+.soc{width:34px;height:34px;border:1px solid rgba(255,255,255,.18);border-radius:999px;display:grid;place-items:center;font-weight:800;opacity:.9}
+.soc:hover{opacity:1}
+.foot-cols{display:grid;grid-template-columns:1.4fr 1fr 1fr .9fr; gap:18px; padding:18px 0}
+@media(max-width:900px){ .foot-cols{grid-template-columns:1fr} }
+.foot-col h4{margin:0 0 10px;font-weight:800}
+.foot-col a{display:block;color:#dfe6e2;opacity:.9;padding:6px 0;text-decoration:none}
+.foot-col a:hover{opacity:1;text-decoration:underline}
+.foot-cta{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.btn-cta{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:var(--gold);color:#111;font-weight:800;border:0}
+.foot-copy{padding:10px 0;border-top:1px solid rgba(255,255,255,.08);font-size:.9rem;opacity:.9;text-align:center}
 </style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container">
-      <a class="logo" href="/"><img src="/static/logo-bucatarul-personal.svg" alt="Bucătarul Personal"></a>
-      <nav class="nav">
-        <a href="/">Acasă</a><a href="/bucatari">Bucătarii noștri</a><a href="/servicii">Servicii</a><a href="/contul-meu">Contul meu</a>
-        <a class="cta" href="/vreau-un-bucatar">Vreau un Bucătar</a>
-      </nav>
-      <button class="hamburger" aria-label="Meniu"><span></span><span></span><span></span></button>
-    </div>
-  </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap">
-      <h1>Recomandări de bucătari chefi</h1>
-      <p>Alege din selecția noastră după oraș, rating și specializare.</p>
-    </div>
-  </section>
+<!-- ===== HERO ===== -->
+<section class="hero" role="banner">
+  <div class="inner">
+    <h1>Bucătarii noștri</h1>
+    <p>Experiențe culinare premium cu chefi profesioniști – filtrează după <strong>rating</strong>, <strong>oraș</strong>, <strong>fine dining</strong>, <strong>evenimente</strong> și <strong>categorie</strong>.</p>
+  </div>
+</section>
 
-  <!-- FILTER BAR (desktop) -->
-  <section class="wrap">
-    <div class="filter-bar" id="fb">
-      <div class="fb-row">
-        <div class="search">
-          <input id="q" type="search" placeholder="Caută nume, oraș, specializare…">
-          <!-- icon inline -->
-          <svg width="18" height="18" viewBox="0 0 24 24" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.6">
-            <path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" fill="none" stroke="#122c23" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="tabs" role="tablist" aria-label="Preseturi">
-          <button class="tab active" data-preset="all">Toți</button>
-          <button class="tab" data-preset="premium">Premium</button>
-          <button class="tab" data-preset="high">4.5★+</button>
-        </div>
-        <div class="select">
-          <select id="city" aria-label="Oraș">
-            <option value="">Oraș: Toate</option>
-            <option>București</option><option>Cluj</option><option>Timișoara</option><option>Iași</option><option>Brașov</option>
-          </select>
-        </div>
-        <div class="sort">
-          <select id="sort" aria-label="Sortare">
-            <option value="score">Sort: Relevanță</option>
-            <option value="rating">Rating</option>
-            <option value="events">Evenimente</option>
-            <option value="name">Nume A–Z</option>
-          </select>
-        </div>
+<!-- ===== FILTRE ===== -->
+<section class="toolbar">
+  <div class="filters">
+    <div class="row">
+      <div>
+        <label>Caută</label>
+        <input id="q" class="input" placeholder="Nume, specializare, bucătărie (ex: italian, sushi)">
       </div>
-
-      <div class="chips" id="catChips" aria-label="Categorii">
-        <span class="chip" data-cat="Italian">Italian</span>
-        <span class="chip" data-cat="BBQ">BBQ</span>
-        <span class="chip" data-cat="Fine Dining">Fine Dining</span>
-        <span class="chip" data-cat="Dietetic">Dietetic</span>
-        <span class="chip" data-cat="Seafood">Seafood</span>
+      <div>
+        <label>Oraș</label>
+        <select id="city" class="input"><option value="">Toate</option></select>
       </div>
-
-      <div class="quick">
-        <button class="link" id="onlyCity">Doar din orașul ales</button>
-        <button class="link" id="topEvents">Top evenimente</button>
-        <button class="link reset" id="reset">Reset</button>
+      <div>
+        <label>Categorie</label>
+        <select id="cat" class="input">
+          <option value="">Toate</option><option value="standard">Standard</option><option value="premium">Premium</option><option value="vip">VIP</option>
+        </select>
+      </div>
+      <div>
+        <label>Rating minim</label>
+        <select id="minRating" class="input">
+          <option value="0">Toate</option><option value="3">3★</option><option value="4">4★</option><option value="4.5">4.5★</option><option value="5">5★</option>
+        </select>
+      </div>
+      <div>
+        <label>Ani Fine Dining (min)</label>
+        <select id="minFD" class="input">
+          <option value="0">0+</option><option value="2">2+</option><option value="5">5+</option><option value="8">8+</option><option value="10">10+</option>
+        </select>
+      </div>
+      <div>
+        <label>Evenimente (min)</label>
+        <select id="minEv" class="input">
+          <option value="0">0+</option><option value="10">10+</option><option value="25">25+</option><option value="50">50+</option><option value="100">100+</option>
+        </select>
       </div>
     </div>
+    <div class="controls">
+      <select id="sort" class="sort input" aria-label="Sortează după">
+        <option value="rating_desc">Sortează: Rating ↓</option>
+        <option value="events_desc">Sortează: Evenimente ↓</option>
+        <option value="fd_desc">Sortează: Fine Dining (ani) ↓</option>
+        <option value="name_asc">Sortează: Nume A→Z</option>
+      </select>
+      <button class="btn btn-ghost" id="reset">Resetează filtre</button>
+      <span class="small" id="countInfo"></span>
+    </div>
+  </div>
+</section>
 
-    <!-- FAB (mobil) -->
-    <button id="filtersFab" aria-haspopup="dialog" aria-controls="filtersModal" class="fab-filters">
-      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"
-              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      Filtre
-    </button>
+<!-- ===== LISTĂ ===== -->
+<main class="container">
+  <div id="grid" class="grid"></div>
+  <div id="pagination" class="pagination"></div>
+</main>
 
-    <!-- MODAL (mobil) -->
-    <div id="filtersModal" class="filters-modal" role="dialog" aria-modal="true" aria-labelledby="filtersTitle" hidden>
-      <div class="fm-sheet" role="document">
-        <div class="fm-header">
-          <h3 id="filtersTitle">Filtre</h3>
-          <button class="fm-close" id="filtersClose" aria-label="Închide">✕</button>
+<!-- ===== MODAL ===== -->
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <strong id="modalTitle">Profil bucătar</strong>
+      <button class="close" id="modalClose">Închide</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ===== FOOTER DARK (ca în poză) ===== -->
+<footer>
+  <div class="foot-wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">
+          <span class="foot-bp">BP</span>
+          <span class="foot-name">BUCĂTARUL PERSONAL</span>
         </div>
-        <div class="fm-body">
-          <label class="fm-lbl">Căutare</label>
-          <div class="fm-search">
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <input id="q-m" type="search" placeholder="Caută nume, oraș, specializare…">
-          </div>
+        <p class="tagline">Experiențe culinare premium cu chefi profesioniști.</p>
+      </div>
+      <div class="social" aria-label="Rețele sociale">
+        <a class="soc" href="#" aria-label="Facebook">f</a>
+        <a class="soc" href="#" aria-label="Instagram">ig</a>
+        <a class="soc" href="#" aria-label="TikTok">tt</a>
+        <a class="soc" href="#" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
 
-          <label class="fm-lbl">Preset</label>
-          <div class="fm-tabs" id="tabs-m">
-            <button data-preset="all" class="active">Toți</button>
-            <button data-preset="premium">Premium</button>
-            <button data-preset="high">4.5★+</button>
-          </div>
+    <div class="foot-cols">
+      <div class="foot-col">
+        <h4>Navigație</h4>
+        <a href="/cum-functioneaza.html">Cum funcționează</a>
+        <a href="/bucatarii.html">Bucătarii noștri</a>
+        <a href="/vreau-bucatar.html">Vreau un bucătar</a>
+        <a href="/testimoniale.html">Ce spun clienții</a>
+        <a href="/servicii.html">Servicii</a>
+        <a href="/despre-noi.html">Despre noi</a>
+      </div>
 
-          <div class="fm-row">
-            <div class="fm-col">
-              <label class="fm-lbl">Oraș</label>
-              <select id="city-m">
-                <option value="">Toate</option>
-                <option>București</option><option>Cluj</option><option>Timișoara</option>
-                <option>Iași</option><option>Brașov</option>
-              </select>
-            </div>
-            <div class="fm-col">
-              <label class="fm-lbl">Sortare</label>
-              <select id="sort-m">
-                <option value="score">Relevanță</option>
-                <option value="rating">Rating</option>
-                <option value="events">Evenimente</option>
-                <option value="name">Nume A–Z</option>
-              </select>
-            </div>
-          </div>
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <a href="/termeni-conditii.html">Termeni & condiții</a>
+        <a href="/politica-confidentialitate.html">Politica de confidențialitate</a>
+        <a href="/cookies.html">Politica Cookie</a>
+        <a href="/gdpr.html">GDPR</a>
+      </div>
 
-          <label class="fm-lbl">Categorii</label>
-          <div class="fm-chips" id="chips-m">
-            <button data-cat="Italian">Italian</button>
-            <button data-cat="BBQ">BBQ</button>
-            <button data-cat="Fine Dining">Fine Dining</button>
-            <button data-cat="Dietetic">Dietetic</button>
-            <button data-cat="Seafood">Seafood</button>
-          </div>
-        </div>
-        <div class="fm-footer">
-          <button id="reset-m" class="fm-btn ghost">Reset</button>
-          <button id="apply-m" class="fm-btn primary">Aplică</button>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="mailto:contact@bucatarul-personal.ro">contact@bucatarul-personal.ro</a>
+        <a href="tel:+40700000000">+40 700 000 000</a>
+        <div class="foot-cta">
+          <a class="btn-cta" href="/vreau-bucatar.html">Vreau un bucătar</a>
         </div>
       </div>
     </div>
 
-    <!-- GRID -->
-    <div class="grid" id="results" aria-live="polite"></div>
-    <div class="pagination" id="pagination"></div>
-  </section>
+    <div class="foot-copy">© 2025 Bucătarul Personal — Toate drepturile rezervate.</div>
+  </div>
+</footer>
+
+<!-- SVG pentru stele -->
+<svg width="0" height="0" style="position:absolute">
+  <linearGradient id="halfGrad">
+    <stop offset="50%" stop-color="#f6c34a"></stop>
+    <stop offset="50%" stop-color="#e2e8f0"></stop>
+  </linearGradient>
+</svg>
 
 <script>
-  // Mobile menu
-  const btn = document.querySelector('.hamburger'); const nav = document.querySelector('.nav');
-  if (btn) btn.addEventListener('click',()=>nav.classList.toggle('open'));
+/* ===== Date demo ===== */
+const CHEFS = [
+  { id:1, name:"Andrei Ionescu", city:"București", rating:4.8, events:126, fineDiningYears:7, category:"premium", specialities:["Italian","Fine dining","Steak"], img:"https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop" },
+  { id:2, name:"Chiara Rossi", city:"Roma", rating:4.9, events:210, fineDiningYears:10, category:"vip", specialities:["Italian","Pasta","Trufe"], img:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop" },
+  { id:3, name:"Mihai Pop", city:"Cluj-Napoca", rating:4.5, events:88, fineDiningYears:5, category:"standard", specialities:["Fusion","Sushi","Vegan"], img:"https://images.unsplash.com/photo-1559622214-f8a9850965a9?q=80&w=1200&auto=format&fit=crop" },
+  { id:4, name:"Elena Petrescu", city:"Timișoara", rating:4.7, events:143, fineDiningYears:8, category:"premium", specialities:["French","Fine dining","Patiserie"], img:"https://images.unsplash.com/photo-1542326237-94b1c5a538d1?q=80&w=1200&auto=format&fit=crop" },
+  { id:5, name:"Luca Bianchi", city:"Milano", rating:5.0, events:320, fineDiningYears:12, category:"vip", specialities:["Fine dining","Degustare","Mare"], img:"https://images.unsplash.com/photo-1541516160071-4bb0c5af65b8?q=80&w=1200&auto=format&fit=crop" },
+  { id:6, name:"Ana Dumitru", city:"Iași", rating:4.2, events:60, fineDiningYears:3, category:"standard", specialities:["Healthy","Vegan","Meal prep"], img:"https://images.unsplash.com/photo-1529694157877-5e0b0a2f0d4c?q=80&w=1200&auto=format&fit=crop" },
+  { id:7, name:"Sergio Conti", city:"Torino", rating:4.6, events:105, fineDiningYears:6, category:"premium", specialities:["Grill","Italian","BBQ"], img:"https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1200&auto=format&fit=crop" },
+  { id:8, name:"Irina Pavel", city:"Constanța", rating:4.4, events:77, fineDiningYears:4, category:"standard", specialities:["Pește","Mediteraneană","Tapas"], img:"https://images.unsplash.com/photo-1520072959219-c595dc870360?q=80&w=1200&auto=format&fit=crop" },
+  { id:9, name:"Marco De Luca", city:"Bologna", rating:4.9, events:190, fineDiningYears:9, category:"vip", specialities:["Italian","Fine dining","Deserturi"], img:"https://images.unsplash.com/photo-1548943487-a2e4e43b4853?q=80&w=1200&auto=format&fit=crop" },
+  { id:10, name:"Sofia Marin", city:"Brașov", rating:4.7, events:112, fineDiningYears:7, category:"premium", specialities:["Scandinav","Fermentație","Farm-to-table"], img:"https://images.unsplash.com/photo-1529699152630-3b08d00c74db?q=80&w=1200&auto=format&fit=crop" }
+];
 
-  // Data (6 chefi)
-  const CHEFS = [
-    {id:'matei',name:'Chef Matei',city:'București',tags:['Fine Dining','Seafood'],event:['private','corporate'],rating:4.8,ratingPct:97,events:160,premium:true,photo:'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1600&auto=format&fit=crop',subtitle:'Fine Dining • București'},
-    {id:'elisa',name:'Chef Elisa',city:'Cluj',tags:['Italian','Seafood'],event:['private','corporate'],rating:4.6,ratingPct:96,events:98,premium:true,photo:'https://images.unsplash.com/photo-1514511548324-9163e91b0b48?q=80&w=1600&auto=format&fit=crop',subtitle:'Italian • Cluj'},
-    {id:'radu',name:'Chef Radu',city:'Timișoara',tags:['BBQ','Corporate'],event:['corporate','private'],rating:4.5,ratingPct:94,events:110,premium:true,photo:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format&fit=crop',subtitle:'BBQ & Events • Timișoara'},
-    {id:'ioana',name:'Chef Ioana',city:'București',tags:['Dietetic','Family style'],event:['family','private'],rating:5,ratingPct:100,events:140,premium:true,photo:'',subtitle:'Healthy & Family • București'},
-    {id:'andreea',name:'Chef Andreea',city:'Iași',tags:['Italian','Family style'],event:['family','private'],rating:4.7,ratingPct:95,events:86,premium:false,photo:'https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?q=80&w=1600&auto=format&fit=crop',subtitle:'Italian • Iași'},
-    {id:'bogdan',name:'Chef Bogdan',city:'Brașov',tags:['BBQ','Seafood'],event:['corporate','private'],rating:4.4,ratingPct:92,events:74,premium:false,photo:'https://images.unsplash.com/photo-1562059390-a761a084768e?q=80&w=1600&auto=format&fit=crop',subtitle:'BBQ • Brașov'}
-  ];
+/* ===== Elemente ===== */
+const el = {
+  grid: document.getElementById('grid'),
+  pagination: document.getElementById('pagination'),
+  q: document.getElementById('q'),
+  city: document.getElementById('city'),
+  cat: document.getElementById('cat'),
+  minRating: document.getElementById('minRating'),
+  minFD: document.getElementById('minFD'),
+  minEv: document.getElementById('minEv'),
+  sort: document.getElementById('sort'),
+  reset: document.getElementById('reset'),
+  countInfo: document.getElementById('countInfo'),
+  modal: document.getElementById('modal'),
+  modalClose: document.getElementById('modalClose'),
+  modalTitle: document.getElementById('modalTitle'),
+  modalBody: document.getElementById('modalBody')
+};
 
-  // Elements
-  const resultsEl = document.getElementById('results');
-  const pagEl = document.getElementById('pagination');
-  const qEl = document.getElementById('q');
-  const cityEl = document.getElementById('city');
-  const sortEl = document.getElementById('sort');
-  const chips = document.querySelectorAll('#catChips .chip');
-  const tabs = document.querySelectorAll('.tab');
-  document.getElementById('reset').addEventListener('click',()=>{ qEl.value=''; cityEl.value=''; sortEl.value='score'; chips.forEach(c=>c.classList.remove('active')); preset='all'; tabs.forEach(t=>t.classList.remove('active')); tabs[0].classList.add('active'); apply(); });
-  document.getElementById('onlyCity').addEventListener('click',()=>{ if(!cityEl.value) return; preset='all'; apply(); });
-  document.getElementById('topEvents').addEventListener('click',()=>{ sortEl.value='events'; apply(); });
+const STATE = { page:1, perPage:8, list:[...CHEFS] };
 
-  // Tab presets
-  let preset = 'all';
-  tabs.forEach(t=>t.addEventListener('click',()=>{
-    tabs.forEach(x=>x.classList.remove('active')); t.classList.add('active'); preset = t.dataset.preset; apply();
+/* Orașe din date */
+(function fillCities(){
+  const set = new Set(CHEFS.map(c=>c.city));
+  [...set].sort((a,b)=>a.localeCompare(b)).forEach(city=>{
+    const o = document.createElement('option'); o.value=city; o.textContent=city; el.city.appendChild(o);
+  });
+})();
+
+/* Stele */
+function starsHTML(r){
+  const full = Math.floor(r), half = (r - full >= 0.5) ? 1 : 0, empty = 5 - full - half;
+  const svg = (cls)=>
+    `<svg viewBox="0 0 24 24"><path class="star ${cls}" d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.786 1.401 8.164L12 18.896 4.665 23.16l1.401-8.164L.132 9.21l8.2-1.192z"/></svg>`;
+  return `<span class="stars">${' '.repeat(full).split('').map(()=>svg('full')).join('')}${half?svg('half'):''}${' '.repeat(empty).split('').map(()=>svg('')).join('')}</span>`;
+}
+
+/* Card */
+function cardHTML(c){
+  const badgeCat = c.category==='vip' ? '<span class="badge vip">VIP</span>'
+                 : c.category==='premium' ? '<span class="badge premium">Premium</span>' : '';
+  const tags = c.specialities.map(s=>`<span>${s}</span>`).join('');
+  return `
+  <article class="card">
+    <div class="thumb">
+      <img src="${c.img}" alt="${c.name}">
+      <div class="badges">${badgeCat}</div>
+    </div>
+    <div class="body">
+      <h3>${c.name}</h3>
+      <div class="meta">
+        <span>📍 ${c.city}</span>
+        <span>🍽️ Fine Dining: ${c.fineDiningYears} ani</span>
+        <span>🎉 ${c.events} evenimente</span>
+      </div>
+      <div class="rating">${starsHTML(c.rating)} <strong>${c.rating.toFixed(1)}</strong></div>
+      <div class="kv">${tags}</div>
+      <div class="cta">
+        <button class="btn btn-outline" data-id="${c.id}" data-action="profil">Profil</button>
+        <button class="btn btn-primary" data-id="${c.id}" data-action="rezerva">Solicită ofertă</button>
+      </div>
+    </div>
+  </article>`;
+}
+
+/* Filtre + sortare */
+function applyFilters(){
+  const q = el.q.value.trim().toLowerCase();
+  const city = el.city.value;
+  const cat = el.cat.value;
+  const minRating = parseFloat(el.minRating.value||0);
+  const minFD = parseInt(el.minFD.value||0,10);
+  const minEv = parseInt(el.minEv.value||0,10);
+
+  let list = CHEFS.filter(c=>{
+    if(city && c.city!==city) return false;
+    if(cat && c.category!==cat) return false;
+    if(c.rating < minRating) return false;
+    if(c.fineDiningYears < minFD) return false;
+    if(c.events < minEv) return false;
+    if(q){
+      const hay = (c.name+' '+c.city+' '+c.category+' '+c.specialities.join(' ')).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const s = el.sort.value;
+  list.sort((a,b)=>{
+    if(s==='rating_desc') return b.rating - a.rating;
+    if(s==='events_desc') return b.events - a.events;
+    if(s==='fd_desc') return b.fineDiningYears - a.fineDiningYears;
+    if(s==='name_asc') return a.name.localeCompare(b.name);
+    return 0;
+  });
+
+  STATE.list = list; STATE.page = 1; render();
+}
+
+/* Render + paginare */
+function render(){
+  const start = (STATE.page-1)*STATE.perPage;
+  const pageItems = STATE.list.slice(start, start + STATE.perPage);
+  el.grid.innerHTML = pageItems.map(cardHTML).join('') || `<p class="small" style="text-align:center">Nu am găsit bucătari potriviți filtrării tale.</p>`;
+  el.countInfo.textContent = `Rezultate: ${STATE.list.length}`;
+
+  el.grid.querySelectorAll('button[data-action="profil"]').forEach(b=>b.addEventListener('click', openProfile));
+  el.grid.querySelectorAll('button[data-action="rezerva"]').forEach(b=>b.addEventListener('click', (e)=>{
+    const id = +e.currentTarget.dataset.id; const c = CHEFS.find(x=>x.id===id);
+    if(c) window.location.href = `/vreau-bucatar.html?chef=${encodeURIComponent(c.name)}&or=${encodeURIComponent(c.city)}`;
   }));
 
-  // Chips select
-  let selectedCats = new Set();
-  chips.forEach(ch=>ch.addEventListener('click',()=>{
-    const v = ch.dataset.cat;
-    if(selectedCats.has(v)){ selectedCats.delete(v); ch.classList.remove('active'); }
-    else { selectedCats.add(v); ch.classList.add('active'); }
-    apply();
-  }));
-
-  [qEl, cityEl, sortEl].forEach(el=>el.addEventListener('input', apply));
-
-  // Render helpers
-  const PAGE = 9; let filtered = CHEFS.slice();
-  function renderStars(r){
-    const full = Math.floor(r), half = r-full>=0.5?1:0;
-    let out=''; for(let i=0;i<full;i++) out+=`<svg class="star" viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.88L18.18 22 12 18.56 5.82 22 7 14.15l-5-4.88 6.91-1.01L12 2z"/></svg>`;
-    if(half) out+=`<svg class="star" viewBox="0 0 24 24"><defs><linearGradient id="half"><stop offset="50%" stop-color="var(--gold)"/><stop offset="50%" stop-color="#e1e6ea"/></linearGradient></defs><path d="M12 2l3.09 6.26L22 9.27l-5 4.88L18.18 22 12 18.56 5.82 22 7 14.15l-5-4.88 6.91-1.01L12 2z" fill="url(#half)"/></svg>`;
-    return out;
-  }
-  function card(c){
-    const img = c.photo ? `<img loading="lazy" src="${c.photo}" alt="${c.name}">` : '';
-    const broken = c.photo ? '' : ' is-broken';
-    const label = c.premium ? `<span class="label">Premium</span>` : '';
-    const chips = c.tags.map(t=>`<span class="chip-mini">${t}</span>`).join('');
-    return `<article class="card col-4">
-      <div class="media${broken}">
-        ${label}${img || 'Imagine indisponibilă'}
-      </div>
-      <div class="body">
-        <h3 class="name">${c.name}</h3>
-        <p class="sub">${c.subtitle}</p>
-        <div class="rating"><div class="stars" aria-label="${c.rating} din 5">${renderStars(c.rating)}</div><span class="percent">${c.ratingPct}%</span></div>
-        <div class="chips-inline">${chips}</div>
-      </div>
-      <div class="foot"><span class="badge">Premium</span><span class="ev">${c.events} evenimente</span></div>
-    </article>`;
-  }
-  function render(){
-    resultsEl.innerHTML = filtered.slice(0,PAGE).map(card).join('');
-    pagEl.innerHTML = ''; // 6 iteme => o singură pagină în demo
-    // broken fallback (pentru imaginile lipsă)
-    document.querySelectorAll('.media img').forEach(img=>{
-      img.addEventListener('error',()=>{ const p=img.closest('.media'); p.classList.add('is-broken'); p.innerHTML='Imagine indisponibilă'; }, {once:true});
-    });
-  }
-
-  function apply(){
-    const q = qEl.value.trim().toLowerCase();
-    const city = cityEl.value;
-    filtered = CHEFS.filter(c=>{
-      const okQ = !q || [c.name,c.city,c.tags.join(' '),c.subtitle].join(' ').toLowerCase().includes(q);
-      const okCity = !city || c.city===city;
-      const okCat = selectedCats.size===0 || [...selectedCats].every(t=>c.tags.includes(t));
-      let okPreset = true;
-      if(preset==='premium') okPreset = !!c.premium;
-      if(preset==='high') okPreset = c.rating>=4.5;
-      return okQ && okCity && okCat && okPreset;
-    });
-    // sort
-    const by = sortEl.value;
-    filtered.sort((a,b)=>{
-      if(by==='rating') return b.rating-a.rating;
-      if(by==='events') return b.events-a.events;
-      if(by==='name') return a.name.localeCompare(b.name);
-      const sA=a.rating*0.7 + a.events*0.03 + (a.premium?0.4:0);
-      const sB=b.rating*0.7 + b.events*0.03 + (b.premium?0.4:0);
-      return sB-sA;
-    });
-    render();
-  }
-
-  // init
-  apply();
-
-  /* ========= MOBILE FILTER MODAL LOGIC ========= */
-  (function(){
-    const fab = document.getElementById('filtersFab');
-    const modal = document.getElementById('filtersModal');
-    const closeBtn = document.getElementById('filtersClose');
-
-    const main = {
-      q: document.getElementById('q'),
-      city: document.getElementById('city'),
-      sort: document.getElementById('sort'),
-      chipsWrap: document.getElementById('catChips'),
-      get selectedCats(){ return Array.from(this.chipsWrap.querySelectorAll('.chip.active')).map(c=>c.dataset.cat); },
-      setCats(arr){ this.chipsWrap.querySelectorAll('.chip').forEach(c=> c.classList.toggle('active', arr.includes(c.dataset.cat))); }
-    };
-
-    const m = {
-      q: document.getElementById('q-m'),
-      city: document.getElementById('city-m'),
-      sort: document.getElementById('sort-m'),
-      tabs: document.querySelectorAll('#tabs-m button'),
-      chipsWrap: document.getElementById('chips-m'),
-      getCats(){ return Array.from(this.chipsWrap.querySelectorAll('button.active')).map(b=>b.dataset.cat); },
-      setCats(arr){ this.chipsWrap.querySelectorAll('button').forEach(b=> b.classList.toggle('active', arr.includes(b.dataset.cat))); },
-      getPreset(){ const a=[...this.tabs].find(b=>b.classList.contains('active')); return a?a.dataset.preset:'all'; },
-      setPreset(p){ this.tabs.forEach(b=> b.classList.toggle('active', b.dataset.preset===p)); }
-    };
-
-    function syncToModal(){
-      m.q.value = main.q.value || '';
-      m.city.value = main.city.value || '';
-      m.sort.value = main.sort.value || 'score';
-      m.setCats(main.selectedCats);
-      // deducem presetul simplu
-      if (preset==='premium' || preset==='high') m.setPreset(preset); else m.setPreset('all');
+  const pages = Math.ceil(STATE.list.length / STATE.perPage) || 1;
+  el.pagination.innerHTML = '';
+  if(pages>1){
+    for(let i=1;i<=pages;i++){
+      const btn = document.createElement('button'); btn.textContent = i;
+      if(i===STATE.page) btn.classList.add('active');
+      btn.addEventListener('click', ()=>{ STATE.page=i; render(); window.scrollTo({top:0,behavior:'smooth'}); });
+      el.pagination.appendChild(btn);
     }
-    function applyFromModal(){
-      main.q.value = m.q.value || '';
-      main.city.value = m.city.value || '';
-      main.sort.value = m.sort.value || 'score';
-      main.setCats(m.getCats());
-      const p = m.getPreset();
-      preset = p;
-      apply();
-    }
+  }
+}
 
-    function openModal(){ syncToModal(); modal.hidden = false; document.documentElement.style.overflow='hidden'; }
-    function closeModal(){ modal.hidden = true; document.documentElement.style.overflow=''; }
+/* Modal */
+function openProfile(e){
+  const id = +e.currentTarget.dataset.id;
+  const c = CHEFS.find(x=>x.id===id);
+  if(!c) return;
+  el.modalTitle.textContent = c.name;
+  el.modalBody.innerHTML = `
+    <div style="display:grid;grid-template-columns:180px 1fr;gap:16px;align-items:start">
+      <img src="${c.img}" alt="${c.name}" style="width:100%;height:180px;object-fit:cover;border-radius:10px;border:1px solid #e5e9ee">
+      <div>
+        <p class="small" style="margin:0 0 8px;color:#374151"><strong>Oraș:</strong> ${c.city} &nbsp; • &nbsp; <strong>Categorie:</strong> ${c.category.toUpperCase()}</p>
+        <p style="margin:0 0 8px">${starsHTML(c.rating)} <strong>${c.rating.toFixed(1)}</strong> &nbsp; • &nbsp; <strong>${c.events}</strong> evenimente</p>
+        <p style="margin:0 0 8px"><strong>Experiență fine dining:</strong> ${c.fineDiningYears} ani</p>
+        <p style="margin:0 0 10px"><strong>Specializări:</strong> ${c.specialities.join(', ')}</p>
+        <a class="btn btn-primary" href="/vreau-bucatar.html?chef=${encodeURIComponent(c.name)}&or=${encodeURIComponent(c.city)}">Vreau acest bucătar</a>
+      </div>
+    </div>`;
+  el.modal.classList.add('open'); el.modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+}
+function closeModal(){ el.modal.classList.remove('open'); el.modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
 
-    fab?.addEventListener('click', openModal);
-    closeBtn?.addEventListener('click', closeModal);
-    modal?.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
-    window.addEventListener('keydown', (e)=>{ if(!modal.hidden && e.key==='Escape') closeModal(); });
+/* Listeners */
+['input','change','keyup'].forEach(ev=>{ el.q.addEventListener(ev, debounce(applyFilters, 150)); });
+[el.city, el.cat, el.minRating, el.minFD, el.minEv, el.sort].forEach(n=>n.addEventListener('change', applyFilters));
+el.reset.addEventListener('click', ()=>{ el.q.value=''; el.city.value=''; el.cat.value=''; el.minRating.value='0'; el.minFD.value='0'; el.minEv.value='0'; el.sort.value='rating_desc'; applyFilters(); });
+el.modal.addEventListener('click', (e)=>{ if(e.target===el.modal) closeModal(); });
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
 
-    m.chipsWrap?.addEventListener('click', (e)=>{ const b=e.target.closest('button[data-cat]'); if(!b) return; b.classList.toggle('active'); });
-    m.tabs.forEach(b=> b.addEventListener('click', ()=>{ m.tabs.forEach(x=>x.classList.remove('active')); b.classList.add('active'); }));
-    document.getElementById('reset-m')?.addEventListener('click', ()=>{ m.q.value=''; m.city.value=''; m.sort.value='score'; m.setCats([]); m.setPreset('all'); });
-    document.getElementById('apply-m')?.addEventListener('click', ()=>{ applyFromModal(); closeModal(); });
-  })();
+function debounce(fn, ms){ let t; return function(...a){ clearTimeout(t); t=setTimeout(()=>fn.apply(this,a), ms); }; }
+
+/* Init */
+applyFilters();
 </script>
 </body>
 </html>
