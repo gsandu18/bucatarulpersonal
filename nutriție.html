@@ -3,117 +3,132 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>BP – AI Nutriție & Nutriționist (Design B)</title>
-<meta name="description" content="Meniuri personalizate cu AI sau consultanță 1:1 cu nutriționist. PDF gourmet pe email." />
+<title>Bucătarul Personal — Homepage cu AI Nutriție (Modal)</title>
+<meta name="description" content="Homepage BP cu generator AI de meniuri în modal dark și opțiune de consultanță cu nutriționist." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
 <style>
+/* ====== Bază / Brand minimal ====== */
 :root{
-  --verde:#0e5a43; --verde-2:#0a4a35; --ivory:#f7faf8; --line:#e6ede9;
-  --text:#1a2320; --muted:#5a6a64; --aur:#c9a227; --max:1160px;
-  --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.07);
+  --bg:#0c1512; --panel:#0f1d18; --line:#2a3a34;
+  --verde:#11a37f; --verde-2:#0c8a6b; --aur:#c9a227;
+  --text:#e9f4ef; --muted:#b7c8c2; --max:1180px; --r:16px;
+  --shadow:0 16px 40px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:#fff}
-
-/* Layout */
+body{
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg); color:var(--text)
+}
+a{color:inherit;text-decoration:none}
 .container{max-width:var(--max);margin:0 auto;padding:0 20px}
 .title{font-family:"Playfair Display",serif}
-.kicker{color:var(--aur);text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:700}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border-radius:12px;border:1px solid transparent;font-weight:800;cursor:pointer}
-.btn-primary{background:var(--verde);color:#fff}
-.btn-primary:hover{background:var(--verde-2)}
-.btn-ghost{border:1px solid var(--verde);color:var(--verde);background:#fff}
-.badge{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted)}
 
-/* Header */
-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+/* ====== Header compact + navbar hamburg ====== */
+header{position:sticky;top:0;z-index:40;background:rgba(12,21,18,.8);backdrop-filter:blur(10px);border-bottom:1px solid #1b2b25}
 .nav{height:64px;display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;gap:10px;align-items:center;font-weight:800;white-space:nowrap}
-.logo .mark{width:34px;height:34px;border-radius:10px;background:conic-gradient(#0e5a43,#0a4a35);border:2px solid var(--aur);display:grid;place-items:center;color:#fff}
-.menu-toggle{display:none;background:none;border:0;font-size:26px;color:var(--verde);padding:8px}
-.navlinks{display:flex;gap:20px}
-.navlinks a{font-weight:600;color:var(--text);opacity:.9;text-decoration:none}
+.logo .mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#0e5a43,#0a4a35);border:2px solid var(--aur);display:grid;place-items:center;color:#fff}
+.menu-toggle{display:none;background:none;border:0;font-size:26px;color:var(--text);padding:8px}
+.navlinks{display:flex;gap:22px}
+.navlinks a{font-weight:600;opacity:.9}
 .navlinks a:hover{opacity:1}
-
-/* Hero B */
-.hero{padding:64px 0 36px}
-.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
-.hero h1{font-size:44px;line-height:1.08;margin:.2rem 0 1rem}
-.hero p{color:#3f524c;font-size:17px}
-.visual{position:relative}
-.blob{height:360px;border-radius:26px;background:radial-gradient(120% 100% at 0% 0%, #eaf4ef 0%, #ffffff 60%);border:1px solid var(--line)}
-.fab{position:fixed;left:0;right:0;bottom:10px;margin:auto;display:none;max-width:520px;padding:10px 12px}
-.fab .inner{display:flex;gap:10px;justify-content:space-between;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:16px;padding:10px}
-
-/* Switch AI / Expert */
-.switch{display:flex;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px}
-.switch button{flex:1;padding:10px 14px;border-radius:999px;border:0;background:transparent;font-weight:800;color:#335147;cursor:pointer}
-.switch button.active{background:var(--verde);color:#fff}
-
-/* Sections */
-.section{padding:44px 0}
-.soft{background:var(--ivory)}
-.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.list{padding-left:18px;color:var(--muted)}
-
-/* Wizard style B */
-.stepper{display:flex;gap:10px;margin-bottom:12px}
-.stepper .dot{height:8px;flex:1;border-radius:999px;background:#dbe5e0}
-.stepper .dot.active{background:var(--verde)}
-form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-label{display:block;font-weight:700;margin:8px 0 6px}
-input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
-textarea{min-height:110px}
-.actions{display:flex;gap:10px;justify-content:flex-end}
-
-/* Pricing */
-.price{font-size:28px;font-weight:800;color:var(--verde)}
-
-/* FAQ */
-details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
-summary{font-weight:800;cursor:pointer}
-
-/* Footer */
-footer{background:#0b1a15;color:#d8eee6;border-top:1px solid #123226;padding:36px 0}
-footer a{color:#d8eee6}
-
-/* Mobile */
-@media (max-width:980px){
-  .hero .wrap{grid-template-columns:1fr}
-  .grid2,.grid3,form .row{grid-template-columns:1fr}
-}
 @media (max-width:768px){
   .menu-toggle{display:block;margin-left:auto}
   .nav{flex-wrap:wrap}
-  .navlinks{display:none;width:100%;flex-direction:column;padding:10px 0;border-top:1px solid var(--line);background:#fff}
+  .navlinks{display:none;width:100%;flex-direction:column;padding:10px 0;border-top:1px solid #1b2b25}
   .navlinks.show{display:flex}
-  .hero h1{font-size:clamp(28px,6.4vw,36px)}
-  .fab{display:block}
 }
-#ai,#expert,#faq,#preturi{scroll-margin-top:78px}
-html{scroll-behavior:smooth}
 
-/* Modal */
-.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);padding:20px}
+/* ====== Hero ====== */
+.hero{position:relative;min-height:60vh;display:grid;place-items:center;border-bottom:1px solid #1b2b25}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+  filter:grayscale(.2) brightness(.35) contrast(1.1);
+}
+.hero .inner{position:relative;z-index:1;text-align:center;padding:64px 0}
+.hero h1{font-size:48px;line-height:1.08;margin:.3rem 0 1rem;text-shadow:0 8px 24px rgba(0,0,0,.6)}
+.hero p{color:var(--muted);font-size:18px;max-width:760px;margin:0 auto}
+.hero .cta{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* ====== Butoane ====== */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border-radius:12px;border:1px solid transparent;font-weight:800;cursor:pointer}
+.btn-primary{background:var(--verde);color:#05110e}
+.btn-primary:hover{background:var(--verde-2)}
+.btn-ghost{border:1px solid var(--verde);color:var(--text);background:transparent}
+
+/* ====== Secțiuni ====== */
+.section{padding:56px 0}
+.soft{background:linear-gradient(180deg,#0c1613,#0d1915)}
+.card{background:linear-gradient(180deg,var(--panel),#0b1915);border:1px solid #1b2b25;border-radius:var(--r);box-shadow:var(--shadow)}
+.grid{display:grid;gap:18px}
+.grid-2{grid-template-columns:1.1fr .9fr}
+@media (max-width:980px){ .grid-2{grid-template-columns:1fr}}
+
+/* ====== AI Modal – DARK THEME + animație + accesibilitate ====== */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);padding:20px;z-index:1000;backdrop-filter: blur(6px);}
 .modal.show{display:flex}
-.dialog{background:#fff;border:1px solid var(--line);border-radius:16px;max-width:720px;width:100%;padding:22px;box-shadow:var(--shadow)}
-.dialog .head{display:flex;justify-content:space-between;align-items:center}
-.close{background:transparent;border:0;font-size:24px;cursor:pointer}
+.dialog{background:#0f1d18;border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.35);padding:22px;width:100%;max-width:820px;color:var(--text)}
+@media (prefers-reduced-motion:no-preference){
+  .dialog{transform: translateY(12px) scale(.98); opacity:0; transition: transform .2s ease, opacity .2s ease;}
+  .modal.show .dialog{transform: translateY(0) scale(1); opacity:1;}
+}
+@media (max-width:768px){ .dialog{ max-height:85vh; overflow:auto } }
+
+.head{position:relative;padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid var(--line)}
+.head::after{content:"";position:absolute;left:-22px;right:-22px;bottom:-1px;height:3px;background:var(--verde);border-radius:999px}
+.head h3{font-size:22px;letter-spacing:.2px;margin:0}
+.close{color:var(--text);width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:transparent;border:0;cursor:pointer}
+.close:hover{background:#0a1713}
+
+.stepper{display:flex;gap:10px;margin-bottom:12px}
+.stepper .dot{height:8px;flex:1;border-radius:999px;background:#213630}
+.stepper .dot.active{background:var(--verde)}
+
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-weight:700;margin:8px 0 6px}
+input,select,textarea{
+  width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#0a1713;color:var(--text)
+}
+::placeholder{color:#8aa59e}
+textarea{min-height:110px}
+.actions{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
+@media (max-width:768px){ .actions .btn{flex:1;justify-content:center} }
+
+.badge{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted);background:#0a1713}
+.field-error{border-color:#f26d6d !important; box-shadow:0 0 0 3px rgba(242,109,109,.15)}
+.error-text{color:#f7b5b5;font-size:12px;margin-top:6px}
+
+/* ====== Toast ====== */
+#toast{
+  position:fixed; right:20px; bottom:20px; z-index:2000;
+  background:#10221c; color:#dff3ea; border:1px solid var(--line);
+  padding:12px 14px; border-radius:12px; box-shadow:0 14px 30px rgba(0,0,0,.25);
+  opacity:0; transform:translateY(10px); transition:opacity .2s ease, transform .2s ease; display:none
+}
+#toast.show{ opacity:1; transform:translateY(0); }
+
+/* ====== Footer ====== */
+footer{background:#09110f;border-top:1px solid #1b2b25;color:#a9c4bc;padding:36px 0}
+footer a{color:#cfe9e2}
+footer .container{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer .logo{font-size:14px;opacity:.85}
+footer .logo .mark{width:28px;height:28px;border:1px solid var(--aur)}
 </style>
 </head>
 <body>
 
+<!-- ====== HEADER ====== -->
 <header>
   <div class="container nav">
     <a class="logo" href="/"><span class="mark">BP</span><span>Bucătarul Personal</span></a>
     <button class="menu-toggle" aria-label="Deschide meniul" aria-expanded="false">&#9776;</button>
     <nav class="navlinks" aria-label="Primar">
-      <a href="#ai">AI</a>
+      <a href="#ai-beneficii">AI</a>
       <a href="#expert">Nutriționist</a>
       <a href="#preturi">Prețuri</a>
       <a href="#faq">FAQ</a>
@@ -121,222 +136,174 @@ html{scroll-behavior:smooth}
   </div>
 </header>
 
-<main>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container wrap">
-      <div>
-        <div class="kicker">AI Nutriție</div>
-        <h1 class="title">Meniuri personalizate cu AI sau consultanță 1:1 cu un nutriționist</h1>
-        <p>Completezi preferințele, primești un PDF gourmet pe email. Dacă vrei validare umană, programezi o discuție rapidă cu un expert.</p>
-        <div class="badge"><strong>5–7 min</strong> pentru completare</div>
-        <div style="margin-top:14px" class="switch" role="tablist">
-          <button class="active" data-target="#ai" role="tab" aria-selected="true">AI Nutriție</button>
-          <button data-target="#expert" role="tab" aria-selected="false">Expert Nutriționist</button>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:14px">
-          <a class="btn btn-primary" href="#ai">Generează meniul meu AI</a>
-          <a class="btn btn-ghost" href="#expert">Vorbește cu un nutriționist</a>
-        </div>
-      </div>
-      <div class="visual" aria-hidden="true">
-        <div class="blob"></div>
-      </div>
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <div class="container inner">
+    <div class="kicker" style="color:#c9a227;text-transform:uppercase;letter-spacing:.14em;font-weight:800">AI + Expert</div>
+    <h1 class="title">Meniuri personalizate cu AI & validare de la un nutriționist</h1>
+    <p>Gourmet, echilibrat și adaptat obiectivelor tale. Primești PDF pe email și poți discuta 1:1 cu un specialist.</p>
+    <div class="cta">
+      <button class="btn btn-primary" id="openAi">Generează cu AI</button>
+      <a href="#expert" class="btn btn-ghost">Vorbește cu un nutriționist</a>
     </div>
-  </section>
-
-  <!-- AI SECTION -->
-  <section id="ai" class="section soft">
-    <div class="container">
-      <div class="grid2">
-        <div class="card" style="padding:22px">
-          <div class="kicker">Cum funcționează</div>
-          <h2 class="title" style="margin:6px 0 12px">AI îți construiește meniul</h2>
-          <ul class="list">
-            <li>Completezi profilul: alergii, obiectiv, calorii, preferințe.</li>
-            <li>Primești un meniu săptămânal (3–5 mese/zi) cu valori nutriționale.</li>
-            <li>PDF elegant pe email + listă de cumpărături (opțional).</li>
-          </ul>
-          <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
-            <a class="btn btn-primary" href="#wizard">Pornește formularul</a>
-            <span class="badge">Respectă alergiile</span>
-            <span class="badge">Gourmet & echilibrat</span>
-          </div>
-        </div>
-        <div id="wizard" class="card" style="padding:22px">
-          <div class="stepper"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
-          <form id="aiForm" novalidate>
-            <div data-step="1">
-              <h3 class="title" style="margin:.2rem 0 6px">1) Date de contact</h3>
-              <div class="row">
-                <div><label for="nume">Nume *</label><input id="nume" name="nume" required placeholder="Ex: Popescu Andrei"></div>
-                <div><label for="email">Email *</label><input id="email" name="email" type="email" required placeholder="exemplu@email.com"></div>
-              </div>
-              <div class="row">
-                <div><label for="tel">Telefon</label><input id="tel" name="telefon" inputmode="tel" placeholder="+40 ..."></div>
-                <div><label for="oras">Oraș</label><input id="oras" name="oras" placeholder="București / Milano"></div>
-              </div>
-            </div>
-            <div data-step="2" hidden>
-              <h3 class="title" style="margin:.2rem 0 6px">2) Profil & obiectiv</h3>
-              <div class="row">
-                <div><label for="sex">Sex</label>
-                  <select id="sex" name="sex"><option value="">—</option><option>F</option><option>M</option><option>Prefer să nu spun</option></select>
-                </div>
-                <div><label for="varsta">Vârstă</label><input id="varsta" name="varsta" type="number" min="10" max="100"></div>
-              </div>
-              <div class="row">
-                <div><label for="h">Înălțime (cm)</label><input id="h" name="inaltime" type="number" min="120" max="220"></div>
-                <div><label for="w">Greutate (kg)</label><input id="w" name="greutate" type="number" min="35" max="200"></div>
-              </div>
-              <div class="row">
-                <div><label for="act">Activitate</label>
-                  <select id="act" name="activitate"><option>—</option><option>Sedentar</option><option>Ușor activ</option><option>Moderate</option><option>Foarte activ</option></select>
-                </div>
-                <div><label for="obj">Obiectiv</label>
-                  <select id="obj" name="obiectiv"><option>—</option><option>Slăbire</option><option>Menținere</option><option>Masă musculară</option></select>
-                </div>
-              </div>
-              <div class="row">
-                <div><label for="cal">Calorii/zi</label><input id="cal" name="calorii" type="number" min="1000" max="5000" placeholder="dacă lași gol, calculăm noi"></div>
-                <div><label for="mese">Mese/zi</label>
-                  <select id="mese" name="mese"><option>3</option><option>4</option><option>5</option></select>
-                </div>
-              </div>
-            </div>
-            <div data-step="3" hidden>
-              <h3 class="title" style="margin:.2rem 0 6px">3) Preferințe</h3>
-              <div class="row">
-                <div><label for="dieta">Dietă</label>
-                  <select id="dieta" name="dieta"><option>Fără restricții</option><option>Vegetarian</option><option>Vegan</option><option>Keto</option><option>Low-carb</option><option>Mediteraneană</option><option>Fără gluten</option></select>
-                </div>
-                <div><label for="alergii">Alergii</label><input id="alergii" name="alergii" placeholder="lactoză, arahide, crustacee"></div>
-              </div>
-              <div class="row">
-                <div><label for="nu">Nu îmi plac</label><input id="nu" name="nuImiPlac" placeholder="măsline, coriandru"></div>
-                <div><label for="cuisine">Bucătării preferate</label><input id="cuisine" name="bucatarii" placeholder="italiană, românească, asiatică"></div>
-              </div>
-              <label class="badge" style="margin-top:6px"><input type="checkbox" id="gdpr" required style="margin-right:8px">Accept termenii & prelucrarea datelor</label>
-            </div>
-            <div class="actions">
-              <button type="button" class="btn btn-ghost" id="prev" disabled>Înapoi</button>
-              <button type="button" class="btn btn-primary" id="next">Continuă</button>
-              <button type="submit" class="btn btn-primary" id="submit" hidden>Generează PDF</button>
-            </div>
-            <div id="aiStatus" class="badge" style="margin-top:8px;min-height:28px"></div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EXPERT SECTION -->
-  <section id="expert" class="section">
-    <div class="container">
-      <div class="grid3">
-        <div class="card" style="padding:22px">
-          <div class="kicker">Consultanță</div>
-          <h2 class="title" style="margin:6px 0 10px">Discuție cu nutriționistul</h2>
-          <p>Video call 30–45 min, ajustări pe alergii, stil de viață și obiectiv. Follow-up opțional.</p>
-          <p class="price" style="margin:12px 0 2px">de la 199 RON</p>
-          <button class="btn btn-ghost" id="openConsult">Programează</button>
-        </div>
-        <div class="card" style="padding:22px">
-          <h3 class="title" style="margin:0 0 8px">Ce primești</h3>
-          <ul class="list">
-            <li>Recomandări personalizate + macronutrienți</li>
-            <li>Ajustare meniu AI sau meniu creat 100% manual</li>
-            <li>Listă de cumpărături & batch-cooking</li>
-          </ul>
-        </div>
-        <div class="card" style="padding:22px">
-          <h3 class="title" style="margin:0 0 8px">Pentru cine?</h3>
-          <ul class="list">
-            <li>Alergii/Intoleranțe complexe</li>
-            <li>Obiective sport & compoziție corporală</li>
-            <li>Diabet/hipertensiune (cu acordul medicului)</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section id="preturi" class="section soft">
-    <div class="container grid3">
-      <div class="card" style="padding:22px">
-        <h3>AI – Basic</h3><p class="price">0 RON</p>
-        <ul class="list"><li>Meniu săptămânal PDF</li><li>1 revizie automată</li></ul>
-      </div>
-      <div class="card" style="padding:22px;border-top:4px solid var(--verde)">
-        <h3>AI – Pro</h3><p class="price">49 RON</p>
-        <ul class="list"><li>+2 alternative</li><li>Shopping list inteligent</li><li>Batch-cooking</li></ul>
-      </div>
-      <div class="card" style="padding:22px">
-        <h3>Nutriționist</h3><p class="price">de la 199 RON</p>
-        <ul class="list"><li>30–45 min video</li><li>Ajustări personalizate</li></ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="section">
-    <div class="container" style="display:grid;gap:10px">
-      <details><summary>Primesc valorile nutriționale?</summary><p>Da, pe zi și pe porție (calorii + macro estimative) în PDF.</p></details>
-      <details><summary>Pot exclude alergeni?</summary><p>Da. AI exclude ingredientele bifate; expertul validează și ajustează.</p></details>
-      <details><summary>Pot vorbi întâi cu un specialist?</summary><p>Da, rezervă direct din secțiunea „Nutriționist”.</p></details>
-    </div>
-  </section>
-</main>
-
-<!-- Sticky CTA pe mobil -->
-<div class="fab" aria-hidden="true">
-  <div class="inner">
-    <a class="btn btn-primary" href="#ai" style="flex:1;justify-content:center">Generează cu AI</a>
-    <a class="btn btn-ghost" href="#expert" style="flex:1;justify-content:center">Nutriționist</a>
   </div>
-</div>
+</section>
 
+<!-- ====== SECȚIUNE AI (descriere scurtă) ====== -->
+<section id="ai-beneficii" class="section soft">
+  <div class="container grid grid-2">
+    <div class="card" style="padding:22px">
+      <div class="kicker" style="color:#c9a227;text-transform:uppercase;letter-spacing:.14em;font-weight:800">Cum funcționează</div>
+      <h2 class="title" style="margin:6px 0 10px">Generator AI de meniuri</h2>
+      <ul style="padding-left:18px;color:#b7c8c2">
+        <li>Completezi profilul: alergii, preferințe, obiectiv, calorii.</li>
+        <li>Meniu pe 7 zile (3–5 mese/zi) cu valori nutriționale.</li>
+        <li>Primești PDF elegant + listă de cumpărături (opțional).</li>
+      </ul>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" id="openAi2">Pornește formularul</button>
+        <span class="badge">Respectă alergiile</span><span class="badge">Gourmet & echilibrat</span>
+      </div>
+    </div>
+    <div class="card" style="padding:22px">
+      <h3 class="title" style="margin:0 0 8px">De ce să alegi BP?</h3>
+      <ul style="padding-left:18px;color:#b7c8c2">
+        <li>Design premium al PDF-ului și meniuri gustoase, nu doar „dietetice”.</li>
+        <li>Opțiune de validare 1:1 cu nutriționist pentru cazuri complexe.</li>
+        <li>Respect GDPR: date folosite strict pentru generare și comunicare.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ====== EXPERT ====== -->
+<section id="expert" class="section">
+  <div class="container card" style="padding:22px">
+    <div class="kicker" style="color:#c9a227;text-transform:uppercase;letter-spacing:.14em;font-weight:800">Consultanță 1:1</div>
+    <h2 class="title" style="margin:6px 0 14px">Vorbește cu un nutriționist</h2>
+    <div class="grid" style="grid-template-columns:1fr 1fr;gap:18px">
+      <div>
+        <p style="color:#b7c8c2">Video call 30–45 min, ajustări pe alergii, stil de viață și obiectiv. Follow-up opțional.</p>
+        <ul style="padding-left:18px;color:#b7c8c2">
+          <li>Ajustare meniu / intoleranțe</li>
+          <li>Macro + listă cumpărături</li>
+          <li>Recomandări sustenabile</li>
+        </ul>
+      </div>
+      <div>
+        <p class="badge">de la 199 RON</p>
+        <a class="btn btn-ghost" href="mailto:contact@bucatarulpersonal.ro">Solicită programare</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PREȚURI ====== -->
+<section id="preturi" class="section soft">
+  <div class="container grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card" style="padding:22px">
+      <h3 class="title" style="margin:0 0 6px">AI – Basic</h3>
+      <p style="font-size:28px;font-weight:800;color:#d4f7ee">0 RON</p>
+      <ul style="padding-left:18px;color:#b7c8c2"><li>Meniu săptămânal PDF</li><li>1 revizie automată</li></ul>
+    </div>
+    <div class="card" style="padding:22px;border-top:4px solid var(--verde)">
+      <h3 class="title" style="margin:0 0 6px">AI – Pro</h3>
+      <p style="font-size:28px;font-weight:800;color:#d4f7ee">49 RON</p>
+      <ul style="padding-left:18px;color:#b7c8c2"><li>+2 alternative</li><li>Shopping list inteligent</li><li>Batch-cooking</li></ul>
+    </div>
+    <div class="card" style="padding:22px">
+      <h3 class="title" style="margin:0 0 6px">Nutriționist</h3>
+      <p style="font-size:28px;font-weight:800;color:#d4f7ee">de la 199 RON</p>
+      <ul style="padding-left:18px;color:#b7c8c2"><li>30–45 min video</li><li>Ajustări personalizate</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FAQ ====== -->
+<section id="faq" class="section">
+  <div class="container" style="display:grid;gap:10px">
+    <details><summary><strong>Primesc valorile nutriționale?</strong></summary><p>Da, pe zi și pe porție (calorii + macro estimative) în PDF.</p></details>
+    <details><summary><strong>Pot exclude alergeni?</strong></summary><p>Da. AI exclude ingredientele bifate; expertul validează și ajustează.</p></details>
+    <details><summary><strong>Pot vorbi întâi cu un specialist?</strong></summary><p>Da, ne poți scrie sau programa un call din secțiunea Nutriționist.</p></details>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
 <footer>
-  <div class="container" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px">
+  <div class="container">
     <div class="logo"><span class="mark">BP</span><span>Bucătarul Personal</span></div>
     <div><strong>Contact</strong><br><a href="mailto:contact@bucatarulpersonal.ro">contact@bucatarulpersonal.ro</a></div>
     <div><strong>Legal</strong><br><a href="/termeni">Termeni & Condiții</a></div>
   </div>
 </footer>
 
-<!-- Modal consultanță -->
-<div class="modal" id="consultModal" role="dialog" aria-modal="true" aria-labelledby="consultTitle">
+<!-- ====== MODAL AI (Dark) ====== -->
+<div class="modal" id="aiModal" role="dialog" aria-modal="true" aria-labelledby="aiTitle" style="display:none">
   <div class="dialog">
     <div class="head">
-      <h3 id="consultTitle" class="title" style="margin:0">Programează consultanța</h3>
-      <button class="close" aria-label="Închide">×</button>
+      <h3 id="aiTitle" class="title">Generează meniul tău cu AI</h3>
+      <button class="close" id="closeAi" aria-label="Închide">×</button>
     </div>
-    <form id="consultForm">
-      <div class="grid2">
-        <div><label for="cnume">Nume *</label><input id="cnume" name="nume" required></div>
-        <div><label for="cemail">Email *</label><input id="cemail" name="email" type="email" required></div>
-      </div>
-      <div class="grid2">
-        <div><label for="ctel">Telefon</label><input id="ctel" name="telefon"></div>
-        <div><label for="cinterval">Interval</label>
-          <select id="cinterval" name="interval"><option>Dimineața</option><option>Prânz</option><option>Seara</option></select>
+
+    <div class="stepper"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+
+    <form id="aiForm" novalidate>
+      <!-- Pas 1 -->
+      <div data-step="1">
+        <h4 class="title" style="margin:.2rem 0 6px">1) Date de contact</h4>
+        <div class="row">
+          <div><label for="nume">Nume *</label><input id="nume" name="nume" required placeholder="Ex: Popescu Andrei"></div>
+          <div><label for="email">Email *</label><input id="email" name="email" type="email" required placeholder="exemplu@email.com"></div>
+          <div><label for="telefon">Telefon</label><input id="telefon" name="telefon" inputmode="tel" placeholder="+40 ..."></div>
+          <div><label for="oras">Oraș</label><input id="oras" name="oras" placeholder="București / Milano"></div>
         </div>
       </div>
-      <label for="cnote">Obiectiv & note</label>
-      <textarea id="cnote" name="note"></textarea>
-      <label class="badge" style="margin-top:8px"><input type="checkbox" required style="margin-right:8px">Accept termenii & prelucrarea datelor</label>
-      <div class="actions" style="margin-top:10px">
-        <button type="button" class="btn btn-ghost" data-close>Anulează</button>
-        <button class="btn btn-primary" type="submit">Trimite</button>
+
+      <!-- Pas 2 -->
+      <div data-step="2" hidden>
+        <h4 class="title" style="margin:.2rem 0 6px">2) Profil & obiectiv</h4>
+        <div class="row">
+          <div><label for="sex">Sex</label><select id="sex" name="sex"><option>—</option><option>F</option><option>M</option><option>Prefer să nu spun</option></select></div>
+          <div><label for="varsta">Vârstă</label><input id="varsta" name="varsta" type="number" min="10" max="100"></div>
+          <div><label for="inaltime">Înălțime (cm)</label><input id="inaltime" name="inaltime" type="number" min="120" max="220"></div>
+          <div><label for="greutate">Greutate (kg)</label><input id="greutate" name="greutate" type="number" min="35" max="200"></div>
+          <div><label for="activitate">Activitate</label><select id="activitate" name="activitate"><option>—</option><option>Sedentar</option><option>Ușor activ</option><option>Moderate</option><option>Foarte activ</option></select></div>
+          <div><label for="obiectiv">Obiectiv</label><select id="obiectiv" name="obiectiv"><option>—</option><option>Slăbire</option><option>Menținere</option><option>Masă musculară</option></select></div>
+          <div><label for="calorii">Calorii/zi</label><input id="calorii" name="calorii" type="number" min="1000" max="5000" placeholder="Dacă lași gol, calculăm noi"></div>
+          <div><label for="mese">Mese/zi</label><select id="mese" name="mese"><option>3</option><option>4</option><option>5</option></select></div>
+        </div>
       </div>
-      <div id="cStatus" class="badge" style="margin-top:8px;min-height:28px"></div>
+
+      <!-- Pas 3 -->
+      <div data-step="3" hidden>
+        <h4 class="title" style="margin:.2rem 0 6px">3) Preferințe & restricții</h4>
+        <div class="row">
+          <div><label for="dieta">Dietă</label><select id="dieta" name="dieta"><option>Fără restricții</option><option>Vegetarian</option><option>Vegan</option><option>Keto</option><option>Low-carb</option><option>Mediteraneană</option><option>Fără gluten</option></select></div>
+          <div><label for="alergii">Alergii</label><input id="alergii" name="alergii" placeholder="lactoză, arahide, crustacee"></div>
+          <div><label for="nuImiPlac">Nu îmi plac</label><input id="nuImiPlac" name="nuImiPlac" placeholder="măsline, coriandru"></div>
+          <div><label for="bucatarii">Bucătării preferate</label><input id="bucatarii" name="bucatarii" placeholder="italiană, românească, asiatică"></div>
+        </div>
+        <label class="badge" style="margin-top:8px;display:inline-flex;align-items:center">
+          <input type="checkbox" id="gdpr" required style="margin-right:8px">Accept termenii & prelucrarea datelor
+        </label>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-ghost" id="aiPrev" disabled>Înapoi</button>
+        <button type="button" class="btn btn-primary" id="aiNext">Continuă</button>
+        <button type="submit" class="btn btn-primary" id="aiSubmit" hidden>Generează PDF</button>
+      </div>
+
+      <div id="aiStatus" class="badge" style="margin-top:8px;min-height:28px"></div>
     </form>
   </div>
 </div>
 
+<!-- Toast -->
+<div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
 <script>
-// navbar
+/* ====== Navbar hamburg ====== */
 document.addEventListener('DOMContentLoaded',()=>{
   const toggle=document.querySelector('.menu-toggle');
   const nav=document.querySelector('.navlinks');
@@ -352,74 +319,142 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 
-// segmented control (scroll la secțiuni)
-document.querySelectorAll('.switch button').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.switch button').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const t = document.querySelector(btn.dataset.target);
-    if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
-  });
-});
-
-// wizard
+/* ====== Toast helper ====== */
 (function(){
-  const form=document.getElementById('aiForm'); if(!form) return;
-  const panes=[...form.querySelectorAll('[data-step]')];
-  const dots=[...document.querySelectorAll('.stepper .dot')];
-  const prev=document.getElementById('prev'), next=document.getElementById('next'), submit=document.getElementById('submit');
-  const status=document.getElementById('aiStatus'); let step=1;
-
-  const show=n=>{
-    panes.forEach(p=>p.hidden=(+p.dataset.step!==n));
-    dots.forEach((d,i)=>d.classList.toggle('active',i<n));
-    prev.disabled=(n===1); next.hidden=(n===panes.length); submit.hidden=(n!==panes.length);
-    if(status) status.textContent='';
-    step=n;
+  const toast = document.getElementById('toast');
+  if(!toast) return;
+  window.toast = (msg)=>{
+    toast.textContent = msg;
+    toast.style.display='block';
+    requestAnimationFrame(()=> toast.classList.add('show'));
+    setTimeout(()=>{ toast.classList.remove('show'); setTimeout(()=> toast.style.display='none', 200); }, 2600);
   };
-  const valid=n=>{
-    const pane=panes.find(p=>+p.dataset.step===n);
-    if(!pane) return true;
-    const req=[...pane.querySelectorAll('[required]')];
-    return req.every(el=> el.type==='checkbox' ? el.checked : el.value.trim()!=='');
-  };
-  prev.addEventListener('click',()=>show(step-1));
-  next.addEventListener('click',()=>{ if(!valid(step)){ status.textContent='Completează câmpurile obligatorii.'; return; } show(step+1);});
-  form.addEventListener('submit',async e=>{
-    e.preventDefault();
-    if(!valid(step)){ status.textContent='Confirmă consimțământul GDPR.'; return; }
-    status.textContent='Se generează meniul...';
-    const data=Object.fromEntries(new FormData(form).entries());
-    try{
-      // TODO: înlocuiește cu backend real
-      const r=await fetch('/api/ai-menu',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({form:data,source:'bp-design-b'})});
-      if(!r.ok) throw 0;
-      status.textContent='Trimis! Verifică emailul (și Spam).';
-      form.reset(); show(1);
-    }catch{ status.textContent='Eroare temporară. Reîncearcă.'; }
-  });
-  show(1);
 })();
 
-// modal consultanță
+/* ====== Modal AI: open/close + focus trap + wizard + validare + submit ====== */
 (function(){
-  const modal=document.getElementById('consultModal');
-  const open=document.getElementById('openConsult');
-  const closeBtns=[...modal.querySelectorAll('.close,[data-close]')];
-  open?.addEventListener('click',()=>modal.classList.add('show'));
-  closeBtns.forEach(b=>b.addEventListener('click',()=>modal.classList.remove('show')));
-  modal.addEventListener('click',e=>{ if(e.target===modal) modal.classList.remove('show'); });
+  const modal   = document.getElementById('aiModal');
+  const dialog  = modal?.querySelector('.dialog');
+  const openBtn = document.getElementById('openAi');
+  const openBtn2= document.getElementById('openAi2');
+  const closeBtn= document.getElementById('closeAi');
+  const dots    = modal.querySelectorAll('.stepper .dot');
+  const panes   = [...modal.querySelectorAll('[data-step]')];
+  const prevBtn = document.getElementById('aiPrev');
+  const nextBtn = document.getElementById('aiNext');
+  const submit  = document.getElementById('aiSubmit');
+  const status  = document.getElementById('aiStatus');
+  const form    = document.getElementById('aiForm');
+  let step = 1, lastFocused;
 
-  const form=document.getElementById('consultForm'); const s=document.getElementById('cStatus');
-  form?.addEventListener('submit',async e=>{
-    e.preventDefault(); s.textContent='Trimit cererea...';
-    const data=Object.fromEntries(new FormData(form).entries());
-    try{
-      // TODO: endpoint real
-      const r=await fetch('/api/book-nutritionist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({form:data,source:'bp-design-b'})});
-      if(!r.ok) throw 0; s.textContent='Solicitarea a fost trimisă. Te contactăm pentru confirmare.'; form.reset();
-    }catch{ s.textContent='A apărut o eroare. Reîncearcă.'; }
+  if(!modal || !dialog) return;
+
+  // focusables
+  const focusable = () => [...dialog.querySelectorAll('a,button,input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(el=>!el.disabled && el.offsetParent!==null);
+  function open(){
+    lastFocused = document.activeElement;
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    const f = focusable()[0]; f && f.focus();
+    show(1);
+  }
+  function close(){
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+    lastFocused && lastFocused.focus();
+  }
+
+  openBtn?.addEventListener('click', open);
+  openBtn2?.addEventListener('click', open);
+  closeBtn?.addEventListener('click', close);
+  modal.addEventListener('click', e=>{ if(e.target===modal) close(); });
+  document.addEventListener('keydown', e=>{
+    if(!modal.classList.contains('show')) return;
+    if(e.key==='Escape') close();
+    if(e.key==='Tab'){
+      const els = focusable(); if(els.length===0) return;
+      const i = els.indexOf(document.activeElement);
+      if(e.shiftKey && (i<=0 || document.activeElement===dialog)){ e.preventDefault(); els[els.length-1].focus(); }
+      else if(!e.shiftKey && (i===els.length-1)){ e.preventDefault(); els[0].focus(); }
+    }
   });
+
+  function show(n){
+    panes.forEach(p => p.hidden = +p.dataset.step !== n);
+    dots.forEach((d,i) => d.classList.toggle('active', i < n));
+    prevBtn.disabled = (n === 1);
+    nextBtn.hidden   = (n === panes.length);
+    submit.hidden    = (n !== panes.length);
+    status.textContent = '';
+    step = n;
+    // curățăm erorile vizuale când schimbăm pasul
+    form.querySelectorAll('.field-error').forEach(el=>el.classList.remove('field-error'));
+    form.querySelectorAll('.error-text').forEach(el=>el.remove());
+  }
+
+  function markErrors(scope){
+    const required = [...scope.querySelectorAll('[required]')];
+    required.forEach(el=>{
+      const invalid = (el.type==='checkbox') ? !el.checked : el.value.trim()==='';
+      el.classList.toggle('field-error', invalid);
+      if(invalid && el.type==='email' && !el.nextElementSibling){
+        const p=document.createElement('p'); p.className='error-text'; p.textContent='Te rugăm să introduci un email valid.';
+        el.parentElement.appendChild(p);
+      }
+    });
+  }
+
+  function valid(n){
+    const pane = panes.find(p => +p.dataset.step === n);
+    if(!pane) return true;
+    const req = [...pane.querySelectorAll('[required]')];
+    return req.every(el => el.type==='checkbox' ? el.checked : el.value.trim()!=='');
+  }
+
+  prevBtn.addEventListener('click', ()=> show(step-1));
+  nextBtn.addEventListener('click', ()=>{
+    const pane = panes.find(p => +p.dataset.step === step);
+    markErrors(pane);
+    if(!valid(step)){ status.textContent = 'Completează câmpurile obligatorii.'; return; }
+    show(step+1);
+  });
+
+  // email hint live
+  const email = form.querySelector('#email');
+  email?.addEventListener('input', ()=>{
+    if(!email.checkValidity()){
+      email.classList.add('field-error');
+    }else{
+      email.classList.remove('field-error');
+      const hint=email.parentElement.querySelector('.error-text'); hint && hint.remove();
+    }
+  });
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const pane = panes.find(p => +p.dataset.step === step);
+    markErrors(pane);
+    if(!valid(step)){ status.textContent = 'Confirmă consimțământul GDPR.'; return; }
+    status.textContent = 'Se generează meniul tău...';
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    try{
+      // TODO: înlocuiește cu backend-ul tău
+      const r = await fetch('/api/ai-menu', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ form:data, source:'bp-homepage-modal' })
+      });
+      if(!r.ok) throw 0;
+      status.textContent = 'Gata! Ți-am trimis meniul pe email (verifică și Spam).';
+      window.toast && window.toast('Meniul tău a fost trimis pe email ✅');
+      form.reset(); show(1);
+    }catch{
+      status.textContent = 'A apărut o eroare. Te rugăm să reîncerci.';
+      window.toast && window.toast('Eroare la generare. Reîncearcă.');
+    }
+  });
+
 })();
 </script>
 </body>
