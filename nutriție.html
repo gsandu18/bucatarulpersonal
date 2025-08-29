@@ -297,173 +297,137 @@ html{scroll-behavior:smooth}
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
 <script>
-async function generatePDFClientSide(form){
-  // Config
+async function generatePDFPremium(form){
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit:'pt', format:'a4' });
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
   const M = 40;
 
-  // Culori brand
-  const GREEN = [14, 90, 67];    // #0e5a43
-  const GOLD  = [201,162,39];    // #c9a227
-  const TEXT  = [26,26,26];      // #1a1a1a
-  const MUTED = [104,114,120];   // #687278
-  const LINE  = [230,236,232];   // #e6ece8
+  // — culori brand —
+  const GREEN = [14,90,67], GOLD=[201,162,39], TEXT=[26,26,26], MUTED=[104,114,120], LINE=[230,236,232];
 
-  // Helper-e mici
-  const line = (x1,y1,x2,y2,c=LINE)=>{ doc.setDrawColor(...c); doc.line(x1,y1,x2,y2); };
-  const fill = (x,y,w,h,c)=>{ doc.setFillColor(...c); doc.rect(x,y,w,h,'F'); };
-  const text = (t,x,y,opts={})=>{
-    const {size=11,bold=false,color=TEXT} = opts;
-    doc.setTextColor(...color);
-    doc.setFont('helvetica', bold?'bold':'normal');
-    doc.setFontSize(size);
-    doc.text(t, x, y);
+  // --- helpers ---
+  const line=(x1,y1,x2,y2,c=LINE)=>{ doc.setDrawColor(...c); doc.line(x1,y1,x2,y2); };
+  const fill=(x,y,w,h,c)=>{ doc.setFillColor(...c); doc.rect(x,y,w,h,'F'); };
+  const t=(s,x,y,opt={})=>{
+    const { size=11, bold=false, color=TEXT, align='left', maxWidth=0 }=opt;
+    doc.setTextColor(...color); doc.setFont('helvetica', bold?'bold':'normal'); doc.setFontSize(size);
+    maxWidth? doc.text(s,x,y,{align,maxWidth}) : doc.text(s,x,y,{align});
   };
-  const wrap = (t,maxW,size=11)=> doc.splitTextToSize(t, maxW);
+  const wrap=(s,maxW)=> doc.splitTextToSize(String(s||''), maxW);
 
-  // ===== Header premium
-  fill(0,0,W,84, GREEN);
-  doc.setTextColor(255,255,255);
-  doc.setFont('helvetica','bold'); doc.setFontSize(18);
-  doc.text('Meniu personalizat (DEMO – generat local)', M, 42);
-  // "monogramă" BP stil ton pe ton
-  doc.setFillColor(255,255,255);
-  doc.setDrawColor(...GOLD);
-  doc.roundedRect(W - M - 54, 20, 54, 44, 8, 8, 'S');
-  doc.setTextColor(255,255,255);
-  doc.setFontSize(16); doc.setFont('helvetica','bold');
-  doc.text('BP', W - M - 27, 49, { align:'center' });
-  // linie aurie sub header
-  doc.setDrawColor(...GOLD);
-  doc.setLineWidth(2);
-  doc.line(M, 84, W-M, 84);
-  doc.setLineWidth(0.5);
+  // --- header brand ---
+  fill(0,0,W,84,GREEN);
+  t('Meniu personalizat', M, 42, {size:18,bold:true,color:[255,255,255]});
+  doc.setDrawColor(...GOLD); doc.roundedRect(W-M-54,20,54,44,8,8,'S');
+  doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(16);
+  doc.text('BP', W-M-27, 49, {align:'center'});
+  doc.setLineWidth(2); doc.setDrawColor(...GOLD); doc.line(M,84,W-M,84); doc.setLineWidth(.5);
+
+  // --- luni/zi ---
+  const luni = ['ian','feb','mar','apr','mai','iun','iul','aug','sep','oct','nov','dec'];
+  const start = new Date(); // dacă ai o dată în formular, folosește-o aici
+  const days = [...Array(7)].map((_,i)=> new Date(start.getFullYear(), start.getMonth(), start.getDate()+i));
+  const interval = `${days[0].getDate()} ${luni[days[0].getMonth()]} – ${days[6].getDate()} ${luni[days[6].getMonth()]}`;
+  t(`Perioadă: ${interval}`, W-M, 42, {size:11,color:[220,240,233],align:'right'});
 
   let y = 112;
 
-  // ===== Secțiune: date client (două coloane)
-  text('Profil client', M, y, { size:13, bold:true }); y += 16;
-  const colW = (W - 2*M - 18)/2;
-
-  const left = [
-    `Nume: ${form.nume || '-'}`,
-    `Email: ${form.email || '-'}`,
-    `Oraș: ${form.oras || '-'}`
-  ].join('\n');
-
-  const right = [
-    `Obiectiv: ${form.obiectiv || '-'}`,
-    `Dietă: ${form.dieta || 'Fără restricții'}`,
-    `Alergii: ${form.alergii || '-'}`
-  ].join('\n');
-
+  // --- date client (2 coloane) ---
+  t('Profil client', M, y, {size:13,bold:true}); y+=16;
+  const colW=(W-2*M-18)/2;
   doc.setTextColor(...MUTED); doc.setFont('helvetica','normal'); doc.setFontSize(11);
-  doc.text(wrap(left, colW), M, y);
-  doc.text(wrap(right, colW), M + colW + 18, y);
-  y += 54;
+  doc.text(wrap(`Nume: ${form.nume||'-'}\nEmail: ${form.email||'-'}\nOraș: ${form.oras||'-'}`, colW), M, y);
+  doc.text(wrap(`Obiectiv: ${form.obiectiv||'-'}\nDietă: ${form.dieta||'Fără restricții'}\nAlergii: ${form.alergii||'-'}`, colW), M+colW+18, y);
+  y += 58; line(M,y,W-M,y); y+=18;
 
-  // Altă linie discretă
-  line(M, y, W-M, y); y += 18;
+  // --- PLAN (dacă nu dai din backend, generăm demo în funcție de dietă) ---
+  const plan = makePlanDemo(form.dieta, days);
 
-  // ===== Preferințe
-  text('Preferințe & bucătării', M, y, { size:13, bold:true }); y += 16;
-  doc.setTextColor(...MUTED);
-  const pref = `Nu îmi plac: ${form.nuImiPlac || '-'}`
-  doc.text(wrap(pref, W - 2*M), M, y); y += 18;
-  const buc = `Bucătării preferate: ${form.bucatarii || '-'}`
-  doc.text(wrap(buc, W - 2*M), M, y); y += 22;
+  // --- tabel: Ziua | Masa | Preparat | g | kcal | P | C | F ---
+  t('Meniu pe 7 zile (porție & macro/masă)', M, y, {size:13,bold:true}); y+=14;
 
-  // ===== Meniu 7 zile (exemplu)
-  text('Meniu pe 7 zile (exemplu)', M, y, { size:13, bold:true }); y += 14;
-
-  // Tabel: Ziua | Mic dejun | Prânz | Cină | Gustări
   const cols = [
-    { key:'zi',   label:'Ziua', w: 56 },
-    { key:'md',   label:'Mic dejun', w: 128 },
-    { key:'pranz',label:'Prânz',     w: 148 },
-    { key:'cina', label:'Cină',      w: 148 },
-    { key:'gust', label:'Gustări',   w: 96 },
+    {key:'date', label:'Ziua', w:64,  align:'left'},
+    {key:'meal', label:'Masa', w:80,  align:'left'},
+    {key:'dish', label:'Preparat', w:214, align:'left'},
+    {key:'g',    label:'g',    w:42,  align:'right'},
+    {key:'kcal', label:'kcal', w:52,  align:'right'},
+    {key:'p',    label:'P',    w:46,  align:'right'},
+    {key:'c',    label:'C',    w:46,  align:'right'},
+    {key:'f',    label:'F',    w:46,  align:'right'},
   ];
-  const tableX = M;
-  const tableW = cols.reduce((s,c)=>s+c.w,0);
-  const rowH = 58;
+  const tableX = M, tableW = cols.reduce((s,c)=>s+c.w,0);
 
   // header tabel
-  doc.setFillColor(246,251,248); // verde foarte deschis
-  doc.setDrawColor(...LINE);
+  doc.setFillColor(246,251,248); doc.setDrawColor(...LINE);
   doc.rect(tableX, y, tableW, 28, 'FD');
-  doc.setTextColor(...TEXT); doc.setFont('helvetica','bold'); doc.setFontSize(11);
   let cx = tableX + 8;
-  cols.forEach(c => { doc.text(c.label, cx, y+18); cx += c.w; });
+  cols.forEach(c => { t(c.label, cx, y+18, {bold:true}); cx += c.w; });
   y += 28;
 
-  // 7 rânduri demo (poți înlocui ușor cu date reale de la backend)
-  const fallbackRows = [
-    {zi:'Ziua 1', md:'Omletă cu spanac', pranz:'Salată cu somon', cina:'Piept pui + legume la grătar', gust:'Nuci + iaurt'},
-    {zi:'Ziua 2', md:'Iaurt grecesc + semințe', pranz:'Supă cremă de dovleac', cina:'Curcan cu orez sălbatic', gust:'Măr + unt arahide'},
-    {zi:'Ziua 3', md:'Shakshuka', pranz:'Salată grecească', cina:'File de cod + broccoli', gust:'Brânză + măsline'},
-    {zi:'Ziua 4', md:'Ouă poșate + avocado', pranz:'Sushi bowl low-carb', cina:'Somon la cuptor + sparanghel', gust:'Mix nuci'},
-    {zi:'Ziua 5', md:'Smoothie proteic', pranz:'Pui teriyaki + legume', cina:'Vită la tigaie + salată', gust:'Iaurt + zmeură'},
-    {zi:'Ziua 6', md:'Brânză cottage + castravete', pranz:'Supă pho (light)', cina:'Curcan + dovlecel la grătar', gust:'Protein bar'},
-    {zi:'Ziua 7', md:'Ochiuri + roșii', pranz:'Salată nicoise', cina:'Creveți cu usturoi + salată', gust:'Humus + morcovi'},
-  ];
+  function ensurePage(h){ if(y+h > H-86){ addFooter(); doc.addPage(); y = M; } }
 
-  const drawRow = (rowY, row) => {
-    // contur rând
-    doc.setDrawColor(...LINE);
-    doc.rect(tableX, rowY, tableW, rowH, '');
-    // celule + text
-    let x = tableX;
-    doc.setTextColor(...TEXT); doc.setFont('helvetica','normal'); doc.setFontSize(10.5);
-    cols.forEach(c => {
-      const cellX = x + 8, cellY = rowY + 18, maxW = c.w - 12;
-      const val = String(row[c.key] || '');
-      const wrapped = wrap(val, maxW);
-      doc.text(wrapped, cellX, cellY);
-      x += c.w;
+  plan.forEach(day=>{
+    // rânduri mese
+    const dayLabel = `${day.d.getDate()} ${luni[day.d.getMonth()]}`;
+    let totals = { g:0,kcal:0,p:0,c:0,f:0 };
+
+    day.meals.forEach((m,idx)=>{
+      const linesDish = wrap(m.dish, cols[2].w-12);
+      const rowH = Math.max(24, 16 + (linesDish.length-1)*12);
+      ensurePage(rowH);
+
+      // contur rând
+      doc.setDrawColor(...LINE); doc.rect(tableX, y, tableW, rowH);
+
+      // celule
+      let x = tableX + 8, ty = y + 16;
+
+      // Ziua (doar pe prima linie a zilei)
+      t(idx===0 ? dayLabel : '', x, ty); x += cols[0].w;
+      t(m.meal, x, ty); x += cols[1].w;
+
+      // Preparat (wrap)
+      linesDish.forEach((ln,i)=> t(ln, x, ty + i*12)); x += cols[2].w;
+
+      // numere aliniate dreapta
+      const nums = [m.g, m.kcal, m.p, m.c, m.f];
+      nums.forEach((val, i)=>{
+        t(String(val), x + cols[3+i].w - 8, ty, {align:'right'});
+        x += cols[3+i].w;
+      });
+
+      y += rowH;
+
+      // adunăm totalurile
+      totals.g += m.g; totals.kcal += m.kcal; totals.p += m.p; totals.c += m.c; totals.f += m.f;
     });
-  };
 
-  for (let i=0;i<fallbackRows.length;i++){
-    // page break dacă nu încape
-    if (y + rowH > H - 90){
-      addFooter();
-      doc.addPage();
-      y = M; // margine sus pe pagina nouă
-      // re-desenăm headerul de tabel pe pag. nouă
-      doc.setFillColor(246,251,248);
-      doc.setDrawColor(...LINE);
-      doc.rect(tableX, y, tableW, 28, 'FD');
-      doc.setTextColor(...TEXT); doc.setFont('helvetica','bold'); doc.setFontSize(11);
-      let cx2 = tableX + 8;
-      cols.forEach(c => { doc.text(c.label, cx2, y+18); cx2 += c.w; });
-      y += 28;
-    }
-    drawRow(y, fallbackRows[i]);
-    y += rowH;
-  }
+    // rând total pe zi
+    ensurePage(26);
+    doc.setFillColor(240,244,242); doc.rect(tableX, y, tableW, 26, 'F');
+    let x = tableX + 8;
+    t('TOTAL ZI', x, y+17, {bold:true}); x += cols[0].w + cols[1].w + cols[2].w;
+    t(String(totals.g),   x + cols[3].w - 8, y+17, {align:'right',bold:true}); x += cols[3].w;
+    t(String(totals.kcal),x + cols[4].w - 8, y+17, {align:'right',bold:true}); x += cols[4].w;
+    t(String(totals.p),   x + cols[5].w - 8, y+17, {align:'right',bold:true}); x += cols[5].w;
+    t(String(totals.c),   x + cols[6].w - 8, y+17, {align:'right',bold:true}); x += cols[6].w;
+    t(String(totals.f),   x + cols[7].w - 8, y+17, {align:'right',bold:true});
+    y += 32;
+  });
 
-  y += 16;
+  // notă & contact
+  ensurePage(66);
+  t('Notă:', M, y, {bold:true}); 
+  t('PDF-ul premium final va conține gramaje exacte, macronutrienți validați și listă de cumpărături. Versiunea de față este generată local (demo).', M+42, y, {maxWidth:W-2*M-42});
+  y += 28;
+  fill(M, y, W-2*M, 38, [240,244,242]);
+  t('Contact:', M+12, y+24, {bold:true});
+  t('contact@bucatarulpersonal.ro · www.bucatarulpersonal.ro', M+80, y+24);
 
-  // ===== Notă + contact
-  doc.setTextColor(...MUTED); doc.setFont('helvetica','normal'); doc.setFontSize(10.5);
-  doc.text(
-    'Acesta este un PDF demonstrativ. Versiunea finală (cu gramaje, macronutrienți și shopping list) este generată de server după plată/confirmare.',
-    M, y, { maxWidth: W - 2*M }
-  );
-  y += 22;
-
-  // „panglică” contact
-  fill(M, y, W - 2*M, 38, [240,244,242]);
-  doc.setTextColor(...TEXT); doc.setFont('helvetica','bold'); doc.setFontSize(11.5);
-  doc.text('Contact: ', M+12, y+24);
-  doc.setFont('helvetica','normal');
-  doc.text('contact@bucatarulpersonal.ro  ·  +40 7xx xxx xxx  ·  www.bucatarulpersonal.ro', M+70, y+24);
-
-  // ===== Footer cu paginare
+  // footer
   function addFooter(){
     const p = doc.internal.getNumberOfPages();
     doc.setTextColor(...MUTED); doc.setFont('helvetica','normal'); doc.setFontSize(9.5);
@@ -471,11 +435,45 @@ async function generatePDFClientSide(form){
   }
   addFooter();
 
-  // returnăm URL pentru butonul "Descarcă PDF"
   const blob = doc.output('blob');
   return URL.createObjectURL(blob);
+
+  // ===== Generator demo (poți înlocui cu date reale de la backend) =====
+  function makePlanDemo(diet, daysArr){
+    const pools = (diet||'').toLowerCase().includes('keto') ? {
+      md: ['Omletă cu spanac', 'Ouă poșate cu avocado', 'Shakshuka', 'Brânză cottage + castravete'],
+      pranz: ['Salată cu somon', 'Supă cremă de dovleac', 'Sushi bowl low-carb', 'Pui teriyaki + legume'],
+      cina: ['Piept pui + legume grill', 'Curcan + dovlecel', 'Somon la cuptor + sparanghel', 'File de cod + broccoli'],
+      gust: ['Nuci + iaurt grecesc', 'Măr + unt de arahide', 'Mix nuci', 'Iaurt + zmeură']
+    } : {
+      md: ['Ovăz cu lapte și fructe', 'Iaurt cu granola', 'Omletă cu legume', 'Smoothie de fructe'],
+      pranz: ['Paste integrale cu pui', 'Salată grecească', 'Supă de roșii + crutoane', 'Orez cu legume + tofu'],
+      cina: ['Vită la tigaie + salată', 'Pui la cuptor + cartofi', 'Pește la grătar + quinoa', 'Curry de năut + orez'],
+      gust: ['Banana + migdale', 'Crackers cu hummus', 'Brânză + biscuiți', 'Fructe de pădure']
+    };
+
+    const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+    const kcal = (p,c,f)=> Math.round(p*4 + c*4 + f*9);
+
+    return daysArr.map(d => {
+      const meals = [
+        { meal:'Mic dejun', dish: pick(pools.md),  p:28, c:10, f:18, g:300 },
+        { meal:'Prânz',     dish: pick(pools.pranz),p:35, c:25, f:16, g:400 },
+        { meal:'Cină',      dish: pick(pools.cina), p:32, c:18, f:15, g:380 },
+        { meal:'Gustare',   dish: pick(pools.gust), p:10, c:12, f:12, g:120 },
+      ].map(x => ({...x, kcal:kcal(x.p,x.c,x.f)}));
+      return { d, meals, dateLabel:`${d.getDate()} ${luni[d.getMonth()]}` };
+    }).map(day => ({
+      d: day.d,
+      meals: day.meals.map(m => ({
+        date: `${day.d.getDate()} ${luni[day.d.getMonth()]}`,
+        ...m
+      }))
+    }));
+  }
 }
 </script>
+
 
 </body>
 </html>
