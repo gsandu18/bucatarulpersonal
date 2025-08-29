@@ -4,9 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BP · AI Nutriție – Demo Premium PDF</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --green:#0e5a43; --green-2:#0a4a35; --gold:#c9a227; --text:#1b2a26;
@@ -81,7 +83,7 @@ input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);
 .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
 .badge.muted{color:var(--muted);background:#fff;border-color:var(--line)}
 
-/* Responsive */
+/* Responsive helpers */
 @media (max-width:980px){ .grid3,.row{grid-template-columns:1fr} .hero .wrap{grid-template-columns:1fr} }
 @media (max-width:768px){
   .menu-toggle{display:block;margin-left:auto}
@@ -92,106 +94,6 @@ input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);
 }
 [id]{scroll-margin-top:76px}
 html{scroll-behavior:smooth}
-  /* ===== Responsive polish pack ===== */
-
-/* Evită zoom-ul automat pe iOS la focus (font ≥16px) */
-input, select, textarea { font-size:16px; }
-
-/* Headere fluide (dacă le folosești ca clase) */
-h1.title { font-size: clamp(26px, 6vw, 40px); line-height:1.15; }
-h2.title { font-size: clamp(22px, 4.5vw, 30px); }
-h3.title { font-size: clamp(18px, 3.8vw, 24px); }
-
-/* Safe-area pentru iPhone (notch) la header/footer */
-header { padding-top: env(safe-area-inset-top); }
-footer { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
-
-/* Modala: încape pe ecran mic, cu scroll intern */
-.modal { padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)); }
-.dialog{
-  width: min(920px, 100%);
-  max-height: 90vh;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Butoane – mărime prietenoasă pentru touch */
-.btn { min-height:48px; }
-
-/* FAQ/Details: colțuri + spacing mai aerisit pe mobil */
-details { border-radius:12px; }
-
-/* Grișul de prețuri – trece pe 2/1 coloane mai devreme */
-@media (max-width: 980px){ .pricing-grid{ grid-template-columns: 1fr 1fr; } }
-@media (max-width: 520px){ .pricing-grid{ grid-template-columns: 1fr; } }
-
-/* Butoanele din cardurile de preț + acțiuni – full width pe mobil */
-@media (max-width: 520px){
-  .price-card .btn, .actions .btn { width: 100%; }
-  .actions { flex-direction: column-reverse; }
-}
-
-/* Secțiuni: padding mai mic pe ecrane mici */
-@media (max-width: 520px){
-  .section { padding: 36px 0; }
-}
-
-/* Nav mobil – linkuri ușor de apăsat (full width) */
-@media (max-width: 768px){
-  .navlinks a{ padding:12px 20px; }
-}
-
-/* Hero: coloană unică, spațiu compact pe mobil strâmt */
-@media (max-width: 520px){
-  .hero { padding: 42px 0 22px; }
-  .visual .card { height: 200px; border-radius:16px; }
-}
-
-/* Prevenim scroll-ul paginii când modala e deschisă */
-html.no-scroll, body.no-scroll { overflow: hidden; }
-  /* ===== Pricing cards — design fix (mobile & desktop) ===== */
-.pricing-wrap{ padding:56px 0; background:linear-gradient(180deg,#f7faf8 0,#fff 60%); }
-
-.pricing-grid{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:stretch;
-}
-@media (max-width:980px){ .pricing-grid{ grid-template-columns:1fr 1fr; } }
-@media (max-width:560px){ .pricing-grid{ grid-template-columns:1fr; } }
-
-.price-card{
-  position:relative; background:#fff; border:1px solid var(--line); border-radius:20px;
-  box-shadow:0 12px 28px rgba(14,90,67,.08); padding:24px; display:flex; flex-direction:column;
-  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  isolation:isolate; /* pentru pseudo-badge & efecte */
-}
-/* contur subtil „glass” */
-.price-card::after{
-  content:""; position:absolute; inset:0; border-radius:20px; padding:1px; pointer-events:none;
-  background:linear-gradient(180deg,#e8f2ee,transparent 60%);
-  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite:xor; mask-composite:exclude;
-}
-.price-card:hover{ transform:translateY(-2px); box-shadow:0 16px 40px rgba(14,90,67,.12); }
-
-.price-card .tier{ margin:0 0 6px; font-weight:800; font-size:18px; color:var(--text); }
-.price-card .price{ margin:4px 0 10px; font-size:28px; font-weight:800; color:var(--green); }
-
-.price-card ul{ margin:10px 0 18px; padding-left:22px; color:#40524d; }
-.price-card ul li{ margin:8px 0; }
-
-.price-card .btn{ width:100%; }
-
-.price-card.pro{
-  border-color:#cfe9df; box-shadow:0 16px 40px rgba(17,163,127,.18);
-}
-.price-card .pop{
-  position:absolute; right:18px; top:18px; z-index:2;
-  background:var(--gold); color:#fff; padding:6px 12px; border-radius:999px;
-  font-size:12px; font-weight:800; letter-spacing:.02em;
-}
-
-/* asigură-te că .price-card nu e „subțiat” de .card generic */
-.card.price-card, .pricing-grid .price-card{ border-radius:20px; }
 </style>
 </head>
 <body>
@@ -300,71 +202,12 @@ html.no-scroll, body.no-scroll { overflow: hidden; }
   </div>
 </footer>
 
-<!-- Modal AI (wizard) -->
-<div class="modal" id="aiModal" role="dialog" aria-modal="true" aria-labelledby="aiTitle">
-  <div class="dialog">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <h3 id="aiTitle" class="title" style="margin:0">Generează meniul tău</h3>
-      <button class="btn btn-outline" id="closeAi" style="padding:6px 10px">Închide</button>
-    </div>
-    <div class="stepper"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-
-    <form id="aiForm" novalidate>
-      <div data-step="1">
-        <h4 class="title" style="margin:.2rem 0 6px">1) Contact</h4>
-        <div class="row">
-          <div><label for="nume">Nume *</label><input id="nume" name="nume" required></div>
-          <div><label for="email">Email *</label><input id="email" name="email" type="email" required></div>
-          <div><label for="telefon">Telefon</label><input id="telefon" name="telefon"></div>
-          <div><label for="oras">Oraș</label><input id="oras" name="oras"></div>
-        </div>
-      </div>
-
-      <div data-step="2" hidden>
-        <h4 class="title" style="margin:.2rem 0 6px">2) Profil</h4>
-        <div class="row">
-          <div><label for="sex">Sex</label><select id="sex" name="sex"><option>—</option><option>F</option><option>M</option></select></div>
-          <div><label for="varsta">Vârstă</label><input id="varsta" name="varsta" type="number"></div>
-          <div><label for="inaltime">Înălțime (cm)</label><input id="inaltime" name="inaltime" type="number"></div>
-          <div><label for="greutate">Greutate (kg)</label><input id="greutate" name="greutate" type="number"></div>
-          <div><label for="activitate">Activitate</label><select id="activitate" name="activitate"><option>—</option><option>Sedentar</option><option>Ușor activ</option><option>Moderate</option><option>Foarte activ</option></select></div>
-          <div><label for="obiectiv">Obiectiv</label><select id="obiectiv" name="obiectiv"><option>—</option><option>Slăbire</option><option>Menținere</option><option>Masă musculară</option></select></div>
-        </div>
-      </div>
-
-      <div data-step="3" hidden>
-        <h4 class="title" style="margin:.2rem 0 6px">3) Preferințe</h4>
-        <div class="row">
-          <div><label for="dieta">Dietă</label><select id="dieta" name="dieta">
-            <option>Fără restricții</option><option>Vegetarian</option><option>Vegan</option>
-            <option>Keto</option><option>Low-carb</option><option>Mediteraneană</option><option>Fără gluten</option>
-          </select></div>
-          <div><label for="alergii">Alergii</label><input id="alergii" name="alergii" placeholder="—"></div>
-          <div><label for="nuImiPlac">Nu îmi plac</label><input id="nuImiPlac" name="nuImiPlac" placeholder="—"></div>
-          <div><label for="bucatarii">Bucătării preferate</label><input id="bucatarii" name="bucatarii" placeholder="—"></div>
-        </div>
-        <label class="badge muted" style="margin-top:8px">
-          <input type="checkbox" id="gdpr" name="gdpr" value="1" required style="margin-right:8px">
-          Sunt de acord cu termenii & prelucrarea datelor
-        </label>
-      </div>
-
-      <div class="actions">
-        <button type="button" class="btn btn-outline" id="prevBtn" disabled>Înapoi</button>
-        <button type="button" class="btn btn-primary" id="nextBtn">Continuă</button>
-        <button type="submit" class="btn btn-primary" id="submitBtn" hidden>Generează PDF</button>
-      </div>
-      <div id="aiStatus" class="badge muted" style="margin-top:8px;min-height:28px"></div>
-    </form>
-  </div>
-</div>
-
-<!-- jsPDF (ÎNAINTEA AutoTable!) -->
+<!-- jsPDF + AutoTable -->
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
 
 <script>
-/* ===== NAV burger ===== */
+/* ================= NAV burger ================= */
 document.addEventListener('DOMContentLoaded', () => {
   const t=document.querySelector('.menu-toggle'), n=document.querySelector('.navlinks');
   if(t&&n){
@@ -374,14 +217,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* ===== MODAL & WIZARD ===== */
+/* ================= MODAL & WIZARD ================= */
 const modal=document.getElementById('aiModal');
 const openAi=document.getElementById('openAi');
 const openAi2=document.getElementById('openAi2');
 const closeAi=document.getElementById('closeAi');
 
 function openAIModal(){ modal.classList.add('show'); goToStep(1); }
-window.openAIModal = openAIModal;                 /* necesar pentru onclick inline */
+window.openAIModal = openAIModal;
 openAi?.addEventListener('click',openAIModal);
 openAi2?.addEventListener('click',openAIModal);
 closeAi?.addEventListener('click',()=> modal.classList.remove('show'));
@@ -421,10 +264,10 @@ nextBtn.addEventListener('click',()=>{
 });
 form.addEventListener('keydown',(e)=>{ if(e.key==='Enter' && submit.hidden){ e.preventDefault(); nextBtn.click(); }});
 
-/* ===== API + FALLBACK PDF ===== */
+/* ================= API + FALLBACK PDF ================= */
 const API_URL = '/api/ai-menu'; // dacă nu ai backend, fallback-ul PDF funcționează local
 
-document.getElementById('aiForm').addEventListener('submit', async (e)=>{
+form.addEventListener('submit', async (e)=>{
   e.preventDefault();
   const err=validateStep(3);
   if(err){ statusB.textContent=err; return; }
@@ -463,91 +306,37 @@ document.getElementById('aiForm').addEventListener('submit', async (e)=>{
   }
 });
 
-/* ===== GENERATOR PDF PROFESIONAL (Helvetica + AutoTable) ===== */
-async function generatePDFClean(form){
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ unit:'pt', format:'a4' });
+/* ================== FONT LOADER (Inter) ================== */
+async function ensureInterFonts(doc){
+  const toB64 = (buf) => {
+    const u = new Uint8Array(buf), chunk = 0x8000;
+    let b = ''; for (let i=0;i<u.length;i+=chunk) b += String.fromCharCode.apply(null, u.subarray(i,i+chunk));
+    return btoa(b);
+  };
+  try{
+    const [reg,bold]=await Promise.all([
+      fetch('/fonts/Inter-Regular.ttf',{cache:'force-cache'}).then(r=>r.arrayBuffer()),
+      fetch('/fonts/Inter-Bold.ttf',{cache:'force-cache'}).then(r=>r.arrayBuffer())
+    ]);
+    doc.addFileToVFS('Inter-Regular.ttf', toB64(reg));
+    doc.addFileToVFS('Inter-Bold.ttf', toB64(bold));
+    doc.addFont('Inter-Regular.ttf','Inter','normal');
+    doc.addFont('Inter-Bold.ttf','Inter','bold');
+    return true;
+  }catch(e){
+    console.warn('Inter nu s-a putut încărca. Fallback Helvetica (fără diacritice).', e);
+    return false;
+  }
+}
 
-  // Font cu diacritice (vezi ensureInterFonts din mesajul anterior)
-  const hasInter = await ensureInterFonts(doc);
-  const FONT = hasInter ? 'Inter' : 'helvetica';
-  doc.setFont(FONT,'normal');
-  
-  // Header
-  doc.setFillColor(...GREEN); doc.rect(0,0,W,88,'F');
-  doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(22);
-  doc.text('Meniu personalizat', M, 52);
-  doc.setDrawColor(...GOLD); doc.setLineWidth(2); doc.line(M,88,W-M,88);
-
-  // === CONSTRUIRE BODY cu noua coloană „Int” și grams în „Preparat” ===
-  const luni=['ian','feb','mar','apr','mai','iun','iul','aug','sep','oct','nov','dec'];
-  const start=new Date();
-  const days=[...Array(7)].map((_,i)=> new Date(start.getFullYear(),start.getMonth(),start.getDate()+i));
-  const plan = makePlanDemo(form.dieta, days);
-
-  const body = [];
-  plan.forEach(day=>{
-    const zi = `${day.d.getDate()} ${luni[day.d.getMonth()]}`;
-    let tot={g:0,kcal:0,p:0,c:0,f:0};
-    day.meals.forEach((m,idx)=>{
-      body.push([ idx===0?zi:'', m.meal, m.dish, m.integral?'✓':'', m.g, m.kcal, m.p, m.c, m.f ]);
-      tot.g+=m.g; tot.kcal+=m.kcal; tot.p+=m.p; tot.c+=m.c; tot.f+=m.f;
-    });
-    body.push([ {content:'TOTAL ZI', colSpan:4, styles:{fontStyle:'bold'}}, tot.g, tot.kcal, tot.p, tot.c, tot.f ]);
-  });
-
-  // === TABEL ===
-  const M = 42, W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight();
-  const startY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 12 : 220; // sau y-ul tău curent
-
-  doc.autoTable({
-    startY,
-    head: [['Ziua','Masă','Preparat','Int','g/porț.','kcal','P','C','F']],
-    body,
-    theme: 'grid',
-    styles: { font: FONT, fontSize:10, cellPadding:6, textColor:[27,39,35], lineColor:[230,236,232], lineWidth:0.6 },
-    headStyles: { font: FONT, fillColor:[246,251,248], textColor:[20,30,26], fontStyle:'bold' },
-    alternateRowStyles: { fillColor:[252,254,253] },
-    columnStyles: {
-      0: { cellWidth: 56 },          // Ziua
-      1: { cellWidth: 78 },          // Masă
-      2: { cellWidth: 250 },         // Preparat (+ ingrediente g)
-      3: { cellWidth: 28, halign:'center' }, // Int (✓)
-      4: { cellWidth: 52, halign:'right' },  // g/porț.
-      5: { cellWidth: 54, halign:'right' },  // kcal
-      6: { cellWidth: 44, halign:'right' },  // P
-      7: { cellWidth: 44, halign:'right' },  // C
-      8: { cellWidth: 44, halign:'right' },  // F
-    },
-    margin: { left: M, right: M },
-    didParseCell(data){
-      // rând „TOTAL ZI” – gri deschis + bold
-      const cell0 = data.row?.raw?.[0];
-      if (cell0 && cell0.content === 'TOTAL ZI'){
-        data.cell.styles.fillColor = [240,244,242];
-        data.cell.styles.fontStyle = 'bold';
-      }
-    },
-    didDrawPage(data){
-      // footer simplu
-      const pageStr = `BP · AI Nutriție — Pag. ${data.pageNumber}`;
-      doc.setFont(FONT,'normal'); doc.setFontSize(9.5); doc.setTextColor(109,118,122);
-      doc.text(pageStr, W - M, H - 18, { align:'right' });
-    }
-  });
-  const blob = doc.output('blob');
-  return URL.createObjectURL(blob);
-
-  // === generator DEMO cu "integral" + ingrediente (g) ===
+/* ================ DEMO DATA (integral + gramaje) ================ */
 function makePlanDemo(diet, daysArr){
   const keto = (diet||'').toLowerCase().includes('keto');
-
-  // fiecare item: { name, integral, ing: [ ['ovăz',60], ['lapte',200], ... ] }
   const pools = keto ? {
     md: [
-      {name:'Omletă cu spanac', integral:false, ing:[['ouă',2*60],['spanac',60],['ulei măsline',10]]},
+      {name:'Omletă cu spanac', integral:false, ing:[['ouă',120],['spanac',60],['ulei măsline',10]]},
       {name:'Brânză cottage + castravete', integral:false, ing:[['brânză cottage',180],['castravete',120]]},
-      {name:'Ouă poșate cu avocado', integral:false, ing:[['ouă',2*60],['avocado',90]]},
+      {name:'Ouă poșate cu avocado', integral:false, ing:[['ouă',120],['avocado',90]]},
     ],
     pranz: [
       {name:'Salată cu somon', integral:false, ing:[['somon',150],['mix verdețuri',120],['avocado',60]]},
@@ -566,7 +355,7 @@ function makePlanDemo(diet, daysArr){
     md: [
       {name:'Ovăz cu fructe', integral:true, ing:[['ovăz integral',60],['lapte',200],['fructe',100]]},
       {name:'Iaurt cu granola', integral:true, ing:[['iaurt',200],['granola integrală',40],['fructe',80]]},
-      {name:'Omletă cu legume', integral:false, ing:[['ouă',2*60],['ardei',60],['ciuperci',60]]},
+      {name:'Omletă cu legume', integral:false, ing:[['ouă',120],['ardei',60],['ciuperci',60]]},
     ],
     pranz: [
       {name:'Paste integrale cu pui', integral:true, ing:[['paste integrale',70],['piept pui',150],['roșii',120]]},
@@ -590,7 +379,6 @@ function makePlanDemo(diet, daysArr){
   const kcal = (p,c,f)=> Math.round(p*4 + c*4 + f*9);
 
   return daysArr.map(d=>{
-    // compunem 4 mese / zi
     const raw = [
       {meal:'Mic dejun', item: pick(pools.md),   p:28, c:keto?8:30,  f:keto?20:10, g:300},
       {meal:'Prânz',     item: pick(pools.pranz),p:35, c:keto?18:45, f:keto?16:12, g:420},
@@ -614,5 +402,93 @@ function makePlanDemo(diet, daysArr){
   });
 }
 
+/* ================= PDF generator ================= */
+async function generatePDFClean(form){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit:'pt', format:'a4' });
+
+  // Font & culori
+  const hasInter = await ensureInterFonts(doc);
+  const FONT = hasInter ? 'Inter' : 'helvetica';
+  const W = doc.internal.pageSize.getWidth();
+  const H = doc.internal.pageSize.getHeight();
+  const M = 42;
+  const GREEN=[14,90,67], GOLD=[201,162,39], TEXT=[27,39,35], MUTED=[109,118,122];
+
+  doc.setFont(FONT,'normal');
+
+  // Header
+  doc.setFillColor(...GREEN); doc.rect(0,0,W,88,'F');
+  doc.setTextColor(255,255,255); doc.setFont(FONT,'bold'); doc.setFontSize(22);
+  doc.text('Meniu personalizat', M, 52);
+  doc.setDrawColor(...GOLD); doc.setLineWidth(2); doc.line(M,88,W-M,88);
+
+  // Perioadă
+  const luni=['ian','feb','mar','apr','mai','iun','iul','aug','sep','oct','nov','dec'];
+  const start=new Date();
+  const days=[...Array(7)].map((_,i)=> new Date(start.getFullYear(),start.getMonth(),start.getDate()+i));
+  doc.setFont(FONT,'normal'); doc.setFontSize(11); doc.setTextColor(220,240,233);
+  doc.text(`Perioadă: ${days[0].getDate()} ${luni[days[0].getMonth()]} – ${days[6].getDate()} ${luni[days[6].getMonth()]}`, W-M, 52, {align:'right'});
+
+  // Profil
+  let y=116;
+  doc.setTextColor(...TEXT); doc.setFont(FONT,'bold'); doc.setFontSize(13);
+  doc.text('Profil client', M, y); y+=16;
+  doc.setFont(FONT,'normal'); doc.setFontSize(11); doc.setTextColor(...MUTED);
+  const left = [`Nume: ${form.nume||'-'}`, `Email: ${form.email||'-'}`, `Oraș: ${form.oras||'-'}`];
+  const right = [`Obiectiv: ${form.obiectiv||'-'}`, `Dietă: ${form.dieta||'Fără restricții'}`, `Alergii: ${form.alergii||'-'}`];
+  left.forEach((s,i)=> doc.text(s, M, y + i*16));
+  right.forEach((s,i)=> doc.text(s, W/2, y + i*16));
+  y += 16*3 + 10; doc.setDrawColor(230,236,232); doc.line(M,y,W-M,y); y += 22;
+
+  // Plan + tabel
+  const plan = makePlanDemo(form.dieta, days);
+  const body = [];
+  plan.forEach(day=>{
+    const zi = `${day.d.getDate()} ${luni[day.d.getMonth()]}`;
+    let tot={g:0,kcal:0,p:0,c:0,f:0};
+    day.meals.forEach((m,idx)=>{
+      body.push([ idx===0?zi:'', m.meal, m.dish, m.integral?'✓':'', m.g, m.kcal, m.p, m.c, m.f ]);
+      tot.g+=m.g; tot.kcal+=m.kcal; tot.p+=m.p; tot.c+=m.c; tot.f+=m.f;
+    });
+    body.push([ {content:'TOTAL ZI', colSpan:4, styles:{fontStyle:'bold'}}, tot.g, tot.kcal, tot.p, tot.c, tot.f ]);
+  });
+
+  doc.setFont(FONT,'bold'); doc.setFontSize(13); doc.setTextColor(...TEXT);
+  doc.text('Meniu pe 7 zile (porție & macro/masă)', M, y); y += 8;
+
+  doc.autoTable({
+    startY: y+10,
+    head: [['Ziua','Masă','Preparat','Int','g/porț.','kcal','P','C','F']],
+    body,
+    theme: 'grid',
+    styles: { font: FONT, fontSize:10, cellPadding:6, textColor:[27,39,35], lineColor:[230,236,232], lineWidth:0.6 },
+    headStyles: { font: FONT, fillColor:[246,251,248], textColor:[20,30,26], fontStyle:'bold' },
+    alternateRowStyles: { fillColor:[252,254,253] },
+    columnStyles: {
+      0:{cellWidth:56}, 1:{cellWidth:78}, 2:{cellWidth:250},
+      3:{cellWidth:28, halign:'center'},
+      4:{cellWidth:52, halign:'right'}, 5:{cellWidth:54, halign:'right'},
+      6:{cellWidth:44, halign:'right'}, 7:{cellWidth:44, halign:'right'}, 8:{cellWidth:44, halign:'right'}
+    },
+    margin: { left: M, right: M },
+    didParseCell(data){
+      const cell0 = data.row?.raw?.[0];
+      if (cell0 && cell0.content === 'TOTAL ZI'){
+        data.cell.styles.fillColor = [240,244,242];
+        data.cell.styles.fontStyle = 'bold';
+      }
+    },
+    didDrawPage(data){
+      const pageStr = `BP · AI Nutriție — Pag. ${data.pageNumber}`;
+      doc.setFont(FONT,'normal'); doc.setFontSize(9.5); doc.setTextColor(109,118,122);
+      doc.text(pageStr, W - M, H - 18, { align:'right' });
+    }
+  });
+
+  const blob = doc.output('blob');
+  return URL.createObjectURL(blob);
+}
+</script>
 </body>
 </html>
