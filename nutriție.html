@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BP · AI Nutriție – Design D (Light)</title>
+<title>BP · AI Nutriție – Demo Premium PDF</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -48,11 +48,8 @@ header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.9);backdrop
 /* Sections */
 .section{padding:56px 0}
 .soft{background:var(--bg)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
-
-/* Steps */
 .step{padding:22px}
 .step p{color:var(--muted);margin:0}
 
@@ -60,24 +57,9 @@ header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.9);backdrop
 .pricing-wrap{padding:56px 0}
 .pricing-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
-
-.price-card{
-  background:#fff;border:1px solid var(--line);border-radius:16px;
-  box-shadow:var(--shadow); padding:24px; position:relative; display:flex; flex-direction:column;
-}
-.price-card .tier{margin:0 0 6px; font-weight:800; color:var(--text)}
-.price-card .price{margin:.2rem 0; font-size:32px; font-weight:800; color:var(--green)}
-.price-card ul{margin:10px 0 18px; padding-left:18px; color:var(--muted)}
-.price-card .btn{align-self:flex-start}
-
-.price-card.pro{ border:2px solid #cfe9df; box-shadow:0 12px 28px rgba(17,163,127,.12); }
-.price-card .pop{
-  position:absolute; right:16px; top:16px; background:var(--gold); color:#fff;
-  padding:6px 10px; border-radius:999px; font-size:12px; font-weight:800;
-}
-
-@media (max-width:980px){ .pricing-grid{grid-template-columns:1fr 1fr} }
-@media (max-width:640px){ .pricing-grid{grid-template-columns:1fr} }
+.price-card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:24px;position:relative;display:flex;flex-direction:column}
+.price-card.pro{border:2px solid #cfe9df;box-shadow:0 12px 28px rgba(17,163,127,.12)}
+.price-card .pop{position:absolute;right:16px;top:16px;background:var(--gold);color:#fff;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}
 
 /* FAQ */
 details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
@@ -87,22 +69,21 @@ summary{font-weight:800;cursor:pointer}
 footer{background:#0b1a15;color:#d8eee6;border-top:1px solid #123226;padding:36px 0}
 footer a{color:#d8eee6}
 
-/* Modal */
+/* Modal (wizard) */
 .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.4);padding:20px;z-index:1000}
 .modal.show{display:flex}
-.dialog{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px;max-width:820px;width:100%}
+.dialog{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px;max-width:920px;width:100%}
 .stepper{display:flex;gap:8px;margin-bottom:12px}
 .stepper .dot{height:8px;flex:1;border-radius:999px;background:#e6efe9}
 .stepper .dot.active{background:var(--green)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 label{display:block;font-weight:700;margin:8px 0 6px}
 input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff}
-textarea{min-height:110px}
 .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
 .badge.muted{color:var(--muted);background:#fff;border-color:var(--line)}
 
 /* Responsive */
-@media (max-width:980px){ .grid2,.grid3,.row{grid-template-columns:1fr} .hero .wrap{grid-template-columns:1fr} }
+@media (max-width:980px){ .grid3,.row{grid-template-columns:1fr} .hero .wrap{grid-template-columns:1fr} }
 @media (max-width:768px){
   .menu-toggle{display:block;margin-left:auto}
   .nav{flex-wrap:wrap}
@@ -178,38 +159,24 @@ html{scroll-behavior:smooth}
 
     <div class="pricing-grid">
       <article class="price-card">
-        <p class="tier">AI — Basic</p>
-        <p class="price">0 RON</p>
-        <ul>
-          <li>Meniu pe 7 zile (PDF)</li>
-          <li>1 revizie automată</li>
-        </ul>
+        <p class="tier">AI — Basic</p><p class="price">0 RON</p>
+        <ul><li>Meniu pe 7 zile (PDF)</li><li>1 revizie automată</li></ul>
         <button class="btn btn-outline" onclick="window.openAIModal ? openAIModal() : null">Începe gratuit</button>
       </article>
-
       <article class="price-card pro">
         <span class="pop">Recomandat</span>
-        <p class="tier">AI — Pro</p>
-        <p class="price">49 RON</p>
-        <ul>
-          <li>+ 2 meniuri alternative</li>
-          <li>Shopping list inteligent</li>
-          <li>Batch-cooking & prep</li>
-        </ul>
+        <p class="tier">AI — Pro</p><p class="price">49 RON</p>
+        <ul><li>+ 2 meniuri alternative</li><li>Shopping list inteligent</li><li>Batch-cooking & prep</li></ul>
         <button class="btn btn-primary" onclick="window.openAIModal ? openAIModal() : null">Generează Pro</button>
       </article>
-
       <article class="price-card">
-        <p class="tier">Nutriționist</p>
-        <p class="price">de la 199 RON</p>
-        <ul>
-          <li>Video call 30–45 min</li>
-          <li>Ajustări personalizate</li>
-        </ul>
+        <p class="tier">Nutriționist</p><p class="price">de la 199 RON</p>
+        <ul><li>Video call 30–45 min</li><li>Ajustări personalizate</li></ul>
         <a class="btn btn-outline" href="mailto:contact@bucatarulpersonal.ro">Programează consultanța</a>
       </article>
     </div>
   </div>
+</section>
 
 <section id="faq" class="section soft">
   <div class="container" style="display:grid;gap:10px">
@@ -273,9 +240,9 @@ html{scroll-behavior:smooth}
             <option>Fără restricții</option><option>Vegetarian</option><option>Vegan</option>
             <option>Keto</option><option>Low-carb</option><option>Mediteraneană</option><option>Fără gluten</option>
           </select></div>
-          <div><label for="alergii">Alergii</label><input id="alergii" name="alergii"></div>
-          <div><label for="nu">Nu îmi plac</label><input id="nu" name="nuImiPlac"></div>
-          <div><label for="cuisine">Bucătării preferate</label><input id="cuisine" name="bucatarii"></div>
+          <div><label for="alergii">Alergii</label><input id="alergii" name="alergii" placeholder="—"></div>
+          <div><label for="nuImiPlac">Nu îmi plac</label><input id="nuImiPlac" name="nuImiPlac" placeholder="—"></div>
+          <div><label for="bucatarii">Bucătării preferate</label><input id="bucatarii" name="bucatarii" placeholder="—"></div>
         </div>
         <label class="badge muted" style="margin-top:8px">
           <input type="checkbox" id="gdpr" name="gdpr" value="1" required style="margin-right:8px">
@@ -293,187 +260,216 @@ html{scroll-behavior:smooth}
   </div>
 </div>
 
-<!-- jsPDF trebuie încărcat ÎNAINTE de a-l folosi -->
-<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<!-- jsPDF -->
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+
 
 <script>
-async function generatePDFPremium(form){
+window.addEventListener('DOMContentLoaded', () => {
+  /* ===== NAV hamburger ===== */
+  const t=document.querySelector('.menu-toggle'), n=document.querySelector('.navlinks');
+  if(t&&n){
+    const close=()=>{n.classList.remove('show'); t.setAttribute('aria-expanded','false');};
+    t.addEventListener('click',()=>{const o=!n.classList.contains('show'); n.classList.toggle('show',o); t.setAttribute('aria-expanded',o?'true':'false');});
+    n.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+  }
+
+  /* ===== MODAL & wizard ===== */
+  const modal=document.getElementById('aiModal');
+  const openAi=document.getElementById('openAi');
+  const closeAi=document.getElementById('closeAi');
+  function openAIModal(){ modal.classList.add('show'); goToStep(1); }
+  window.openAIModal=openAIModal;
+  openAi?.addEventListener('click',openAIModal);
+  document.getElementById('openAi2')?.addEventListener('click',openAIModal);
+  closeAi?.addEventListener('click',()=> modal.classList.remove('show'));
+  modal.addEventListener('click',e=>{ if(e.target===modal) modal.classList.remove('show'); });
+
+  const form=document.getElementById('aiForm');
+  const statusB=document.getElementById('aiStatus');
+  const prevBtn=document.getElementById('prevBtn');
+  const nextBtn=document.getElementById('nextBtn');
+  const submit=document.getElementById('submitBtn');
+  const steps=Array.from(form.querySelectorAll('[data-step]'));
+  const dots=Array.from(document.querySelectorAll('.stepper .dot'));
+  let current=1;
+
+  function goToStep(n){
+    const total=steps.length; current=Math.max(1,Math.min(total,n));
+    steps.forEach((s,i)=> s.hidden=(i!==current-1));
+    dots.forEach((d,i)=> d.classList.toggle('active',i<current));
+    prevBtn.disabled=current===1; nextBtn.hidden=current===total; submit.hidden=current!==total;
+    statusB.textContent=''; steps[current-1].querySelector('input,select,textarea')?.focus();
+  }
+  window.goToStep = goToStep;
+
+  function validateStep(n){
+    if(n===1){
+      const nume=form.querySelector('#nume'), email=form.querySelector('#email');
+      if(!nume.value.trim()) return 'Te rugăm să completezi numele.';
+      if(!email.validity.valid) return 'Te rugăm să introduci un email valid.';
+    }
+    if(n===3 && !document.getElementById('gdpr').checked) return 'Trebuie să îți dai acordul pentru prelucrarea datelor.';
+    return '';
+  }
+
+  prevBtn.addEventListener('click',()=> goToStep(current-1));
+  nextBtn.addEventListener('click',()=>{
+    const err=validateStep(current); if(err){ statusB.textContent=err; return; }
+    const total=steps.length; if(current<total){ current++; goToStep(current); } else submit.click();
+  });
+  form.addEventListener('keydown',(e)=>{ if(e.key==='Enter' && submit.hidden){ e.preventDefault(); nextBtn.click(); }});
+
+  /* ===== API + FALLBACK ===== */
+  const API_URL = '/api/ai-menu'; // dacă API-ul nu răspunde, se generează PDF local
+
+  async function ensureInterFonts(doc){
+    try{
+      const toB64=(buf)=>{ const u=new Uint8Array(buf),ch=0x8000; let b=''; for(let i=0;i<u.length;i+=ch){ b+=String.fromCharCode.apply(null,u.subarray(i,i+ch)); } return btoa(b); };
+      const [reg,bold]=await Promise.all([
+        fetch('/fonts/Inter-Regular.ttf',{cache:'force-cache'}).then(r=>{if(!r.ok)throw 0; return r.arrayBuffer();}),
+        fetch('/fonts/Inter-Bold.ttf',{cache:'force-cache'}).then(r=>{if(!r.ok)throw 0; return r.arrayBuffer();})
+      ]);
+      doc.addFileToVFS('Inter-Regular.ttf', toB64(reg));
+      doc.addFileToVFS('Inter-Bold.ttf', toB64(bold));
+      doc.addFont('Inter-Regular.ttf','Inter','normal');
+      doc.addFont('Inter-Bold.ttf','Inter','bold');
+      return true;
+    }catch{ return false; }
+  }
+
+  <script>
+async function generatePDFClean(form){
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit:'pt', format:'a4' });
-  const W = doc.internal.pageSize.getWidth();
-  const H = doc.internal.pageSize.getHeight();
-  const M = 40;
 
-  // — culori brand —
-  const GREEN = [14,90,67], GOLD=[201,162,39], TEXT=[26,26,26], MUTED=[104,114,120], LINE=[230,236,232];
+  // Folosesc Helvetica (evită spacing ciudat); dacă vrei Inter, îl poți încărca separat.
+  doc.setFont('helvetica','normal');
 
-  // --- helpers ---
-  const line=(x1,y1,x2,y2,c=LINE)=>{ doc.setDrawColor(...c); doc.line(x1,y1,x2,y2); };
-  const fill=(x,y,w,h,c)=>{ doc.setFillColor(...c); doc.rect(x,y,w,h,'F'); };
-  const t=(s,x,y,opt={})=>{
-    const { size=11, bold=false, color=TEXT, align='left', maxWidth=0 }=opt;
-    doc.setTextColor(...color); doc.setFont('helvetica', bold?'bold':'normal'); doc.setFontSize(size);
-    maxWidth? doc.text(s,x,y,{align,maxWidth}) : doc.text(s,x,y,{align});
-  };
-  const wrap=(s,maxW)=> doc.splitTextToSize(String(s||''), maxW);
+  const W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight(), M = 42;
+  const GREEN=[14,90,67], GOLD=[201,162,39], TEXT=[27,39,35], MUTED=[109,118,122];
 
-  // --- header brand ---
-  fill(0,0,W,84,GREEN);
-  t('Meniu personalizat', M, 42, {size:18,bold:true,color:[255,255,255]});
-  doc.setDrawColor(...GOLD); doc.roundedRect(W-M-54,20,54,44,8,8,'S');
-  doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(16);
-  doc.text('BP', W-M-27, 49, {align:'center'});
-  doc.setLineWidth(2); doc.setDrawColor(...GOLD); doc.line(M,84,W-M,84); doc.setLineWidth(.5);
+  // === HEADER curat ===
+  doc.setFillColor(...GREEN); doc.rect(0,0,W,88,'F');
+  doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(22);
+  doc.text('Meniu personalizat', M, 52);
+  doc.setDrawColor(...GOLD); doc.setLineWidth(2); doc.line(M,88,W-M,88);
 
-  // --- luni/zi ---
-  const luni = ['ian','feb','mar','apr','mai','iun','iul','aug','sep','oct','nov','dec'];
-  const start = new Date(); // dacă ai o dată în formular, folosește-o aici
-  const days = [...Array(7)].map((_,i)=> new Date(start.getFullYear(), start.getMonth(), start.getDate()+i));
-  const interval = `${days[0].getDate()} ${luni[days[0].getMonth()]} – ${days[6].getDate()} ${luni[days[6].getMonth()]}`;
-  t(`Perioadă: ${interval}`, W-M, 42, {size:11,color:[220,240,233],align:'right'});
+  const luni=['ian','feb','mar','apr','mai','iun','iul','aug','sep','oct','nov','dec'];
+  const start=new Date();
+  const days=[...Array(7)].map((_,i)=> new Date(start.getFullYear(),start.getMonth(),start.getDate()+i));
+  doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(220,240,233);
+  doc.text(`Perioadă: ${days[0].getDate()} ${luni[days[0].getMonth()]} – ${days[6].getDate()} ${luni[days[6].getMonth()]}`, W-M, 52, {align:'right'});
 
-  let y = 112;
+  // === PROFIL (2 coloane, linii separate – fără spacing aiurea) ===
+  let y=116;
+  doc.setTextColor(...TEXT); doc.setFont('helvetica','bold'); doc.setFontSize(13);
+  doc.text('Profil client', M, y); y+=16;
+  doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(...MUTED);
+  const left = [
+    `Nume: ${form.nume||'-'}`,
+    `Email: ${form.email||'-'}`,
+    `Oraș: ${form.oras||'-'}`
+  ];
+  const right = [
+    `Obiectiv: ${form.obiectiv||'-'}`,
+    `Dietă: ${form.dieta||'Fără restricții'}`,
+    `Alergii: ${form.alergii||'-'}`
+  ];
+  left.forEach((s,i)=> doc.text(s, M, y + i*16));
+  right.forEach((s,i)=> doc.text(s, W/2, y + i*16));
+  y += 16*3 + 10;
+  doc.setDrawColor(230,236,232); doc.line(M,y,W-M,y); y += 22;
 
-  // --- date client (2 coloane) ---
-  t('Profil client', M, y, {size:13,bold:true}); y+=16;
-  const colW=(W-2*M-18)/2;
-  doc.setTextColor(...MUTED); doc.setFont('helvetica','normal'); doc.setFontSize(11);
-  doc.text(wrap(`Nume: ${form.nume||'-'}\nEmail: ${form.email||'-'}\nOraș: ${form.oras||'-'}`, colW), M, y);
-  doc.text(wrap(`Obiectiv: ${form.obiectiv||'-'}\nDietă: ${form.dieta||'Fără restricții'}\nAlergii: ${form.alergii||'-'}`, colW), M+colW+18, y);
-  y += 58; line(M,y,W-M,y); y+=18;
-
-  // --- PLAN (dacă nu dai din backend, generăm demo în funcție de dietă) ---
+  // === PLAN DEMO (poți înlocui cu date reale când ai backend) ===
   const plan = makePlanDemo(form.dieta, days);
 
-  // --- tabel: Ziua | Masa | Preparat | g | kcal | P | C | F ---
-  t('Meniu pe 7 zile (porție & macro/masă)', M, y, {size:13,bold:true}); y+=14;
+  // === TABEL PROFESIONAL cu AutoTable ===
+  doc.setFont('helvetica','bold'); doc.setFontSize(13); doc.setTextColor(...TEXT);
+  doc.text('Meniu pe 7 zile (porție & macro/masă)', M, y); y += 8;
 
-  const cols = [
-    {key:'date', label:'Ziua', w:64,  align:'left'},
-    {key:'meal', label:'Masa', w:80,  align:'left'},
-    {key:'dish', label:'Preparat', w:214, align:'left'},
-    {key:'g',    label:'g',    w:42,  align:'right'},
-    {key:'kcal', label:'kcal', w:52,  align:'right'},
-    {key:'p',    label:'P',    w:46,  align:'right'},
-    {key:'c',    label:'C',    w:46,  align:'right'},
-    {key:'f',    label:'F',    w:46,  align:'right'},
-  ];
-  const tableX = M, tableW = cols.reduce((s,c)=>s+c.w,0);
-
-  // header tabel
-  doc.setFillColor(246,251,248); doc.setDrawColor(...LINE);
-  doc.rect(tableX, y, tableW, 28, 'FD');
-  let cx = tableX + 8;
-  cols.forEach(c => { t(c.label, cx, y+18, {bold:true}); cx += c.w; });
-  y += 28;
-
-  function ensurePage(h){ if(y+h > H-86){ addFooter(); doc.addPage(); y = M; } }
-
+  const body = [];
   plan.forEach(day=>{
-    // rânduri mese
-    const dayLabel = `${day.d.getDate()} ${luni[day.d.getMonth()]}`;
-    let totals = { g:0,kcal:0,p:0,c:0,f:0 };
-
+    const zi = `${day.d.getDate()} ${luni[day.d.getMonth()]}`;
+    let tot={g:0,kcal:0,p:0,c:0,f:0};
     day.meals.forEach((m,idx)=>{
-      const linesDish = wrap(m.dish, cols[2].w-12);
-      const rowH = Math.max(24, 16 + (linesDish.length-1)*12);
-      ensurePage(rowH);
-
-      // contur rând
-      doc.setDrawColor(...LINE); doc.rect(tableX, y, tableW, rowH);
-
-      // celule
-      let x = tableX + 8, ty = y + 16;
-
-      // Ziua (doar pe prima linie a zilei)
-      t(idx===0 ? dayLabel : '', x, ty); x += cols[0].w;
-      t(m.meal, x, ty); x += cols[1].w;
-
-      // Preparat (wrap)
-      linesDish.forEach((ln,i)=> t(ln, x, ty + i*12)); x += cols[2].w;
-
-      // numere aliniate dreapta
-      const nums = [m.g, m.kcal, m.p, m.c, m.f];
-      nums.forEach((val, i)=>{
-        t(String(val), x + cols[3+i].w - 8, ty, {align:'right'});
-        x += cols[3+i].w;
-      });
-
-      y += rowH;
-
-      // adunăm totalurile
-      totals.g += m.g; totals.kcal += m.kcal; totals.p += m.p; totals.c += m.c; totals.f += m.f;
+      body.push([ idx===0?zi:'', m.meal, m.dish, m.g, m.kcal, m.p, m.c, m.f ]);
+      tot.g+=m.g; tot.kcal+=m.kcal; tot.p+=m.p; tot.c+=m.c; tot.f+=m.f;
     });
-
-    // rând total pe zi
-    ensurePage(26);
-    doc.setFillColor(240,244,242); doc.rect(tableX, y, tableW, 26, 'F');
-    let x = tableX + 8;
-    t('TOTAL ZI', x, y+17, {bold:true}); x += cols[0].w + cols[1].w + cols[2].w;
-    t(String(totals.g),   x + cols[3].w - 8, y+17, {align:'right',bold:true}); x += cols[3].w;
-    t(String(totals.kcal),x + cols[4].w - 8, y+17, {align:'right',bold:true}); x += cols[4].w;
-    t(String(totals.p),   x + cols[5].w - 8, y+17, {align:'right',bold:true}); x += cols[5].w;
-    t(String(totals.c),   x + cols[6].w - 8, y+17, {align:'right',bold:true}); x += cols[6].w;
-    t(String(totals.f),   x + cols[7].w - 8, y+17, {align:'right',bold:true});
-    y += 32;
+    body.push([ {content:'TOTAL ZI', colSpan:3, styles:{fontStyle:'bold'}}, tot.g, tot.kcal, tot.p, tot.c, tot.f ]);
   });
 
-  // notă & contact
-  ensurePage(66);
-  t('Notă:', M, y, {bold:true}); 
-  t('PDF-ul premium final va conține gramaje exacte, macronutrienți validați și listă de cumpărături. Versiunea de față este generată local (demo).', M+42, y, {maxWidth:W-2*M-42});
-  y += 28;
-  fill(M, y, W-2*M, 38, [240,244,242]);
-  t('Contact:', M+12, y+24, {bold:true});
-  t('contact@bucatarulpersonal.ro · www.bucatarulpersonal.ro', M+80, y+24);
-
-  // footer
-  function addFooter(){
-    const p = doc.internal.getNumberOfPages();
-    doc.setTextColor(...MUTED); doc.setFont('helvetica','normal'); doc.setFontSize(9.5);
-    doc.text(`BP · AI Nutriție — Pag. ${p}`, W - M, H - 20, { align:'right' });
-  }
-  addFooter();
+  doc.autoTable({
+    startY: y+10,
+    head: [['Ziua','Masă','Preparat','g','kcal','P','C','F']],
+    body,
+    theme: 'grid',
+    styles: { font:'helvetica', fontSize:10, cellPadding:6, textColor:[27,39,35], lineColor:[230,236,232], lineWidth:0.6 },
+    headStyles: { fillColor:[246,251,248], textColor:[20,30,26], fontStyle:'bold' },
+    alternateRowStyles: { fillColor:[252,254,253] },
+    columnStyles: {
+      0: { cellWidth: 64 },
+      1: { cellWidth: 84 },
+      2: { cellWidth: 240 },
+      3: { halign: 'right', cellWidth: 44 },
+      4: { halign: 'right', cellWidth: 54 },
+      5: { halign: 'right', cellWidth: 48 },
+      6: { halign: 'right', cellWidth: 48 },
+      7: { halign: 'right', cellWidth: 48 },
+    },
+    margin: { left: M, right: M },
+    didParseCell(data){
+      // stil pentru rândurile TOTAL
+      if (data.row && data.row.raw && data.row.raw[0] && data.row.raw[0].content==='TOTAL ZI') {
+        data.cell.styles.fillColor = [240,244,242];
+        data.cell.styles.fontStyle = 'bold';
+      }
+    },
+    didDrawPage(data){
+      // antet scurt pe paginile următoare
+      if (data.pageNumber>1){
+        doc.setFillColor(...GREEN); doc.rect(0,0,W,60,'F');
+        doc.setTextColor(255,255,255); doc.setFontSize(16); doc.setFont('helvetica','bold');
+        doc.text('Meniu personalizat', M, 38);
+      }
+      // footer
+      const pageStr = `BP · AI Nutriție — Pag. ${data.pageNumber}`;
+      doc.setFontSize(9.5); doc.setFont('helvetica','normal'); doc.setTextColor(109,118,122);
+      doc.text(pageStr, W - M, H - 18, { align:'right' });
+    }
+  });
 
   const blob = doc.output('blob');
   return URL.createObjectURL(blob);
 
-  // ===== Generator demo (poți înlocui cu date reale de la backend) =====
+  // ------------ generator demo (schimbă-l cu datele reale) ------------
   function makePlanDemo(diet, daysArr){
-    const pools = (diet||'').toLowerCase().includes('keto') ? {
-      md: ['Omletă cu spanac', 'Ouă poșate cu avocado', 'Shakshuka', 'Brânză cottage + castravete'],
-      pranz: ['Salată cu somon', 'Supă cremă de dovleac', 'Sushi bowl low-carb', 'Pui teriyaki + legume'],
-      cina: ['Piept pui + legume grill', 'Curcan + dovlecel', 'Somon la cuptor + sparanghel', 'File de cod + broccoli'],
-      gust: ['Nuci + iaurt grecesc', 'Măr + unt de arahide', 'Mix nuci', 'Iaurt + zmeură']
+    const keto=(diet||'').toLowerCase().includes('keto');
+    const pools=keto ? {
+      md:['Omletă cu spanac','Ouă poșate cu avocado','Shakshuka','Brânză cottage + castravete'],
+      pranz:['Salată cu somon','Supă cremă de dovleac','Sushi bowl low-carb','Pui teriyaki + legume'],
+      cina:['Piept pui + legume grill','Curcan + dovlecel','Somon la cuptor + sparanghel','File de cod + broccoli'],
+      gust:['Nuci + iaurt grecesc','Măr + unt de arahide','Mix nuci','Iaurt + zmeură']
     } : {
-      md: ['Ovăz cu lapte și fructe', 'Iaurt cu granola', 'Omletă cu legume', 'Smoothie de fructe'],
-      pranz: ['Paste integrale cu pui', 'Salată grecească', 'Supă de roșii + crutoane', 'Orez cu legume + tofu'],
-      cina: ['Vită la tigaie + salată', 'Pui la cuptor + cartofi', 'Pește la grătar + quinoa', 'Curry de năut + orez'],
-      gust: ['Banana + migdale', 'Crackers cu hummus', 'Brânză + biscuiți', 'Fructe de pădure']
+      md:['Ovăz cu fructe','Iaurt cu granola','Omletă cu legume','Smoothie de fructe'],
+      pranz:['Paste integrale cu pui','Salată grecească','Supă de roșii + crutoane','Orez cu legume + tofu'],
+      cina:['Vită la tigaie + salată','Pui la cuptor + cartofi','Pește la grătar + quinoa','Curry de năut + orez'],
+      gust:['Banana + migdale','Crackers cu hummus','Brânză + biscuiți','Fructe de pădure']
     };
-
-    const pick = arr => arr[Math.floor(Math.random()*arr.length)];
-    const kcal = (p,c,f)=> Math.round(p*4 + c*4 + f*9);
-
-    return daysArr.map(d => {
-      const meals = [
-        { meal:'Mic dejun', dish: pick(pools.md),  p:28, c:10, f:18, g:300 },
-        { meal:'Prânz',     dish: pick(pools.pranz),p:35, c:25, f:16, g:400 },
-        { meal:'Cină',      dish: pick(pools.cina), p:32, c:18, f:15, g:380 },
-        { meal:'Gustare',   dish: pick(pools.gust), p:10, c:12, f:12, g:120 },
-      ].map(x => ({...x, kcal:kcal(x.p,x.c,x.f)}));
-      return { d, meals, dateLabel:`${d.getDate()} ${luni[d.getMonth()]}` };
-    }).map(day => ({
-      d: day.d,
-      meals: day.meals.map(m => ({
-        date: `${day.d.getDate()} ${luni[day.d.getMonth()]}`,
-        ...m
-      }))
+    const pick=a=>a[Math.floor(Math.random()*a.length)];
+    const kcal=(p,c,f)=> Math.round(p*4 + c*4 + f*9);
+    return daysArr.map(d=>({
+      d,
+      meals:[
+        {meal:'Mic dejun', dish:pick(pools.md),   p:28,c:keto?8:30,  f:keto?20:10, g:300},
+        {meal:'Prânz',     dish:pick(pools.pranz),p:35,c:keto?18:45, f:keto?16:12, g:420},
+        {meal:'Cină',      dish:pick(pools.cina), p:32,c:keto?12:35, f:keto?18:14, g:380},
+        {meal:'Gustare',   dish:pick(pools.gust), p:10,c:keto?8:20,  f:keto?12:8,  g:120},
+      ].map(x=>({...x, kcal:kcal(x.p,x.c,x.f)}))
     }));
   }
 }
 </script>
-
 
 </body>
 </html>
