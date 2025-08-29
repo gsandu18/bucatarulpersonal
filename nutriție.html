@@ -464,13 +464,15 @@ document.getElementById('aiForm').addEventListener('submit', async (e)=>{
 });
 
 /* ===== GENERATOR PDF PROFESIONAL (Helvetica + AutoTable) ===== */
-async function generatePDFClean(formData){
+async function generatePDFClean(form){
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit:'pt', format:'a4' });
 
-  const W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight(), M = 42;
-  const GREEN=[14,90,67], GOLD=[201,162,39], TEXT=[27,39,35], MUTED=[109,118,122];
-
+  // Font cu diacritice (vezi ensureInterFonts din mesajul anterior)
+  const hasInter = await ensureInterFonts(doc);
+  const FONT = hasInter ? 'Inter' : 'helvetica';
+  doc.setFont(FONT,'normal');
+  
   // Header
   doc.setFillColor(...GREEN); doc.rect(0,0,W,88,'F');
   doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(22);
@@ -562,33 +564,81 @@ async function generatePDFClean(formData){
   const blob = doc.output('blob');
   return URL.createObjectURL(blob);
 
-  function makePlanDemo(diet, daysArr){
-    const keto=(diet||'').toLowerCase().includes('keto');
-    const pools=keto ? {
-      md:['Omletă cu spanac','Ouă poșate cu avocado','Shakshuka','Brânză cottage + castravete'],
-      pranz:['Salată cu somon','Supă cremă de dovleac','Sushi bowl low-carb','Pui teriyaki + legume'],
-      cina:['Piept pui + legume grill','Curcan + dovlecel','Somon la cuptor + sparanghel','File de cod + broccoli'],
-      gust:['Nuci + iaurt grecesc','Măr + unt de arahide','Mix nuci','Iaurt + zmeură']
-    } : {
-      md:['Ovăz cu fructe','Iaurt cu granola','Omletă cu legume','Smoothie de fructe'],
-      pranz:['Paste integrale cu pui','Salată grecească','Supă de roșii + crutoane','Orez cu legume + tofu'],
-      cina:['Vită la tigaie + salată','Pui la cuptor + cartofi','Pește la grătar + quinoa','Curry de năut + orez'],
-      gust:['Banana + migdale','Crackers cu hummus','Brânză + biscuiți','Fructe de pădure']
-    };
-    const pick=a=>a[Math.floor(Math.random()*a.length)];
-    const kcal=(p,c,f)=> Math.round(p*4 + c*4 + f*9);
-    return daysArr.map(d=>({
-      d,
-      meals:[
-        {meal:'Mic dejun', dish:pick(pools.md),   p:28, c:keto?8:30,  f:keto?20:10, g:300},
-        {meal:'Prânz',     dish:pick(pools.pranz),p:35, c:keto?18:45, f:keto?16:12, g:420},
-        {meal:'Cină',      dish:pick(pools.cina), p:32, c:keto?12:35, f:keto?18:14, g:380},
-        {meal:'Gustare',   dish:pick(pools.gust), p:10, c:keto?8:20,  f:keto?12:8,  g:120},
-      ].map(x=>({...x, kcal:kcal(x.p,x.c,x.f)}))
-    }));
-  }
+  // === generator DEMO cu "integral" + ingrediente (g) ===
+function makePlanDemo(diet, daysArr){
+  const keto = (diet||'').toLowerCase().includes('keto');
+
+  // fiecare item: { name, integral, ing: [ ['ovăz',60], ['lapte',200], ... ] }
+  const pools = keto ? {
+    md: [
+      {name:'Omletă cu spanac', integral:false, ing:[['ouă',2*60],['spanac',60],['ulei măsline',10]]},
+      {name:'Brânză cottage + castravete', integral:false, ing:[['brânză cottage',180],['castravete',120]]},
+      {name:'Ouă poșate cu avocado', integral:false, ing:[['ouă',2*60],['avocado',90]]},
+    ],
+    pranz: [
+      {name:'Salată cu somon', integral:false, ing:[['somon',150],['mix verdețuri',120],['avocado',60]]},
+      {name:'Supă cremă de dovleac', integral:false, ing:[['dovleac',300],['smântână',30],['semințe dovleac',10]]},
+    ],
+    cina: [
+      {name:'Somon la cuptor + sparanghel', integral:false, ing:[['somon',160],['sparanghel',180],['ulei măsline',10]]},
+      {name:'File de cod + broccoli', integral:false, ing:[['cod',170],['broccoli',220],['unt',10]]},
+      {name:'Piept pui + legume grill', integral:false, ing:[['piept pui',160],['ardei',120],['dovlecel',150]]},
+    ],
+    gust: [
+      {name:'Nuci + iaurt grecesc', integral:false, ing:[['iaurt grecesc',150],['mix nuci',25]]},
+      {name:'Iaurt + zmeură', integral:false, ing:[['iaurt',180],['zmeură',80]]},
+    ],
+  } : {
+    md: [
+      {name:'Ovăz cu fructe', integral:true, ing:[['ovăz integral',60],['lapte',200],['fructe',100]]},
+      {name:'Iaurt cu granola', integral:true, ing:[['iaurt',200],['granola integrală',40],['fructe',80]]},
+      {name:'Omletă cu legume', integral:false, ing:[['ouă',2*60],['ardei',60],['ciuperci',60]]},
+    ],
+    pranz: [
+      {name:'Paste integrale cu pui', integral:true, ing:[['paste integrale',70],['piept pui',150],['roșii',120]]},
+      {name:'Salată grecească', integral:false, ing:[['brânză feta',80],['roșii',120],['măsline',30]]},
+      {name:'Orez brun cu legume + tofu', integral:true, ing:[['orez brun',70],['tofu',140],['legume',200]]},
+      {name:'Supă de roșii + crutoane integrale', integral:true, ing:[['roșii',350],['pâine integrală',40]]},
+    ],
+    cina: [
+      {name:'Vită la tigaie + salată', integral:false, ing:[['vită',180],['salată',140]]},
+      {name:'Pește la grătar + quinoa', integral:true, ing:[['pește',160],['quinoa',60],['legume',180]]},
+      {name:'Curry de năut + orez brun', integral:true, ing:[['năut',160],['orez brun',60],['sos curry',120]]},
+    ],
+    gust: [
+      {name:'Banana + migdale', integral:false, ing:[['banană',120],['migdale',20]]},
+      {name:'Crackers integrali cu hummus', integral:true, ing:[['crackers integrali',30],['hummus',70]]},
+      {name:'Brânză + biscuiți integrali', integral:true, ing:[['brânză',40],['biscuiți integrali',30]]},
+    ],
+  };
+
+  const pick = (a)=> a[Math.floor(Math.random()*a.length)];
+  const kcal = (p,c,f)=> Math.round(p*4 + c*4 + f*9);
+
+  return daysArr.map(d=>{
+    // compunem 4 mese / zi
+    const raw = [
+      {meal:'Mic dejun', item: pick(pools.md),   p:28, c:keto?8:30,  f:keto?20:10, g:300},
+      {meal:'Prânz',     item: pick(pools.pranz),p:35, c:keto?18:45, f:keto?16:12, g:420},
+      {meal:'Cină',      item: pick(pools.cina), p:32, c:keto?12:35, f:keto?18:14, g:380},
+      {meal:'Gustare',   item: pick(pools.gust), p:10, c:keto?8:20,  f:keto?12:8,  g:120},
+    ];
+
+    const meals = raw.map(x=>{
+      const ingredientsTxt = x.item.ing.map(([n,g])=>`${n} ${g}g`).join(' • ');
+      const dishWithGrams = `${x.item.name} (${ingredientsTxt})`;
+      return {
+        meal: x.meal,
+        dish: dishWithGrams,
+        integral: !!x.item.integral,
+        g: x.g, p: x.p, c: x.c, f: x.f,
+        kcal: kcal(x.p,x.c,x.f),
+      };
+    });
+
+    return { d, meals };
+  });
 }
-</script>
 
 </body>
 </html>
