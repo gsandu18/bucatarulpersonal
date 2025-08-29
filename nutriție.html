@@ -479,88 +479,62 @@ async function generatePDFClean(form){
   doc.text('Meniu personalizat', M, 52);
   doc.setDrawColor(...GOLD); doc.setLineWidth(2); doc.line(M,88,W-M,88);
 
+  // === CONSTRUIRE BODY cu noua coloană „Int” și grams în „Preparat” ===
   const luni=['ian','feb','mar','apr','mai','iun','iul','aug','sep','oct','nov','dec'];
   const start=new Date();
   const days=[...Array(7)].map((_,i)=> new Date(start.getFullYear(),start.getMonth(),start.getDate()+i));
-  doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(220,240,233);
-  doc.text(`Perioadă: ${days[0].getDate()} ${luni[days[0].getMonth()]} – ${days[6].getDate()} ${luni[days[6].getMonth()]}`, W-M, 52, {align:'right'});
+  const plan = makePlanDemo(form.dieta, days);
 
-  // Profil
-  let y=116;
-  doc.setTextColor(...TEXT); doc.setFont('helvetica','bold'); doc.setFontSize(13);
-  doc.text('Profil client', M, y); y+=16;
-  doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(...MUTED);
-  const left = [
-    `Nume: ${formData.nume||'-'}`,
-    `Email: ${formData.email||'-'}`,
-    `Oraș: ${formData.oras||'-'}`
-  ];
-  const right = [
-    `Obiectiv: ${formData.obiectiv||'-'}`,
-    `Dietă: ${formData.dieta||'Fără restricții'}`,
-    `Alergii: ${formData.alergii||'-'}`
-  ];
-  left.forEach((s,i)=> doc.text(s, M, y + i*16));
-  right.forEach((s,i)=> doc.text(s, W/2, y + i*16));
-  y += 16*3 + 10;
-  doc.setDrawColor(230,236,232); doc.line(M,y,W-M,y); y += 22;
-
-  // Plan demo (înlocuiește cu date reale când ai backend)
-  const plan = makePlanDemo(formData.dieta, days);
-
-  // Titlu tabel
-  doc.setFont('helvetica','bold'); doc.setFontSize(13); doc.setTextColor(...TEXT);
-  doc.text('Meniu pe 7 zile (porție & macro/masă)', M, y); y += 8;
-
-  // Body pentru AutoTable
   const body = [];
   plan.forEach(day=>{
     const zi = `${day.d.getDate()} ${luni[day.d.getMonth()]}`;
     let tot={g:0,kcal:0,p:0,c:0,f:0};
     day.meals.forEach((m,idx)=>{
-      body.push([ idx===0?zi:'', m.meal, m.dish, m.g, m.kcal, m.p, m.c, m.f ]);
+      body.push([ idx===0?zi:'', m.meal, m.dish, m.integral?'✓':'', m.g, m.kcal, m.p, m.c, m.f ]);
       tot.g+=m.g; tot.kcal+=m.kcal; tot.p+=m.p; tot.c+=m.c; tot.f+=m.f;
     });
-    body.push([ {content:'TOTAL ZI', colSpan:3, styles:{fontStyle:'bold'}}, tot.g, tot.kcal, tot.p, tot.c, tot.f ]);
+    body.push([ {content:'TOTAL ZI', colSpan:4, styles:{fontStyle:'bold'}}, tot.g, tot.kcal, tot.p, tot.c, tot.f ]);
   });
 
+  // === TABEL ===
+  const M = 42, W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight();
+  const startY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 12 : 220; // sau y-ul tău curent
+
   doc.autoTable({
-    startY: y+10,
-    head: [['Ziua','Masă','Preparat','g','kcal','P','C','F']],
+    startY,
+    head: [['Ziua','Masă','Preparat','Int','g/porț.','kcal','P','C','F']],
     body,
     theme: 'grid',
-    styles: { font:'helvetica', fontSize:10, cellPadding:6, textColor:[27,39,35], lineColor:[230,236,232], lineWidth:0.6 },
-    headStyles: { fillColor:[246,251,248], textColor:[20,30,26], fontStyle:'bold' },
+    styles: { font: FONT, fontSize:10, cellPadding:6, textColor:[27,39,35], lineColor:[230,236,232], lineWidth:0.6 },
+    headStyles: { font: FONT, fillColor:[246,251,248], textColor:[20,30,26], fontStyle:'bold' },
     alternateRowStyles: { fillColor:[252,254,253] },
     columnStyles: {
-      0: { cellWidth: 64 },
-      1: { cellWidth: 84 },
-      2: { cellWidth: 240 },
-      3: { halign: 'right', cellWidth: 44 },
-      4: { halign: 'right', cellWidth: 54 },
-      5: { halign: 'right', cellWidth: 48 },
-      6: { halign: 'right', cellWidth: 48 },
-      7: { halign: 'right', cellWidth: 48 },
+      0: { cellWidth: 56 },          // Ziua
+      1: { cellWidth: 78 },          // Masă
+      2: { cellWidth: 250 },         // Preparat (+ ingrediente g)
+      3: { cellWidth: 28, halign:'center' }, // Int (✓)
+      4: { cellWidth: 52, halign:'right' },  // g/porț.
+      5: { cellWidth: 54, halign:'right' },  // kcal
+      6: { cellWidth: 44, halign:'right' },  // P
+      7: { cellWidth: 44, halign:'right' },  // C
+      8: { cellWidth: 44, halign:'right' },  // F
     },
     margin: { left: M, right: M },
     didParseCell(data){
-      if (data.row && data.row.raw && data.row.raw[0] && data.row.raw[0].content==='TOTAL ZI') {
+      // rând „TOTAL ZI” – gri deschis + bold
+      const cell0 = data.row?.raw?.[0];
+      if (cell0 && cell0.content === 'TOTAL ZI'){
         data.cell.styles.fillColor = [240,244,242];
         data.cell.styles.fontStyle = 'bold';
       }
     },
     didDrawPage(data){
-      if (data.pageNumber>1){
-        doc.setFillColor(...GREEN); doc.rect(0,0,W,60,'F');
-        doc.setTextColor(255,255,255); doc.setFontSize(16); doc.setFont('helvetica','bold');
-        doc.text('Meniu personalizat', M, 38);
-      }
+      // footer simplu
       const pageStr = `BP · AI Nutriție — Pag. ${data.pageNumber}`;
-      doc.setFontSize(9.5); doc.setFont('helvetica','normal'); doc.setTextColor(109,118,122);
+      doc.setFont(FONT,'normal'); doc.setFontSize(9.5); doc.setTextColor(109,118,122);
       doc.text(pageStr, W - M, H - 18, { align:'right' });
     }
   });
-
   const blob = doc.output('blob');
   return URL.createObjectURL(blob);
 
