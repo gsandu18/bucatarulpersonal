@@ -318,46 +318,64 @@ document.getElementById('openAi2')?.addEventListener('click',openAIModal);
 document.getElementById('closeAi').addEventListener('click',()=> modal.classList.remove('show'));
 modal.addEventListener('click',e=>{ if(e.target===modal) modal.classList.remove('show'); });
 
-const form=document.getElementById('aiForm');
-const panes=[...form.querySelectorAll('[data-step]')];
-const dots=[...modal.querySelectorAll('.stepper .dot')];
-const prevBtn=document.getElementById('prevBtn');
-const nextBtn=document.getElementById('nextBtn');
-const submitBtn=document.getElementById('submitBtn');
-const statusBox=document.getElementById('aiStatus');
-let step=1;
+<script>
+(function(){
+  const form    = document.getElementById('aiForm');
+  const status  = document.getElementById('aiStatus');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const submit  = document.getElementById('submitBtn');
 
-function show(n){
-  panes.forEach(p=>p.hidden=(+p.dataset.step!==n));
-  dots.forEach((d,i)=> d.classList.toggle('active', i<n));
-  prevBtn.disabled=(n===1);
-  nextBtn.hidden=(n===panes.length);
-  submitBtn.hidden=(n!==panes.length);
-  statusBox.textContent='';
-  step=n;
-}
-function valid(n){
-  const pane=panes.find(p=>+p.dataset.step===n);
-  if(!pane) return true;
-  return [...pane.querySelectorAll('[required]')].every(el=> el.type==='checkbox'?el.checked:el.value.trim()!=='');
-}
-prevBtn.addEventListener('click',()=> show(step-1));
-nextBtn.addEventListener('click',()=>{
-  if(!valid(step)){ statusBox.textContent='Completează câmpurile obligatorii.'; return; }
-  show(step+1);
-});
-form.addEventListener('submit',async e=>{
-  e.preventDefault();
-  if(!valid(step)){ statusBox.textContent='Confirmă acordul GDPR.'; return; }
-  statusBox.textContent='Se generează meniul...';
-  try{
-    const data=Object.fromEntries(new FormData(form).entries());
-    const r=await fetch('/api/ai-menu',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({form:data, source:'bp-design-d'})});
-    if(!r.ok) throw 0;
-    statusBox.textContent='Trimis! Verifică emailul (și Spam).';
-    form.reset(); show(1);
-  }catch{ statusBox.textContent='Eroare temporară. Reîncearcă.'; }
-});
+  async function submitAI(e){
+    e.preventDefault();
+
+    // blocăm butoanele și arătăm „se trimite…”
+    [prevBtn,nextBtn,submit].forEach(b=> b && (b.disabled = true));
+    submit?.classList.add('is-loading');
+    status.textContent = 'Se generează și se trimite pe email…';
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    try{
+      const r = await fetch('/api/ai-menu', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ form: data, source: 'bp-modal' })
+      });
+      const j = await r.json().catch(()=> ({}));
+
+      if(r.ok && j.ok){
+        // ✅ succes: anunț clar
+        status.innerHTML = 'Gata! Ți-am trimis meniul pe email. <span style="opacity:.8">(verifică și Spam/Promotions)</span>';
+        window.toast && window.toast('Meniul a fost trimis pe email ✅');
+
+        // buton de descărcare dacă serverul returnează link
+        if(j.downloadUrl){
+          const a = document.createElement('a');
+          a.href = j.downloadUrl; a.target = '_blank'; a.rel = 'noopener';
+          a.className = 'btn btn-outline'; a.style.marginLeft = '8px';
+          a.textContent = 'Descarcă PDF';
+          status.appendChild(a);
+        }
+
+        // opțional: reset + închidere după câteva secunde
+        form.reset();
+        setTimeout(()=>{ document.getElementById('aiModal')?.classList.remove('show'); }, 1800);
+      }else{
+        throw new Error(j.error || 'Eroare temporară. Reîncearcă.');
+      }
+    }catch(err){
+      status.textContent = err.message || 'Eroare temporară. Reîncearcă.';
+      window.toast && window.toast('Nu s-a putut trimite meniul ❌');
+    }finally{
+      [prevBtn,nextBtn,submit].forEach(b=> b && (b.disabled = false));
+      submit?.classList.remove('is-loading');
+    }
+  }
+
+  form?.addEventListener('submit', submitAI);
+})();
 </script>
+
 </body>
 </html>
