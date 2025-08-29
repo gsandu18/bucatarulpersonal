@@ -344,9 +344,6 @@ function goToStep(n){
   nextBtn.hidden   = current === steps.length;
   submit.hidden    = current !== steps.length;
   statusB.textContent = '';
-  // focus pe primul input vizibil
-  const firstInput = steps[current-1].querySelector('input,select,textarea');
-  firstInput && firstInput.focus();
 }
 
 function validateStep(n){
