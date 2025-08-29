@@ -299,83 +299,135 @@ html{scroll-behavior:smooth}
 </div>
 
 <script>
-/* nav hamburger */
-document.addEventListener('DOMContentLoaded',()=>{
-  const t=document.querySelector('.menu-toggle'), n=document.querySelector('.navlinks');
-  if(t&&n){
-    const close=()=>{n.classList.remove('show'); t.setAttribute('aria-expanded','false');};
-    t.addEventListener('click',()=>{const o=!n.classList.contains('show'); n.classList.toggle('show',o); t.setAttribute('aria-expanded',o?'true':'false');});
-    n.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+/* === NAV hamburger === */
+document.addEventListener('DOMContentLoaded', () => {
+  const t = document.querySelector('.menu-toggle'), n = document.querySelector('.navlinks');
+  if (t && n) {
+    const close = () => { n.classList.remove('show'); t.setAttribute('aria-expanded','false'); };
+    t.addEventListener('click', () => {
+      const o = !n.classList.contains('show');
+      n.classList.toggle('show', o);
+      t.setAttribute('aria-expanded', o ? 'true' : 'false');
+    });
+    n.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
   }
 });
 
-/* modal + wizard */
-const modal=document.getElementById('aiModal');
-const openAi=document.getElementById('openAi');
-function openAIModal(){ modal.classList.add('show'); show(1); }
-openAi?.addEventListener('click',openAIModal);
-document.getElementById('openAi2')?.addEventListener('click',openAIModal);
-document.getElementById('closeAi').addEventListener('click',()=> modal.classList.remove('show'));
-modal.addEventListener('click',e=>{ if(e.target===modal) modal.classList.remove('show'); });
+/* === MODAL + WIZARD === */
+const modal   = document.getElementById('aiModal');
+const openAi  = document.getElementById('openAi');
+const closeAi = document.getElementById('closeAi');
 
+function openAIModal(){ modal.classList.add('show'); goToStep(1); }
+window.openAIModal = openAIModal; // <- important pt. butoanele cu onclick="window.openAIModal && ..."
 
-(function(){
-  const form    = document.getElementById('aiForm');
-  const status  = document.getElementById('aiStatus');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const submit  = document.getElementById('submitBtn');
+openAi?.addEventListener('click', openAIModal);
+document.getElementById('openAi2')?.addEventListener('click', openAIModal);
+closeAi?.addEventListener('click', () => modal.classList.remove('show'));
+modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('show'); });
 
-  async function submitAI(e){
-    e.preventDefault();
+/* === WIZARD STATE === */
+const form    = document.getElementById('aiForm');
+const statusB = document.getElementById('aiStatus');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const submit  = document.getElementById('submitBtn');
+const steps   = Array.from(form.querySelectorAll('[data-step]'));
+const dots    = Array.from(document.querySelectorAll('.stepper .dot'));
+let current   = 1;
 
-    // blocăm butoanele și arătăm „se trimite…”
-    [prevBtn,nextBtn,submit].forEach(b=> b && (b.disabled = true));
-    submit?.classList.add('is-loading');
-    status.textContent = 'Se generează și se trimite pe email…';
+function goToStep(n){
+  current = Math.max(1, Math.min(steps.length, n));
+  steps.forEach((s,i) => s.hidden = (i !== current - 1));
+  dots.forEach((d,i) => d.classList.toggle('active', i < current));
+  prevBtn.disabled = current === 1;
+  nextBtn.hidden   = current === steps.length;
+  submit.hidden    = current !== steps.length;
+  statusB.textContent = '';
+  // focus pe primul input vizibil
+  const firstInput = steps[current-1].querySelector('input,select,textarea');
+  firstInput && firstInput.focus();
+}
 
-    const data = Object.fromEntries(new FormData(form).entries());
-
-    try{
-      const r = await fetch('/api/ai-menu', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ form: data, source: 'bp-modal' })
-      });
-      const j = await r.json().catch(()=> ({}));
-
-      if(r.ok && j.ok){
-        // ✅ succes: anunț clar
-        status.innerHTML = 'Gata! Ți-am trimis meniul pe email. <span style="opacity:.8">(verifică și Spam/Promotions)</span>';
-        window.toast && window.toast('Meniul a fost trimis pe email ✅');
-
-        // buton de descărcare dacă serverul returnează link
-        if(j.downloadUrl){
-          const a = document.createElement('a');
-          a.href = j.downloadUrl; a.target = '_blank'; a.rel = 'noopener';
-          a.className = 'btn btn-outline'; a.style.marginLeft = '8px';
-          a.textContent = 'Descarcă PDF';
-          status.appendChild(a);
-        }
-
-        // opțional: reset + închidere după câteva secunde
-        form.reset();
-        setTimeout(()=>{ document.getElementById('aiModal')?.classList.remove('show'); }, 1800);
-      }else{
-        throw new Error(j.error || 'Eroare temporară. Reîncearcă.');
-      }
-    }catch(err){
-      status.textContent = err.message || 'Eroare temporară. Reîncearcă.';
-      window.toast && window.toast('Nu s-a putut trimite meniul ❌');
-    }finally{
-      [prevBtn,nextBtn,submit].forEach(b=> b && (b.disabled = false));
-      submit?.classList.remove('is-loading');
-    }
+function validateStep(n){
+  // Validări minime per pas
+  if (n === 1) {
+    const nume  = form.querySelector('#nume');
+    const email = form.querySelector('#email');
+    if (!nume.value.trim()) { nume.focus(); return 'Te rugăm să completezi numele.'; }
+    if (!email.validity.valid) { email.focus(); return 'Te rugăm să introduci un email valid.'; }
   }
+  if (n === 3) {
+    const gdpr = form.querySelector('#gdpr');
+    if (!gdpr.checked) { gdpr.focus(); return 'Trebuie să îți dai acordul pentru prelucrarea datelor.'; }
+  }
+  return '';
+}
 
-  form?.addEventListener('submit', submitAI);
-})();
+prevBtn?.addEventListener('click', () => goToStep(current - 1));
+nextBtn?.addEventListener('click', () => {
+  const err = validateStep(current);
+  if (err) { statusB.textContent = err; return; }
+  goToStep(current + 1);
+});
+
+// Enter să sară la pasul următor (nu trimitem până la ultimul pas)
+form.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !submit.hidden) return; // la ultimul pas permite submit
+  if (e.key === 'Enter') { e.preventDefault(); nextBtn.click(); }
+});
+
+/* === SUBMIT -> API === */
+const API_URL = '/api/ai-menu'; // dacă rulezi pe alt domeniu, pune URL absolut
+
+async function submitAI(e){
+  e.preventDefault();
+  const err = validateStep(3);
+  if (err) { statusB.textContent = err; return; }
+
+  [prevBtn,nextBtn,submit].forEach(b => b && (b.disabled = true));
+  submit?.classList.add('is-loading');
+  statusB.textContent = 'Se generează și se trimite pe email…';
+
+  const data = Object.fromEntries(new FormData(form).entries());
+
+  try{
+    const r = await fetch(API_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ form: data, source: 'bp-modal' })
+    });
+
+    const j = await r.json().catch(() => ({}));
+
+    if (r.ok && j.ok){
+      statusB.innerHTML = 'Gata! Ți-am trimis meniul pe email. <span style="opacity:.8">(verifică și Spam/Promotions)</span>';
+      if (j.downloadUrl){
+        const a = document.createElement('a');
+        a.href = j.downloadUrl; a.target = '_blank'; a.rel = 'noopener';
+        a.className = 'btn btn-outline'; a.style.marginLeft = '8px';
+        a.textContent = 'Descarcă PDF';
+        statusB.appendChild(a);
+      }
+      form.reset();
+      setTimeout(() => modal.classList.remove('show'), 1800);
+    } else {
+      throw new Error(j.error || 'Eroare temporară. Reîncearcă.');
+    }
+  } catch (err){
+    statusB.textContent = (err && err.message) ? err.message : 'Eroare temporară. Reîncearcă.';
+  } finally {
+    [prevBtn,nextBtn,submit].forEach(b => b && (b.disabled = false));
+    submit?.classList.remove('is-loading');
+  }
+}
+
+form?.addEventListener('submit', submitAI);
+
+// pornește pe pasul 1 la încărcare (în caz că modalul e deja deschis din hash)
+goToStep(1);
 </script>
+
 
 </body>
 </html>
