@@ -376,7 +376,6 @@ form.addEventListener('keydown', (e) => {
   if (submit.hidden){ e.preventDefault(); nextBtn.click(); }
 });
 
-/* ====== SUBMIT -> API ====== */
 const API_URL = '/api/ai-menu'; // pune URL absolut dacă API-ul e pe alt domeniu
 
 async function submitAI(e){
@@ -388,7 +387,8 @@ async function submitAI(e){
   submit.classList.add('is-loading');
   statusB.textContent = 'Se generează și se trimite pe email…';
 
-  const payload = { form: Object.fromEntries(new FormData(form).entries()), source: 'bp-modal' };
+  const formData = Object.fromEntries(new FormData(form).entries());
+  const payload = { form: formData, source: 'bp-modal' };
 
   try{
     const r = await fetch(API_URL, {
@@ -397,33 +397,45 @@ async function submitAI(e){
       body: JSON.stringify(payload)
     });
 
+    // încearcă să citești JSON; dacă nu e JSON valid => fallback
     let j = {};
-    try { j = await r.json(); }
-    catch(_) { throw new Error('Serverul nu a returnat JSON valid.'); }
+    try { j = await r.json(); } catch(_) {}
 
-    if (!r.ok || !j.ok){
-      throw new Error(j.error || `Eroare API (${r.status}).`);
-    }
-
-    statusB.innerHTML = 'Gata! Ți-am trimis meniul pe email. <span style="opacity:.8">(verifică și Spam/Promotions)</span>';
-    if (j.downloadUrl){
+    if (r.ok && j.ok){
+      statusB.innerHTML = 'Gata! Ți-am trimis meniul pe email. <span style="opacity:.8">(verifică și Spam/Promotions)</span>';
+      if (j.downloadUrl){
+        const a = document.createElement('a');
+        a.href = j.downloadUrl; a.target = '_blank'; a.rel = 'noopener';
+        a.className = 'btn btn-outline'; a.style.marginLeft = '8px';
+        a.textContent = 'Descarcă PDF';
+        statusB.appendChild(a);
+      }
+      form.reset();
+      setTimeout(() => modal.classList.remove('show'), 1800);
+    } else {
+      // —— FALLBACK LOCAL PDF ——
+      const url = await generatePDFClientSide(formData);
+      statusB.innerHTML = 'Server indisponibil. Ți-am generat un PDF demo local.';
       const a = document.createElement('a');
-      a.href = j.downloadUrl; a.target = '_blank'; a.rel = 'noopener';
+      a.href = url; a.target = '_blank'; a.rel = 'noopener';
       a.className = 'btn btn-outline'; a.style.marginLeft = '8px';
       a.textContent = 'Descarcă PDF';
       statusB.appendChild(a);
     }
-    form.reset();
-    setTimeout(() => modal.classList.remove('show'), 1800);
-
   }catch(err){
-    statusB.textContent = err.message || 'Eroare temporară. Reîncearcă.';
+    // —— FALLBACK LOCAL PDF ——
+    const url = await generatePDFClientSide(payload.form);
+    statusB.innerHTML = 'Conexiune eșuată. PDF demo generat local.';
+    const a = document.createElement('a');
+    a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    a.className = 'btn btn-outline'; a.style.marginLeft = '8px';
+    a.textContent = 'Descarcă PDF';
+    statusB.appendChild(a);
   }finally{
     [prevBtn,nextBtn,submit].forEach(b => b && (b.disabled = false));
     submit.classList.remove('is-loading');
   }
 }
-
 form.addEventListener('submit', submitAI);
 
 /* Start on step 1 */
