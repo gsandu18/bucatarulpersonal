@@ -175,6 +175,73 @@ details { border-radius:12px; }
 
 /* asigură-te că .price-card nu e „subțiat” de .card generic */
 .card.price-card, .pricing-grid .price-card{ border-radius:20px; }
+
+  /* ====== DESIGN DOAR (Header + Footer) ====== */
+:root{
+  --bp-dark:#0b1a15;      /* fundal header/footer */
+  --bp-line:#123226;      /* linii subtile pe dark */
+  --bp-ink:#f1f6f4;       /* text pe dark */
+  --bp-gold:#c9a227;      /* inel auriu logo */
+}
+
+/* HEADER – bară dark, text alb cu spacing */
+header{
+  background:var(--bp-dark);
+  color:var(--bp-ink);
+  border-bottom:1px solid var(--bp-line);
+  padding-top:env(safe-area-inset-top);
+}
+header .nav{ height:64px; }
+header .logo{ color:var(--bp-ink); text-decoration:none; gap:12px; }
+header .logo span:last-child{
+  letter-spacing:.22em; font-weight:800; text-transform:uppercase;
+}
+
+/* Logo mark cu inel auriu */
+header .logo .mark,
+footer .logo .mark{
+  width:36px; height:36px; border-radius:999px; display:grid; place-items:center;
+  border:2px solid var(--bp-gold); color:#fff; font-weight:800; font-size:14px;
+  background:radial-gradient(transparent,rgba(255,255,255,.04));
+}
+
+/* Hamburger alb (folosește butonul existent .menu-toggle) */
+.menu-toggle{
+  color:var(--bp-ink); font-size:28px; line-height:1; background:transparent; border:0;
+}
+
+/* Linkuri din nav – alb verzui, hover mai puternic */
+.navlinks a{ color:#d7ebe3; opacity:.95; }
+.navlinks a:hover{ opacity:1; }
+
+/* Meniu mobil deschis (folosește clasa .show din JS-ul tău) */
+@media (max-width:768px){
+  .navlinks{ 
+    background:var(--bp-dark); border-top:1px solid var(--bp-line);
+  }
+  .navlinks a{ padding:14px 20px; }
+}
+
+/* FOOTER – același look dark */
+footer{
+  background:var(--bp-dark);
+  color:var(--bp-ink);
+  border-top:1px solid var(--bp-line);
+  padding-bottom:calc(16px + env(safe-area-inset-bottom));
+}
+footer .logo{ color:var(--bp-ink); text-decoration:none; gap:12px; }
+footer a{ color:#d7ebe3; opacity:.9; text-decoration:none; }
+footer a:hover{ opacity:1; }
+
+/* Spacing și aliniere footer pe rânduri mici */
+@media (max-width:800px){
+  footer .container{ display:grid; gap:14px; }
+}
+
+/* Butoane pe dark (opțional, dacă vrei CTA auriu) */
+.btn.btn-outline{ border-color:var(--bp-ink); color:var(--bp-ink); }
+.btn.btn-primary{ background:#134f3c; }
+.btn.gold{ background:var(--bp-gold); color:#0b0e0d; font-weight:800; }
 </style>
 </head>
 <body>
@@ -583,7 +650,33 @@ async function generatePDFClean(formData){
       ].map(x=>({...x, kcal:kcal(x.p,x.c,x.f)}))
     }));
   }
-}
+<script>
+(() => {
+  const drawer = document.getElementById('bpDrawer');
+  const burger = document.getElementById('bpBurger');
+  const closeBtn = document.getElementById('bpClose');
+
+  const open = () => {
+    drawer.classList.add('show');
+    burger.setAttribute('aria-expanded','true');
+    drawer.setAttribute('aria-hidden','false');
+    document.documentElement.classList.add('bp-lock');
+    document.body.classList.add('bp-lock');
+  };
+  const close = () => {
+    drawer.classList.remove('show');
+    burger.setAttribute('aria-expanded','false');
+    drawer.setAttribute('aria-hidden','true');
+    document.documentElement.classList.remove('bp-lock');
+    document.body.classList.remove('bp-lock');
+  };
+
+  burger?.addEventListener('click', open);
+  closeBtn?.addEventListener('click', close);
+  drawer?.addEventListener('click', (e) => { if (e.target === drawer) close(); });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && drawer.classList.contains('show')) close(); });
+})();
+</script>
 </script>
 
 </body>
