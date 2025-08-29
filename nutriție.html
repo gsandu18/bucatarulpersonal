@@ -428,7 +428,45 @@ form.addEventListener('submit', submitAI);
 
 /* Start on step 1 */
 goToStep(1);
-</script>
+  <script>
+async function generatePDFClientSide(form){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
 
+  const titlu = 'Meniu personalizat (DEMO – generat local)';
+  doc.setFont('helvetica','bold'); doc.setFontSize(16);
+  doc.text(titlu, 14, 18);
+
+  doc.setFont('helvetica','normal'); doc.setFontSize(11);
+  const lines = [
+    `Nume: ${form.nume || '-'}`,
+    `Email: ${form.email || '-'}`,
+    `Oraș: ${form.oras || '-'}`,
+    `Obiectiv: ${form.obiectiv || '-'}`,
+    `Dietă: ${form.dieta || 'Fără restricții'}`,
+    `Alergii: ${form.alergii || '-'}`,
+    `Nu îmi plac: ${form.nuImiPlac || '-'}`,
+    `Bucătării preferate: ${form.bucatarii || '-'}`,
+    '',
+    'Acesta este un PDF demonstrativ. API-ul server va livra meniul real pe 7 zile.'
+  ];
+  let y = 28; lines.forEach(l => { doc.text(l, 14, y); y += 8; });
+
+  // simulăm o listă scurtă de idei de mese
+  const idei = [
+    'Ziua 1: Omletă cu spanac · Salată cu somon · Piept pui + legume la grătar',
+    'Ziua 2: Iaurt + nuci · Supă cremă de dovleac · Curcan cu orez sălbatic',
+    'Ziua 3: Shakshuka · Salată grecească · File de cod + broccoli',
+  ];
+  doc.text('Exemple mese:', 14, y); y += 8;
+  idei.forEach(row => { doc.text(`• ${row}`, 18, y); y += 7; });
+
+  const blob = doc.output('blob');
+  const url = URL.createObjectURL(blob);
+  return url;
+}
+</script>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 </body>
 </html>
