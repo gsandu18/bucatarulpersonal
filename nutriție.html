@@ -242,6 +242,123 @@ footer a:hover{ opacity:1; }
 .btn.btn-outline{ border-color:var(--bp-ink); color:var(--bp-ink); }
 .btn.btn-primary{ background:#134f3c; }
 .btn.gold{ background:var(--bp-gold); color:#0b0e0d; font-weight:800; }
+  /* =========================
+   DESIGN PACK — HEADER + DRAWER + FOOTER + PRICING
+   (doar CSS, fără să schimbi HTML/JS)
+   ========================= */
+
+/* Brand tokens */
+:root{
+  --bp-dark:#0b1a15;      /* fundal header/footer & drawer */
+  --bp-line:#123226;      /* linii subtile pe dark */
+  --bp-ink:#f1f6f4;       /* text pe dark */
+  --bp-ink-2:#d7ebe3;     /* text secundar pe dark */
+  --bp-gold:#c9a227;      /* inel auriu / badge */
+}
+
+/* ===== HEADER ===== */
+header{
+  background:var(--bp-dark);
+  color:var(--bp-ink);
+  border-bottom:1px solid var(--bp-line);
+  padding-top:env(safe-area-inset-top);
+}
+header .nav{ height:64px; }
+header .logo{ color:var(--bp-ink); text-decoration:none; gap:12px; }
+header .logo span:last-child{
+  letter-spacing:.22em; font-weight:800; text-transform:uppercase;
+}
+/* logo mark cu inel auriu */
+header .logo .mark,
+footer .logo .mark{
+  width:36px; height:36px; border-radius:999px; display:grid; place-items:center;
+  border:2px solid var(--bp-gold); color:#fff; font-weight:800; font-size:14px;
+  background:radial-gradient(transparent,rgba(255,255,255,.04));
+}
+
+/* hamburger alb (folosești butonul existent) */
+.menu-toggle{ color:var(--bp-ink); font-size:28px; background:transparent; border:0; }
+
+/* linkuri desktop în header */
+.navlinks a{ color:var(--bp-ink-2); opacity:.95; }
+.navlinks a:hover{ opacity:1; }
+
+/* ===== DRAWER MOBIL (folosește .navlinks.show din JS-ul tău) ===== */
+@media (max-width:768px){
+  .navlinks{
+    /* overlay sub header */
+    position:fixed; left:0; right:0;
+    top:calc(64px + env(safe-area-inset-top));
+    bottom:0; z-index:59;
+    display:none; flex-direction:column; gap:4px;
+    background:var(--bp-dark); border-top:1px solid var(--bp-line);
+    padding:18px 20px 24px;
+    overflow:auto; -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
+  }
+  .navlinks.show{ display:flex; }
+  .navlinks a{
+    color:var(--bp-ink-2); padding:14px 6px; font-size:20px; line-height:1.5;
+    border-radius:10px; text-decoration:none;
+  }
+  .navlinks a:active{ background:rgba(255,255,255,.06); }
+}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--bp-dark);
+  color:var(--bp-ink);
+  border-top:1px solid var(--bp-line);
+  padding-bottom:calc(16px + env(safe-area-inset-bottom));
+}
+footer .logo{ color:var(--bp-ink); text-decoration:none; gap:12px; }
+footer a{ color:var(--bp-ink-2); opacity:.9; text-decoration:none; }
+footer a:hover{ opacity:1; }
+@media (max-width:800px){
+  footer .container{ display:grid; gap:14px; }
+}
+
+/* ===== PRICING CARDS (polish & highlight Pro) ===== */
+.pricing-wrap{ padding:56px 0; background:linear-gradient(180deg,#f7faf8 0,#fff 60%); }
+
+.pricing-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:stretch;
+}
+@media (max-width:980px){ .pricing-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .pricing-grid{ grid-template-columns:1fr; } }
+
+.price-card{
+  position:relative; background:#fff; border:1px solid var(--line); border-radius:20px;
+  box-shadow:0 12px 28px rgba(14,90,67,.08); padding:24px; display:flex; flex-direction:column;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  isolation:isolate;
+}
+.price-card::after{
+  content:""; position:absolute; inset:0; border-radius:20px; padding:1px; pointer-events:none;
+  background:linear-gradient(180deg,#e8f2ee,transparent 60%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+}
+.price-card:hover{ transform:translateY(-2px); box-shadow:0 16px 40px rgba(14,90,67,.12); }
+
+.price-card .tier{ margin:0 0 6px; font-weight:800; font-size:18px; color:var(--text); }
+.price-card .price{ margin:4px 0 10px; font-size:28px; font-weight:800; color:var(--green); }
+.price-card ul{ margin:10px 0 18px; padding-left:22px; color:#40524d; }
+.price-card ul li{ margin:8px 0; }
+.price-card .btn{ width:100%; }
+
+.price-card.pro{ border-color:#cfe9df; box-shadow:0 16px 40px rgba(17,163,127,.18); }
+.price-card .pop{
+  position:absolute; right:18px; top:18px; z-index:2;
+  background:var(--bp-gold); color:#0b0e0d; padding:6px 12px; border-radius:999px;
+  font-size:12px; font-weight:800; letter-spacing:.02em;
+}
+
+/* Dacă cardurile moștenesc .card generic, forțăm radius/umbra corecte */
+.card.price-card, .pricing-grid .price-card{ border-radius:20px; }
+
+/* ===== CTA pe dark (opțional) ===== */
+.btn.gold{ background:var(--bp-gold); color:#0b0e0d; font-weight:800; }
 </style>
 </head>
 <body>
