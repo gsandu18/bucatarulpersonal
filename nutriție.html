@@ -337,14 +337,19 @@ const dots    = Array.from(document.querySelectorAll('.stepper .dot'));
 let current   = 1;
 
 function goToStep(n){
-  current = Math.max(1, Math.min(steps.length, n));
+  const total = steps.length;
+  current = Math.max(1, Math.min(total, n));
   steps.forEach((s,i) => s.hidden = (i !== current - 1));
   dots.forEach((d,i) => d.classList.toggle('active', i < current));
   prevBtn.disabled = current === 1;
-  nextBtn.hidden   = current === steps.length;
-  submit.hidden    = current !== steps.length;
+
+  const isLast = current === total;
+  nextBtn.hidden = isLast;           // << doar aici ascundem “Continuă”
+  submit.hidden  = !isLast;          // << și arătăm “Generează PDF”
   statusB.textContent = '';
 }
+goToStep(1);
+
 
 function validateStep(n){
   // Validări minime per pas
