@@ -40,7 +40,6 @@ header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.9);backdrop
 .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
 .hero h1{font-size:clamp(30px,6.2vw,48px);line-height:1.08;margin:.2rem 0 1rem}
 .hero p{color:#40524d;font-size:17px}
-.visual{position:relative}
 .visual .card{height:320px;border-radius:22px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);display:grid;place-items:center}
 .visual .ring{width:70%;height:70%;border-radius:50%;border:10px solid #e9f3ee;border-top-color:#bfe7d6;animation:spin 10s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -161,13 +160,13 @@ html{scroll-behavior:smooth}
       <article class="price-card">
         <p class="tier">AI — Basic</p><p class="price">0 RON</p>
         <ul><li>Meniu pe 7 zile (PDF)</li><li>1 revizie automată</li></ul>
-        <button class="btn btn-outline" onclick="window.openAIModal ? openAIModal() : null">Începe gratuit</button>
+        <button class="btn btn-outline" onclick="window.openAIModal && window.openAIModal()">Începe gratuit</button>
       </article>
       <article class="price-card pro">
         <span class="pop">Recomandat</span>
         <p class="tier">AI — Pro</p><p class="price">49 RON</p>
         <ul><li>+ 2 meniuri alternative</li><li>Shopping list inteligent</li><li>Batch-cooking & prep</li></ul>
-        <button class="btn btn-primary" onclick="window.openAIModal ? openAIModal() : null">Generează Pro</button>
+        <button class="btn btn-primary" onclick="window.openAIModal && window.openAIModal()">Generează Pro</button>
       </article>
       <article class="price-card">
         <p class="tier">Nutriționist</p><p class="price">de la 199 RON</p>
@@ -188,7 +187,7 @@ html{scroll-behavior:smooth}
 
 <section class="section" style="padding-top:32px">
   <div class="container" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
-    <button class="btn btn-primary" onclick="window.openAIModal ? openAIModal() : null">Generează meniul meu AI</button>
+    <button class="btn btn-primary" id="openAi2">Generează meniul meu AI</button>
     <a class="btn btn-outline" href="#preturi">Vezi pachetele</a>
   </div>
 </section>
@@ -201,7 +200,7 @@ html{scroll-behavior:smooth}
   </div>
 </footer>
 
-<!-- Modal AI -->
+<!-- Modal AI (wizard) -->
 <div class="modal" id="aiModal" role="dialog" aria-modal="true" aria-labelledby="aiTitle">
   <div class="dialog">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
@@ -260,96 +259,119 @@ html{scroll-behavior:smooth}
   </div>
 </div>
 
-<!-- jsPDF -->
+<!-- jsPDF (ÎNAINTEA AutoTable!) -->
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
 
-
 <script>
-window.addEventListener('DOMContentLoaded', () => {
-  /* ===== NAV hamburger ===== */
+/* ===== NAV burger ===== */
+document.addEventListener('DOMContentLoaded', () => {
   const t=document.querySelector('.menu-toggle'), n=document.querySelector('.navlinks');
   if(t&&n){
     const close=()=>{n.classList.remove('show'); t.setAttribute('aria-expanded','false');};
     t.addEventListener('click',()=>{const o=!n.classList.contains('show'); n.classList.toggle('show',o); t.setAttribute('aria-expanded',o?'true':'false');});
     n.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
   }
+});
 
-  /* ===== MODAL & wizard ===== */
-  const modal=document.getElementById('aiModal');
-  const openAi=document.getElementById('openAi');
-  const closeAi=document.getElementById('closeAi');
-  function openAIModal(){ modal.classList.add('show'); goToStep(1); }
-  window.openAIModal=openAIModal;
-  openAi?.addEventListener('click',openAIModal);
-  document.getElementById('openAi2')?.addEventListener('click',openAIModal);
-  closeAi?.addEventListener('click',()=> modal.classList.remove('show'));
-  modal.addEventListener('click',e=>{ if(e.target===modal) modal.classList.remove('show'); });
+/* ===== MODAL & WIZARD ===== */
+const modal=document.getElementById('aiModal');
+const openAi=document.getElementById('openAi');
+const openAi2=document.getElementById('openAi2');
+const closeAi=document.getElementById('closeAi');
 
-  const form=document.getElementById('aiForm');
-  const statusB=document.getElementById('aiStatus');
-  const prevBtn=document.getElementById('prevBtn');
-  const nextBtn=document.getElementById('nextBtn');
-  const submit=document.getElementById('submitBtn');
-  const steps=Array.from(form.querySelectorAll('[data-step]'));
-  const dots=Array.from(document.querySelectorAll('.stepper .dot'));
-  let current=1;
+function openAIModal(){ modal.classList.add('show'); goToStep(1); }
+window.openAIModal = openAIModal;                 /* necesar pentru onclick inline */
+openAi?.addEventListener('click',openAIModal);
+openAi2?.addEventListener('click',openAIModal);
+closeAi?.addEventListener('click',()=> modal.classList.remove('show'));
+modal.addEventListener('click',e=>{ if(e.target===modal) modal.classList.remove('show'); });
 
-  function goToStep(n){
-    const total=steps.length; current=Math.max(1,Math.min(total,n));
-    steps.forEach((s,i)=> s.hidden=(i!==current-1));
-    dots.forEach((d,i)=> d.classList.toggle('active',i<current));
-    prevBtn.disabled=current===1; nextBtn.hidden=current===total; submit.hidden=current!==total;
-    statusB.textContent=''; steps[current-1].querySelector('input,select,textarea')?.focus();
+const form=document.getElementById('aiForm');
+const statusB=document.getElementById('aiStatus');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+const submit=document.getElementById('submitBtn');
+const steps=Array.from(form.querySelectorAll('[data-step]'));
+const dots=Array.from(document.querySelectorAll('.stepper .dot'));
+let current=1;
+
+function goToStep(n){
+  const total=steps.length; current=Math.max(1,Math.min(total,n));
+  steps.forEach((s,i)=> s.hidden=(i!==current-1));
+  dots.forEach((d,i)=> d.classList.toggle('active',i<current));
+  prevBtn.disabled=current===1; nextBtn.hidden=current===total; submit.hidden=current!==total;
+  statusB.textContent=''; steps[current-1].querySelector('input,select,textarea')?.focus();
+}
+
+function validateStep(n){
+  if(n===1){
+    const nume=form.querySelector('#nume'), email=form.querySelector('#email');
+    if(!nume.value.trim()) return 'Te rugăm să completezi numele.';
+    if(!email.validity.valid) return 'Te rugăm să introduci un email valid.';
   }
-  window.goToStep = goToStep;
+  if(n===3 && !document.getElementById('gdpr').checked) return 'Trebuie să îți dai acordul pentru prelucrarea datelor.';
+  return '';
+}
 
-  function validateStep(n){
-    if(n===1){
-      const nume=form.querySelector('#nume'), email=form.querySelector('#email');
-      if(!nume.value.trim()) return 'Te rugăm să completezi numele.';
-      if(!email.validity.valid) return 'Te rugăm să introduci un email valid.';
+prevBtn.addEventListener('click',()=> goToStep(current-1));
+nextBtn.addEventListener('click',()=>{
+  const err=validateStep(current); if(err){ statusB.textContent=err; return; }
+  const total=steps.length; if(current<total){ current++; goToStep(current); } else submit.click();
+});
+form.addEventListener('keydown',(e)=>{ if(e.key==='Enter' && submit.hidden){ e.preventDefault(); nextBtn.click(); }});
+
+/* ===== API + FALLBACK PDF ===== */
+const API_URL = '/api/ai-menu'; // dacă nu ai backend, fallback-ul PDF funcționează local
+
+document.getElementById('aiForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const err=validateStep(3);
+  if(err){ statusB.textContent=err; return; }
+
+  [prevBtn,nextBtn,submit].forEach(b=> b && (b.disabled=true));
+  submit.classList.add('is-loading');
+  statusB.textContent='Se generează…';
+
+  const formData=Object.fromEntries(new FormData(form).entries());
+  const payload={ form:formData, source:'bp-modal' };
+
+  try{
+    const r=await fetch(API_URL,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+    let j={}; try{ j=await r.json(); }catch{}
+    if(r.ok && j.ok){
+      statusB.innerHTML='Gata! Ți-am trimis meniul pe email.';
+      if(j.downloadUrl){
+        const a=document.createElement('a'); a.href=j.downloadUrl; a.target='_blank'; a.rel='noopener';
+        a.className='btn btn-outline'; a.style.marginLeft='8px'; a.textContent='Descarcă PDF'; statusB.appendChild(a);
+      }
+      form.reset(); setTimeout(()=> modal.classList.remove('show'), 1600);
+    }else{
+      const url = await generatePDFClean(formData);
+      statusB.innerHTML='Server indisponibil — PDF generat local.';
+      const a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener';
+      a.className='btn btn-outline'; a.style.marginLeft='8px'; a.textContent='Descarcă PDF'; statusB.appendChild(a);
     }
-    if(n===3 && !document.getElementById('gdpr').checked) return 'Trebuie să îți dai acordul pentru prelucrarea datelor.';
-    return '';
+  }catch{
+    const url = await generatePDFClean(formData);
+    statusB.innerHTML='Conexiune eșuată — PDF generat local.';
+    const a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener';
+    a.className='btn btn-outline'; a.style.marginLeft='8px'; a.textContent='Descarcă PDF'; statusB.appendChild(a);
+  }finally{
+    [prevBtn,nextBtn,submit].forEach(b=> b && (b.disabled=false));
+    submit.classList.remove('is-loading');
   }
+});
 
-  prevBtn.addEventListener('click',()=> goToStep(current-1));
-  nextBtn.addEventListener('click',()=>{
-    const err=validateStep(current); if(err){ statusB.textContent=err; return; }
-    const total=steps.length; if(current<total){ current++; goToStep(current); } else submit.click();
-  });
-  form.addEventListener('keydown',(e)=>{ if(e.key==='Enter' && submit.hidden){ e.preventDefault(); nextBtn.click(); }});
-
-  /* ===== API + FALLBACK ===== */
-  const API_URL = '/api/ai-menu'; // dacă API-ul nu răspunde, se generează PDF local
-
-  async function ensureInterFonts(doc){
-    try{
-      const toB64=(buf)=>{ const u=new Uint8Array(buf),ch=0x8000; let b=''; for(let i=0;i<u.length;i+=ch){ b+=String.fromCharCode.apply(null,u.subarray(i,i+ch)); } return btoa(b); };
-      const [reg,bold]=await Promise.all([
-        fetch('/fonts/Inter-Regular.ttf',{cache:'force-cache'}).then(r=>{if(!r.ok)throw 0; return r.arrayBuffer();}),
-        fetch('/fonts/Inter-Bold.ttf',{cache:'force-cache'}).then(r=>{if(!r.ok)throw 0; return r.arrayBuffer();})
-      ]);
-      doc.addFileToVFS('Inter-Regular.ttf', toB64(reg));
-      doc.addFileToVFS('Inter-Bold.ttf', toB64(bold));
-      doc.addFont('Inter-Regular.ttf','Inter','normal');
-      doc.addFont('Inter-Bold.ttf','Inter','bold');
-      return true;
-    }catch{ return false; }
-  }
-
-  <script>
-async function generatePDFClean(form){
+/* ===== GENERATOR PDF PROFESIONAL (Helvetica + AutoTable) ===== */
+async function generatePDFClean(formData){
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit:'pt', format:'a4' });
-
-  // Folosesc Helvetica (evită spacing ciudat); dacă vrei Inter, îl poți încărca separat.
-  doc.setFont('helvetica','normal');
 
   const W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight(), M = 42;
   const GREEN=[14,90,67], GOLD=[201,162,39], TEXT=[27,39,35], MUTED=[109,118,122];
 
-  // === HEADER curat ===
+  // Header
   doc.setFillColor(...GREEN); doc.rect(0,0,W,88,'F');
   doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(22);
   doc.text('Meniu personalizat', M, 52);
@@ -361,33 +383,34 @@ async function generatePDFClean(form){
   doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(220,240,233);
   doc.text(`Perioadă: ${days[0].getDate()} ${luni[days[0].getMonth()]} – ${days[6].getDate()} ${luni[days[6].getMonth()]}`, W-M, 52, {align:'right'});
 
-  // === PROFIL (2 coloane, linii separate – fără spacing aiurea) ===
+  // Profil
   let y=116;
   doc.setTextColor(...TEXT); doc.setFont('helvetica','bold'); doc.setFontSize(13);
   doc.text('Profil client', M, y); y+=16;
   doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(...MUTED);
   const left = [
-    `Nume: ${form.nume||'-'}`,
-    `Email: ${form.email||'-'}`,
-    `Oraș: ${form.oras||'-'}`
+    `Nume: ${formData.nume||'-'}`,
+    `Email: ${formData.email||'-'}`,
+    `Oraș: ${formData.oras||'-'}`
   ];
   const right = [
-    `Obiectiv: ${form.obiectiv||'-'}`,
-    `Dietă: ${form.dieta||'Fără restricții'}`,
-    `Alergii: ${form.alergii||'-'}`
+    `Obiectiv: ${formData.obiectiv||'-'}`,
+    `Dietă: ${formData.dieta||'Fără restricții'}`,
+    `Alergii: ${formData.alergii||'-'}`
   ];
   left.forEach((s,i)=> doc.text(s, M, y + i*16));
   right.forEach((s,i)=> doc.text(s, W/2, y + i*16));
   y += 16*3 + 10;
   doc.setDrawColor(230,236,232); doc.line(M,y,W-M,y); y += 22;
 
-  // === PLAN DEMO (poți înlocui cu date reale când ai backend) ===
-  const plan = makePlanDemo(form.dieta, days);
+  // Plan demo (înlocuiește cu date reale când ai backend)
+  const plan = makePlanDemo(formData.dieta, days);
 
-  // === TABEL PROFESIONAL cu AutoTable ===
+  // Titlu tabel
   doc.setFont('helvetica','bold'); doc.setFontSize(13); doc.setTextColor(...TEXT);
   doc.text('Meniu pe 7 zile (porție & macro/masă)', M, y); y += 8;
 
+  // Body pentru AutoTable
   const body = [];
   plan.forEach(day=>{
     const zi = `${day.d.getDate()} ${luni[day.d.getMonth()]}`;
@@ -419,20 +442,17 @@ async function generatePDFClean(form){
     },
     margin: { left: M, right: M },
     didParseCell(data){
-      // stil pentru rândurile TOTAL
       if (data.row && data.row.raw && data.row.raw[0] && data.row.raw[0].content==='TOTAL ZI') {
         data.cell.styles.fillColor = [240,244,242];
         data.cell.styles.fontStyle = 'bold';
       }
     },
     didDrawPage(data){
-      // antet scurt pe paginile următoare
       if (data.pageNumber>1){
         doc.setFillColor(...GREEN); doc.rect(0,0,W,60,'F');
         doc.setTextColor(255,255,255); doc.setFontSize(16); doc.setFont('helvetica','bold');
         doc.text('Meniu personalizat', M, 38);
       }
-      // footer
       const pageStr = `BP · AI Nutriție — Pag. ${data.pageNumber}`;
       doc.setFontSize(9.5); doc.setFont('helvetica','normal'); doc.setTextColor(109,118,122);
       doc.text(pageStr, W - M, H - 18, { align:'right' });
@@ -442,7 +462,6 @@ async function generatePDFClean(form){
   const blob = doc.output('blob');
   return URL.createObjectURL(blob);
 
-  // ------------ generator demo (schimbă-l cu datele reale) ------------
   function makePlanDemo(diet, daysArr){
     const keto=(diet||'').toLowerCase().includes('keto');
     const pools=keto ? {
@@ -461,10 +480,10 @@ async function generatePDFClean(form){
     return daysArr.map(d=>({
       d,
       meals:[
-        {meal:'Mic dejun', dish:pick(pools.md),   p:28,c:keto?8:30,  f:keto?20:10, g:300},
-        {meal:'Prânz',     dish:pick(pools.pranz),p:35,c:keto?18:45, f:keto?16:12, g:420},
-        {meal:'Cină',      dish:pick(pools.cina), p:32,c:keto?12:35, f:keto?18:14, g:380},
-        {meal:'Gustare',   dish:pick(pools.gust), p:10,c:keto?8:20,  f:keto?12:8,  g:120},
+        {meal:'Mic dejun', dish:pick(pools.md),   p:28, c:keto?8:30,  f:keto?20:10, g:300},
+        {meal:'Prânz',     dish:pick(pools.pranz),p:35, c:keto?18:45, f:keto?16:12, g:420},
+        {meal:'Cină',      dish:pick(pools.cina), p:32, c:keto?12:35, f:keto?18:14, g:380},
+        {meal:'Gustare',   dish:pick(pools.gust), p:10, c:keto?8:20,  f:keto?12:8,  g:120},
       ].map(x=>({...x, kcal:kcal(x.p,x.c,x.f)}))
     }));
   }
