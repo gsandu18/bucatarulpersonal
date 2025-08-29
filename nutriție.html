@@ -326,7 +326,20 @@ openAi?.addEventListener('click',openAIModal);
 openAi2?.addEventListener('click',openAIModal);
 closeAi?.addEventListener('click',()=> modal.classList.remove('show'));
 modal.addEventListener('click',e=>{ if(e.target===modal) modal.classList.remove('show'); });
+function openAIModal(){
+  document.documentElement.classList.add('no-scroll');
+  document.body.classList.add('no-scroll');
+  modal.classList.add('show');
+  goToStep(1);
+}
 
+function closeModal(){
+  modal.classList.remove('show');
+  document.documentElement.classList.remove('no-scroll');
+  document.body.classList.remove('no-scroll');
+}
+closeAi?.addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if(e.target===modal) closeModal(); });
 const form=document.getElementById('aiForm');
 const statusB=document.getElementById('aiStatus');
 const prevBtn=document.getElementById('prevBtn');
