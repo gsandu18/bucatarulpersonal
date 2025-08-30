@@ -157,6 +157,25 @@ html.no-scroll, body.no-scroll { overflow: hidden; }
   font-size:12px; font-weight:800; letter-spacing:.02em;
 }
 .card.price-card, .pricing-grid .price-card{ border-radius:20px; }
+  /* ==== KILL TRACKING în raport (hard reset) ==== */
+.report, .report *{
+  letter-spacing: 0 !important;
+  word-spacing: normal !important;
+  text-transform: none !important;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Asigură reset explicit pe toate elementele din raport */
+.report h1, .report h2, .report h3,
+.report p, .report dl, .report dt, .report dd,
+.report table, .report thead, .report tbody, .report tfoot,
+.report tr, .report th, .report td{
+  letter-spacing: 0 !important;
+}
+
+/* Tabel – cifrele pe dreapta și monospaced */
+.report .num{ text-align:right; font-variant-numeric: tabular-nums; font-feature-settings:"tnum" 1; }
 </style>
 </head>
 <body>
