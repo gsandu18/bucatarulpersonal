@@ -89,7 +89,50 @@ input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);
 .report .num{ text-align:right; font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; }
 @media print{ .report, .report *{ letter-spacing:0 !important; text-transform:none !important; } 
 /* ===== Pricing cards — design fix (mobile & desktop) ===== */
+.pricing-wrap{ padding:56px 0; background:linear-gradient(180deg,#f7faf8 0,#fff 60%); /* ===== Pricing cards — design fix (mobile & desktop) ===== */
 .pricing-wrap{ padding:56px 0; background:linear-gradient(180deg,#f7faf8 0,#fff 60%); }
+
+.pricing-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:stretch;
+}
+@media (max-width:980px){ .pricing-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .pricing-grid{ grid-template-columns:1fr; } }
+
+.price-card{
+  position:relative; background:#fff; border:1px solid var(--line); border-radius:20px;
+  box-shadow:0 12px 28px rgba(14,90,67,.08); padding:24px; display:flex; flex-direction:column;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  isolation:isolate; /* pentru pseudo-badge & efecte */
+}
+/* contur subtil „glass” */
+.price-card::after{
+  content:""; position:absolute; inset:0; border-radius:20px; padding:1px; pointer-events:none;
+  background:linear-gradient(180deg,#e8f2ee,transparent 60%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+}
+.price-card:hover{ transform:translateY(-2px); box-shadow:0 16px 40px rgba(14,90,67,.12); }
+
+.price-card .tier{ margin:0 0 6px; font-weight:800; font-size:18px; color:var(--text); }
+.price-card .price{ margin:4px 0 10px; font-size:28px; font-weight:800; color:var(--green); }
+
+.price-card ul{ margin:10px 0 18px; padding-left:22px; color:#40524d; }
+.price-card ul li{ margin:8px 0; }
+
+.price-card .btn{ width:100%; }
+
+.price-card.pro{
+  border-color:#cfe9df; box-shadow:0 16px 40px rgba(17,163,127,.18);
+}
+.price-card .pop{
+  position:absolute; right:18px; top:18px; z-index:2;
+  background:var(--gold); color:#fff; padding:6px 12px; border-radius:999px;
+  font-size:12px; font-weight:800; letter-spacing:.02em;
+}
+
+/* asigură-te că .price-card nu e „subțiat” de .card generic */
+.card.price-card, .pricing-grid .price-card{ border-radius:20px; }
+
 
 .pricing-grid{
   display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:stretch;
