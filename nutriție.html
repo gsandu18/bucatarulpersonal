@@ -120,7 +120,51 @@ input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);
   </div>
 </section>
 
-<!-- ... restul secțiunilor identice ... -->
+<section id="preturi" class="pricing-wrap">
+  <div class="container">
+    <div class="pricing-head">
+      <div>
+        <div class="kicker">Pachete</div>
+        <h2 class="title" style="margin:6px 0 10px">Alege varianta potrivită</h2>
+      </div>
+      <span class="badge">Începi gratuit, poți trece la Pro oricând</span>
+    </div>
+
+    <div class="pricing-grid">
+      <article class="price-card">
+        <p class="tier">AI — Basic</p>
+        <p class="price">0 RON</p>
+        <ul>
+          <li>Meniu pe 7 zile (PDF)</li>
+          <li>1 revizie automată</li>
+        </ul>
+        <button class="btn btn-outline" onclick="window.openAIModal && window.openAIModal()">Începe gratuit</button>
+      </article>
+
+      <article class="price-card pro">
+        <span class="pop">Recomandat</span>
+        <p class="tier">AI — Pro</p>
+        <p class="price">49 RON</p>
+        <ul>
+          <li>+ 2 meniuri alternative</li>
+          <li>Shopping list inteligent</li>
+          <li>Batch-cooking & prep</li>
+        </ul>
+        <button class="btn btn-primary" onclick="window.openAIModal && window.openAIModal()">Generează Pro</button>
+      </article>
+
+      <article class="price-card">
+        <p class="tier">Nutriționist</p>
+        <p class="price">de la 199 RON</p>
+        <ul>
+          <li>Video call 30–45 min</li>
+          <li>Ajustări personalizate</li>
+        </ul>
+        <a class="btn btn-outline" href="mailto:contact@bucatarulpersonal.ro">Programează consultanța</a>
+      </article>
+    </div>
+  </div>
+</section>
 
 <!-- Modal AI (wizard) -->
 <div class="modal" id="aiModal" role="dialog" aria-modal="true" aria-labelledby="aiTitle">
