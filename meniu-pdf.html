@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Meniu personalizat – Bucătarul Personal</title>
+<meta name="description" content="Meniu personalizat pe 7 zile, cu porții și macro-uri pe masă. Generare PDF și livrare pe e-mail.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#0e5a43; --green-2:#0b4a36; --gold:#c9a227; --text:#182422;
+  --muted:#5b6a66; --bg:#f6faf8; --white:#fff; --line:#e6ece8;
+  --r:16px; --shadow:0 12px 30px rgba(0,0,0,.06); --max:1160px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+img{max-width:100%;display:block}
+.container{max-width:var(--max);margin:0 auto;padding:24px}
+
+/* HERO */
+.hero{
+  background:linear-gradient(180deg,var(--green),var(--green-2)); color:#fff;
+}
+.hero .wrap{
+  max-width:var(--max); margin:0 auto; padding:26px 24px; display:grid; gap:12px;
+  grid-template-columns: 1fr auto; align-items:center;
+}
+.hero h1{font-family:"Playfair Display",serif;font-size:36px;line-height:1.1;margin:0}
+.hero .period{font-weight:800;border:1px solid rgba(255,255,255,.2);padding:8px 12px;border-radius:12px}
+
+/* GRID */
+.grid{display:grid;gap:18px}
+@media(min-width:980px){ .grid-2{grid-template-columns: 360px 1fr} }
+
+/* BOX */
+.box{background:var(--white);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px}
+h2{font-family:"Playfair Display",serif;font-size:24px;margin:0 0 10px}
+label{font-weight:600}
+.field{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+input,select,textarea{
+  padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:#fff; outline:none; font:inherit;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,162,39,.15)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row .field{flex:1 1 150px}
+
+.btn{appearance:none;border:0;border-radius:12px;padding:12px 16px;font-weight:800;cursor:pointer}
+.btn.primary{background:linear-gradient(180deg,var(--gold),#b08a1e);color:#1b1500}
+.btn.ghost{background:#fff;border:1px solid var(--line)}
+
+/* PREVIEW (PDF area) */
+#pdfArea{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.pdf-head{
+  display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:2px solid #d9e1db;
+  background:linear-gradient(180deg,#0f6249,#0b4a36); color:#fff;
+}
+.pdf-head .title{display:flex;align-items:center;gap:14px}
+.logo{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.18);display:grid;place-items:center;border:1px solid rgba(255,255,255,.3)}
+.pdf-title h3{font-family:"Playfair Display",serif;font-size:26px;line-height:1;margin:0}
+.sep{height:4px;background:linear-gradient(90deg,var(--gold),transparent);margin:0 20px}
+.section{padding:16px 20px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kv b{display:block;color:var(--green)}
+.note{color:var(--muted);font-size:14px}
+
+/* TABLE */
+.table{width:100%;border-collapse:collapse;font-size:14px}
+.table th,.table td{border:1px solid #e2e8e4;padding:8px 10px;vertical-align:top}
+.table th{background:#f3f7f4;text-align:left;font-weight:800}
+.table tfoot td{font-weight:800;background:#fbfcfb}
+.small{font-size:12px;color:var(--muted)}
+.edit{background:#fff}
+[contenteditable="true"]{outline:none}
+[contenteditable="true"]:focus{box-shadow: inset 0 0 0 2px rgba(201,162,39,.35)}
+
+/* PRINT */
+@media print{
+  body{background:#fff}
+  .no-print{display:none !important}
+  .container{max-width:100%;padding:0}
+  #pdfArea{border:0;border-radius:0}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero no-print">
+  <div class="wrap">
+    <h1>Meniu personalizat</h1>
+    <div class="period" id="periodTxt">Perioadă: 30 aug – 5 sept</div>
+  </div>
+</header>
+
+<main class="container grid grid-2">
+  <!-- COL STÂNGA: FORM -->
+  <aside class="box no-print">
+    <h2>Profil client</h2>
+    <div class="field"><label>Nume</label><input id="c_name" placeholder="ex: Sandu G."></div>
+    <div class="row">
+      <div class="field"><label>Email</label><input id="c_email" type="email" placeholder="nume@exemplu.com"></div>
+      <div class="field"><label>Oraș</label><input id="c_city" placeholder="ex: București"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Obiectiv</label><select id="c_goal"><option>Masa musculară</option><option>Slăbire</option><option>Menținere</option></select></div>
+      <div class="field"><label>Dietă</label><select id="c_diet"><option>Fără restricții</option><option>Vegetarian</option><option>Vegan</option><option>Fără gluten</option></select></div>
+    </div>
+    <div class="field"><label>Alergii</label><input id="c_all" placeholder="ex: nuci, lactoză"></div>
+    <div class="row">
+      <div class="field"><label>Perioadă</label><input id="c_period" type="text" value="30 aug – 5 sept"></div>
+      <div class="field"><label>kcal/zi țintă</label><input id="c_kcal" type="number" value="2200"></div>
+    </div>
+
+    <h2 style="margin-top:10px">Acțiuni</h2>
+    <div class="row">
+      <button class="btn primary" id="btnPdf">Generează PDF</button>
+      <button class="btn ghost" id="btnMail">Trimite pe e-mail</button>
+      <button class="btn ghost" id="btnCsv">Export CSV</button>
+    </div>
+    <p class="note" style="margin-top:8px">Poți edita direct câmpurile din tabel (dublu click). La „Generează PDF” se exportă zona de previzualizare.</p>
+  </aside>
+
+  <!-- COL DREAPTA: PREVIEW PDF -->
+  <section id="pdfArea" class="box" style="padding:0">
+    <div class="pdf-head">
+      <div class="title">
+        <div class="logo"><img src="/static/logo-bp.svg" alt="BP" style="width:28px;height:28px"></div>
+        <div class="pdf-title">
+          <h3>Meniu personalizat</h3>
+          <div class="small" id="pdfPeriod">Perioadă: 30 aug – 5 sept</div>
+        </div>
+      </div>
+      <div class="small">Bucătarul Personal</div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="section">
+      <h2 style="margin:0 0 6px">Profil client</h2>
+      <div class="kv">
+        <div>
+          <div><b>Nume:</b> <span id="p_name">—</span></div>
+          <div><b>Email:</b> <span id="p_email">—</span></div>
+          <div><b>Oraș:</b> <span id="p_city">—</span></div>
+        </div>
+        <div>
+          <div><b>Obiectiv:</b> <span id="p_goal">—</span></div>
+          <div><b>Dietă:</b> <span id="p_diet">—</span></div>
+          <div><b>Alergii:</b> <span id="p_all">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 style="margin:0 0 6px">Meniu pe 7 zile (porție & macro/masă)</h2>
+      <div class="table-wrap">
+        <table class="table" id="menuTable">
+          <thead>
+            <tr>
+              <th style="width:90px">Ziua</th>
+              <th style="width:120px">Masa</th>
+              <th>Preparat</th>
+              <th style="width:80px">g</th>
+              <th style="width:90px">kcal</th>
+              <th style="width:80px">P</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Ziua 1 -->
+            <tr><td rowspan="4" contenteditable="true" class="edit">30 aug</td><td contenteditable="true" class="edit">Mic dejun</td><td contenteditable="true" class="edit">Omletă cu legume</td><td contenteditable="true" class="edit">300</td><td contenteditable="true" class="edit">322</td><td contenteditable="true" class="edit">28</td></tr>
+            <tr><td contenteditable="true" class="edit">Prânz</td><td contenteditable="true" class="edit">Paste integrale cu pui</td><td contenteditable="true" class="edit">420</td><td contenteditable="true" class="edit">428</td><td contenteditable="true" class="edit">35</td></tr>
+            <tr><td contenteditable="true" class="edit">Cină</td><td contenteditable="true" class="edit">Pui la cuptor + cartofi</td><td contenteditable="true" class="edit">380</td><td contenteditable="true" class="edit">394</td><td contenteditable="true" class="edit">32</td></tr>
+            <tr><td contenteditable="true" class="edit">Gustare</td><td contenteditable="true" class="edit">Banana + migdale</td><td contenteditable="true" class="edit">120</td><td contenteditable="true" class="edit">192</td><td contenteditable="true" class="edit">10</td></tr>
+            <tr class="day-total"><td colspan="3" style="text-align:right"><b>TOTAL ZI</b></td><td id="t1g">1220</td><td id="t1k">1336</td><td id="t1p">105</td></tr>
+
+            <!-- Ziua 2 (schelet) -->
+            <tr><td rowspan="4" contenteditable="true" class="edit">31 aug</td><td contenteditable="true" class="edit">Mic dejun</td><td contenteditable="true" class="edit">Iaurt cu granola</td><td contenteditable="true" class="edit">300</td><td contenteditable="true" class="edit">322</td><td contenteditable="true" class="edit">28</td></tr>
+            <tr><td contenteditable="true" class="edit">Prânz</td><td contenteditable="true" class="edit">Orez cu legume + tofu</td><td contenteditable="true" class="edit">420</td><td contenteditable="true" class="edit">428</td><td contenteditable="true" class="edit">35</td></tr>
+            <tr><td contenteditable="true" class="edit">Cină</td><td contenteditable="true" class="edit">Vită la tigaie + salată</td><td contenteditable="true" class="edit">380</td><td contenteditable="true" class="edit">394</td><td contenteditable="true" class="edit">32</td></tr>
+            <tr><td contenteditable="true" class="edit">Gustare</td><td contenteditable="true" class="edit">Fruct + nuci</td><td contenteditable="true" class="edit">120</td><td contenteditable="true" class="edit">192</td><td contenteditable="true" class="edit">10</td></tr>
+            <tr class="day-total"><td colspan="3" style="text-align:right"><b>TOTAL ZI</b></td><td id="t2g">1220</td><td id="t2k">1336</td><td id="t2p">105</td></tr>
+
+            <!-- Completează similar până la ziua 7 -->
+          </tbody>
+          <tfoot>
+            <tr><td colspan="3" style="text-align:right">TOTAL SĂPTĂMÂNĂ</td><td id="tg">2440</td><td id="tk">2672</td><td id="tp">210</td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <p class="note">* Valorile sunt orientative; ajustările se fac în funcție de obiectiv și preferințe.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+const nameI = document.getElementById('c_name'), emailI=document.getElementById('c_email'), cityI=document.getElementById('c_city');
+const goalI=document.getElementById('c_goal'), dietI=document.getElementById('c_diet'), allI=document.getElementById('c_all');
+const periodI=document.getElementById('c_period'), kcalI=document.getElementById('c_kcal');
+
+const pName=document.getElementById('p_name'), pEmail=document.getElementById('p_email'), pCity=document.getElementById('p_city');
+const pGoal=document.getElementById('p_goal'), pDiet=document.getElementById('p_diet'), pAll=document.getElementById('p_all');
+const pdfPeriod=document.getElementById('pdfPeriod'), periodTxt=document.getElementById('periodTxt');
+
+function sync(){
+  pName.textContent = nameI.value || '—';
+  pEmail.textContent = emailI.value || '—';
+  pCity.textContent = cityI.value || '—';
+  pGoal.textContent = goalI.value || '—';
+  pDiet.textContent = dietI.value || '—';
+  pAll.textContent = allI.value || '—';
+  pdfPeriod.textContent = 'Perioadă: ' + (periodI.value || '—');
+  periodTxt.textContent = 'Perioadă: ' + (periodI.value || '—');
+}
+['input','change','keyup'].forEach(ev=>{
+  [nameI,emailI,cityI,goalI,dietI,allI,periodI,kcalI].forEach(el=>el.addEventListener(ev, sync));
+});
+sync();
+
+// Totale rapide din tabel (kcal/P)
+function recomputeTotals(){
+  const tb = document.querySelector('#menuTable tbody');
+  let wkK=0, wkP=0, wkG=0;
+  tb.querySelectorAll('tr').forEach(tr=>{
+    const tds = tr.querySelectorAll('td');
+    if(tds.length===6){ // rând de masă
+      const g = parseFloat(tds[3].textContent)||0;
+      const k = parseFloat(tds[4].textContent)||0;
+      const p = parseFloat(tds[5].textContent)||0;
+      wkG += g; wkK += k; wkP += p;
+    }
+  });
+  document.getElementById('tg').textContent = Math.round(wkG);
+  document.getElementById('tk').textContent = Math.round(wkK);
+  document.getElementById('tp').textContent = Math.round(wkP);
+}
+document.querySelector('#menuTable').addEventListener('input', recomputeTotals);
+recomputeTotals();
+
+// PDF
+document.getElementById('btnPdf').addEventListener('click', ()=> window.print());
+
+// Email DEMO (leagă la endpointul tău)
+document.getElementById('btnMail').addEventListener('click', async ()=>{
+  const payload = {
+    name: nameI.value, email: emailI.value, city: cityI.value,
+    goal: goalI.value, diet: dietI.value, allergies: allI.value, period: periodI.value
+  };
+  console.log('EMAIL_DEMO', payload);
+  alert('DEMO: conectează un endpoint care generează PDF + trimite pe e-mail.');
+});
+
+// Export CSV (tabel)
+document.getElementById('btnCsv').addEventListener('click', ()=>{
+  const rows = [...document.querySelectorAll('#menuTable tr')].map(tr=>[...tr.children].map(td=>td.innerText.replace(/\n/g,' ').trim()));
+  const csv = rows.map(r=>r.join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download='meniu_7_zile.csv'; a.click();
+});
+</script>
+</body>
+</html>
