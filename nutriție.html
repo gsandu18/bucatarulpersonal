@@ -173,8 +173,31 @@ html.no-scroll, body.no-scroll { overflow: hidden; }
 .report tr, .report th, .report td{
   letter-spacing: 0 !important;
 }
+  /* HARD RESET – final de tot în CSS */
+.report, .report *{
+  letter-spacing: 0 !important;
+  word-spacing: normal !important;
+  text-transform: none !important;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  font-kerning: normal;                   /* <- adaugă */
+  -webkit-font-smoothing: antialiased;    /* <- adaugă (vizual mai curat) */
+  text-rendering: optimizeSpeed;          /* <- adaugă (evită shaping-ul agresiv) */
+}
 
-/* Tabel – cifrele pe dreapta și monospaced */
+/* bate orice stil global pe tabel */
+.report table th,
+.report table td{ letter-spacing:0 !important; text-transform:none !important; }
+
+/* numeric pe dreapta, monospaced */
+.report .num{ text-align:right; font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; }
+
+/* fail-safe pe print (doar dacă un cache încăpățânat mai “trage” tracking) */
+@media print{
+  .report, .report *{ letter-spacing:0 !important; text-transform:none !important; }
+}
+
+  /* Tabel – cifrele pe dreapta și monospaced */
 .report .num{ text-align:right; font-variant-numeric: tabular-nums; font-feature-settings:"tnum" 1; }
 </style>
 </head>
