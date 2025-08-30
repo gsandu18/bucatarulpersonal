@@ -101,30 +101,15 @@ h3.title { font-size: clamp(18px, 3.8vw, 24px); }
 header { padding-top: env(safe-area-inset-top); }
 footer { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
 .modal { padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)); }
-.dialog{
-  width: min(920px, 100%);
-  max-height: 90vh;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
+.dialog{ width:min(920px,100%); max-height:90vh; overflow:auto; -webkit-overflow-scrolling:touch; }
 .btn { min-height:48px; }
 details { border-radius:12px; }
 @media (max-width: 980px){ .pricing-grid{ grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px){ .pricing-grid{ grid-template-columns: 1fr; } }
-@media (max-width: 520px){
-  .price-card .btn, .actions .btn { width: 100%; }
-  .actions { flex-direction: column-reverse; }
-}
-@media (max-width: 520px){
-  .section { padding: 36px 0; }
-}
-@media (max-width: 768px){
-  .navlinks a{ padding:12px 20px; }
-}
-@media (max-width: 520px){
-  .hero { padding: 42px 0 22px; }
-  .visual .card { height: 200px; border-radius:16px; }
-}
+@media (max-width: 520px){ .price-card .btn, .actions .btn { width: 100%; } .actions { flex-direction: column-reverse; } }
+@media (max-width: 520px){ .section { padding: 36px 0; } }
+@media (max-width: 768px){ .navlinks a{ padding:12px 20px; } }
+@media (max-width: 520px){ .hero { padding: 42px 0 22px; } .visual .card { height: 200px; border-radius:16px; } }
 html.no-scroll, body.no-scroll { overflow: hidden; }
 
 /* ===== Pricing cards — design fix (mobile & desktop) ===== */
@@ -157,48 +142,24 @@ html.no-scroll, body.no-scroll { overflow: hidden; }
   font-size:12px; font-weight:800; letter-spacing:.02em;
 }
 .card.price-card, .pricing-grid .price-card{ border-radius:20px; }
-  /* ==== KILL TRACKING în raport (hard reset) ==== */
-.report, .report *{
-  letter-spacing: 0 !important;
-  word-spacing: normal !important;
-  text-transform: none !important;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
-}
 
-/* Asigură reset explicit pe toate elementele din raport */
-.report h1, .report h2, .report h3,
-.report p, .report dl, .report dt, .report dd,
-.report table, .report thead, .report tbody, .report tfoot,
-.report tr, .report th, .report td{
-  letter-spacing: 0 !important;
-}
-  /* HARD RESET – final de tot în CSS */
+/* ===== REPORT: hard reset anti-tracking (UN SINGUR BLOC) ===== */
 .report, .report *{
-  letter-spacing: 0 !important;
-  word-spacing: normal !important;
-  text-transform: none !important;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
-  font-kerning: normal;                   /* <- adaugă */
-  -webkit-font-smoothing: antialiased;    /* <- adaugă (vizual mai curat) */
-  text-rendering: optimizeSpeed;          /* <- adaugă (evită shaping-ul agresiv) */
+  letter-spacing:0 !important;
+  word-spacing:normal !important;
+  text-transform:none !important;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum" 1;
+  font-kerning:normal;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeSpeed;
 }
-
-/* bate orice stil global pe tabel */
 .report table th,
 .report table td{ letter-spacing:0 !important; text-transform:none !important; }
-
-/* numeric pe dreapta, monospaced */
 .report .num{ text-align:right; font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; }
-
-/* fail-safe pe print (doar dacă un cache încăpățânat mai “trage” tracking) */
 @media print{
   .report, .report *{ letter-spacing:0 !important; text-transform:none !important; }
 }
-
-  /* Tabel – cifrele pe dreapta și monospaced */
-.report .num{ text-align:right; font-variant-numeric: tabular-nums; font-feature-settings:"tnum" 1; }
 </style>
 </head>
 <body>
@@ -526,7 +487,7 @@ async function generatePDFClean(formData){
   doc.setFont('helvetica','bold'); doc.setFontSize(13); doc.setTextColor(...TEXT);
   doc.text('Meniu pe 7 zile (porție & macro/masă)', M, y); y += 8;
 
-  // === BODY pentru AutoTable (fără coloana F) ===
+  // === BODY AutoTable (fără F) ===
   const body = [];
   const week = { g:0, kcal:0, p:0, c:0 };
   plan.forEach(day=>{
