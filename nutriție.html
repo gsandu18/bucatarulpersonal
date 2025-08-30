@@ -596,7 +596,6 @@ async function generatePDFClean(formData){
       ].map(x=>({...x, kcal:kcal(x.p,x.c,x.f)}))
     }));
   }
-}
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('.report');
