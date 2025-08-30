@@ -160,6 +160,25 @@ html.no-scroll, body.no-scroll { overflow: hidden; }
 @media print{
   .report, .report *{ letter-spacing:0 !important; text-transform:none !important; }
 }
+  /* Raport: taie orice tracking pe toate celulele */
+.report table *, 
+.report thead *, 
+.report tbody *, 
+.report tfoot *{
+  letter-spacing: 0 !important;
+  word-spacing: normal !important;
+  text-transform: none !important;
+}
+
+/* Headerul de coloană & celulele numerice */
+.report table th,
+.report table td{ letter-spacing:0 !important; text-transform:none !important; }
+.report .num{ text-align:right; font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; }
+
+/* (opțional) doar la print – nuclear */
+@media print{
+  .report, .report *{ letter-spacing:0 !important; text-transform:none !important; }
+}
 </style>
 </head>
 <body>
@@ -578,6 +597,20 @@ async function generatePDFClean(formData){
     }));
   }
 }
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.querySelector('.report');
+  if(!root) return;
+  root.querySelectorAll('*').forEach(el=>{
+    el.style.setProperty('letter-spacing','0','important');
+    el.style.setProperty('word-spacing','normal','important');
+    el.style.setProperty('text-transform','none','important');
+    // bonus: cifre aliniate frumos
+    el.style.setProperty('font-variant-numeric','tabular-nums');
+    el.style.setProperty('font-feature-settings','"tnum" 1');
+  });
+});
+</script>
 </script>
 
 </body>
