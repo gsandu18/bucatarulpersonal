@@ -92,21 +92,14 @@ input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);
 }
 [id]{scroll-margin-top:76px}
 html{scroll-behavior:smooth}
-  /* ===== Responsive polish pack ===== */
 
-/* Evită zoom-ul automat pe iOS la focus (font ≥16px) */
+/* ===== Responsive polish pack ===== */
 input, select, textarea { font-size:16px; }
-
-/* Headere fluide (dacă le folosești ca clase) */
 h1.title { font-size: clamp(26px, 6vw, 40px); line-height:1.15; }
 h2.title { font-size: clamp(22px, 4.5vw, 30px); }
 h3.title { font-size: clamp(18px, 3.8vw, 24px); }
-
-/* Safe-area pentru iPhone (notch) la header/footer */
 header { padding-top: env(safe-area-inset-top); }
 footer { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
-
-/* Modala: încape pe ecran mic, cu scroll intern */
 .modal { padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)); }
 .dialog{
   width: min(920px, 100%);
@@ -114,57 +107,37 @@ footer { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
-
-/* Butoane – mărime prietenoasă pentru touch */
 .btn { min-height:48px; }
-
-/* FAQ/Details: colțuri + spacing mai aerisit pe mobil */
 details { border-radius:12px; }
-
-/* Grișul de prețuri – trece pe 2/1 coloane mai devreme */
 @media (max-width: 980px){ .pricing-grid{ grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px){ .pricing-grid{ grid-template-columns: 1fr; } }
-
-/* Butoanele din cardurile de preț + acțiuni – full width pe mobil */
 @media (max-width: 520px){
   .price-card .btn, .actions .btn { width: 100%; }
   .actions { flex-direction: column-reverse; }
 }
-
-/* Secțiuni: padding mai mic pe ecrane mici */
 @media (max-width: 520px){
   .section { padding: 36px 0; }
 }
-
-/* Nav mobil – linkuri ușor de apăsat (full width) */
 @media (max-width: 768px){
   .navlinks a{ padding:12px 20px; }
 }
-
-/* Hero: coloană unică, spațiu compact pe mobil strâmt */
 @media (max-width: 520px){
   .hero { padding: 42px 0 22px; }
   .visual .card { height: 200px; border-radius:16px; }
 }
-
-/* Prevenim scroll-ul paginii când modala e deschisă */
 html.no-scroll, body.no-scroll { overflow: hidden; }
-  /* ===== Pricing cards — design fix (mobile & desktop) ===== */
-.pricing-wrap{ padding:56px 0; background:linear-gradient(180deg,#f7faf8 0,#fff 60%); }
 
-.pricing-grid{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:stretch;
-}
+/* ===== Pricing cards — design fix (mobile & desktop) ===== */
+.pricing-wrap{ padding:56px 0; background:linear-gradient(180deg,#f7faf8 0,#fff 60%); }
+.pricing-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:stretch; }
 @media (max-width:980px){ .pricing-grid{ grid-template-columns:1fr 1fr; } }
 @media (max-width:560px){ .pricing-grid{ grid-template-columns:1fr; } }
-
 .price-card{
   position:relative; background:#fff; border:1px solid var(--line); border-radius:20px;
   box-shadow:0 12px 28px rgba(14,90,67,.08); padding:24px; display:flex; flex-direction:column;
   transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  isolation:isolate; /* pentru pseudo-badge & efecte */
+  isolation:isolate;
 }
-/* contur subtil „glass” */
 .price-card::after{
   content:""; position:absolute; inset:0; border-radius:20px; padding:1px; pointer-events:none;
   background:linear-gradient(180deg,#e8f2ee,transparent 60%);
@@ -172,25 +145,17 @@ html.no-scroll, body.no-scroll { overflow: hidden; }
   -webkit-mask-composite:xor; mask-composite:exclude;
 }
 .price-card:hover{ transform:translateY(-2px); box-shadow:0 16px 40px rgba(14,90,67,.12); }
-
 .price-card .tier{ margin:0 0 6px; font-weight:800; font-size:18px; color:var(--text); }
 .price-card .price{ margin:4px 0 10px; font-size:28px; font-weight:800; color:var(--green); }
-
 .price-card ul{ margin:10px 0 18px; padding-left:22px; color:#40524d; }
 .price-card ul li{ margin:8px 0; }
-
 .price-card .btn{ width:100%; }
-
-.price-card.pro{
-  border-color:#cfe9df; box-shadow:0 16px 40px rgba(17,163,127,.18);
-}
+.price-card.pro{ border-color:#cfe9df; box-shadow:0 16px 40px rgba(17,163,127,.18); }
 .price-card .pop{
   position:absolute; right:18px; top:18px; z-index:2;
   background:var(--gold); color:#fff; padding:6px 12px; border-radius:999px;
   font-size:12px; font-weight:800; letter-spacing:.02em;
 }
-
-/* asigură-te că .price-card nu e „subțiat” de .card generic */
 .card.price-card, .pricing-grid .price-card{ border-radius:20px; }
 </style>
 </head>
@@ -315,7 +280,7 @@ html.no-scroll, body.no-scroll { overflow: hidden; }
         <div class="row">
           <div><label for="nume">Nume *</label><input id="nume" name="nume" required></div>
           <div><label for="email">Email *</label><input id="email" name="email" type="email" required></div>
-          <div><label for="telefon">Telefon</label><input id="telefon" name="telefon"></div>
+          <div><label for="telefon">Telefon</label><input id="telefon" name="telefon" type="tel"></div>
           <div><label for="oras">Oraș</label><input id="oras" name="oras"></div>
         </div>
       </div>
@@ -324,11 +289,20 @@ html.no-scroll, body.no-scroll { overflow: hidden; }
         <h4 class="title" style="margin:.2rem 0 6px">2) Profil</h4>
         <div class="row">
           <div><label for="sex">Sex</label><select id="sex" name="sex"><option>—</option><option>F</option><option>M</option></select></div>
-          <div><label for="varsta">Vârstă</label><input id="varsta" name="varsta" type="number"></div>
-          <div><label for="inaltime">Înălțime (cm)</label><input id="inaltime" name="inaltime" type="number"></div>
-          <div><label for="greutate">Greutate (kg)</label><input id="greutate" name="greutate" type="number"></div>
-          <div><label for="activitate">Activitate</label><select id="activitate" name="activitate"><option>—</option><option>Sedentar</option><option>Ușor activ</option><option>Moderate</option><option>Foarte activ</option></select></div>
-          <div><label for="obiectiv">Obiectiv</label><select id="obiectiv" name="obiectiv"><option>—</option><option>Slăbire</option><option>Menținere</option><option>Masă musculară</option></select></div>
+          <div><label for="varsta">Vârstă</label><input id="varsta" name="varsta" type="number" min="1"></div>
+          <div><label for="inaltime">Înălțime (cm)</label><input id="inaltime" name="inaltime" type="number" min="1"></div>
+          <div><label for="greutate">Greutate (kg)</label><input id="greutate" name="greutate" type="number" min="1"></div>
+          <div><label for="activitate">Activitate</label>
+            <select id="activitate" name="activitate">
+              <option>—</option><option>Sedentar</option><option>Ușor activ</option>
+              <option>Moderat</option><option>Foarte activ</option>
+            </select>
+          </div>
+          <div><label for="obiectiv">Obiectiv</label>
+            <select id="obiectiv" name="obiectiv">
+              <option>—</option><option>Slăbire</option><option>Menținere</option><option>Masă musculară</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -381,7 +355,7 @@ const openAi2=document.getElementById('openAi2');
 const closeAi=document.getElementById('closeAi');
 
 function openAIModal(){ modal.classList.add('show'); goToStep(1); }
-window.openAIModal = openAIModal;                 /* necesar pentru onclick inline */
+window.openAIModal = openAIModal; /* necesar pentru onclick inline */
 openAi?.addEventListener('click',openAIModal);
 openAi2?.addEventListener('click',openAIModal);
 closeAi?.addEventListener('click',()=> modal.classList.remove('show'));
@@ -510,21 +484,23 @@ async function generatePDFClean(formData){
   doc.setFont('helvetica','bold'); doc.setFontSize(13); doc.setTextColor(...TEXT);
   doc.text('Meniu pe 7 zile (porție & macro/masă)', M, y); y += 8;
 
-  // Body pentru AutoTable
+  // === BODY pentru AutoTable (fără coloana F) ===
   const body = [];
+  const week = { g:0, kcal:0, p:0, c:0 };
   plan.forEach(day=>{
     const zi = `${day.d.getDate()} ${luni[day.d.getMonth()]}`;
-    let tot={g:0,kcal:0,p:0,c:0,f:0};
+    let tot={g:0,kcal:0,p:0,c:0};
     day.meals.forEach((m,idx)=>{
-      body.push([ idx===0?zi:'', m.meal, m.dish, m.g, m.kcal, m.p, m.c, m.f ]);
-      tot.g+=m.g; tot.kcal+=m.kcal; tot.p+=m.p; tot.c+=m.c; tot.f+=m.f;
+      body.push([ idx===0?zi:'', m.meal, m.dish, m.g, m.kcal, m.p, m.c ]);
+      tot.g+=m.g; tot.kcal+=m.kcal; tot.p+=m.p; tot.c+=m.c;
     });
-    body.push([ {content:'TOTAL ZI', colSpan:3, styles:{fontStyle:'bold'}}, tot.g, tot.kcal, tot.p, tot.c, tot.f ]);
+    body.push([ {content:'TOTAL ZI', colSpan:3, styles:{fontStyle:'bold'}}, tot.g, tot.kcal, tot.p, tot.c ]);
+    week.g+=tot.g; week.kcal+=tot.kcal; week.p+=tot.p; week.c+=tot.c;
   });
 
   doc.autoTable({
     startY: y+10,
-    head: [['Ziua','Masă','Preparat','g','kcal','P','C','F']],
+    head: [['Ziua','Masă','Preparat','g','kcal','P','C']],
     body,
     theme: 'grid',
     styles: { font:'helvetica', fontSize:10, cellPadding:6, textColor:[27,39,35], lineColor:[230,236,232], lineWidth:0.6 },
@@ -533,12 +509,11 @@ async function generatePDFClean(formData){
     columnStyles: {
       0: { cellWidth: 64 },
       1: { cellWidth: 84 },
-      2: { cellWidth: 240 },
+      2: { cellWidth: 260 },
       3: { halign: 'right', cellWidth: 44 },
       4: { halign: 'right', cellWidth: 54 },
       5: { halign: 'right', cellWidth: 48 },
       6: { halign: 'right', cellWidth: 48 },
-      7: { halign: 'right', cellWidth: 48 },
     },
     margin: { left: M, right: M },
     didParseCell(data){
@@ -559,9 +534,21 @@ async function generatePDFClean(formData){
     }
   });
 
+  // === Total săptămână, sub tabel ===
+  let yEnd = (doc.lastAutoTable?.finalY || y) + 18;
+  if (yEnd > H - 40) { doc.addPage(); yEnd = 60; }
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor(...TEXT);
+  doc.text('Total săptămână', M, yEnd);
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(...GREEN);
+  const weekLine = `g ${week.g}    kcal ${week.kcal}    P ${week.p}    C ${week.c}`;
+  doc.text(weekLine, W - M, yEnd, { align:'right' });
+
   const blob = doc.output('blob');
   return URL.createObjectURL(blob);
 
+  // ----- Demo plan (poți înlocui cu datele de la backend) -----
   function makePlanDemo(diet, daysArr){
     const keto=(diet||'').toLowerCase().includes('keto');
     const pools=keto ? {
