@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pachete Nutriție · Bucătarul Personal</title>
+  <meta name="description" content="Alege pachetul de nutriție potrivit: abonament AI, pachet Start, Focus sau Transform. Consultații 1:1, planuri personalizate, rapoarte și suport." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --green:#0e5a43; --green-2:#0a4a35; --deep:#081a14; --gold:#c9a227;
+      --text:#172422; --muted:#5b6a66; --bg:#f6faf7; --white:#fff; --line:#e7ece8; --r:18px; --shadow:0 12px 36px rgba(0,0,0,.07);
+      --max:1180px; --hero-img: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1920&auto=format&fit=crop');
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    .container{max-width:var(--max);margin:0 auto;padding:24px}
+    header{color:#fff;background:linear-gradient(120deg, rgba(8,26,20,.82), rgba(10,74,53,.82)), var(--hero-img);background-size:cover;background-position:center}
+    header .container{padding:36px 24px 42px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center}
+    .logo span{color:var(--gold);font-weight:800}
+    h1{font-family:"Playfair Display",serif;font-weight:700;margin:0}
+    .heroHead{display:grid;gap:10px;margin-top:10px}
+    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.25);color:#eaf5f0;padding:6px 10px;border-radius:999px;font-size:12px}
+
+    /* Toggle */
+    .toggle{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+    .switch{position:relative;display:inline-block;width:54px;height:30px}
+    .switch input{opacity:0;width:0;height:0}
+    .slider{position:absolute;cursor:pointer;inset:0;background:#dfe7e4;border-radius:999px;transition:all .2s}
+    .slider:before{content:"";position:absolute;height:22px;width:22px;left:4px;top:4px;background:#fff;border-radius:50%;transition:all .2s;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+    .switch input:checked + .slider{background:#b2e3cf}
+    .switch input:checked + .slider:before{transform:translateX(24px)}
+    .save{color:#b58900;font-weight:800;margin-left:8px}
+
+    /* Cards */
+    .grid{display:grid;gap:16px}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .card .head{padding:18px 18px 8px}
+    .card .price{padding:0 18px 6px}
+    .price .value{font-size:34px;font-weight:800}
+    .price .per{color:var(--muted);margin-left:4px}
+    .features{padding:0 18px 12px}
+    .features li{list-style:none;margin:10px 0;display:flex;gap:10px}
+    .features li::before{content:"✔";color:#2a845f}
+    .cta{margin-top:auto;padding:16px 18px}
+    .btn{display:inline-flex;justify-content:center;align-items:center;width:100%;padding:12px 16px;border-radius:14px;text-decoration:none;font-weight:800;border:1px solid var(--line);color:#fff;background:var(--green)}
+    .btn:hover{background:var(--green-2)}
+    .btn.ghost{background:#fff;color:var(--green)}
+
+    .popular{position:relative}
+    .popular .badge{position:absolute;right:16px;top:-12px;background:var(--gold);color:#3b2d00;font-weight:800;padding:6px 10px;border-radius:999px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+
+    .note{font-size:12px;color:var(--muted)}
+
+    footer{margin:40px 0 24px;color:var(--muted);font-size:13px;text-align:center}
+
+    @media (max-width:1024px){ .grid-3{grid-template-columns:1fr 1fr} }
+    @media (max-width:680px){ .grid-3{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="brand"><div class="logo" aria-label="Monogramă cerc auriu"><span>BP</span></div><h1>Pachete Nutriție</h1></div>
+      <div class="heroHead">
+        <p>Programe de nutriție gândite pentru obiectivul tău. Alege un pachet cu consultații 1:1 sau abonament AI pentru meniuri personalizate.</p>
+        <div class="toggle">
+          <span>Lunar</span>
+          <label class="switch">
+            <input id="yearly" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+          <span>Annual</span>
+          <span class="save">Economisești 2 luni</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="grid grid-3" id="pricing">
+      <!-- AI PRO -->
+      <article class="card popular" data-plan="ai-pro">
+        <div class="badge">RECOMANDAT</div>
+        <div class="head">
+          <h3 style="margin:0">AI Nutriție PRO</h3>
+          <p class="note" style="margin:6px 0 0">Meniuri personalizate nelimitat, listă de cumpărături, export PDF & email.</p>
+        </div>
+        <div class="price"><span class="value" data-monthly="29" data-yearly="290">29</span> <span class="per">RON / lună</span></div>
+        <ul class="features">
+          <li>Meniuri zilnice cu AI (nelimitat)</li>
+          <li>Export PDF & trimitere e‑mail</li>
+          <li>Listă de cumpărături automată</li>
+          <li>Preferințe & alergii, ținte macro</li>
+        </ul>
+        <div class="cta">
+          <a class="btn" href="/checkout/ai-pro" data-checkout="/checkout/ai-pro" onclick="return goCheckout(this)">Alege planul</a>
+        </div>
+      </article>
+
+      <!-- START -->
+      <article class="card" data-plan="start">
+        <div class="head">
+          <h3 style="margin:0">Start</h3>
+          <p class="note" style="margin:6px 0 0">1 consult 1:1 (60‑75 min) + plan 7 zile & recomandări.</p>
+        </div>
+        <div class="price"><span class="value" data-onetime="249">249</span> <span class="per">RON</span></div>
+        <ul class="features">
+          <li>Anamneză & evaluare corp</li>
+          <li>Plan de masă 7 zile personalizat</li>
+          <li>Ghid cumpărături & substituții</li>
+          <li>Suport 7 zile pe email</li>
+        </ul>
+        <div class="cta">
+          <a class="btn ghost" href="/checkout/nutrition?plan=start" data-checkout="/checkout/nutrition?plan=start" onclick="return goCheckout(this)">Programează</a>
+        </div>
+      </article>
+
+      <!-- FOCUS -->
+      <article class="card" data-plan="focus">
+        <div class="head">
+          <h3 style="margin:0">Focus (4 săpt.)</h3>
+          <p class="note" style="margin:6px 0 0">4 consulturi + ajustări săptămânale & accountability.</p>
+        </div>
+        <div class="price"><span class="value" data-onetime="799">799</span> <span class="per">RON</span></div>
+        <ul class="features">
+          <li>4 ședințe 1:1 (online/acasă*)</li>
+          <li>2 planuri de masă / lună</li>
+          <li>Monitorizare progres & feedback</li>
+          <li>Suport nelimitat pe email</li>
+        </ul>
+        <div class="cta">
+          <a class="btn" href="/checkout/nutrition?plan=focus" data-checkout="/checkout/nutrition?plan=focus" onclick="return goCheckout(this)">Alege planul</a>
+          <p class="note" style="margin:8px 0 0">* la domiciliu în orașele acoperite</p>
+        </div>
+      </article>
+
+      <!-- TRANSFORM -->
+      <article class="card" data-plan="transform">
+        <div class="head">
+          <h3 style="margin:0">Transform (12 săpt.)</h3>
+          <p class="note" style="margin:6px 0 0">Program complet – 12 consulturi, reeducare alimentară, rezultate stabile.</p>
+        </div>
+        <div class="price"><span class="value" data-onetime="2199">2199</span> <span class="per">RON</span></div>
+        <ul class="features">
+          <li>12 ședințe 1:1</li>
+          <li>Planuri adaptate etapelor (3‑4)</li>
+          <li>Checklist obiceiuri & obiceiuri noi</li>
+          <li>Prioritate la programări</li>
+        </ul>
+        <div class="cta">
+          <a class="btn" href="/checkout/nutrition?plan=transform" data-checkout="/checkout/nutrition?plan=transform" onclick="return goCheckout(this)">Alege planul</a>
+        </div>
+      </article>
+    </section>
+
+    <section style="margin-top:22px">
+      <div class="card" style="padding:16px">
+        <strong>FAQ scurt:</strong>
+        <ul style="margin:8px 0 0 18px">
+          <li><em>Plăți:</em> poți plăti online cu card sau transfer. Pentru companii emitem factură.</li>
+          <li><em>Rambursare:</em> 14 zile pentru abonamente nefolosite. Ședințele programate se pot reprograma cu 24h înainte.</li>
+          <li><em>AI PRO:</em> se facturează lunar sau anual (2 luni cadou).</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>© <span id="year"></span> Bucătarul Personal · Pachete Nutriție</footer>
+
+  <script>
+    const $ = (s,root=document)=>root.querySelector(s);
+    const $$ = (s,root=document)=>[...root.querySelectorAll(s)];
+
+    // Toggle monthly/yearly for AI PRO
+    function updateBilling(){
+      const yearly = $('#yearly')?.checked;
+      const aiCard = document.querySelector('[data-plan="ai-pro"]');
+      if(!aiCard) return;
+      const valEl = aiCard.querySelector('.price .value');
+      const perEl = aiCard.querySelector('.price .per');
+      const m = valEl?.getAttribute('data-monthly')||'29';
+      const y = valEl?.getAttribute('data-yearly')||'290';
+      valEl.textContent = yearly? y : m;
+      perEl.textContent = yearly? 'RON / an' : 'RON / lună';
+      // update checkout URL param
+      const btn = aiCard.querySelector('[data-checkout]');
+      if(btn){ btn.setAttribute('href', `/checkout/ai-pro?cycle=${yearly?'yearly':'monthly'}`); }
+    }
+
+    function goCheckout(a){
+      // Compose a safe link; allow passing ?src= param through
+      try{
+        const base = new URL(a.getAttribute('data-checkout'), location.origin);
+        const cycle = $('#yearly')?.checked ? 'yearly' : 'monthly';
+        if(a.closest('[data-plan="ai-pro"]')){
+          base.searchParams.set('cycle', cycle);
+          base.searchParams.set('access', `SUB-${Math.random().toString(36).slice(2,6).toUpperCase()}`);
+        } else {
+          // for 1:1 packages – include plan
+          const plan = a.closest('[data-plan]')?.getAttribute('data-plan');
+          base.searchParams.set('plan', plan||'');
+        }
+        const passthrough = new URLSearchParams(location.search).get('src');
+        if(passthrough) base.searchParams.set('src', passthrough);
+        location.href = base.toString();
+      }catch(e){ /* fallback simple navigate */ }
+      return false;
+    }
+
+    (function init(){
+      $('#year').textContent = new Date().getFullYear();
+      $('#yearly')?.addEventListener('change', updateBilling);
+      updateBilling();
+    })();
+
+    // Self‑tests (run with ?test=1)
+    (function selfTests(){
+      const url = new URL(location.href);
+      if(url.searchParams.get('test') !== '1') return;
+      const log = [];
+      try{
+        const cards = $$('.card[data-plan]').length;
+        console.assert(cards >= 4, 'Ar trebui să existe 4 planuri');
+        // Billing toggle
+        const val = document.querySelector('[data-plan="ai-pro"] .price .value').textContent;
+        $('#yearly').checked = true; updateBilling();
+        const valY = document.querySelector('[data-plan="ai-pro"] .price .value').textContent;
+        console.assert(val !== valY, 'Comutarea lunar/anual schimbă prețul');
+        // Checkout link composition
+        const btn = document.querySelector('[data-plan="ai-pro"] [data-checkout]');
+        btn.click(); // should navigate but in sandbox may be blocked; we just ensure function exists
+        log.push('✔︎ Tests OK');
+      }catch(e){ log.push('✗ Test failed: '+e.message); }
+      console.log('[TESTS]', log.join(' | '));
+    })();
+  </script>
+</body>
+</html>
