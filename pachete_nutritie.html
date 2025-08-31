@@ -48,7 +48,7 @@
     .features li{list-style:none;margin:10px 0;display:flex;gap:10px}
     .features li::before{content:"✔";color:#2a845f}
     .cta{margin-top:auto;padding:16px 18px}
-    .btn{display:inline-flex;justify-content:center;align-items:center;width:100%;padding:12px 16px;border-radius:14px;text-decoration:none;font-weight:800;border:1px solid var(--line);color:#fff;background:var(--green)}
+    .btn{display:inline-flex;justify-content:center;align-items:center;width:100%;padding:12px 16px;border-radius:14px;text-decoration:none;font-weight:800;border:1px solid var(--line);color:#fff;background:var(--green);cursor:pointer}
     .btn:hover{background:var(--green-2)}
     .btn.ghost{background:#fff;color:var(--green)}
 
@@ -58,6 +58,14 @@
     .note{font-size:12px;color:var(--muted)}
 
     footer{margin:40px 0 24px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* Sandbox-safe preview bubble */
+    .navpreview{position:fixed;right:16px;bottom:16px;background:var(--green);color:#fff;padding:12px 14px;border-radius:12px;box-shadow:var(--shadow);display:none;gap:8px;align-items:center;max-width:92vw}
+    .navpreview.show{display:flex}
+    .navpreview a{color:#fff;text-decoration:underline;word-break:break-all}
+    .navpreview .mini{padding:8px 12px;border-radius:10px;background:#fff;color:var(--green);border:1px solid var(--line);font-weight:800;cursor:pointer}
+    .navpreview .x{appearance:none;border:none;background:transparent;color:#fff;font-size:18px;cursor:pointer}
+    .navpreview[data-copied]::after{content:" Copiat!";margin-left:6px;font-weight:800}
 
     @media (max-width:1024px){ .grid-3{grid-template-columns:1fr 1fr} }
     @media (max-width:680px){ .grid-3{grid-template-columns:1fr} }
@@ -75,7 +83,7 @@
             <input id="yearly" type="checkbox" />
             <span class="slider"></span>
           </label>
-          <span>Annual</span>
+          <span>Anual</span>
           <span class="save">Economisești 2 luni</span>
         </div>
       </div>
@@ -99,7 +107,7 @@
           <li>Preferințe & alergii, ținte macro</li>
         </ul>
         <div class="cta">
-          <a class="btn" href="checkout.html" data-checkout="/checkout/ai-pro" onclick="return goCheckout(this)">Alege planul</a>
+          <a class="btn" href="/checkout/ai-pro" data-base="/checkout/ai-pro" data-open="tab" onclick="return goCheckout(this)">Alege planul</a>
         </div>
       </article>
 
@@ -117,7 +125,7 @@
           <li>Suport 7 zile pe email</li>
         </ul>
         <div class="cta">
-          <a class="btn ghost" href="checkout.html" data-checkout="/checkout/nutrition?plan=start" onclick="return goCheckout(this)">Programează</a>
+          <a class="btn ghost" href="/checkout/nutrition" data-base="/checkout/nutrition" data-open="tab" onclick="return goCheckout(this)">Programează</a>
         </div>
       </article>
 
@@ -135,7 +143,7 @@
           <li>Suport nelimitat pe email</li>
         </ul>
         <div class="cta">
-          <a class="btn" href="checkout.html" data-checkout="/checkout/nutrition?plan=focus" onclick="return goCheckout(this)">Alege planul</a>
+          <a class="btn" href="/checkout/nutrition" data-base="/checkout/nutrition" data-open="tab" onclick="return goCheckout(this)">Alege planul</a>
           <p class="note" style="margin:8px 0 0">* la domiciliu în orașele acoperite</p>
         </div>
       </article>
@@ -154,7 +162,7 @@
           <li>Prioritate la programări</li>
         </ul>
         <div class="cta">
-          <a class="btn" href="checkout.html" data-checkout="/checkout/nutrition?plan=transform" onclick="return goCheckout(this)">Alege planul</a>
+          <a class="btn" href="/checkout/nutrition" data-base="/checkout/nutrition" data-open="tab" onclick="return goCheckout(this)">Alege planul</a>
         </div>
       </article>
     </section>
@@ -173,11 +181,21 @@
 
   <footer>© <span id="year"></span> Bucătarul Personal · Pachete Nutriție</footer>
 
+  <!-- Sandbox-safe navigation preview -->
+  <div id="navPreview" class="navpreview" hidden>
+    <span>Link checkout:</span>
+    <a id="navHref" href="#" target="_blank" rel="noopener">–</a>
+    <button id="copyNav" class="mini" type="button">Copiază</button>
+    <button id="closeNav" class="x" type="button" aria-label="Închide">×</button>
+  </div>
+
   <script>
     const $ = (s,root=document)=>root.querySelector(s);
     const $$ = (s,root=document)=>[...root.querySelectorAll(s)];
+    // <<< CONFIG: setează aici domeniul real pentru checkout >>>
+    const CHECKOUT_HOST = 'https://checkout.bpnutritie.ro';
 
-    // Toggle monthly/yearly for AI PRO
+    // Billing toggle for AI PRO
     function updateBilling(){
       const yearly = $('#yearly')?.checked;
       const aiCard = document.querySelector('[data-plan="ai-pro"]');
@@ -188,28 +206,67 @@
       const y = valEl?.getAttribute('data-yearly')||'290';
       valEl.textContent = yearly? y : m;
       perEl.textContent = yearly? 'RON / an' : 'RON / lună';
-      // update checkout URL param
-      const btn = aiCard.querySelector('[data-checkout]');
-      if(btn){ btn.setAttribute('href', `/checkout/ai-pro?cycle=${yearly?'yearly':'monthly'}`); }
+    }
+
+    function isSandbox(){
+      try{ return String(location.href||'').startsWith('about:'); }catch(e){ return true; }
+    }
+
+    // Compose checkout URL (safe in sandbox)
+    function composeCheckoutURL(a){
+      const card = a.closest('[data-plan]');
+      const planId = card.getAttribute('data-plan');
+      const baseStr = a.getAttribute('data-base')||a.getAttribute('href')||'/checkout';
+      const FALLBACK_ORIGIN = CHECKOUT_HOST;
+      let base;
+      try{
+        const origin = (location && location.origin && location.origin !== 'null') ? location.origin : FALLBACK_ORIGIN;
+        base = new URL(baseStr, origin);
+      }catch(e){ base = new URL(baseStr, FALLBACK_ORIGIN); }
+
+      if(planId==='ai-pro'){
+        const cycle = $('#yearly')?.checked ? 'yearly' : 'monthly';
+        const code = 'SUB-' + Math.random().toString(36).slice(2,6).toUpperCase();
+        try{ localStorage.setItem('bp_access', code); }catch(e){}
+        base.searchParams.set('cycle', cycle);
+        base.searchParams.set('access', code);
+      }else{
+        const price = card.querySelector('.price .value')?.getAttribute('data-onetime') || '0';
+        base.searchParams.set('plan', planId);
+        base.searchParams.set('price', price);
+      }
+      const src = new URLSearchParams(location.search).get('src');
+      if(src) base.searchParams.set('src', src);
+      return base.toString();
+    }
+
+    function showPreview(href){
+      const box = $('#navPreview');
+      const link = $('#navHref');
+      if(!box || !link) return;
+      link.href = href; link.textContent = href;
+      box.hidden = false; box.classList.add('show');
+    }
+
+    function readOpenMode(a){
+      const urlMode = new URLSearchParams(location.search).get('open');
+      if(urlMode==='tab' || urlMode==='self') return urlMode;
+      const ds = (a && a.dataset && a.dataset.open) || '';
+      return (ds==='tab' || ds==='self') ? ds : 'tab'; // default: tab (confirmat de client)
     }
 
     function goCheckout(a){
-      // Compose a safe link; allow passing ?src= param through
-      try{
-        const base = new URL(a.getAttribute('data-checkout'), location.origin);
-        const cycle = $('#yearly')?.checked ? 'yearly' : 'monthly';
-        if(a.closest('[data-plan="ai-pro"]')){
-          base.searchParams.set('cycle', cycle);
-          base.searchParams.set('access', `SUB-${Math.random().toString(36).slice(2,6).toUpperCase()}`);
-        } else {
-          // for 1:1 packages – include plan
-          const plan = a.closest('[data-plan]')?.getAttribute('data-plan');
-          base.searchParams.set('plan', plan||'');
-        }
-        const passthrough = new URLSearchParams(location.search).get('src');
-        if(passthrough) base.searchParams.set('src', passthrough);
-        location.href = base.toString();
-      }catch(e){ /* fallback simple navigate */ }
+      const href = composeCheckoutURL(a);
+      const mode = readOpenMode(a);
+      if(isSandbox()){
+        console.log('[Checkout URL]', href, '| mode:', mode);
+        showPreview(href);
+      } else {
+        try{
+          if(mode==='tab') { window.open(href, '_blank', 'noopener'); }
+          else { location.href = href; }
+        }catch(e){ console.warn('Redirect blocked, previewing instead.', e); showPreview(href); }
+      }
       return false;
     }
 
@@ -217,6 +274,10 @@
       $('#year').textContent = new Date().getFullYear();
       $('#yearly')?.addEventListener('change', updateBilling);
       updateBilling();
+      $('#copyNav')?.addEventListener('click', async ()=>{
+        try{ await navigator.clipboard.writeText($('#navHref').href); $('#navPreview').setAttribute('data-copied','1'); setTimeout(()=>$('#navPreview').removeAttribute('data-copied'), 1200); }catch(e){}
+      });
+      $('#closeNav')?.addEventListener('click', ()=>{ $('#navPreview').classList.remove('show'); $('#navPreview').hidden = true; });
     })();
 
     // Self‑tests (run with ?test=1)
@@ -225,16 +286,26 @@
       if(url.searchParams.get('test') !== '1') return;
       const log = [];
       try{
-        const cards = $$('.card[data-plan]').length;
-        console.assert(cards >= 4, 'Ar trebui să existe 4 planuri');
-        // Billing toggle
-        const val = document.querySelector('[data-plan="ai-pro"] .price .value').textContent;
+        const cards = $$('.card[data-plan]').length; console.assert(cards >= 4, '4 planuri');
+        const before = document.querySelector('[data-plan="ai-pro"] .price .value').textContent;
         $('#yearly').checked = true; updateBilling();
-        const valY = document.querySelector('[data-plan="ai-pro"] .price .value').textContent;
-        console.assert(val !== valY, 'Comutarea lunar/anual schimbă prețul');
-        // Checkout link composition
-        const btn = document.querySelector('[data-plan="ai-pro"] [data-checkout]');
-        btn.click(); // should navigate but in sandbox may be blocked; we just ensure function exists
+        const after = document.querySelector('[data-plan="ai-pro"] .price .value').textContent;
+        console.assert(before !== after, 'toggle lunar/anual funcționează');
+        const aiBtn = document.querySelector('[data-plan="ai-pro"] .btn');
+        const aiURL = composeCheckoutURL(aiBtn);
+        console.assert(aiURL.startsWith(CHECKOUT_HOST) && /\/checkout\/ai-pro/.test(aiURL) && /access=SUB-/.test(aiURL) && /cycle=yearly|monthly/.test(aiURL), 'URL AI PRO ok');
+        console.assert(readOpenMode(document.querySelector('[data-plan="ai-pro"] .btn'))==='tab', 'Open mode implicit: tab');
+        const fBtn = document.querySelector('[data-plan="focus"] .btn');
+        const fURL = composeCheckoutURL(fBtn);
+        console.assert(/plan=focus/.test(fURL) && /price=799/.test(fURL), 'URL Focus ok');
+        // EXTRA tests
+        const sBtn = document.querySelector('[data-plan="start"] .btn');
+        const sURL = composeCheckoutURL(sBtn); console.assert(/plan=start/.test(sURL) && /price=249/.test(sURL), 'URL Start ok');
+        const tBtn = document.querySelector('[data-plan="transform"] .btn');
+        const tURL = composeCheckoutURL(tBtn); console.assert(/plan=transform/.test(tURL) && /price=2199/.test(tURL), 'URL Transform ok');
+        // goCheckout should not throw in sandbox; should show preview
+        goCheckout(aiBtn);
+        console.assert(!$('#navPreview').hidden, 'Preview vizibil în sandbox');
         log.push('✔︎ Tests OK');
       }catch(e){ log.push('✗ Test failed: '+e.message); }
       console.log('[TESTS]', log.join(' | '));
