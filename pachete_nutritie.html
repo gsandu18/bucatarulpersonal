@@ -4,29 +4,23 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pachete Nutriție · Bucătarul Personal</title>
-  <meta name="description" content="Alege pachetul de nutriție potrivit: abonament AI, pachet Start, Focus sau Transform. Consultații 1:1, planuri personalizate, rapoarte și suport." />
+  <meta name="description" content="Alege pachetul de nutriție potrivit și mergi direct la checkout: abonament AI sau pachete 1:1 (Start, Focus, Transform)." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --green:#0e5a43; --green-2:#0a4a35; --deep:#081a14; --gold:#c9a227;
-      --text:#172422; --muted:#5b6a66; --bg:#f6faf7; --white:#fff; --line:#e7ece8; --r:18px; --shadow:0 12px 36px rgba(0,0,0,.07);
-      --max:1180px; --hero-img: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1920&auto=format&fit=crop');
-    }
+    :root{ --green:#0e5a43; --green-2:#0a4a35; --gold:#c9a227; --text:#172422; --muted:#5b6a66; --bg:#f6faf7; --white:#fff; --line:#e7ece8; --r:18px; --shadow:0 12px 36px rgba(0,0,0,.07); --max:1180px; --hero-img: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1920&auto=format&fit=crop'); }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
     .container{max-width:var(--max);margin:0 auto;padding:24px}
-    header{color:#fff;background:linear-gradient(120deg, rgba(8,26,20,.82), rgba(10,74,53,.82)), var(--hero-img);background-size:cover;background-position:center}
-    header .container{padding:36px 24px 42px}
+    header{position:relative;color:#fff;background:linear-gradient(120deg, rgba(8,26,20,.82), rgba(10,74,53,.82)), var(--hero-img);background-size:cover;background-position:center}
+    header::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(8,26,20,.78), rgba(8,26,20,.78));}
+    header .container{position:relative;z-index:1;padding:36px 24px 42px}
     .brand{display:flex;align-items:center;gap:12px}
     .logo{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center}
     .logo span{color:var(--gold);font-weight:800}
-    h1{font-family:"Playfair Display",serif;font-weight:700;margin:0}
+    h1{font-family:"Playfair Display",serif;font-weight:700;margin:0;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.45)}
     .heroHead{display:grid;gap:10px;margin-top:10px}
-    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.25);color:#eaf5f0;padding:6px 10px;border-radius:999px;font-size:12px}
-
-    /* Toggle */
     .toggle{display:flex;align-items:center;gap:8px;justify-content:flex-end}
     .switch{position:relative;display:inline-block;width:54px;height:30px}
     .switch input{opacity:0;width:0;height:0}
@@ -34,9 +28,8 @@
     .slider:before{content:"";position:absolute;height:22px;width:22px;left:4px;top:4px;background:#fff;border-radius:50%;transition:all .2s;box-shadow:0 2px 6px rgba(0,0,0,.15)}
     .switch input:checked + .slider{background:#b2e3cf}
     .switch input:checked + .slider:before{transform:translateX(24px)}
-    .save{color:#b58900;font-weight:800;margin-left:8px}
+    .save{color:#ffdf71;font-weight:800;margin-left:8px}
 
-    /* Cards */
     .grid{display:grid;gap:16px}
     .grid-3{grid-template-columns:repeat(3,1fr)}
     .card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);display:flex;flex-direction:column}
@@ -51,21 +44,10 @@
     .btn{display:inline-flex;justify-content:center;align-items:center;width:100%;padding:12px 16px;border-radius:14px;text-decoration:none;font-weight:800;border:1px solid var(--line);color:#fff;background:var(--green);cursor:pointer}
     .btn:hover{background:var(--green-2)}
     .btn.ghost{background:#fff;color:var(--green)}
-
     .popular{position:relative}
     .popular .badge{position:absolute;right:16px;top:-12px;background:var(--gold);color:#3b2d00;font-weight:800;padding:6px 10px;border-radius:999px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
-
     .note{font-size:12px;color:var(--muted)}
-
     footer{margin:40px 0 24px;color:var(--muted);font-size:13px;text-align:center}
-
-    /* Sandbox-safe preview bubble */
-    .navpreview{position:fixed;right:16px;bottom:16px;background:var(--green);color:#fff;padding:12px 14px;border-radius:12px;box-shadow:var(--shadow);display:none;gap:8px;align-items:center;max-width:92vw}
-    .navpreview.show{display:flex}
-    .navpreview a{color:#fff;text-decoration:underline;word-break:break-all}
-    .navpreview .mini{padding:8px 12px;border-radius:10px;background:#fff;color:var(--green);border:1px solid var(--line);font-weight:800;cursor:pointer}
-    .navpreview .x{appearance:none;border:none;background:transparent;color:#fff;font-size:18px;cursor:pointer}
-    .navpreview[data-copied]::after{content:" Copiat!";margin-left:6px;font-weight:800}
 
     @media (max-width:1024px){ .grid-3{grid-template-columns:1fr 1fr} }
     @media (max-width:680px){ .grid-3{grid-template-columns:1fr} }
@@ -76,7 +58,7 @@
     <div class="container">
       <div class="brand"><div class="logo" aria-label="Monogramă cerc auriu"><span>BP</span></div><h1>Pachete Nutriție</h1></div>
       <div class="heroHead">
-        <p>Programe de nutriție gândite pentru obiectivul tău. Alege un pachet cu consultații 1:1 sau abonament AI pentru meniuri personalizate.</p>
+        <p class="muted">Programe de nutriție gândite pentru obiectivul tău. Alege un pachet cu consultații 1:1 sau abonament AI pentru meniuri personalizate.</p>
         <div class="toggle">
           <span>Lunar</span>
           <label class="switch">
@@ -92,7 +74,6 @@
 
   <main class="container">
     <section class="grid grid-3" id="pricing">
-      <!-- AI PRO -->
       <article class="card popular" data-plan="ai-pro">
         <div class="badge">RECOMANDAT</div>
         <div class="head">
@@ -107,11 +88,10 @@
           <li>Preferințe & alergii, ținte macro</li>
         </ul>
         <div class="cta">
-          <a class="btn" href="/checkout/ai-pro" data-base="/checkout/ai-pro" data-open="tab" onclick="return goCheckout(this)">Alege planul</a>
+          <a class="btn" href="/checkout" data-base="/checkout" data-open="self" onclick="return goCheckout(this)">Alege planul</a>
         </div>
       </article>
 
-      <!-- START -->
       <article class="card" data-plan="start">
         <div class="head">
           <h3 style="margin:0">Start</h3>
@@ -125,11 +105,10 @@
           <li>Suport 7 zile pe email</li>
         </ul>
         <div class="cta">
-          <a class="btn ghost" href="/checkout/nutrition" data-base="/checkout/nutrition" data-open="tab" onclick="return goCheckout(this)">Programează</a>
+          <a class="btn ghost" href="checkout.html" data-base="/checkout" data-open="self" onclick="return goCheckout(this)">Programează</a>
         </div>
       </article>
 
-      <!-- FOCUS -->
       <article class="card" data-plan="focus">
         <div class="head">
           <h3 style="margin:0">Focus (4 săpt.)</h3>
@@ -143,12 +122,11 @@
           <li>Suport nelimitat pe email</li>
         </ul>
         <div class="cta">
-          <a class="btn" href="/checkout/nutrition" data-base="/checkout/nutrition" data-open="tab" onclick="return goCheckout(this)">Alege planul</a>
+          <a class="btn" href="checkout.html" data-base="/checkout" data-open="self" onclick="return goCheckout(this)">Alege planul</a>
           <p class="note" style="margin:8px 0 0">* la domiciliu în orașele acoperite</p>
         </div>
       </article>
 
-      <!-- TRANSFORM -->
       <article class="card" data-plan="transform">
         <div class="head">
           <h3 style="margin:0">Transform (12 săpt.)</h3>
@@ -162,43 +140,20 @@
           <li>Prioritate la programări</li>
         </ul>
         <div class="cta">
-          <a class="btn" href="/checkout/nutrition" data-base="/checkout/nutrition" data-open="tab" onclick="return goCheckout(this)">Alege planul</a>
+          <a class="btn" href="checkout.html" data-base="/checkout" data-open="self" onclick="return goCheckout(this)">Alege planul</a>
         </div>
       </article>
-    </section>
-
-    <section style="margin-top:22px">
-      <div class="card" style="padding:16px">
-        <strong>FAQ scurt:</strong>
-        <ul style="margin:8px 0 0 18px">
-          <li><em>Plăți:</em> poți plăti online cu card sau transfer. Pentru companii emitem factură.</li>
-          <li><em>Rambursare:</em> 14 zile pentru abonamente nefolosite. Ședințele programate se pot reprograma cu 24h înainte.</li>
-          <li><em>AI PRO:</em> se facturează lunar sau anual (2 luni cadou).</li>
-        </ul>
-      </div>
     </section>
   </main>
 
   <footer>© <span id="year"></span> Bucătarul Personal · Pachete Nutriție</footer>
 
-  <!-- Sandbox-safe navigation preview -->
-  <div id="navPreview" class="navpreview" hidden>
-    <span>Link checkout:</span>
-    <a id="navHref" href="#" target="_blank" rel="noopener">–</a>
-    <button id="copyNav" class="mini" type="button">Copiază</button>
-    <button id="closeNav" class="x" type="button" aria-label="Închide">×</button>
-  </div>
-
   <script>
     const $ = (s,root=document)=>root.querySelector(s);
     const $$ = (s,root=document)=>[...root.querySelectorAll(s)];
-    // <<< CONFIG: setează aici domeniul real pentru checkout >>>
-    // <<< CONFIG: setează aici domeniul real pentru checkout >>>
-const CHECKOUT_HOST = (window.location && window.location.origin && window.location.origin !== 'null')
-  ? window.location.origin                   // ex: https://bucatarulpersonal.vercel.app
-  : 'https://bucatarulpersonal.vercel.app';  // fallback pt. sandbox
 
-    // Billing toggle for AI PRO
+    const CHECKOUT_HOST = (location && location.origin && location.origin !== 'null') ? location.origin : 'https://bucatarulpersonal.vercel.app';
+
     function updateBilling(){
       const yearly = $('#yearly')?.checked;
       const aiCard = document.querySelector('[data-plan="ai-pro"]');
@@ -211,29 +166,18 @@ const CHECKOUT_HOST = (window.location && window.location.origin && window.locat
       perEl.textContent = yearly? 'RON / an' : 'RON / lună';
     }
 
-    function isSandbox(){
-      try{ return String(location.href||'').startsWith('about:'); }catch(e){ return true; }
-    }
-
-    // Compose checkout URL (safe in sandbox)
     function composeCheckoutURL(a){
       const card = a.closest('[data-plan]');
       const planId = card.getAttribute('data-plan');
-      const baseStr = a.getAttribute('data-base')||a.getAttribute('href')||'/checkout';
-      const FALLBACK_ORIGIN = CHECKOUT_HOST;
-      let base;
-      try{
-        const origin = (location && location.origin && location.origin !== 'null') ? location.origin : FALLBACK_ORIGIN;
-        base = new URL(baseStr, origin);
-      }catch(e){ base = new URL(baseStr, FALLBACK_ORIGIN); }
-
+      let base = new URL('/checkout', CHECKOUT_HOST);
       if(planId==='ai-pro'){
         const cycle = $('#yearly')?.checked ? 'yearly' : 'monthly';
         const code = 'SUB-' + Math.random().toString(36).slice(2,6).toUpperCase();
         try{ localStorage.setItem('bp_access', code); }catch(e){}
+        base.searchParams.set('plan','ai-pro');
         base.searchParams.set('cycle', cycle);
         base.searchParams.set('access', code);
-      }else{
+      } else {
         const price = card.querySelector('.price .value')?.getAttribute('data-onetime') || '0';
         base.searchParams.set('plan', planId);
         base.searchParams.set('price', price);
@@ -243,75 +187,33 @@ const CHECKOUT_HOST = (window.location && window.location.origin && window.locat
       return base.toString();
     }
 
-    function showPreview(href){
-      const box = $('#navPreview');
-      const link = $('#navHref');
-      if(!box || !link) return;
-      link.href = href; link.textContent = href;
-      box.hidden = false; box.classList.add('show');
-    }
-
-    function readOpenMode(a){
-      const urlMode = new URLSearchParams(location.search).get('open');
-      if(urlMode==='tab' || urlMode==='self') return urlMode;
-      const ds = (a && a.dataset && a.dataset.open) || '';
-      return (ds==='tab' || ds==='self') ? ds : 'tab'; // default: tab (confirmat de client)
-    }
-
+    // IMPORTANT: lăsăm browserul să facă navigarea nativă (fără window.open / location.href)
     function goCheckout(a){
       const href = composeCheckoutURL(a);
-      const mode = readOpenMode(a);
-      if(isSandbox()){
-        console.log('[Checkout URL]', href, '| mode:', mode);
-        showPreview(href);
-      } else {
-        try{
-          if(mode==='tab') { window.open(href, '_blank', 'noopener'); }
-          else { location.href = href; }
-        }catch(e){ console.warn('Redirect blocked, previewing instead.', e); showPreview(href); }
-      }
-      return false;
+      a.href = href; // setăm link-ul final pe ancoră
+      if((a.dataset.open||'self')==='tab'){ a.target = '_blank'; a.rel = 'noopener'; }
+      return true; // permite navigarea implicită a ancorei
     }
 
     (function init(){
       $('#year').textContent = new Date().getFullYear();
       $('#yearly')?.addEventListener('change', updateBilling);
       updateBilling();
-      $('#copyNav')?.addEventListener('click', async ()=>{
-        try{ await navigator.clipboard.writeText($('#navHref').href); $('#navPreview').setAttribute('data-copied','1'); setTimeout(()=>$('#navPreview').removeAttribute('data-copied'), 1200); }catch(e){}
-      });
-      $('#closeNav')?.addEventListener('click', ()=>{ $('#navPreview').classList.remove('show'); $('#navPreview').hidden = true; });
     })();
 
-    // Self‑tests (run with ?test=1)
-    (function selfTests(){
-      const url = new URL(location.href);
-      if(url.searchParams.get('test') !== '1') return;
-      const log = [];
-      try{
-        const cards = $$('.card[data-plan]').length; console.assert(cards >= 4, '4 planuri');
-        const before = document.querySelector('[data-plan="ai-pro"] .price .value').textContent;
+    // self-tests (?test=1)
+    (function tests(){
+      const url = new URL(location.href); if(url.searchParams.get('test')!=='1') return;
+      const log=[]; try{
+        const btn = document.querySelector('[data-plan="ai-pro"] .btn');
         $('#yearly').checked = true; updateBilling();
-        const after = document.querySelector('[data-plan="ai-pro"] .price .value').textContent;
-        console.assert(before !== after, 'toggle lunar/anual funcționează');
-        const aiBtn = document.querySelector('[data-plan="ai-pro"] .btn');
-        const aiURL = composeCheckoutURL(aiBtn);
-        console.assert(aiURL.startsWith(CHECKOUT_HOST) && /\/checkout\/ai-pro/.test(aiURL) && /access=SUB-/.test(aiURL) && /cycle=yearly|monthly/.test(aiURL), 'URL AI PRO ok');
-        console.assert(readOpenMode(document.querySelector('[data-plan="ai-pro"] .btn'))==='tab', 'Open mode implicit: tab');
-        const fBtn = document.querySelector('[data-plan="focus"] .btn');
-        const fURL = composeCheckoutURL(fBtn);
-        console.assert(/plan=focus/.test(fURL) && /price=799/.test(fURL), 'URL Focus ok');
-        // EXTRA tests
-        const sBtn = document.querySelector('[data-plan="start"] .btn');
-        const sURL = composeCheckoutURL(sBtn); console.assert(/plan=start/.test(sURL) && /price=249/.test(sURL), 'URL Start ok');
-        const tBtn = document.querySelector('[data-plan="transform"] .btn');
-        const tURL = composeCheckoutURL(tBtn); console.assert(/plan=transform/.test(tURL) && /price=2199/.test(tURL), 'URL Transform ok');
-        // goCheckout should not throw in sandbox; should show preview
-        goCheckout(aiBtn);
-        console.assert(!$('#navPreview').hidden, 'Preview vizibil în sandbox');
+        const u = composeCheckoutURL(btn);
+        console.assert(u.startsWith(CHECKOUT_HOST + '/checkout') && /[?&]plan=ai-pro/.test(u) && /[?&]cycle=yearly/.test(u) && /[?&]access=SUB-/.test(u), 'AI URL OK');
+        const f = composeCheckoutURL(document.querySelector('[data-plan="focus"] .btn'));
+        console.assert(/plan=focus/.test(f) && /price=799/.test(f), 'Focus URL OK');
         log.push('✔︎ Tests OK');
       }catch(e){ log.push('✗ Test failed: '+e.message); }
-      console.log('[TESTS]', log.join(' | '));
+      console.log('[PACHETE v3 TESTS]', log.join(' | '));
     })();
   </script>
 </body>
