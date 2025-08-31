@@ -193,7 +193,10 @@
     const $ = (s,root=document)=>root.querySelector(s);
     const $$ = (s,root=document)=>[...root.querySelectorAll(s)];
     // <<< CONFIG: setează aici domeniul real pentru checkout >>>
-    const CHECKOUT_HOST = 'https://checkout.bpnutritie.ro';
+    // <<< CONFIG: setează aici domeniul real pentru checkout >>>
+const CHECKOUT_HOST = (window.location && window.location.origin && window.location.origin !== 'null')
+  ? window.location.origin                   // ex: https://bucatarulpersonal.vercel.app
+  : 'https://bucatarulpersonal.vercel.app';  // fallback pt. sandbox
 
     // Billing toggle for AI PRO
     function updateBilling(){
