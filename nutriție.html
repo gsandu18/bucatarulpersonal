@@ -19,18 +19,20 @@
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
     a{color:var(--green)}
     .container{max-width:var(--max);margin:0 auto;padding:24px}
-    header{color:var(--white);background:
+    header{position:relative;color:var(--white);background:
       linear-gradient(120deg, rgba(8,26,20,.82), rgba(10,74,53,.82)),
       var(--hero-img);
-    background-size:cover;background-position:center}
-    header .container{padding:28px 24px 36px}
+    background-size:cover;background-position:center center;min-height:68vh}
+    header::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(8,26,20,.78), rgba(8,26,20,.78));}
+    header .container{position:relative;z-index:1;padding:28px 24px 36px}
     .topbar{display:flex;align-items:center;gap:16px;justify-content:space-between}
     .brand{display:flex;align-items:center;gap:12px}
-    .brand .logo{width:36px;height:36px;border-radius:50%;background:transparent;border:2px solid var(--gold);display:grid;place-items:center;box-shadow:none}
-    .brand .logo span{font-weight:800;color:var(--gold);font-size:14px;letter-spacing:.5px}
-    .brand h1{font-family:"Playfair Display",serif;font-weight:700;font-size:22px;letter-spacing:.5px;margin:0}
+    /* MONOGRAM – un singur cerc auriu, text uppercase */
+    .brand .logo{width:36px;height:36px;border-radius:50%;background:transparent;border:2px solid var(--gold);display:grid;place-items:center}
+    .brand .logo span{font-weight:800;color:var(--gold);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+    .brand h1{font-family:"Playfair Display",serif;font-weight:700;font-size:22px;letter-spacing:.06em;margin:0;text-transform:uppercase;color:#fff}
     .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;margin-top:18px}
-    .hero h2{font-family:"Playfair Display",serif;font-size:36px;line-height:1.2;margin:0 0 8px}
+    .hero h2{font-family:"Playfair Display",serif;font-size:36px;line-height:1.2;margin:0 0 8px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.45)}
     .hero p{margin:0 0 16px;color:#e8f2ee}
     .hero .badges{display:flex;gap:10px;flex-wrap:wrap}
     .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.25);color:#eaf5f0;padding:6px 10px;border-radius:999px;font-size:12px}
@@ -53,7 +55,7 @@
     .section{margin:24px 0}
 
     /* Hero image (overlay) */
-    .heroimg{display:none !important}
+    .heroimg{display:none!important}
     header .card.pad{background:rgba(255,255,255,.94);border-color:rgba(255,255,255,.55);backdrop-filter:saturate(1.15) blur(2px);color:var(--text)}
     header .card.pad .hint{color:var(--muted)}
     header .card.pad label{color:var(--text)}
@@ -71,7 +73,7 @@
     .field-msg{font-size:12px;color:#b23b3b;margin-top:6px;display:none}
     .field-msg.show{display:block}
 
-    /* Tabs styling (improved) */
+    /* Tabs styling */
     .tabs{display:flex;gap:10px;margin-top:8px}
     .tab{appearance:none;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.35);cursor:pointer;font-weight:700;background:rgba(255,255,255,.92);color:var(--text);transition:all .2s ease;box-shadow:0 1px 0 rgba(0,0,0,.04)}
     .tab:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.12)}
@@ -116,6 +118,61 @@
       .grid-3{grid-template-columns:1fr}
       .grid-4{grid-template-columns:1fr}
     }
+    
+    /* ===================== Responsive polish ===================== */
+    :root{
+      --fluid-hero: clamp(26px, 4vw + 10px, 46px);
+      --fluid-brand: clamp(14px, 1.2vw + 12px, 22px);
+      --fluid-body: clamp(14px, 0.3vw + 13px, 16px);
+    }
+    body{font-size:var(--fluid-body)}
+    .brand h1{font-size:var(--fluid-brand);text-transform:uppercase;letter-spacing:.06em}
+    .hero h2{font-size:var(--fluid-hero)}
+
+    /* Safe‑area padding on iOS */
+    .container{padding-left:max(16px, env(safe-area-inset-left));padding-right:max(16px, env(safe-area-inset-right))}
+    header .container{padding-top:calc(24px + env(safe-area-inset-top))}
+
+    /* Flexible tabs & actions */
+    .tabs{flex-wrap:wrap}
+    .tab{flex:1 1 180px;text-align:center}
+    .actions{gap:8px}
+    .actions .btn{flex:1 1 200px}
+
+    /* Day selector becomes scrollable on small screens */
+    .days{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+    .days::-webkit-scrollbar{height:6px}
+    .days::-webkit-scrollbar-thumb{background:#cfd8d4;border-radius:4px}
+
+    /* Avoid layout overflow */
+    img,svg,video{max-width:100%;height:auto}
+    .card.pad{overflow-x:auto}
+
+    /* Tables: horizontal scroll on very small widths */
+    @media (max-width:560px){
+      table{display:block;overflow-x:auto;white-space:nowrap}
+      th,td{padding:8px 10px}
+      .brand .logo{width:36px;height:36px}
+      .hero-right{gap:12px}
+    }
+    @media (min-width:1200px){ .container{padding:28px} }
+    @media (max-width:360px){ .brand h1{font-size:13px} .pill{font-size:11px} }
+
+    /* Reduced motion accessibility */
+    @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
+  
+    /* Hero image fit */
+    #heroImg{display:block;width:100%;height:100%;object-fit:cover}
+    @media (max-width:960px){ .heroimg{display:none} }
+  
+    /* --- Force hero image visible on all screens --- */
+    .heroimg{display:block!important;width:100%;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;max-height:380px;box-shadow:var(--shadow)}
+    #heroImg{display:block;width:100%;height:100%;object-fit:cover}
+    @media (max-width:960px){ .heroimg{display:block!important; max-height:260px; aspect-ratio:16/10} }
+  
+    /* HERO ca background pe toată secțiunea */
+    header{min-height:68vh}
+    .heroimg{display:none!important}
   </style>
 </head>
 <body>
@@ -124,7 +181,7 @@
       <div class="topbar">
         <div class="brand">
           <div class="logo" aria-label="Monogramă cerc auriu"><span>BP</span></div>
-         <h1>BUCĂTARUL PERSONAL</h1>
+          <h1>BUCĂTARUL PERSONAL</h1>
         </div>
         <div class="pill" title="Datele sunt anonimizate și nu sunt partajate către terți.">GDPR Ready</div>
       </div>
@@ -280,7 +337,7 @@
             <li>Listă de cumpărături automată</li>
           </ul>
           <div class="actions">
-            <a class="btn btn-primary" href="pachete_nutritie.html" onclick="return goSubscribe(this)">Activează abonamentul</a>
+            <a class="btn btn-primary" href="/checkout" onclick="return goSubscribe(this)">Activează abonamentul</a>
             <button class="btn btn-ghost" onclick="prefillAccess('SUB-')">Am cod SUB‑</button>
           </div>
         </section>
@@ -319,7 +376,6 @@
           </div>
         </section>
 
-        <!-- TABEL MUTAT AICI: vizualizare plan în tabul Expert -->
         <section class="section card pad">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px">
             <h3 style="margin:0;font-size:20px">Plan săptămânal (vizualizare)</h3>
@@ -448,7 +504,6 @@
 
     // ---------- Tabs (robust + deep-link, SAFE in sandbox) ----------
     function safeHashUpdate(name){
-      // Avoid SecurityError in about:srcdoc or sandboxed iframes
       try{
         const href = (location && location.href) || '';
         if(href && !href.startsWith('about:') && history && typeof history.replaceState==='function'){
@@ -610,8 +665,8 @@
       });
     }
 
-    // ---------- Subscribe redirect ----------
-    const SUBSCRIBE_URL = '/checkout/ai-pro';
+    // ---------- Subscribe redirect (spre /checkout cu query) ----------
+    const SUBSCRIBE_URL = '/checkout';
     function goSubscribe(el){
       const prefix='SUB-';
       const rnd = Math.random().toString(36).slice(2,6).toUpperCase();
@@ -619,8 +674,12 @@
       if($('#accessCode')) $('#accessCode').value = code;
       checkAccess();
       const base = (el && el.getAttribute('href')) || SUBSCRIBE_URL;
-      const dest = base + (base.includes('?')?'&':'?') + 'access=' + encodeURIComponent(code);
-      window.location.href = dest;
+      const u = new URL(base, location.origin || 'https://bucatarulpersonal.vercel.app');
+      u.searchParams.set('plan','ai-pro');
+      u.searchParams.set('cycle','monthly');
+      u.searchParams.set('access',code);
+      const src = new URLSearchParams(location.search).get('src'); if(src) u.searchParams.set('src',src);
+      location.href = u.toString();
       return false;
     }
 
@@ -672,6 +731,12 @@
         console.assert(document.getElementById('tab-expert').classList.contains('active'), 'switchTab activează expert');
         switchTab('ai');
         console.assert(document.getElementById('tab-ai').classList.contains('active'), 'switchTab revine la ai');
+        // Subscribe URL compus corect
+        const a = document.createElement('a'); a.href='/checkout';
+        const before = location.href;
+        const u = new URL('/checkout', location.origin||'https://bucatarulpersonal.vercel.app');
+        u.searchParams.set('plan','ai-pro'); u.searchParams.set('cycle','monthly'); u.searchParams.set('access','SUB-TEST');
+        console.assert(u.toString().includes('plan=ai-pro') && u.toString().includes('cycle=monthly'), 'URL checkout are parametrii');
         results.push('✔︎ Tests OK');
       }catch(e){ results.push('✗ Test failed: '+ e.message); }
       toast(results.join(' | '));
