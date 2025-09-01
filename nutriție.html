@@ -173,6 +173,68 @@
     /* HERO ca background pe toată secțiunea */
     header{min-height:68vh}
     .heroimg{display:none!important}
+    /* ===== PACHETE · stil premium ===== */
+:root{
+  --gold-2:#b7983a;
+}
+.bp-plans{padding:48px 20px;background:#f7faf8;border-top:1px solid #e6ece8}
+.bp-plans.is-hidden{display:none;}
+.bp-plans__wrap{max-width:1180px;margin:0 auto}
+.bp-plans__head{text-align:center;margin-bottom:28px;}
+.bp-plans__mono{
+  font-family:"Playfair Display",serif;font-weight:700;color:var(--green);
+  display:inline-block;border:1px solid rgba(201,162,39,.35);
+  border-radius:999px;padding:6px 12px;margin-bottom:8px;
+}
+.bp-plans__head h2{font-family:"Playfair Display",serif;color:var(--green);font-size:32px;margin:6px 0 8px}
+.bp-plans__tag{color:var(--muted);margin:0 auto;max-width:720px}
+
+.bp-plans__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:20px}
+@media (max-width:1080px){.bp-plans__grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.bp-plans__grid{grid-template-columns:1fr}}
+
+.bp-card{
+  position:relative;background:#fff;border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.08);
+  padding:22px;border:1px solid rgba(14,90,67,.06);
+}
+.bp-card::after{
+  content:"";position:absolute;inset:0;border-radius:18px;
+  padding:1px;background:linear-gradient(135deg, rgba(201,162,39,.75), rgba(201,162,39,.15));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  pointer-events:none;
+}
+.bp-card--accent{background:linear-gradient(0deg,#ffffff 0%, #fffef8 100%)}
+.bp-pill{
+  display:inline-block;font:600 12px/1 Inter,system-ui,sans-serif;letter-spacing:.3px;
+  color:#4a3b00;background:rgba(201,162,39,.12);border:1px solid var(--gold-2);
+  padding:6px 10px;border-radius:999px;margin-bottom:10px;
+}
+.bp-pill--gold{background:rgba(201,162,39,.18)}
+.bp-card__title{font-family:"Playfair Display",serif;color:var(--green);font-size:22px;margin:0 0 6px}
+.bp-card__lead{font:400 14px/1.5 Inter,system-ui,sans-serif;color:var(--muted);margin:0 0 14px}
+
+.bp-list{list-style:none;margin:0 0 14px;padding:0}
+.bp-list li{position:relative;padding-left:26px;margin:8px 0;color:var(--text);font:400 14px/1.6 Inter,sans-serif;}
+.bp-list li::before{
+  content:"";position:absolute;left:0;top:.55em;width:14px;height:2px;background:var(--gold);
+  box-shadow:0 0 0 1px rgba(201,162,39,.35);
+}
+
+.bp-price{display:flex;align-items:baseline;gap:6px;margin:6px 0 14px}
+.bp-price__amt{font:700 22px/1 Inter,sans-serif;color:var(--gold-2)}
+.bp-price__amt small{font-weight:600;font-size:12px;color:#7c6a2a}
+
+.bp-btn{
+  display:inline-block;width:100%;text-align:center;border-radius:12px;
+  padding:12px 16px;border:1px solid var(--green);color:#fff;background:var(--green);
+  font:600 14px/1 Inter,sans-serif;text-decoration:none;transition:.2s ease;
+}
+.bp-btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.bp-btn--gold{background:var(--gold-2);border-color:var(--gold-2);color:#111}
+
+.bp-plans__foot{margin-top:20px;text-align:center;color:var(--muted);font:400 13px/1.6 Inter,sans-serif}
+.bp-foot__meta{display:flex;gap:10px;justify-content:center;align-items:center;margin-top:6px}
   </style>
 </head>
 <body>
@@ -402,6 +464,96 @@
         </section>
       </div>
     </div>
+    <!-- ===== PACHETE AI NUTRIȚIE · Bucătarul Personal x Integraviva ===== -->
+<section id="pachete-ai" class="bp-plans is-hidden" aria-labelledby="pachete-ai-title">
+  <div class="bp-plans__wrap">
+    <header class="bp-plans__head">
+      <div class="bp-plans__mono" aria-hidden="true">•BP•</div>
+      <h2 id="pachete-ai-title">Pachete Nutriție & Chef la tine acasă</h2>
+      <p class="bp-plans__tag">Optimizează meniul generat de AI cu intervenție umană + execuție la tine acasă</p>
+    </header>
+
+    <div class="bp-plans__grid">
+      <!-- Esențial -->
+      <article class="bp-card" data-plan="esential">
+        <div class="bp-card__top">
+          <span class="bp-pill">Popular pentru start</span>
+          <h3 class="bp-card__title">Pachet Esențial</h3>
+          <p class="bp-card__lead">Consultație + plan alimentar + 1 vizită chef</p>
+        </div>
+        <ul class="bp-list">
+          <li>Plan alimentar personalizat</li>
+          <li>1 vizită chef – implementare meniu</li>
+          <li>Recomandări stocare & reîncălzire</li>
+        </ul>
+        <div class="bp-price"><span class="bp-price__amt">650 <small>RON</small></span></div>
+        <a class="bp-btn" id="btn-esential"
+           href="/meniu_personalizat/comanda.html?pachet=esential">Comandă acum</a>
+      </article>
+
+      <!-- Premium -->
+      <article class="bp-card bp-card--accent" data-plan="premium">
+        <div class="bp-card__top">
+          <span class="bp-pill bp-pill--gold">Recomandarea noastră</span>
+          <h3 class="bp-card__title">Pachet Premium</h3>
+          <p class="bp-card__lead">Plan (single/cuplu) + 2 vizite chef + listă cumpărături</p>
+        </div>
+        <ul class="bp-list">
+          <li>Consultație inițială + plan alimentar (sau cuplu)</li>
+          <li>2 vizite chef – meniuri adaptate planului</li>
+          <li>Listă de cumpărături optimizată</li>
+        </ul>
+        <div class="bp-price"><span class="bp-price__amt">1.200 <small>RON</small></span></div>
+        <a class="bp-btn bp-btn--gold" id="btn-premium"
+           href="/meniu_personalizat/comanda.html?pachet=premium">Solicită ofertă</a>
+      </article>
+
+      <!-- Corporate -->
+      <article class="bp-card" data-plan="corporate">
+        <div class="bp-card__top">
+          <span class="bp-pill">B2B Wellness</span>
+          <h3 class="bp-card__title">Pachet Smart Corporate</h3>
+          <p class="bp-card__lead">Atelier nutriție & cooking show + degustare + broșură</p>
+        </div>
+        <ul class="bp-list">
+          <li>Atelier nutriție & cooking show (10–20 persoane)</li>
+          <li>Tasting menu + explicații nutriționale</li>
+          <li>Broșură PDF pentru participanți</li>
+        </ul>
+        <div class="bp-price"><span class="bp-price__amt">de la 5.000 <small>RON</small></span></div>
+        <a class="bp-btn" id="btn-corporate"
+           href="/corporate/wellness.html?oferta=smart-corporate">Contactează-ne</a>
+      </article>
+
+      <!-- Tabără -->
+      <article class="bp-card" data-plan="tabara">
+        <div class="bp-card__top">
+          <span class="bp-pill">Experiență</span>
+          <h3 class="bp-card__title">Pachet Duo – Tabără culinară</h3>
+          <p class="bp-card__lead">2–3 zile • chef + nutriționist • plan individual</p>
+        </div>
+        <ul class="bp-list">
+          <li>Workshop-uri practice & sesiuni nutriție</li>
+          <li>Meniu gourmet & tehnici de gătit acasă</li>
+          <li>Plan alimentar personalizat</li>
+        </ul>
+        <div class="bp-price"><span class="bp-price__amt">800–1.200 <small>RON/pers.</small></span></div>
+        <a class="bp-btn" id="btn-tabara"
+           href="/evenimente/tabara-culinara.html?program=duo">Rezervă locul</a>
+      </article>
+    </div>
+
+    <footer class="bp-plans__foot">
+      <div class="bp-foot__note">
+        * Prețurile pot varia în funcție de nr. persoane, preferințe și deplasare. Confirmarea vine pe e-mail/WhatsApp.
+      </div>
+      <div class="bp-foot__meta">
+        <span>bucatarulpersonal.ro</span><span>•</span><span>chefpersonale.com</span>
+      </div>
+    </footer>
+  </div>
+</section>
+<!-- ===== /PACHETE ===== -->
 
     <footer>
       © <span id="year"></span> Bucătarul Personal · AI Nutriție. Toate drepturile rezervate. — <em>Acest conținut are rol informativ și nu substituie consultul medical.</em>
