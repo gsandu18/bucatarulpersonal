@@ -88,6 +88,36 @@ header.hero-pro::before{
     <!-- brand + titlu + butoane -->
   </div>
 </header>
+    :root{
+  --hero-img: url('https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=2400&auto=format&fit=crop');
+  --hero-tint: rgba(255,255,255,.65); /* overlay alb → fundal deschis */
+}
+
+header.hero-pro{
+  position: relative;
+  min-height: 60vh;
+  display: grid;
+  align-items: center;
+  background-image:
+    linear-gradient(0deg, var(--hero-tint), var(--hero-tint)),
+    var(--hero-img);
+  background-size: cover;
+  background-position: center 35%;
+  color: #172422;
+}
+
+header.hero-pro h1{
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.15;
+  margin: 0 0 12px;
+  text-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+header.hero-pro p.lead{
+  color: #5b6a66;
+  text-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
 
 /* responsive */
 @media (max-width: 960px){
