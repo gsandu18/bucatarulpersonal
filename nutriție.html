@@ -4,106 +4,130 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bucătarul Personal · AI Nutriție – Mese zilnice acasă</title>
-  <meta name="description" content="Generează un meniu săptămânal personalizat cu AI pentru mese zilnice acasă. Alege preferințe, calorii și ținta de proteine. Export PDF și trimitere pe email pentru abonamentul PRO." />
+  <meta name="description" content="Generează un meniu săptămânal personalizat cu AI pentru mese zilnice acasă. Alege preferințe, calorii și ținta de proteine. Export PDF și trimitere pe email pentru abonamentul PRO. Instrument informativ, nu sfat medical." />
   <meta name="theme-color" content="#0e5a43" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --green:#0e5a43; --green-2:#0a4a35; --deep:#081a14; --gold:#c9a227;
-      --text:#172422; --muted:#5b6a66; --bg:#f6faf7; --white:#fff; --line:#e7ece8; --r:18px; --shadow:0 12px 36px rgba(0,0,0,.07);
-      --max:1180px; --hero-img: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1920&auto=format&fit=crop');
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-    a{color:var(--green)}
-    .container{max-width:var(--max);margin:0 auto;padding:24px}
-    header{position:relative;color:var(--white);background:
-      linear-gradient(120deg, rgba(8,26,20,.82), rgba(10,74,53,.82)),
-      var(--hero-img);
-    background-size:cover;background-position:center center;min-height:68vh}
-    header::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(8,26,20,.78), rgba(8,26,20,.78));}
-    header .container{position:relative;z-index:1;padding:28px 24px 36px}
-    .topbar{display:flex;align-items:center;gap:16px;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:12px}
-    /* MONOGRAM – un singur cerc auriu, text uppercase */
-    .brand .logo{width:36px;height:36px;border-radius:50%;background:transparent;border:2px solid var(--gold);display:grid;place-items:center}
-    .brand .logo span{font-weight:800;color:var(--gold);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
-    .brand h1{font-family:"Playfair Display",serif;font-weight:700;font-size:22px;letter-spacing:.06em;margin:0;text-transform:uppercase;color:#fff}
-    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;margin-top:18px}
-    .hero h2{font-family:"Playfair Display",serif;font-size:36px;line-height:1.2;margin:0 0 8px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.45)}
-    .hero p{margin:0 0 16px;color:#e8f2ee}
-    .hero .badges{display:flex;gap:10px;flex-wrap:wrap}
-    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.25);color:#eaf5f0;padding:6px 10px;border-radius:999px;font-size:12px}
-    .card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
-    .card.pad{padding:20px}
-    .grid{display:grid;gap:14px}
-    .grid-2{grid-template-columns:1fr 1fr}
-    .grid-3{grid-template-columns:repeat(3,1fr)}
-    .grid-4{grid-template-columns:repeat(4,1fr)}
-    label{font-weight:600;font-size:14px}
-    input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--text);font-size:14px}
-    textarea{min-height:86px;resize:vertical}
-    .hint{font-size:12px;color:var(--muted)}
-    .btn{appearance:none;border:none;cursor:pointer;border-radius:14px;padding:12px 16px;font-weight:700}
-    .btn-primary{background:var(--green);color:#fff}
-    .btn-primary:hover{background:var(--green-2)}
-    .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--green)}
-    .btn[disabled]{opacity:.55;cursor:not-allowed}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}
-    .section{margin:24px 0}
+    /* ===== HERO PRO (luminos, echilibrat) ===== */
+:root{
+  --brand:#0e5a43;
+  --ink:#172422;
+  --muted:#5b6a66;
+  --hero-img: url('https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=2400&auto=format&fit=crop');
+  --hero-tint: rgba(255,255,255,.60);  /* overlay mai subtil (0.55–0.65) */
+}
 
-    /* Hero image (overlay) */
-    .heroimg{display:none!important}
-    header .card.pad{background:rgba(255,255,255,.94);border-color:rgba(255,255,255,.55);backdrop-filter:saturate(1.15) blur(2px);color:var(--text)}
-    header .card.pad .hint{color:var(--muted)}
-    header .card.pad label{color:var(--text)}
-    header .card.pad input::placeholder{color:#8fa7a0}
-    .hero-right{display:grid;gap:14px;align-content:start}
+header.hero-pro{
+  position: relative;
+  color: var(--ink);
+  background-image:
+    linear-gradient(0deg, var(--hero-tint), var(--hero-tint)),
+    var(--hero-img);
+  background-size: cover;
+  background-position: center top;     /* păstrează subiectul vizibil */
+  background-repeat: no-repeat;
+  border-bottom: 1px solid #e8efe9;
+  min-height: clamp(52vh, 60vh, 72vh);
+  display: grid; align-items: center;
+}
 
-    /* Access bar */
+/* ușor gradient jos pentru lizibilitate */
+header.hero-pro::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 55%, rgba(255,255,255,.28) 100%);
+}
+
+.hero-pro .wrap{
+  max-width: 1180px; margin: 0 auto;
+  padding: calc(24px + env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+           28px max(16px, env(safe-area-inset-left));
+}
+
+.hero-pro h1{
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.15;
+  margin: 14px 0 8px;
+  text-shadow: 0 1px 3px rgba(0,0,0,.08);   /* lizibil, dar discret */
+}
+.hero-pro p.lead{
+  color: var(--muted);
+  font-size: clamp(14px, 1.2vw, 18px);
+  margin: 0 0 16px;
+  text-shadow: 0 1px 2px rgba(0,0,0,.06);
+}
+
+/* butoane curate, principal mai „solid” */
+.btn{
+  appearance:none; border:none; cursor:pointer; border-radius:14px;
+  padding:12px 16px; font-weight:800; font-size:14px;
+}
+.btn-primary{
+  background:#0e5a43; color:#fff;
+  font-size:15px; padding:14px 20px;    /* mai consistent */
+  box-shadow: 0 6px 18px rgba(14,90,67,.18);
+}
+.btn-primary:hover{ filter:brightness(1.05) }
+.btn-ghost{ background:#fff; border:1px solid #cfd8d4; color:var(--brand) }
+
+.badges{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+.pill{border:1px solid #dfe7e3; background:#ffffffd9; color:#2b3a36; border-radius:999px; padding:6px 10px; font-weight:700; font-size:12px}
+
+/* logo & topbar (opțional) */
+.brand-mini{display:flex; align-items:center; gap:10px}
+.brand-mini .logo{
+  width:38px; height:38px; border-radius:50%;
+  border:1.5px solid #cfd8d4; display:grid; place-items:center; font-weight:800; font-size:12px;
+}
+.brand-mini .name{font-weight:800; letter-spacing:.04em}
+
+/* responsive */
+@media (max-width: 960px){
+  header.hero-pro{ min-height: 56vh; background-position: center top; }
+}
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important; animation:none!important}
+}
+
+    .heroimg{display:block!important;width:100%;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;max-height:380px;box-shadow:var(--shadow)}
+    #heroImg{display:block;width:100%;height:100%;object-fit:cover}
+
     .access{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
     .status{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px}
     .ok{background:#e9f8f1;color:#185a3f;border:1px solid #b9ead2}
     .warn{background:#fff7e8;color:#7a5305;border:1px solid #ffe0a3}
 
-    /* Validation */
     .input-error{border-color:#e24545 !important; box-shadow:0 0 0 3px rgba(226,69,69,.08)}
     .field-msg{font-size:12px;color:#b23b3b;margin-top:6px;display:none}
     .field-msg.show{display:block}
 
-    /* Tabs styling */
-    .tabs{display:flex;gap:10px;margin-top:8px}
+    .tabs{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
     .tab{appearance:none;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.35);cursor:pointer;font-weight:700;background:rgba(255,255,255,.92);color:var(--text);transition:all .2s ease;box-shadow:0 1px 0 rgba(0,0,0,.04)}
     .tab:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.12)}
     .tabs .tab.active{background:var(--green);color:#fff;border-color:var(--green);box-shadow:0 10px 24px rgba(14,90,67,.28)}
     .tab:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(14,90,67,.35)}
 
-    /* Table */
     table{width:100%;border-collapse:collapse}
     th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;font-size:14px;vertical-align:top}
     th{background:#f7fbf8;font-weight:800}
     tfoot td{font-weight:800}
 
-    /* Day selector */
     .days{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
     .day{padding:8px 10px;border-radius:10px;border:1px solid var(--line);cursor:pointer;background:#fff}
     .day.active{background:var(--green);color:#fff;border-color:var(--green)}
 
-    /* Shopping list */
     .chips{display:flex;gap:8px;flex-wrap:wrap}
     .chip{border:1px solid var(--line);padding:8px 10px;border-radius:999px;background:#fff}
 
-    /* Toast */
     .toast{position:fixed;inset:auto 16px 16px auto;background:#0e5a43;color:#fff;padding:12px 14px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:all .25s ease;z-index:50}
     .toast.show{opacity:1;transform:translateY(0)}
     .toast.error{background:#b23b3b}
 
-    /* Footer */
     footer{margin:40px 0 24px;color:var(--muted);font-size:13px}
 
-    /* Print styles */
     @media print{
       header,.access,.tabs,.actions,.faq,footer,.toast{display:none!important}
       body{background:#fff}
@@ -111,15 +135,13 @@
       .container{padding:0}
     }
 
-    /* Responsive */
     @media (max-width:960px){
       .hero{grid-template-columns:1fr}
       .grid-2{grid-template-columns:1fr}
       .grid-3{grid-template-columns:1fr}
       .grid-4{grid-template-columns:1fr}
+      .heroimg{max-height:260px; aspect-ratio:16/10}
     }
-    
-    /* ===================== Responsive polish ===================== */
     :root{
       --fluid-hero: clamp(26px, 4vw + 10px, 46px);
       --fluid-brand: clamp(14px, 1.2vw + 12px, 22px);
@@ -128,51 +150,39 @@
     body{font-size:var(--fluid-body)}
     .brand h1{font-size:var(--fluid-brand);text-transform:uppercase;letter-spacing:.06em}
     .hero h2{font-size:var(--fluid-hero)}
-
-    /* Safe‑area padding on iOS */
     .container{padding-left:max(16px, env(safe-area-inset-left));padding-right:max(16px, env(safe-area-inset-right))}
     header .container{padding-top:calc(24px + env(safe-area-inset-top))}
 
-    /* Flexible tabs & actions */
-    .tabs{flex-wrap:wrap}
-    .tab{flex:1 1 180px;text-align:center}
-    .actions{gap:8px}
-    .actions .btn{flex:1 1 200px}
+    /* CLEAN PACKAGES */
+    .bp-clean{padding:48px 0 16px;background:var(--gray-1);border-top:1px solid var(--gray-3);border-bottom:1px solid var(--gray-3);}
+    .bp-clean .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+    .bp-clean h2{font-family:"Playfair Display",serif;color:var(--ink);font-size:30px;margin:0 0 6px;text-align:center}
+    .bp-clean p.lead{color:var(--ink-3);text-align:center;margin:0 0 22px}
+    .bp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    @media (max-width:1100px){.bp-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:600px){.bp-grid{grid-template-columns:1fr}}
+    .plan{background:#fff;border:1px solid var(--gray-3);border-radius:14px;padding:18px;transition:.18s ease;}
+    .plan:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.06)}
+    .plan .tag{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--gray-3);border-radius:999px;font-weight:700;font-size:12px;color:var(--ink-3);background:var(--gray-1);}
+    .plan h3{font-family:"Playfair Display",serif;margin:10px 0 6px;color:var(--ink);font-size:20px}
+    .plan .desc{color:var(--ink-3);margin:0 0 12px;font-size:14px}
+    .plan ul{list-style:none;margin:0 0 12px;padding:0}
+    .plan li{display:flex;align-items:flex-start;gap:10px;margin:8px 0;color:var(--ink-2);font-size:14px}
+    .plan svg{flex:0 0 auto;width:16px;height:16px;stroke:var(--green);stroke-width:2;fill:none;margin-top:2px}
+    .price{font-weight:800;color:var(--ink);margin:8px 0 14px}
+    .price small{font-weight:600;color:var(--ink-3)}
+    .btn-clean{display:block;width:100%;text-align:center;border-radius:12px;padding:12px 14px;border:1px solid var(--ink-3);background:#fff;color:var(--ink);font-weight:800;transition:.15s}
+    .btn-clean:hover{background:var(--green);border-color:var(--green);color:#fff}
+    .btn-clean.primary{background:var(--green);border-color:var(--green);color:#fff}
+    .btn-clean.primary:hover{filter:brightness(1.03)}
+    .bp-foot{margin-top:10px;text-align:center;color:var(--ink-3);font-size:13px}
 
-    /* Day selector becomes scrollable on small screens */
-    .days{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
-    .days::-webkit-scrollbar{height:6px}
-    .days::-webkit-scrollbar-thumb{background:#cfd8d4;border-radius:4px}
-
-    /* Avoid layout overflow */
-    img,svg,video{max-width:100%;height:auto}
-    .card.pad{overflow-x:auto}
-
-    /* Tables: horizontal scroll on very small widths */
-    @media (max-width:560px){
-      table{display:block;overflow-x:auto;white-space:nowrap}
-      th,td{padding:8px 10px}
-      .brand .logo{width:36px;height:36px}
-      .hero-right{gap:12px}
-    }
-    @media (min-width:1200px){ .container{padding:28px} }
-    @media (max-width:360px){ .brand h1{font-size:13px} .pill{font-size:11px} }
-
-    /* Reduced motion accessibility */
-    @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
-  
-    /* Hero image fit */
-    #heroImg{display:block;width:100%;height:100%;object-fit:cover}
-    @media (max-width:960px){ .heroimg{display:none} }
-  
-    /* --- Force hero image visible on all screens --- */
-    .heroimg{display:block!important;width:100%;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;max-height:380px;box-shadow:var(--shadow)}
-    #heroImg{display:block;width:100%;height:100%;object-fit:cover}
-    @media (max-width:960px){ .heroimg{display:block!important; max-height:260px; aspect-ratio:16/10} }
-  
-    /* HERO ca background pe toată secțiunea */
-    header{min-height:68vh}
-    .heroimg{display:none!important}
+    /* Health gate styles */
+    .health-gate{display:grid;gap:10px;margin:12px 0 0}
+    .health-gate .warnbox{border:1px solid #ffe0a3;background:#fff9ec;color:#6b4b05;border-radius:12px;padding:12px;font-size:14px}
+    .health-gate .checks{display:grid;gap:8px}
+    .health-gate label{font-weight:600;font-size:14px}
+    .health-gate .muted{color:#5b6a66;font-size:12px}
   </style>
 </head>
 <body>
@@ -180,7 +190,7 @@
     <div class="container">
       <div class="topbar">
         <div class="brand">
-          <div class="logo" aria-label="Monogramă cerc auriu"><span>BP</span></div>
+          <div class="logo" aria-label="Monogramă cerc"><span>BP</span></div>
           <h1>BUCĂTARUL PERSONAL</h1>
         </div>
         <div class="pill" title="Datele sunt anonimizate și nu sunt partajate către terți.">GDPR Ready</div>
@@ -253,7 +263,7 @@
                 <option>Normal</option>
                 <option>Vegetarian</option>
                 <option>Vegan</option>
-                <option>Low‑carb</option>
+                <option>Low-carb</option>
                 <option>Keto</option>
                 <option>Fără gluten</option>
               </select>
@@ -304,10 +314,38 @@
               <input id="evita" placeholder="Ex: măsline, coriandru, pește crud" />
             </div>
           </div>
+
+          <!-- ==== GATE MEDICAL ==== -->
+          <div class="health-gate" role="group" aria-labelledby="gateTitle">
+            <div id="gateTitle" class="warnbox">
+              Acest instrument generează <strong>idei de meniuri</strong> în scop informativ. Nu este sfat medical și nu înlocuiește consultul unui medic/dietetician.
+            </div>
+            <div class="checks">
+              <label for="condMed">Ai una dintre situațiile de mai jos?</label>
+              <select id="condMed" aria-describedby="condMedHelp">
+                <option value="">— Selectează —</option>
+                <option>Nu, nicio condiție dintre cele listate</option>
+                <option>Diabet (1/2) sau rezistență severă la insulină</option>
+                <option>Boală renală/hepatică</option>
+                <option>Boli cardiovasculare recente</option>
+                <option>Istoric de tulburări alimentare</option>
+                <option>Sarcină sau alăptare</option>
+                <option>Alergii severe (risc anafilaxie)</option>
+                <option>Altă condiție cronică în tratament</option>
+              </select>
+              <div id="condMedHelp" class="muted">Dacă selectezi orice condiție (în afară de „Nu…”), îți vom recomanda consult uman.</div>
+              <label style="display:flex;gap:10px;align-items:flex-start">
+                <input type="checkbox" id="consentInfo" style="margin-top:4px">
+                <span>Confirm că înțeleg caracterul <strong>informativ</strong> al rezultatului și că voi consulta un specialist pentru recomandări medicale personalizate.</span>
+              </label>
+            </div>
+          </div>
+          <!-- ==== /GATE MEDICAL ==== -->
+
           <div class="actions" style="margin-top:12px">
             <button class="btn btn-primary" id="btnGen">Generează meniul</button>
             <button class="btn btn-ghost" id="btnPdf" disabled>Descarcă PDF</button>
-            <button class="btn btn-ghost" id="btnMail" disabled>Trimite pe e‑mail</button>
+            <button class="btn btn-ghost" id="btnMail" disabled>Trimite pe e-mail</button>
           </div>
         </section>
 
@@ -330,15 +368,15 @@
 
         <section class="section card pad" id="abonament">
           <h3 style="margin:0 0 8px;font-size:20px">Abonament AI Nutriție PRO</h3>
-          <p class="hint" style="margin-top:0">Pentru cei care <strong>nu sunt clienți</strong> ai serviciilor la domiciliu și vor să genereze meniuri personalizate.</p>
+          <p class="hint" style="margin-top:0">Pentru cei care <strong>nu sunt clienți</strong> ai serviciilor la domiciliu și vor să genereze meniuri personalizate. AI PRO oferă generări nelimitate & export, <strong>nu</strong> recomandări medicale.</p>
           <ul style="margin:0 0 12px 18px">
             <li>Generări nelimitate de meniuri</li>
-            <li>Export PDF & trimitere e‑mail</li>
+            <li>Export PDF & trimitere e-mail</li>
             <li>Listă de cumpărături automată</li>
           </ul>
           <div class="actions">
             <a class="btn btn-primary" href="/checkout" onclick="return goSubscribe(this)">Activează abonamentul</a>
-            <button class="btn btn-ghost" onclick="prefillAccess('SUB-')">Am cod SUB‑</button>
+            <button class="btn btn-ghost" onclick="prefillAccess('SUB-')">Am cod SUB-</button>
           </div>
         </section>
       </div>
@@ -370,7 +408,7 @@
               <textarea id="exDetalii" placeholder="Ex: scădere în greutate, meniu pentru diabet, intoleranță lactoză..." ></textarea>
             </div>
           </div>
-          <div class="actions" style="margin-top:12px">
+          <div class="actions" style="margin-top:12px)">
             <button class="btn btn-primary" onclick="toast('Cererea a fost trimisă. Revenim în scurt timp.')">Programează consultanță</button>
             <button class="btn btn-ghost" onclick="document.querySelector('[data-tab=ai]').click()">Revino la AI</button>
           </div>
@@ -382,7 +420,7 @@
             <div class="days" id="daysExpert"></div>
           </div>
           <div id="menuWrapExpert">
-            <div class="hint">Generează un meniu din tab‑ul <strong>AI rapid</strong> sau solicită consultanță, iar nutriționistul nostru îl va configura pentru tine.</div>
+            <div class="hint">Generează un meniu din tab-ul <strong>AI rapid</strong> sau solicită consultanță, iar nutriționistul nostru îl va configura pentru tine.</div>
           </div>
           <div class="actions" style="margin-top:12px">
             <button class="btn btn-primary" onclick="document.querySelector('[data-tab=ai]').click(); window.scrollTo({top: document.querySelector('#tab-ai').offsetTop-60, behavior:'smooth'})">Generează cu AI</button>
@@ -393,25 +431,87 @@
           <h3 style="margin:0 0 8px;font-size:20px">Întrebări frecvente</h3>
           <details>
             <summary><strong>Este acesta un sfat medical?</strong></summary>
-            <p>Nu. Conținutul are scop informativ și nu înlocuiește recomandările unui medic sau dietetician. Pentru afecțiuni sau nevoi speciale, alege tab‑ul „Consultă un nutriționist”.</p>
+            <p>Nu. Conținutul are scop informativ și nu înlocuiește recomandările unui medic sau dietetician. Pentru afecțiuni sau nevoi speciale, alege tab-ul „Consultă un nutriționist”.</p>
           </details>
           <details>
             <summary><strong>Ce tipuri de acces există?</strong></summary>
-            <p><strong>Abonament SUB‑</strong>: pentru cei care nu sunt clienți și doresc generări nelimitate + PDF + e‑mail. <br> <strong>Cod client</strong> (BP8/BP12/BP20): rămâne valabil pentru clienții existenți. Ambele deblochează funcțiile PRO.</p>
+            <p><strong>Abonament SUB-</strong>: pentru cei care nu sunt clienți și doresc generări nelimitate + PDF + e-mail. <br> <strong>Cod client</strong> (BP8/BP12/BP20): rămâne valabil pentru clienții existenți. Ambele deblochează funcțiile PRO.</p>
           </details>
         </section>
       </div>
     </div>
 
+    <!-- CLEAN PACKAGES SECTION -->
+    <section class="bp-clean is-hidden" id="pachete-ai" aria-labelledby="pachete-ai-title">
+      <div class="wrap">
+        <h2 id="pachete-ai-title">Pachete Nutriție & Chef la tine acasă</h2>
+        <p class="lead">Upgrade simplu: după meniul AI, poți alege execuție la domiciliu sau consultanță dedicată.</p>
+        <div class="bp-grid">
+          <article class="plan" data-plan="esential">
+            <span class="tag">Start</span>
+            <h3>Pachet Esențial</h3>
+            <p class="desc">Consultație + plan alimentar + 1 vizită chef</p>
+            <ul>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Plan alimentar personalizat</li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>1 vizită chef – implementare meniu</li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Recomandări stocare & reîncălzire</li>
+            </ul>
+            <div class="price">650 <small>RON</small></div>
+            <a class="btn-clean" id="btn-esential" href="/meniu_personalizat/comanda.html?pachet=esential">Comandă acum</a>
+          </article>
+
+          <article class="plan" data-plan="premium">
+            <span class="tag">Recomandat</span>
+            <h3>Pachet Premium</h3>
+            <p class="desc">Plan (single/cuplu) + 2 vizite chef + listă cumpărături</p>
+            <ul>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Consultație inițială + plan (sau cuplu)</li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>2 vizite chef – meniuri adaptate</li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Listă de cumpărături optimizată</li>
+            </ul>
+            <div class="price">1.200 <small>RON</small></div>
+            <a class="btn-clean primary" id="btn-premium" href="/meniu_personalizat/comanda.html?pachet=premium">Solicită ofertă</a>
+          </article>
+
+          <article class="plan" data-plan="corporate">
+            <span class="tag">B2B</span>
+            <h3>Pachet Smart Corporate</h3>
+            <p class="desc">Atelier nutriție & cooking show + degustare + broșură</p>
+            <ul>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Atelier & cooking show (10–20 pers.)</li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Tasting menu + explicații</li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Broșură PDF pentru participanți</li>
+            </ul>
+            <div class="price">de la 5.000 <small>RON</small></div>
+            <a class="btn-clean" id="btn-corporate" href="/corporate/wellness.html?oferta=smart-corporate">Contactează-ne</a>
+          </article>
+
+          <article class="plan" data-plan="tabara">
+            <span class="tag">Experiență</span>
+            <h3>Pachet Duo – Tabără culinară</h3>
+            <p class="desc">2–3 zile • chef + nutriționist • plan individual</p>
+            <ul>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Workshop & sesiuni nutriție</li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Meniu gourmet & tehnici acasă</li>
+              <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Plan alimentar personalizat</li>
+            </ul>
+            <div class="price">800–1.200 <small>RON/pers.</small></div>
+            <a class="btn-clean" id="btn-tabara" href="/evenimente/tabara-culinara.html?program=duo">Rezervă locul</a>
+          </article>
+        </div>
+        <div class="bp-foot">* Prețurile pot varia în funcție de nr. persoane, preferințe și deplasare. Confirmarea vine pe e-mail/WhatsApp.</div>
+      </div>
+    </section>
+
     <footer>
-      © <span id="year"></span> Bucătarul Personal · AI Nutriție. Toate drepturile rezervate. — <em>Acest conținut are rol informativ și nu substituie consultul medical.</em>
+      © <span id="year"></span> Bucătarul Personal · AI Nutriție. Toate drepturile rezervate. —
+      <em>Instrument informativ de planificare a meselor. Nu oferă diagnostic sau tratament. Pentru afecțiuni medicale, folosește secțiunea „Consultă un nutriționist”.</em>
     </footer>
   </main>
 
   <div class="toast" id="toast"></div>
 
   <script>
-    // ---------- Utilities ----------
     const $ = (s, root=document) => root.querySelector(s);
     const $$ = (s, root=document) => [...root.querySelectorAll(s)];
     const fmt = n => (Math.round(n*10)/10).toLocaleString('ro-RO');
@@ -424,7 +524,6 @@
       setTimeout(()=>t.classList.remove('show'), 2600);
     }
 
-    // ---------- Validation helpers ----------
     const RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     const RE_TEL = /^(\+?\d{7,15}|0\d{9,10})$/;
     function setFieldError(el,msg){
@@ -438,14 +537,12 @@
     function validateEmailField(){ const el=$('#email'); if(!el) return true; clearFieldError(el); const v=(el.value||'').trim(); if(v && !RE_EMAIL.test(v)) return setFieldError(el,'Email invalid'); return true; }
     function validatePhoneField(){ const el=$('#telefon'); if(!el) return true; clearFieldError(el); const v=(el.value||'').trim(); if(v && !RE_TEL.test(v)) return setFieldError(el,'Telefon invalid'); return true; }
 
-    // live validation
     ['blur','input'].forEach(evt=>{
       const e = $('#email'); const t = $('#telefon');
       if(e) e.addEventListener(evt, validateEmailField);
       if(t) t.addEventListener(evt, validatePhoneField);
     });
 
-    // ---------- Access / PRO & Demo limiter ----------
     let HAS_PRO = false;
     function updateDemoCounterUI(data){
       const el = $('#demoCounter');
@@ -465,7 +562,7 @@
       const today = new Date().toISOString().slice(0,10);
       let d = getDemoData();
       if(d.date!==today) d={date:today,count:0};
-      if(d.count>=3){ toast('Limită atinsă: 3 meniuri/zi fără abonament. Activează SUB‑ pentru nelimitat.', 'error'); return false; }
+      if(d.count>=3){ toast('Limită atinsă: 3 meniuri/zi fără abonament. Activează SUB- pentru nelimitat.', 'error'); return false; }
       d.count++; setDemoData(d); updateDemoCounterUI(d); return true;
     }
 
@@ -489,7 +586,6 @@
       checkAccess();
       window.scrollTo({top:0,behavior:'smooth'});
     }
-    // Preload from URL or storage
     (function(){
       const url = new URL(location.href);
       const q = url.searchParams.get('access') || localStorage.getItem('bp_access') || '';
@@ -502,14 +598,13 @@
       const y = $('#year'); if(y) y.textContent = new Date().getFullYear();
     })();
 
-    // ---------- Tabs (robust + deep-link, SAFE in sandbox) ----------
     function safeHashUpdate(name){
       try{
         const href = (location && location.href) || '';
         if(href && !href.startsWith('about:') && history && typeof history.replaceState==='function'){
           history.replaceState(null,'', (location.pathname||'') + (location.search||'') + '#' + name);
         }
-      }catch(e){ /* noop in sandbox */ }
+      }catch(e){}
     }
     function switchTab(name){
       const targetId = 'tab-' + name;
@@ -527,7 +622,6 @@
       if(qtab && ['ai','expert'].includes(qtab)) switchTab(qtab); else switchTab('ai');
     })();
 
-    // ---------- Recipe library (simplificat) ----------
     const LIB = {
       breakfast:[
         {n:'Omletă cu spanac și feta', kcal:420, p:30, c:6, f:28, ing:{oua:3, spanac:80, branza_feta:40, ulei:8}},
@@ -552,9 +646,8 @@
     };
 
     const DAYS = ['Luni','Marți','Miercuri','Joi','Vineri','Sâmbătă','Duminică'];
-    let PLAN = null; // va conține meniul generat
+    let PLAN = null;
 
-    // ---------- Generation ----------
     function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
     function scaleMeal(meal, targetKcal){
       const s = Math.max(0.6, Math.min(1.7, targetKcal / meal.kcal));
@@ -569,19 +662,40 @@
     }
 
     function generate(){
-      if(!canGenerateDemo()) return;
-      const kcalDay = parseInt($('#kcal').value,10);
-      const protDay = parseInt($('#proteine').value || 0,10) || Math.round(kcalDay*0.25/4); // ~25% din kcal în proteine
-      const mealsCount = parseInt($('#mese').value,10);
+      // === Health gate ===
+      const cond = (document.getElementById('condMed')?.value || '').trim();
+      const consent = document.getElementById('consentInfo')?.checked;
+      const hasRedFlag = cond && cond !== 'Nu, nicio condiție dintre cele listate';
+      if (!consent) {
+        toast('Bifează consimțământul informativ pentru a continua.', 'error');
+        document.getElementById('consentInfo')?.focus();
+        return;
+      }
+      if (hasRedFlag) {
+        toast('Pentru siguranța ta, te rugăm să consulți un specialist.', 'error');
+        switchTab('expert');
+        document.getElementById('exNume') && (document.getElementById('exNume').value = (document.getElementById('nume')?.value||''));
+        document.getElementById('exEmail') && (document.getElementById('exEmail').value = (document.getElementById('email')?.value||''));
+        document.getElementById('exTel') && (document.getElementById('exTel').value = (document.getElementById('telefon')?.value||''));
+        document.getElementById('exOras') && (document.getElementById('exOras').value = (document.getElementById('oras')?.value||''));
+        document.getElementById('exDetalii') && (document.getElementById('exDetalii').value = `Condiție: ${cond}. Alergii: ${(document.getElementById('alergii')?.value||'')}. Obiectiv: meniu personalizat.`);
+        const pane = document.getElementById('tab-expert');
+        if (pane) window.scrollTo({ top: pane.offsetTop - 60, behavior: 'smooth' });
+        return;
+      }
+      // === /Health gate ===
 
-      // simple allergy/avoid filters (by keywords)
-      const avoid = ($('#alergii').value + ',' + $('#evita').value).toLowerCase();
+      if(!canGenerateDemo()) return;
+      const kcalDay = parseInt(document.getElementById('kcal').value,10);
+      const protDay = parseInt(document.getElementById('proteine').value || 0,10) || Math.round(kcalDay*0.25/4);
+      const mealsCount = parseInt(document.getElementById('mese').value,10);
+
+      const avoid = ((document.getElementById('alergii').value || '') + ',' + (document.getElementById('evita').value || '')).toLowerCase();
       const filterMeal = (m) => {
         const words = Object.keys(m.ing).join(' ')+ ' ' + m.n;
         return !avoid || !avoid.split(',').some(w=>w.trim() && words.toLowerCase().includes(w.trim()))
       };
 
-      // Build a 7-day plan
       PLAN = DAYS.map((d)=>{
         const dayMeals = [];
         const pick = (bucket) => {
@@ -599,7 +713,6 @@
           dayMeals.push(scaleMeal(pick('dinner'),    kcalDay*0.30));
           dayMeals.push(scaleMeal(pick('snack'),     kcalDay*0.10));
         } else {
-          // 5 mese: mic dejun + pranz + cina + 2 gustari
           dayMeals.push(scaleMeal(pick('breakfast'), kcalDay*0.22));
           dayMeals.push(scaleMeal(pick('lunch'),     kcalDay*0.33));
           dayMeals.push(scaleMeal(pick('dinner'),    kcalDay*0.27));
@@ -615,9 +728,19 @@
       renderDay(0); renderDay(0,'Expert');
       renderShoppingList();
       toast('Meniul a fost generat.');
+
+      showAiPackages({
+        nume: (document.getElementById('nume')?.value || '').trim(),
+        email: (document.getElementById('email')?.value || '').trim(),
+        telefon: (document.getElementById('telefon')?.value || '').trim(),
+        oras: (document.getElementById('oras')?.value || '').trim(),
+        kcal: document.getElementById('kcal')?.value,
+        proteine: document.getElementById('proteine')?.value,
+        alergii: (document.getElementById('alergii')?.value || '').trim(),
+        preferinte: (document.getElementById('evita')?.value || '').trim()
+      });
     }
 
-    // ---------- Render (generalizat pentru AI & Expert) ----------
     function renderAllDays(){ renderDays(''); renderDays('Expert'); }
     function renderDays(suffix=''){
       const wrap = document.getElementById('days'+suffix);
@@ -625,7 +748,7 @@
       wrap.innerHTML = '';
       PLAN.forEach((d,i)=>{
         const b = document.createElement('button');
-        b.className = 'day' + (i===0?' active':'');
+        b.className = 'day' + (i===0?' active':''); b.type='button';
         b.textContent = d.day;
         b.addEventListener('click',()=>{ $$('.day',wrap).forEach(x=>x.classList.remove('active')); b.classList.add('active'); renderDay(i,suffix); });
         wrap.appendChild(b);
@@ -636,7 +759,7 @@
       const D = PLAN && PLAN[idx];
       const host = document.getElementById('menuWrap'+suffix);
       if(!host){ return; }
-      if(!D){ host.innerHTML = '<div class="hint">Nu există încă un plan. Generează unul din tab‑ul <strong>AI rapid</strong>.</div>'; return; }
+      if(!D){ host.innerHTML = '<div class="hint">Nu există încă un plan. Generează unul din tab-ul <strong>AI rapid</strong>.</div>'; return; }
       let html = `<div class="hint" style="margin-bottom:10px">Țintă proteine: <strong>${fmt(D.protTarget)}</strong> g — realizat: <strong>${fmt(D.total.p)}</strong> g (${D.total.p >= D.protTarget ? '✅' : 'ℹ️ ajustează porțiile'})</div>`;
       html += '<table><thead><tr><th>Masa</th><th>Preparat</th><th>kcal</th><th>Prot</th><th>Carb</th><th>Grăs</th></tr></thead><tbody>';
       const slots = D.meals.length===3?['Mic dejun','Prânz','Cină']:(D.meals.length===4?['Mic dejun','Prânz','Cină','Gustare']:["Mic dejun","Prânz","Cină","Gustare 1","Gustare 2"]);
@@ -653,7 +776,7 @@
       PLAN.forEach(D=>D.meals.forEach(m=>{
         Object.entries(m.ing).forEach(([k,v])=>{ acc[k] = (acc[k]||0) + v; });
       }));
-      const wrap = $('#listCumparaturi');
+      const wrap = document.getElementById('listCumparaturi');
       if(!wrap) return;
       wrap.innerHTML = '';
       Object.entries(acc).sort((a,b)=>a[0].localeCompare(b[0])).forEach(([k,v])=>{
@@ -665,7 +788,6 @@
       });
     }
 
-    // ---------- Subscribe redirect (spre /checkout cu query) ----------
     const SUBSCRIBE_URL = '/checkout';
     function goSubscribe(el){
       const prefix='SUB-';
@@ -683,7 +805,6 @@
       return false;
     }
 
-    // ---------- PDF & Email (client-side) ----------
     function exportPdf(){ window.print(); }
     async function sendEmail(){
       if(!HAS_PRO){ toast('Funcție disponibilă doar pentru PRO.', 'error'); return; }
@@ -699,49 +820,38 @@
       };
       try{
         const res = await fetch('/api/send_menu_pdf.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
-        if(res.ok){ toast('Meniul a fost trimis pe e‑mail.'); }
+        if(res.ok){ toast('Meniul a fost trimis pe e-mail.'); }
         else { toast('Nu s-a putut trimite: server indisponibil (HTTP '+res.status+').', 'error'); }
       }catch(e){ toast('Eroare rețea/endpoint: nu s-a putut trimite meniul.', 'error'); }
       finally{ mailBtn.disabled=false; mailBtn.textContent = oldTxt; }
     }
 
-    // ---------- Events ----------
     const gBtn=$('#btnGen'); if(gBtn) gBtn.addEventListener('click', generate);
     const pBtn=$('#btnPdf'); if(pBtn) pBtn.addEventListener('click', exportPdf);
     const mBtn=$('#btnMail'); if(mBtn) mBtn.addEventListener('click', sendEmail);
 
-    // ---------- SELF TESTS (rulează doar cu ?test=1) ----------
-    (function selfTests(){
-      const url = new URL(location.href);
-      if(url.searchParams.get('test') !== '1') return;
-      const results = [];
-      try{
-        console.assert(typeof prefillAccess === 'function', 'prefillAccess trebuie să existe');
-        prefillAccess('SUB-');
-        const code = $('#accessCode').value;
-        console.assert(/^SUB-[A-Z0-9]{4}$/.test(code), 'cod SUB- generat corect');
-        console.assert(checkAccess() === true, 'checkAccess activează PRO');
-        // Limiter tests
-        HAS_PRO = false; localStorage.setItem('bp_demo', JSON.stringify({date:new Date().toISOString().slice(0,10),count:3}));
-        console.assert(canGenerateDemo() === false, 'limiter blochează peste 3/zi fără PRO');
-        localStorage.setItem('bp_demo', JSON.stringify({date:new Date().toISOString().slice(0,10),count:0}));
-        console.assert(canGenerateDemo() === true, 'limiter permite sub 3/zi');
-        // Tabs safety test (no throw in sandbox)
-        switchTab('expert');
-        console.assert(document.getElementById('tab-expert').classList.contains('active'), 'switchTab activează expert');
-        switchTab('ai');
-        console.assert(document.getElementById('tab-ai').classList.contains('active'), 'switchTab revine la ai');
-        // Subscribe URL compus corect
-        const a = document.createElement('a'); a.href='/checkout';
-        const before = location.href;
-        const u = new URL('/checkout', location.origin||'https://bucatarulpersonal.vercel.app');
-        u.searchParams.set('plan','ai-pro'); u.searchParams.set('cycle','monthly'); u.searchParams.set('access','SUB-TEST');
-        console.assert(u.toString().includes('plan=ai-pro') && u.toString().includes('cycle=monthly'), 'URL checkout are parametrii');
-        results.push('✔︎ Tests OK');
-      }catch(e){ results.push('✗ Test failed: '+ e.message); }
-      toast(results.join(' | '));
-      console.log('[SELF TESTS]', results);
-    })();
+    function showAiPackages(aiPayload = {}) {
+      document.querySelector('#pachete-ai')?.classList.remove('is-hidden');
+      const params = new URLSearchParams({ source:'ai-nutritie', campaign:'pachete-integrate' });
+      if (aiPayload.nume) params.set('nume', aiPayload.nume);
+      if (aiPayload.email) params.set('email', aiPayload.email);
+      if (aiPayload.telefon) params.set('telefon', aiPayload.telefon);
+      if (aiPayload.oras) params.set('oras', aiPayload.oras);
+      if (aiPayload.kcal) params.set('calorii', aiPayload.kcal);
+      if (aiPayload.proteine) params.set('proteine', aiPayload.proteine);
+      if (aiPayload.alergii) params.set('alergii', aiPayload.alergii);
+      if (aiPayload.preferinte) params.set('preferinte', aiPayload.preferinte);
+      ['btn-esential','btn-premium','btn-corporate','btn-tabara'].forEach(id=>{
+        const a = document.getElementById(id); if(!a) return;
+        const url = new URL(a.getAttribute('href'), window.location.origin);
+        for (const [k,v] of params) url.searchParams.set(k, v);
+        a.setAttribute('href', url.toString());
+      });
+      const sec = document.getElementById('pachete-ai');
+      if(sec) window.scrollTo({ top: sec.offsetTop - 10, behavior:'smooth' });
+    }
+
+    (function(){ const y = document.getElementById('year'); if(y) y.textContent = new Date().getFullYear(); })();
   </script>
 </body>
 </html>
