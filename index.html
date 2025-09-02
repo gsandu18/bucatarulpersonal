@@ -216,6 +216,29 @@ footer a{color:#cdd}
   .links{ display:none; }
   .hamb{ display:inline-block; }
 }
+  /* === BP MONOGRAM – more size (header + footer) === */
+:root{
+  --logo-size: 54px;                 /* ajustează 48–60px după gust */
+  --logo-font: calc(var(--logo-size) * .38);
+  --nav-h: calc(var(--logo-size) + 20px);
+}
+
+.logo .mark,
+.footer-brand .mark{
+  width: var(--logo-size);
+  height: var(--logo-size);
+  border-width: 3px;                 /* cerc mai pronunțat */
+  font-size: var(--logo-font);
+}
+
+/* aliniere verticală în bară */
+.nav{ height: var(--nav-h); }
+.menu-toggle{ height: calc(var(--logo-size) - 8px); width: calc(var(--logo-size) - 8px); }
+
+/* pe telefoane o idee mai mic, ca să nu înghesuie meniul */
+@media (max-width: 480px){
+  :root{ --logo-size: 48px; }
+}
 </style>
 </head>
 <body id="top">
