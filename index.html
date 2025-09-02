@@ -266,6 +266,27 @@ footer a{color:#cdd}
 
 /* Înălțarea barei ca să nu taie logo-ul */
 .bp-bar{ height: var(--nav-h); }
+  /* === BP LOGO SIZE (suprascrie setările vechi) === */
+:root{ --bp-logo: 64px; }                 /* desktop default */
+
+/* monogramă mai mare */
+.bp-nav .bp-brand svg{
+  width: var(--bp-logo) !important;
+  height: var(--bp-logo) !important;
+}
+
+/* bară puțin mai înaltă ca să încapă frumos */
+.bp-bar{ height: calc(var(--bp-logo) + 32px); }
+
+/* pe mobil o idee și mai mare */
+@media (max-width: 768px){
+  :root{ --bp-logo: 70px; }               /* joacă-te 64–72px după gust */
+}
+
+/* anti-overflow: logo + text nu se înghesuie cu burger-ul */
+@media (max-width: 420px){
+  .bp-brand{ gap:10px; letter-spacing:.08em; }
+}
 </style>
 </head>
 <body id="top">
