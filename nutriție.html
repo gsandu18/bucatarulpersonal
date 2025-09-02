@@ -186,6 +186,52 @@ img,svg,video{max-width:100%;height:auto} h1,h2,h3{overflow-wrap:anywhere}
   /* ascunde shadow/border din header când overlay-ul e deschis (opțional) */
   header:has(.navlinks.show){ box-shadow:none; }
 }
+  /* ===== OPTIMIZARE MENIU MOBIL ===== */
+@media (max-width:900px){
+  .navlinks{
+    align-items:center;
+    justify-content:flex-start;
+    padding-top:90px;
+    gap:22px;
+  }
+
+  /* logo-ul text sus */
+  .navlinks::before{
+    content:"BUCĂTARUL PERSONAL";
+    font-family:"Playfair Display",serif;
+    font-size:20px;
+    font-weight:800;
+    color:#0e5a43;
+    margin-bottom:24px;
+    display:block;
+  }
+
+  /* linkurile din meniu */
+  .navlinks a{
+    font-size:18px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:#1a2320;
+    padding:6px 12px;
+    border-radius:8px;
+    transition:all .2s ease;
+  }
+  .navlinks a:hover{
+    background:#f4fbf7;
+    color:#0e5a43;
+    transform:translateY(-2px);
+  }
+
+  /* buton X mai elegant */
+  .menu-close{
+    top:18px; right:18px;
+    border-radius:50%;
+    width:40px; height:40px;
+    background:#fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+  }
+}
 </style>
 </head>
 <body>
