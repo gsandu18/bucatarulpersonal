@@ -113,6 +113,79 @@ img,svg,video{max-width:100%;height:auto} h1,h2,h3{overflow-wrap:anywhere}
   }
   .navlinks.show{ transform:translateX(0); }
 }
+  /* ===== MENU MOBIL – overlay premium (pune la final) ===== */
+@media (max-width:900px){
+  /* containerul de linkuri devine overlay pe tot ecranul */
+  .navlinks{
+    display:flex;
+    flex-direction:column;
+    position:fixed;
+    inset:0;
+    background:#fff;
+    padding:calc(60px + env(safe-area-inset-top)) 20px 40px;
+    gap:28px;
+    align-items:center;
+    justify-content:flex-start;
+    font-family:"Playfair Display",serif;
+    font-size:22px;
+    font-weight:700;
+    letter-spacing:.03em;
+    transform:translateX(100%);
+    transition:transform .32s ease-in-out;
+    z-index:999;
+    -webkit-overflow-scrolling:touch;
+  }
+  .navlinks.show{ transform:translateX(0); }
+
+  /* bara de fundal subtilă când e deschis */
+  .navlinks::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(14,90,67,.03), transparent 20%);
+    pointer-events:none;
+  }
+
+  /* branding sus în overlay */
+  .navlinks::before{
+    content:"BUCĂTARUL PERSONAL";
+    font-family:"Playfair Display",serif;
+    font-size:18px;
+    font-weight:800;
+    color:#0e5a43;
+    letter-spacing:.06em;
+    margin-bottom:12px;
+  }
+
+  /* buton X (închidere) */
+  .menu-close{
+    position:absolute;
+    top:14px; right:14px;
+    width:44px; height:44px;
+    display:grid; place-items:center;
+    border-radius:10px;
+    border:1px solid #e6ede9;
+    background:#fff;
+    color:#0e5a43;
+    font-size:26px;
+    line-height:1;
+    cursor:pointer;
+    z-index:1000;
+  }
+
+  /* linkurile din meniu */
+  .navlinks a{
+    color:#1a2320;
+    text-decoration:none;
+    padding:8px 10px;
+    border-radius:10px;
+    transition:color .15s ease, background .15s ease, transform .08s;
+  }
+  .navlinks a:hover{ color:#0e5a43; background:#f4fbf7; }
+  .navlinks a:active{ transform:scale(.98); }
+
+  /* ascunde shadow/border din header când overlay-ul e deschis (opțional) */
+  header:has(.navlinks.show){ box-shadow:none; }
+}
 </style>
 </head>
 <body>
