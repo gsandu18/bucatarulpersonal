@@ -301,7 +301,18 @@ img,svg,video{max-width:100%;height:auto} h1,h2,h3{overflow-wrap:anywhere}
     box-shadow:0 2px 8px rgba(0,0,0,.1);
     z-index:1000;
   }
+}/* Desktop: ascunde X și hamburger */
+.menu-close,
+.menu-toggle{
+  display:none !important;
 }
+
+/* Mobil (≤900px): arată X și hamburger, meniul rămâne overlay */
+@media (max-width:900px){
+  .menu-toggle{ display:grid !important; }  /* butonul cu 3 linii */
+  .menu-close{  display:grid !important; }  /* butonul X din overlay */
+}
+  
 </style>
 </head>
 <body>
