@@ -279,6 +279,29 @@ img,svg,video{max-width:100%;height:auto} h1,h2,h3{overflow-wrap:anywhere}
   .mark{ width:34px; height:34px; font-size:12px; }
   .brand{ font-size:16px; }
 }
+  /* Ascunde X pe desktop (implicit) */
+.menu-close{
+  display:none !important;
+}
+
+/* Arată X doar pe mobil (când meniul devine overlay) */
+@media (max-width:900px){
+  .menu-close{
+    display:grid;             /* ce aveai deja */
+    place-items:center;
+    position:absolute;
+    top:18px; right:18px;
+    width:40px; height:40px;
+    border-radius:50%;
+    border:1px solid #e6ede9;
+    background:#fff;
+    color:#0e5a43;
+    font-size:26px; line-height:1;
+    cursor:pointer;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+    z-index:1000;
+  }
+}
 </style>
 </head>
 <body>
