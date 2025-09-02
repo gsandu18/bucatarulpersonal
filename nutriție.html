@@ -232,6 +232,53 @@ img,svg,video{max-width:100%;height:auto} h1,h2,h3{overflow-wrap:anywhere}
     box-shadow:0 2px 8px rgba(0,0,0,.1);
   }
 }
+  /* ====== LOGO (cerc auriu + BP) – folosit în header & footer ====== */
+.logo, .footer-brand{
+  display:flex; align-items:center; gap:12px; text-decoration:none;
+}
+.logo:link, .logo:visited,
+.site-footer a:link, .site-footer a:visited{ color:inherit; }
+
+/* monogramă */
+.mark{
+  width:42px; height:42px; border-radius:50%;
+  border:2px solid #c9a227;            /* auriu */
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:14px; letter-spacing:.04em;
+  background:#fff; color:#0e5a43;      /* verde pe fundal deschis */
+}
+
+/* denumirea brandului */
+.brand{
+  font-family:"Playfair Display",serif;
+  font-size:18px; font-weight:800; letter-spacing:.06em;
+  text-transform:uppercase; color:#0e5a43;
+}
+
+/* ====== FOOTER ====== */
+.site-footer{
+  background:#0b1a15; color:#d8eee6; border-top:1px solid #123226;
+  padding:32px 0 20px;
+}
+.footer-grid{
+  display:grid; grid-template-columns:2fr 1fr 1fr; gap:18px; align-items:start;
+}
+.site-footer a{ color:#d8eee6; text-decoration:none; }
+.site-footer a:hover{ text-decoration:underline; }
+
+.site-footer .brand{ color:#e6f2ee; }
+.site-footer .mark{ background:transparent; color:#ffffff; border-color:#c9a227; }
+
+.footer-note{ margin-top:14px; font-size:13px; color:#b9d8cf; }
+
+/* ====== Responsive ====== */
+@media (max-width:900px){
+  .footer-grid{ grid-template-columns:1fr; gap:14px; }
+}
+@media (max-width:520px){
+  .mark{ width:34px; height:34px; font-size:12px; }
+  .brand{ font-size:16px; }
+}
 </style>
 </head>
 <body>
@@ -435,31 +482,28 @@ img,svg,video{max-width:100%;height:auto} h1,h2,h3{overflow-wrap:anywhere}
   </div>
 </div>
 
-<footer>
-  <div class="footer-wrap">
-    <div>
-      <div class="logo"><span class="mark">BP</span><a class="logo__text" href="/">Bucătarul Personal</a></div>
-      <p style="margin:10px 0 0;color:#bfe7d9">Servicii culinare la domiciliu & planuri nutriționale.<br>Partener medical: <strong>Integraviva</strong>.</p>
+<footer class="site-footer" id="legal">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <span class="mark">BP</span>
+      <span class="brand">BUCĂTARUL PERSONAL</span>
     </div>
-    <div>
+
+    <div class="footer-col">
       <strong>Contact</strong><br>
       <a href="mailto:contact@bucatarulpersonal.ro">contact@bucatarulpersonal.ro</a><br>
       <a href="tel:+40700000000">+40 700 000 000</a>
     </div>
-    <div>
+
+    <div class="footer-col">
       <strong>Legal</strong><br>
       <a href="/termeni">Termeni & Condiții</a><br>
-      <a href="/confidentialitate">Politica de Confidențialitate (GDPR)</a><br>
+      <a href="/gdpr">Politica de Confidențialitate (GDPR)</a><br>
       <a href="/cookies">Politica Cookies</a>
     </div>
-
-    <div class="footer-legal">
-      <div>© <span id="y"></span> Bucătarul Personal SRL · CUI 12345678 · J00/0000/2024 · Str. Exemplu 10, București</div>
-      <div>
-        <a href="https://anpc.ro/ce-este-sal/" rel="nofollow noopener" target="_blank">ANPC – SOL</a> ·
-        <a href="https://ec.europa.eu/consumers/odr" rel="nofollow noopener" target="_blank">ODR</a>
-      </div>
-    </div>
+  </div>
+  <div class="container footer-note">
+    © <span id="year"></span> Bucătarul Personal — ANPC • SOL • ODR
   </div>
 </footer>
 
