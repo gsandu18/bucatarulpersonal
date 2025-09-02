@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>BUCĂTARUL PERSONAL · AI Nutriție & Nutriționist</title>
-<meta name="description" content="Meniuri personalizate cu AI sau consultanță 1:1 cu nutriționist. PDF gourmet pe email." />
+<meta name="description" content="Meniuri personalizate cu AI sau consultanță 1:1 cu nutriționist. PDF gourmet pe email. Pachete Bucătarul Personal × Integraviva." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
@@ -23,37 +23,17 @@ a{color:var(--verde);text-decoration:none}
 .container{max-width:var(--max);margin:0 auto;padding-left:max(16px, env(safe-area-inset-left));padding-right:max(16px, env(safe-area-inset-right))}
 
 /* Header sticky */
-header{
-  position:sticky; top:0; z-index:1000; background:#fff;
-  border-bottom:1px solid var(--line); box-shadow:0 2px 6px rgba(0,0,0,.04);
-}
+header{position:sticky; top:0; z-index:1000; background:#fff; border-bottom:1px solid var(--line); box-shadow:0 2px 6px rgba(0,0,0,.04)}
 .nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:14px}
 .logo{display:flex;align-items:center;gap:10px}
-.logo .mark{
-  width:38px;height:38px;border-radius:50%;
-  border:2px solid var(--aur);display:grid;place-items:center;
-  font-weight:800;color:var(--verde);background:#fff;font-family:"Playfair Display",serif
-}
-.logo__text{
-  text-transform:uppercase; letter-spacing:.06em; font-family:"Playfair Display",serif;
-  font-weight:800; font-size:var(--fz-logo); line-height:1; color:var(--text)
-}
-.logo a,.logo a:visited{color:var(--text)}
-.logo a:hover{color:var(--verde)}
-
-.menu-toggle{
-  display:grid; place-items:center; width:40px; height:40px; padding:0;
-  background:#fff; border:1px solid var(--line); border-radius:10px; color:var(--verde); font-size:22px;
-}
+.logo .mark{width:38px;height:38px;border-radius:50%;border:2px solid var(--aur);display:grid;place-items:center;font-weight:800;color:var(--verde);background:#fff;font-family:"Playfair Display",serif}
+.logo__text{text-transform:uppercase; letter-spacing:.06em; font-family:"Playfair Display",serif;font-weight:800; font-size:var(--fz-logo); line-height:1; color:var(--text)}
+.logo a,.logo a:visited{color:var(--text)} .logo a:hover{color:var(--verde)}
+.menu-toggle{display:grid; place-items:center; width:40px; height:40px; padding:0; background:#fff; border:1px solid var(--line); border-radius:10px; color:var(--verde); font-size:22px}
 .navlinks{display:flex;gap:20px}
 .navlinks a{font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--text)}
 .navlinks a:hover{color:var(--verde)}
-
-@media (max-width:900px){
-  .nav{flex-wrap:wrap}
-  .navlinks{display:none;width:100%;flex-direction:column;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
-  .navlinks.show{display:flex}
-}
+@media (max-width:900px){ .nav{flex-wrap:wrap} .navlinks{display:none;width:100%;flex-direction:column;gap:10px;padding:10px 0;border-top:1px solid var(--line)} .navlinks.show{display:flex} }
 
 /* Hero */
 .hero{padding:56px 0 28px}
@@ -66,28 +46,18 @@ header{
 .switch button{flex:1;padding:12px 14px;border-radius:999px;border:0;background:#fff;font-weight:800;color:#335147;cursor:pointer}
 .switch button.active{background:var(--verde);color:#fff}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border-radius:12px;border:1px solid transparent;font-weight:800;cursor:pointer}
-.btn-primary{background:var(--verde);color:#fff}
-.btn-primary:hover{background:var(--verde-2)}
+.btn-primary{background:var(--verde);color:#fff} .btn-primary:hover{background:var(--verde-2)}
 .btn-ghost{border:1px solid var(--verde);color:var(--verde);background:#fff}
-
 .hero .cta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-.hero-img{
-  display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center;
-  border-radius:26px;border:1px solid var(--line);box-shadow:var(--shadow)
-}
-@media (max-width:980px){
-  .hero .wrap{grid-template-columns:1fr;gap:18px}
-  .hero-img{aspect-ratio:16/10}
-}
+.hero-img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center;border-radius:26px;border:1px solid var(--line);box-shadow:var(--shadow)}
+@media (max-width:980px){ .hero .wrap{grid-template-columns:1fr;gap:18px} .hero-img{aspect-ratio:16/10} }
 
 /* Sections */
-.section{padding:44px 0}
-.soft{background:var(--ivory)}
+.section{padding:44px 0} .soft{background:var(--ivory)}
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media (max-width:980px){ .grid2,.grid3{grid-template-columns:1fr} }
-
 .list{padding-left:18px;color:var(--muted)}
 .stepper{display:flex;gap:10px;margin-bottom:12px}
 .stepper .dot{height:8px;flex:1;border-radius:999px;background:#dbe5e0}
@@ -103,30 +73,25 @@ textarea{min-height:110px}
 /* Pricing + Ribbon */
 .price{font-size:28px;font-weight:800;color:var(--verde)}
 .card.has-ribbon{position:relative;overflow:hidden}
-.card .ribbon{
-  position:absolute; top:14px; right:-34px;
-  padding:6px 46px; background:#eaf6f1; color:#0e5a43;
-  border:1px solid #cfe7dd; font:800 11px/1 Inter,system-ui,sans-serif; letter-spacing:.08em; text-transform:uppercase;
-  transform:rotate(45deg); box-shadow:0 6px 18px rgba(14,90,67,.12)
-}
+.card .ribbon{position:absolute; top:14px; right:-34px; padding:6px 46px; background:#eaf6f1; color:#0e5a43; border:1px solid #cfe7dd; font:800 11px/1 Inter,system-ui,sans-serif; letter-spacing:.08em; text-transform:uppercase; transform:rotate(45deg); box-shadow:0 6px 18px rgba(14,90,67,.12)}
 .card .ribbon::before,.card .ribbon::after{content:"";position:absolute;top:100%;width:0;height:0;border-style:solid;opacity:.9}
 .card .ribbon::before{left:0;border-width:6px 6px 0 0;border-color:#adcfc4 transparent transparent transparent}
 .card .ribbon::after{right:0;border-width:6px 0 0 6px;border-color:#adcfc4 transparent transparent transparent}
 @media (max-width:768px){ .card .ribbon{right:-28px;padding:6px 38px} }
 
-/* FAQ + Footer */
-details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
-summary{font-weight:800;cursor:pointer}
-footer{background:#0b1a15;color:#d8eee6;border-top:1px solid #123226;padding:36px 0}
+/* Footer */
+footer{background:#0b1a15;color:#d8eee6;border-top:1px solid #123226;margin-top:10px}
+.footer-wrap{max-width:var(--max);margin:0 auto;padding:28px max(16px, env(safe-area-inset-left)); display:grid; grid-template-columns:2fr 1fr 1fr; gap:18px}
 footer a{color:#d8eee6}
+.footer-legal{border-top:1px solid rgba(255,255,255,.1); margin-top:14px; padding-top:14px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; font-size:13px; color:#bfe7d9}
+@media (max-width:860px){ .footer-wrap{grid-template-columns:1fr} .footer-legal{flex-direction:column; gap:6px} }
 
 /* Sticky CTA pe mobil */
 .fab{position:fixed;left:0;right:0;bottom:max(10px, env(safe-area-inset-bottom));margin:auto;display:none;max-width:520px;padding:10px 12px}
 .fab .inner{display:flex;gap:10px;justify-content:space-between;background:#fff;border:1px solid var(--line);box-shadow:0 10px 26px rgba(0,0,0,.12);border-radius:16px;padding:10px}
 @media (max-width:768px){ .fab{display:block} }
-#ai,#expert,#faq,#preturi{scroll-margin-top:78px} html{scroll-behavior:smooth}
-img,svg,video{max-width:100%;height:auto}
-h1,h2,h3{overflow-wrap:anywhere}
+#ai,#expert,#pachete,#faq{scroll-margin-top:78px} html{scroll-behavior:smooth}
+img,svg,video{max-width:100%;height:auto} h1,h2,h3{overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -140,8 +105,8 @@ h1,h2,h3{overflow-wrap:anywhere}
     <button class="menu-toggle" aria-label="Deschide meniul" aria-expanded="false">&#9776;</button>
     <nav class="navlinks" aria-label="Primar">
       <a href="#ai">AI</a>
+      <a href="#pachete">Pachete</a>
       <a href="#expert">Nutriționist</a>
-      <a href="#preturi">Prețuri</a>
       <a href="#faq">FAQ</a>
     </nav>
   </div>
@@ -162,7 +127,7 @@ h1,h2,h3{overflow-wrap:anywhere}
         </div>
         <div class="cta">
           <a class="btn btn-primary" href="#ai">Generează meniul meu AI</a>
-          <a class="btn btn-ghost" href="#expert">Vorbește cu un nutriționist</a>
+          <a class="btn btn-ghost" href="#pachete">Vezi pachetele</a>
         </div>
       </div>
       <div class="visual" aria-hidden="true">
@@ -191,85 +156,97 @@ h1,h2,h3{overflow-wrap:anywhere}
             <li>PDF elegant pe email + listă de cumpărături (opțional).</li>
           </ul>
           <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
-            <a class="btn btn-primary" href="#wizard">Pornește formularul</a>
+            <a class="btn btn-primary" href="#pachete">Vezi pachete</a>
             <span class="badge">Respectă alergiile</span>
             <span class="badge">Gourmet & echilibrat</span>
           </div>
         </div>
-
-        <!-- WIZARD -->
-        <div id="wizard" class="card" style="padding:22px">
-          <div class="stepper"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
-          <form id="aiForm" novalidate>
-            <div data-step="1">
-              <h3 class="title" style="margin:.2rem 0 6px">1) Date de contact</h3>
-              <div class="row">
-                <div><label for="nume">Nume *</label><input id="nume" name="nume" required placeholder="Ex: Popescu Andrei"></div>
-                <div><label for="email">Email *</label><input id="email" name="email" type="email" required placeholder="exemplu@email.com"></div>
-              </div>
-              <div class="row">
-                <div><label for="tel">Telefon</label><input id="tel" name="telefon" inputmode="tel" placeholder="+40 ..."></div>
-                <div><label for="oras">Oraș</label><input id="oras" name="oras" placeholder="București / Milano"></div>
-              </div>
-            </div>
-
-            <div data-step="2" hidden>
-              <h3 class="title" style="margin:.2rem 0 6px">2) Profil & obiectiv</h3>
-              <div class="row">
-                <div><label for="sex">Sex</label>
-                  <select id="sex" name="sex"><option value="">—</option><option>F</option><option>M</option><option>Prefer să nu spun</option></select>
-                </div>
-                <div><label for="varsta">Vârstă</label><input id="varsta" name="varsta" type="number" min="10" max="100"></div>
-              </div>
-              <div class="row">
-                <div><label for="h">Înălțime (cm)</label><input id="h" name="inaltime" type="number" min="120" max="220"></div>
-                <div><label for="w">Greutate (kg)</label><input id="w" name="greutate" type="number" min="35" max="200"></div>
-              </div>
-              <div class="row">
-                <div><label for="act">Activitate</label>
-                  <select id="act" name="activitate"><option>—</option><option>Sedentar</option><option>Ușor activ</option><option>Moderate</option><option>Foarte activ</option></select>
-                </div>
-                <div><label for="obj">Obiectiv</label>
-                  <select id="obj" name="obiectiv"><option>—</option><option>Slăbire</option><option>Menținere</option><option>Masă musculară</option></select>
-                </div>
-              </div>
-              <div class="row">
-                <div><label for="cal">Calorii/zi</label><input id="cal" name="calorii" type="number" min="1000" max="5000" placeholder="dacă lași gol, calculăm noi"></div>
-                <div><label for="mese">Mese/zi</label>
-                  <select id="mese" name="mese"><option>3</option><option>4</option><option>5</option></select>
-                </div>
-              </div>
-            </div>
-
-            <div data-step="3" hidden>
-              <h3 class="title" style="margin:.2rem 0 6px">3) Preferințe</h3>
-              <div class="row">
-                <div><label for="dieta">Dietă</label>
-                  <select id="dieta" name="dieta"><option>Fără restricții</option><option>Vegetarian</option><option>Vegan</option><option>Keto</option><option>Low-carb</option><option>Mediteraneană</option><option>Fără gluten</option></select>
-                </div>
-                <div><label for="alergii">Alergii</label><input id="alergii" name="alergii" placeholder="lactoză, arahide, crustacee"></div>
-              </div>
-              <div class="row">
-                <div><label for="nu">Nu îmi plac</label><input id="nu" name="nuImiPlac" placeholder="măsline, coriandru"></div>
-                <div><label for="cuisine">Bucătării preferate</label><input id="cuisine" name="bucatarii" placeholder="italiană, românească, asiatică"></div>
-              </div>
-              <label class="badge" style="margin-top:6px"><input type="checkbox" id="gdpr" required style="margin-right:8px">Accept termenii & prelucrarea datelor</label>
-            </div>
-
-            <div class="actions">
-              <button type="button" class="btn btn-ghost" id="prev" disabled>Înapoi</button>
-              <button type="button" class="btn btn-primary" id="next">Continuă</button>
-              <button type="submit" class="btn btn-primary" id="submit" hidden>Generează PDF</button>
-            </div>
-            <div id="aiStatus" class="badge" style="margin-top:8px;min-height:28px"></div>
-          </form>
+        <!-- Mic placeholder (poți înlocui cu wizardul tău) -->
+        <div class="card" style="padding:22px">
+          <h3 class="title" style="margin:.2rem 0 6px">Formular rapid</h3>
+          <p class="badge">Demo – conectare la backend în lucru.</p>
+          <p style="color:var(--muted)">Când dai „Vezi pachete”, te poți întoarce oricând să completezi datele pentru generarea PDF-ului.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- PACHETE (Bucătarul Personal × Integraviva) -->
+  <section id="pachete" class="section">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:18px">
+        <div class="kicker">Bucătarul Personal × Integraviva</div>
+        <h2 class="title" style="margin:6px 0 8px;color:var(--verde)">Pachete Nutriție & Chef la tine acasă</h2>
+        <p class="badge" style="border-color:#e5e5e5;color:#667;display:inline-flex">Toate pachetele includ recomandări nutriționale și liste de cumpărături</p>
+      </div>
+
+      <div class="grid3">
+        <!-- Esențial -->
+        <article class="card has-ribbon" style="padding:22px;border-top:4px solid var(--verde)">
+          <span class="ribbon">Recomandat</span>
+          <h3 class="title" style="margin:0 0 6px">Pachet Esențial</h3>
+          <p class="price" style="margin:6px 0 10px">650 RON</p>
+          <ul class="list">
+            <li>Consultație nutrițională + plan alimentar personalizat</li>
+            <li>1 vizită chef acasă pentru implementarea meniului</li>
+            <li>Ideal pentru start într-un stil alimentar sănătos</li>
+          </ul>
+          <a class="btn btn-primary" href="/checkout?plan=esential">Alege Esențial</a>
+        </article>
+
+        <!-- Premium -->
+        <article class="card" style="padding:22px">
+          <h3 class="title" style="margin:0 0 6px">Pachet Premium</h3>
+          <p class="price" style="margin:6px 0 10px">1.200 RON</p>
+          <ul class="list">
+            <li>Consultație inițială + plan alimentar (sau cuplu)</li>
+            <li>2 vizite chef acasă (pregătire meniuri săptămânale adaptate)</li>
+            <li>Listă de cumpărături optimizată</li>
+          </ul>
+          <a class="btn btn-ghost" href="/checkout?plan=premium">Alege Premium</a>
+        </article>
+
+        <!-- Smart Corporate -->
+        <article class="card" style="padding:22px">
+          <h3 class="title" style="margin:0 0 6px">Pachet Smart Corporate</h3>
+          <p class="price" style="margin:6px 0 10px">de la 5.000 RON</p>
+          <ul class="list">
+            <li>Atelier de nutriție & cooking show (10–20 persoane)</li>
+            <li>Degustare (tasting menu cu explicații nutriționale)</li>
+            <li>Broșură PDF cu recomandări pentru participanți</li>
+          </ul>
+          <a class="btn btn-ghost" href="mailto:corporate@bucatarulpersonal.ro">Solicită ofertă</a>
+        </article>
+      </div>
+
+      <div class="grid2" style="margin-top:18px">
+        <!-- Duo / Tabără -->
+        <article class="card" style="padding:22px">
+          <h3 class="title" style="margin:0 0 6px">Pachet Duo – Tabără culinară</h3>
+          <p class="price" style="margin:6px 0 10px">800–1.200 RON / persoană</p>
+          <ul class="list">
+            <li>Tabără culinară de 2–3 zile</li>
+            <li>Workshop-uri practice cu chef + nutriționist</li>
+            <li>Plan alimentar individual pentru fiecare participant</li>
+          </ul>
+          <a class="btn btn-ghost" href="mailto:events@bucatarulpersonal.ro">Înscrie-te</a>
+        </article>
+
+        <!-- Notă -->
+        <aside class="card" style="padding:22px;display:grid;gap:10px;align-content:start">
+          <div class="kicker">Transparență</div>
+          <p style="color:#3f524c;margin:0">
+            Prețurile includ onorariul **nutriționistului partener Integraviva** și **serviciile Bucătarul Personal**.
+            La cerere, personalizăm pachetele (alergii, volum mese, deplasare în alte orașe).
+          </p>
+          <span class="badge">Facturare & contract — persoane fizice / companii</span>
+        </aside>
+      </div>
+    </div>
+  </section>
+
   <!-- EXPERT SECTION -->
-  <section id="expert" class="section">
+  <section id="expert" class="section soft">
     <div class="container">
       <div class="grid3">
         <div class="card" style="padding:22px">
@@ -277,7 +254,7 @@ h1,h2,h3{overflow-wrap:anywhere}
           <h2 class="title" style="margin:6px 0 10px">Discuție cu nutriționistul</h2>
           <p>Video call 30–45 min, ajustări pe alergii, stil de viață și obiectiv. Follow-up opțional.</p>
           <p class="price" style="margin:12px 0 2px">de la 199 RON</p>
-          <button class="btn btn-ghost" id="openConsult">Programează</button>
+          <a class="btn btn-primary" href="mailto:programari@bucatarulpersonal.ro?subject=Programare%20nutri%C8%9Bionist">Programează</a>
         </div>
         <div class="card" style="padding:22px">
           <h3 class="title" style="margin:0 0 8px">Ce primești</h3>
@@ -299,47 +276,12 @@ h1,h2,h3{overflow-wrap:anywhere}
     </div>
   </section>
 
-  <!-- PRICING -->
-  <section id="preturi" class="section soft">
-    <div class="container grid3">
-      <!-- Esențial (recomandat) -->
-      <div class="card has-ribbon" style="padding:22px;border-top:4px solid var(--verde)">
-        <span class="ribbon">Recomandat</span>
-        <h3 class="title" style="margin:0 0 6px">Esențial</h3>
-        <p class="price" style="margin:6px 0 12px">650 RON</p>
-        <ul class="list">
-          <li>Consult nutriționist 1:1</li>
-          <li>Chef la domiciliu – <strong>1 vizită</strong> (batch-cooking 1–2 zile)</li>
-          <li>Meniu personalizat + listă de cumpărături</li>
-        </ul>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-          <a class="btn btn-primary" href="/checkout?plan=esential">Alege Esențial</a>
-          <span class="badge">Best seller</span>
-        </div>
-      </div>
-      <!-- AI Pro -->
-      <div class="card" style="padding:22px">
-        <h3 class="title" style="margin:0 0 6px">AI – Pro</h3>
-        <p class="price" style="margin:6px 0 12px">49 RON</p>
-        <ul class="list"><li>+2 alternative la mese</li><li>Shopping list inteligent</li><li>Batch-cooking</li></ul>
-        <a class="btn btn-ghost" href="/checkout?plan=ai-pro">Activează</a>
-      </div>
-      <!-- Nutriționist -->
-      <div class="card" style="padding:22px">
-        <h3 class="title" style="margin:0 0 6px">Nutriționist</h3>
-        <p class="price" style="margin:6px 0 12px">de la 199 RON</p>
-        <ul class="list"><li>30–45 min video</li><li>Ajustări personalizate</li></ul>
-        <button class="btn btn-ghost" id="openConsult2">Rezervă</button>
-      </div>
-    </div>
-  </section>
-
   <!-- FAQ -->
   <section id="faq" class="section">
     <div class="container" style="display:grid;gap:10px">
       <details><summary>Primesc valorile nutriționale?</summary><p>Da, pe zi și pe porție (calorii + macro estimative) în PDF.</p></details>
-      <details><summary>Pot exclude alergeni?</summary><p>Da. AI exclude ingredientele bifate; expertul validează și ajustează.</p></details>
-      <details><summary>Pot vorbi întâi cu un specialist?</summary><p>Da, rezervă direct din secțiunea „Nutriționist”.</p></details>
+      <details><summary>Pot exclude alergeni?</summary><p>Da. Excludem ingredientele raportate; expertul validează și ajustează.</p></details>
+      <details><summary>Pot vorbi întâi cu un specialist?</summary><p>Da, programează din secțiunea „Nutriționist”.</p></details>
     </div>
   </section>
 </main>
@@ -347,48 +289,38 @@ h1,h2,h3{overflow-wrap:anywhere}
 <!-- Sticky CTA pe mobil -->
 <div class="fab" aria-hidden="true">
   <div class="inner">
-    <a class="btn btn-primary" href="#ai" style="flex:1;justify-content:center">Generează cu AI</a>
+    <a class="btn btn-primary" href="#pachete" style="flex:1;justify-content:center">Vezi pachetele</a>
     <a class="btn btn-ghost" href="#expert" style="flex:1;justify-content:center">Nutriționist</a>
   </div>
 </div>
 
 <footer>
-  <div class="container" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px">
-    <div class="logo"><span class="mark">BP</span><a class="logo__text" href="/">Bucătarul Personal</a></div>
-    <div><strong>Contact</strong><br><a href="mailto:contact@bucatarulpersonal.ro">contact@bucatarulpersonal.ro</a></div>
-    <div><strong>Legal</strong><br><a href="/termeni">Termeni & Condiții</a></div>
+  <div class="footer-wrap">
+    <div>
+      <div class="logo"><span class="mark">BP</span><a class="logo__text" href="/">Bucătarul Personal</a></div>
+      <p style="margin:10px 0 0;color:#bfe7d9">Servicii culinare la domiciliu & planuri nutriționale.<br>Partener medical: <strong>Integraviva</strong>.</p>
+    </div>
+    <div>
+      <strong>Contact</strong><br>
+      <a href="mailto:contact@bucatarulpersonal.ro">contact@bucatarulpersonal.ro</a><br>
+      <a href="tel:+40700000000">+40 700 000 000</a>
+    </div>
+    <div>
+      <strong>Legal</strong><br>
+      <a href="/termeni">Termeni & Condiții</a><br>
+      <a href="/confidentialitate">Politica de Confidențialitate (GDPR)</a><br>
+      <a href="/cookies">Politica Cookies</a>
+    </div>
+
+    <div class="footer-legal">
+      <div>© <span id="y"></span> Bucătarul Personal SRL · CUI 12345678 · J00/0000/2024 · Str. Exemplu 10, București</div>
+      <div>
+        <a href="https://anpc.ro/ce-este-sal/" rel="nofollow noopener" target="_blank">ANPC – SOL</a> ·
+        <a href="https://ec.europa.eu/consumers/odr" rel="nofollow noopener" target="_blank">ODR</a>
+      </div>
+    </div>
   </div>
 </footer>
-
-<!-- Modal consultanță -->
-<div class="modal" id="consultModal" role="dialog" aria-modal="true" aria-labelledby="consultTitle" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);padding:20px">
-  <div class="dialog" style="background:#fff;border:1px solid var(--line);border-radius:16px;max-width:720px;width:100%;padding:22px;box-shadow:var(--shadow)">
-    <div class="head" style="display:flex;justify-content:space-between;align-items:center">
-      <h3 id="consultTitle" class="title" style="margin:0">Programează consultanța</h3>
-      <button class="close" aria-label="Închide" style="background:transparent;border:0;font-size:24px;cursor:pointer">×</button>
-    </div>
-    <form id="consultForm">
-      <div class="grid2">
-        <div><label for="cnume">Nume *</label><input id="cnume" name="nume" required></div>
-        <div><label for="cemail">Email *</label><input id="cemail" name="email" type="email" required></div>
-      </div>
-      <div class="grid2">
-        <div><label for="ctel">Telefon</label><input id="ctel" name="telefon"></div>
-        <div><label for="cinterval">Interval</label>
-          <select id="cinterval" name="interval"><option>Dimineața</option><option>Prânz</option><option>Seara</option></select>
-        </div>
-      </div>
-      <label for="cnote">Obiectiv & note</label>
-      <textarea id="cnote" name="note"></textarea>
-      <label class="badge" style="margin-top:8px"><input type="checkbox" required style="margin-right:8px">Accept termenii & prelucrarea datelor</label>
-      <div class="actions" style="margin-top:10px">
-        <button type="button" class="btn btn-ghost" data-close>Anulează</button>
-        <button class="btn btn-primary" type="submit">Trimite</button>
-      </div>
-      <div id="cStatus" class="badge" style="margin-top:8px;min-height:28px"></div>
-    </form>
-  </div>
-</div>
 
 <script>
 // navbar toggle
@@ -411,63 +343,8 @@ document.querySelectorAll('.switch button').forEach(btn=>{
   });
 });
 
-// wizard
-(function(){
-  const form=document.getElementById('aiForm'); if(!form) return;
-  const panes=[...form.querySelectorAll('[data-step]')];
-  const dots=[...document.querySelectorAll('.stepper .dot')];
-  const prev=document.getElementById('prev'), next=document.getElementById('next'), submit=document.getElementById('submit');
-  const status=document.getElementById('aiStatus'); let step=1;
-  const show=n=>{
-    panes.forEach(p=>p.hidden=(+p.dataset.step!==n));
-    dots.forEach((d,i)=>d.classList.toggle('active',i<n));
-    prev.disabled=(n===1); next.hidden=(n===panes.length); submit.hidden=(n!==panes.length);
-    status.textContent=''; step=n;
-  };
-  const valid=n=>{
-    const pane=panes.find(p=>+p.dataset.step===n); if(!pane) return true;
-    const req=[...pane.querySelectorAll('[required]')];
-    return req.every(el=> el.type==='checkbox'?el.checked:el.value.trim()!=='');
-  };
-  prev.addEventListener('click',()=>show(step-1));
-  next.addEventListener('click',()=>{ if(!valid(step)){ status.textContent='Completează câmpurile obligatorii.'; return; } show(step+1);});
-  form.addEventListener('submit',async e=>{
-    e.preventDefault();
-    if(!valid(step)){ status.textContent='Confirmă consimțământul GDPR.'; return; }
-    status.textContent='Se generează meniul...';
-    const data=Object.fromEntries(new FormData(form).entries());
-    try{
-      const r=await fetch('/api/ai-menu',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({form:data,source:'bp'})});
-      if(!r.ok) throw 0;
-      status.textContent='Trimis! Verifică emailul (inclusiv Spam).';
-      form.reset(); show(1);
-    }catch{ status.textContent='Eroare temporară. Reîncearcă.'; }
-  });
-  show(1);
-})();
-
-// modal consultanță
-(function(){
-  const modal=document.getElementById('consultModal');
-  const open1=document.getElementById('openConsult');
-  const open2=document.getElementById('openConsult2');
-  const closeBtns=[...modal.querySelectorAll('.close,[data-close]')];
-  const openFn=()=>modal.style.display='flex';
-  const closeFn=()=>modal.style.display='none';
-  open1?.addEventListener('click',openFn); open2?.addEventListener('click',openFn);
-  closeBtns.forEach(b=>b.addEventListener('click',closeFn));
-  modal.addEventListener('click',e=>{ if(e.target===modal) closeFn(); });
-
-  const form=document.getElementById('consultForm'); const s=document.getElementById('cStatus');
-  form?.addEventListener('submit',async e=>{
-    e.preventDefault(); s.textContent='Trimit cererea...';
-    const data=Object.fromEntries(new FormData(form).entries());
-    try{
-      const r=await fetch('/api/book-nutritionist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({form:data,source:'bp'})});
-      if(!r.ok) throw 0; s.textContent='Solicitarea a fost trimisă. Te contactăm pentru confirmare.'; form.reset();
-    }catch{ s.textContent='A apărut o eroare. Reîncearcă.'; }
-  });
-})();
+// year in footer
+document.getElementById('y').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
