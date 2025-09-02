@@ -245,6 +245,27 @@ footer a{color:#cdd}
   height: 48px;
 }
 .bp-bar{ height: 86px; }        /* opțional: bară mai înaltă pentru aliniere */
+  /* Închide media pentru .cta .btn (era deschis și nu se mai aplicau regulile după el) */
+@media (max-width:680px){
+  .cta .btn{
+    padding:12px 16px; font-size:16px; width:100%; max-width:420px;
+  }
+} /* <— acolada asta lipsea */
+
+/* Dimensiuni logo & înălțime bară */
+:root{
+  --logo-size: 56px;                      /* ajustează 56–64px după gust */
+  --nav-h: calc(var(--logo-size) + 38px); /* bară puțin mai înaltă pentru aliniere */
+}
+
+/* Header negru („premium”) – monograma e SVG */
+.bp-brand svg{
+  width: var(--logo-size);
+  height: var(--logo-size);
+}
+
+/* Înălțarea barei ca să nu taie logo-ul */
+.bp-bar{ height: var(--nav-h); }
 </style>
 </head>
 <body id="top">
