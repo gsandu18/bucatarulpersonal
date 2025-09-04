@@ -51,7 +51,12 @@ header{position:sticky; top:0; z-index:1000; background:#fff; border-bottom:1px 
 .hero .cta{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .hero-img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center;border-radius:26px;border:1px solid var(--line);box-shadow:var(--shadow)}
 @media (max-width:980px){ .hero .wrap{grid-template-columns:1fr;gap:18px} .hero-img{aspect-ratio:16/10} }
-
+.hero--full{ position:relative; min-height:560px; color:#fff; overflow:hidden; }
+.hero--full::before{
+  content:""; position:absolute; inset:0;
+  background:var(--hero) center/cover no-repeat;
+}
+.hero--full .container{ position:relative; z-index:2; }
 /* Sections */
 .section{padding:44px 0} .soft{background:var(--ivory)}
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
@@ -352,12 +357,12 @@ img,svg,video{max-width:100%;height:auto} h1,h2,h3{overflow-wrap:anywhere}
           <a class="btn btn-ghost" href="#pachete">Vezi pachetele</a>
         </div>
       </div>
-      <div class="visual" aria-hidden="true">
-        <img class="hero-img"
-            <div class="visual" style="--hero:url('/images/RUX00220.jpg)">
-      </div>
-    </div>
-  </section>
+     <section id="ai" class="hero hero--full" style="--hero:url('/images/RUX00220.jpg?v=1')">
+  <div class="container wrap">
+    <!-- conținutul tău textual + butoane -->
+  </div>
+</section>
+
 
   <!-- AI SECTION -->
   <section id="ai" class="section soft">
