@@ -340,29 +340,36 @@ img,svg,video{max-width:100%;height:auto} h1,h2,h3{overflow-wrap:anywhere}
 </header>
 
 <main>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container wrap">
-      <div>
-        <div class="kicker">AI Nutriție</div>
-        <h1 class="title">Meniuri personalizate cu AI sau consultanță 1:1 cu un nutriționist</h1>
-        <p>Completezi preferințele, primești un PDF gourmet pe email. Dacă vrei validare umană, programezi o discuție rapidă cu un expert.</p>
-        <div class="badge"><strong>5–7 min</strong> pentru completare</div>
-        <div class="switch" role="tablist">
-          <button class="active" data-target="#ai" role="tab" aria-selected="true">AI Nutriție</button>
-          <button data-target="#expert" role="tab" aria-selected="false">Expert Nutriționist</button>
-        </div>
-        <div class="cta">
-          <a class="btn btn-primary" href="#ai">Generează meniul meu AI</a>
-          <a class="btn btn-ghost" href="#pachete">Vezi pachetele</a>
-        </div>
-      </div>
-     <section id="ai" class="hero hero--full" style="--hero:url('/images/RUX00220.jpg?v=1')">
+    <!-- HERO -->
+<section class="hero">
   <div class="container wrap">
-    <!-- conținutul tău textual + butoane -->
+    <div>
+      <div class="kicker">AI Nutriție</div>
+      <h1 class="title">Meniuri personalizate cu AI sau consultanță 1:1 cu un nutriționist</h1>
+      <p>Completezi preferințele, primești un PDF gourmet pe email. Dacă vrei validare umană, programezi o discuție rapidă cu un expert.</p>
+      <div class="badge"><strong>5–7 min</strong> pentru completare</div>
+      <div class="switch" role="tablist">
+        <button class="active" data-target="#ai" role="tab" aria-selected="true">AI Nutriție</button>
+        <button data-target="#expert" role="tab" aria-selected="false">Expert Nutriționist</button>
+      </div>
+      <div class="cta">
+        <a class="btn btn-primary" href="#ai">Generează meniul meu AI</a>
+        <a class="btn btn-ghost" href="#pachete">Vezi pachetele</a>
+      </div>
+    </div>
+
+    <!-- IMAGINEA HERO (dreapta) -->
+    <div class="visual" aria-hidden="true">
+      <img
+        class="hero-img"
+        src="/images/RUX00220.jpg?v=2"
+        alt="Preparat gourmet servit pe farfurie albastră cu legume"
+        loading="eager"
+        decoding="async"
+      >
+    </div>
   </div>
 </section>
-
 
   <!-- AI SECTION -->
   <section id="ai" class="section soft">
@@ -565,7 +572,7 @@ document.querySelectorAll('.switch button').forEach(btn=>{
 });
 
 // year in footer
-document.getElementById('y').textContent = new Date().getFullYear();
+document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
