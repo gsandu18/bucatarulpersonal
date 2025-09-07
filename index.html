@@ -125,20 +125,51 @@ footer a{color:#cdd}
 #installBtn{position:fixed;right:14px;bottom:14px;z-index:60;padding:12px 16px;border-radius:12px;border:1px solid var(--accent-700);background:var(--accent);color:#231f1a;font-weight:700}
 .hidden{display:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:12px 18px;border:1px solid rgba(0,0,0,.3);border-radius:999px;font-weight:600;cursor:pointer;text-decoration:none}
+:root{ --rubin:#0e5a43; --line:#e7efe9; --shadow:0 16px 48px rgba(0,0,0,.10) }
 
-  .icon-badge{
+/* 4 coloane pe orizontal */
+.how-row{
+  list-style:none; margin:0; padding:0;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:20px; position:relative;
+}
+
+/* linia fină care leagă cardurile (optional) */
+.how-row::before{
+  content:""; position:absolute; left:0; right:0; top:44px; height:2px;
+  background:linear-gradient(90deg, rgba(201,166,70,.35), rgba(14,90,67,.35));
+  pointer-events:none;
+}
+
+.how-card{
+  position:relative; padding:74px 20px 20px; text-align:center;
+  background:#fff; border:1px solid #eef2ee; border-radius:18px; box-shadow:var(--shadow);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.how-card:hover{ transform:translateY(-3px); box-shadow:0 22px 58px rgba(0,0,0,.12) }
+
+.icon-badge{
   position:absolute; left:50%; top:0; transform:translate(-50%,-50%);
   width:86px; height:86px; border-radius:22px;
   display:grid; place-items:center;
-  background: linear-gradient(180deg,#f9fbfa,#eef5f1);
+  background:linear-gradient(180deg,#f9fbfa,#eef5f1);
   border:1px solid var(--line);
-  box-shadow: inset 0 4px 12px rgba(0,0,0,.03), 0 6px 18px rgba(0,0,0,.06);
+  box-shadow:inset 0 4px 12px rgba(0,0,0,.03), 0 6px 18px rgba(0,0,0,.06);
 }
-.icon-badge img{
-  width:38px; height:38px;
+.icon-badge img{ width:38px; height:38px; filter: invert(12%) brightness(0.2); } /* negru */
+.icon-badge img.rubin{
+  /* colorează boneta la verde rubin */
   filter: invert(20%) sepia(70%) saturate(600%) hue-rotate(100deg) brightness(92%) contrast(90%);
-  /* asta colorează SVG-ul verde rubin (#0e5a43) */
 }
+
+.how-card h3{
+  margin:6px 0 6px; font-family:"Playfair Display",serif;
+  font-size:clamp(18px,2.1vw,24px); color:var(--rubin);
+}
+.how-card p{ margin:0; color:#2a3a35; opacity:.95 }
+
+/* responsive: 2 coloane pe tabletă, 1 pe mobil */
+@media (max-width:1024px){ .how-row{ grid-template-columns:repeat(2,1fr) } .how-row::before{ display:none } }
+@media (max-width:560px){ .how-row{ grid-template-columns:1fr } }
 </style>
 </head>
 <body id="top">
@@ -195,51 +226,52 @@ footer a{color:#cdd}
 <!-- CUM FUNCȚIONEAZĂ -->
 <ol class="how-rail">
 
-  <!-- 1) ALEGE EVENIMENTUL -->
-  <li class="how-step">
+ <ol class="how-row">
+  <!-- 1 -->
+  <li class="how-item">
     <div class="how-card">
-      <div class="icon-badge">
-        <img src="material-symbols--calendar-check-rounded.svg" alt="" />
+      <div class="icon-badge" aria-hidden="true">
+        <img src="material-symbols--calendar-check-rounded.svg" alt="">
       </div>
       <h3>Alege evenimentul</h3>
       <p>Definești data, orașul și bugetul — noi verificăm disponibilitatea.</p>
     </div>
   </li>
 
-  <!-- 2) SELECTEAZĂ BUCĂTARUL -->
-  <li class="how-step">
+  <!-- 2 (bonetă verde rubin) -->
+  <li class="how-item">
     <div class="how-card">
-      <div class="icon-badge">
-        <img src="material-symbols--chef-hat-outline.svg" alt="" />
+      <div class="icon-badge" aria-hidden="true">
+        <img class="rubin" src="material-symbols--chef-hat-outline.svg" alt="">
       </div>
       <h3>Selectează bucătarul</h3>
       <p>Compari profiluri, meniuri și recenzii verificate.</p>
     </div>
   </li>
 
-  <!-- 3) CONFIRMĂ -->
-  <li class="how-step">
+  <!-- 3 -->
+  <li class="how-item">
     <div class="how-card">
-      <div class="icon-badge">
-        <img src="material-symbols--bookmark-added-outline.svg" alt="" />
+      <div class="icon-badge" aria-hidden="true">
+        <img src="material-symbols--bookmark-added-outline.svg" alt="">
       </div>
       <h3>Confirmă</h3>
       <p>Contract transparent & plată securizată, factură pe e-mail.</p>
     </div>
   </li>
 
-  <!-- 4) EXPERIMENTEAZĂ -->
-  <li class="how-step">
+  <!-- 4 -->
+  <li class="how-item">
     <div class="how-card">
-      <div class="icon-badge">
-        <img src="material-symbols--dine-heart.svg" alt="" />
+      <div class="icon-badge" aria-hidden="true">
+        <img src="material-symbols--dine-heart.svg" alt="">
       </div>
       <h3>Experimentează</h3>
       <p>Chef-ul gătește la tine, cu plating elegant și bucătăria lăsată curată.</p>
     </div>
   </li>
-
 </ol>
+
 
 
 <!-- CHEFI -->
