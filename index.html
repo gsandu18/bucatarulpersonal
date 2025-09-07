@@ -42,7 +42,19 @@ section{padding:clamp(60px,7vw,96px) 0; scroll-margin-top:90px}
 #bp-mobile a{display:block;padding:14px;border-bottom:1px solid rgba(255,255,255,.08);color:#fff}
 @media (max-width:1024px){ .bp-links{display:none} .bp-hamb{display:inline-block} }
 
-/* Hero */
+  /* Brand */
+.bp-brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none}
+.bp-wordmark{
+  font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight:800; letter-spacing:.32em; text-transform:uppercase;
+  font-size: clamp(16px, 2.2vw, 24px);
+  white-space:nowrap;
+}
+.bp-logo{width:42px;height:42px;flex:0 0 auto;display:block}
+@media (max-width:560px){
+  .bp-wordmark{letter-spacing:.22em;font-size:18px}
+  .bp-logo{width:38px;height:38px}
+}/* Hero */
 .hero{position:relative;min-height:560px;height:100dvh;height:100svh;color:#fff;overflow:hidden}
 .slide{position:absolute;inset:0;background-position:center;background-size:cover;opacity:0;transition:opacity 1.1s ease}
 .slide.active{opacity:1}
@@ -124,19 +136,6 @@ footer a{color:#cdd}
 .hidden{display:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:12px 18px;border:1px solid rgba(0,0,0,.3);border-radius:999px;font-weight:600;cursor:pointer;text-decoration:none}
 
-  /* Brand */
-.bp-brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none}
-.bp-wordmark{
-  font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  font-weight:800; letter-spacing:.32em; text-transform:uppercase;
-  font-size: clamp(16px, 2.2vw, 24px);
-  white-space:nowrap;
-}
-.bp-logo{width:42px;height:42px;flex:0 0 auto;display:block}
-@media (max-width:560px){
-  .bp-wordmark{letter-spacing:.22em;font-size:18px}
-  .bp-logo{width:38px;height:38px}
-}
 </style>
 </head>
 <body id="top">
