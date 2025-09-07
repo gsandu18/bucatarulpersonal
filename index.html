@@ -13,6 +13,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="/bucatarulpersonal/img/icon-192.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/icon-180.png">
+<link rel="manifest" href="/manifest.webmanifest">
 
 <style>
 :root{ --primary:#004C3F; --accent:#C9A646; --accent-700:#B7983A; --ink:#141915; --muted:#667178; --white:#fff; --black:#000; --rad:16px; --shadow:0 14px 40px rgba(0,0,0,.12)}
@@ -361,6 +364,12 @@ if ('serviceWorker' in navigator) {
 let deferredPrompt=null;
 window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault(); deferredPrompt=e; document.getElementById('installBtn')?.classList.remove('hidden');});
 document.getElementById('installBtn')?.addEventListener('click', async ()=>{ if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; document.getElementById('installBtn')?.classList.add('hidden');});
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/bucatarulpersonal/sw.js')
+    .catch(console.error);
+}
+</script>
 </script>
 </body>
 </html>
