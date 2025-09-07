@@ -356,21 +356,32 @@ document.querySelectorAll('[data-service]').forEach(btn=>{
   });
 });
 
-// PWA: înregistrare SW + buton „Instalează aplicația”
+<!-- PWA: înregistrare SW + buton „Instalează aplicația” -->
+<script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('/bucatarulpersonal/sw.js'));
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/bucatarulpersonal/sw.js')
+      .then(() => console.log("SW registered"))
+      .catch(console.error);
+  });
 }
-let deferredPrompt=null;
-window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault(); deferredPrompt=e; document.getElementById('installBtn')?.classList.remove('hidden');});
-document.getElementById('installBtn')?.addEventListener('click', async ()=>{ if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; document.getElementById('installBtn')?.classList.add('hidden');});
-<script>
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/bucatarulpersonal/sw.js")
-    .then(() => console.log("SW registered"))
-    .catch(console.error);
-}
+
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installBtn')?.classList.remove('hidden');
+});
+
+document.getElementById('installBtn')?.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('installBtn')?.classList.add('hidden');
+});
 </script>
-</script>
+</body>
+</html>
 </body>
 </html>
