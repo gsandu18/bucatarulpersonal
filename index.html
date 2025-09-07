@@ -312,74 +312,157 @@ footer a{color:#cdd}
 <button id="installBtn" class="hidden">Instalează aplicația</button>
 
 <script>
-// header + meniu mobil
-const bpHeader=document.getElementById('bp-header');
-addEventListener('scroll',()=>bpHeader.classList.toggle('scrolled',scrollY>4));
-const bpHamb=document.querySelector('.bp-hamb'); const bpMobile=document.getElementById('bp-mobile');
-bpHamb?.addEventListener('click',()=>{const open=bpMobile.style.display==='block'; bpMobile.style.display=open?'none':'block'; bpHamb.setAttribute('aria-expanded',String(!open));});
-bpMobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{bpMobile.style.display='none'; bpHamb.setAttribute('aria-expanded','false');}));
-
-// hero slider
-const heroContent=[
-  {t:"Chef la tine acasă\nmeniuri personalizate", s:"Chefi profesioniști pentru cine private și evenimente corporate.", d:"Ingrediente premium, contract clar și plating elegant.", c:`<a class="btn" style="background:var(--accent);color:#231f1a;border:1px solid var(--accent-700)" href="#vreau">Vreau un bucătar</a><a class="btn" style="background:transparent;border:1px solid rgba(255,255,255,.45);color:#fff" href="#cum">Cum funcționează</a>`},
-  {t:"Evenimente private\n& corporate", s:"Transformăm orice ocazie într-o experiență gourmet memorabilă.", d:"Cină acasă, garden party sau eveniment de firmă — full service.", c:`<a class="btn" style="background:var(--accent);color:#231f1a;border:1px solid var(--accent-700)" href="#vreau">Rezervă acum</a><a class="btn" style="background:transparent;border:1px solid rgba(255,255,255,.45);color:#fff" href="#chefi">Vezi bucătarii</a>`},
-  {t:"Meniuri zilnice\nadaptate ție", s:"Planuri echilibrate gătite în avans (batch cooking), pentru toată familia.", d:"Preferințe, alergii, calorii — totul personalizat.", c:`<a class="btn" style="background:var(--accent);color:#231f1a;border:1px solid var(--accent-700)" href="#servicii">Vezi serviciul</a><a class="btn" style="background:transparent;border:1px solid rgba(255,255,255,.45);color:#fff" href="#testi">Recenzii</a>`}
-];
-const slides=[...document.querySelectorAll('.slide')]; const dots=[...document.querySelectorAll('.dot')]; const hc=document.getElementById('heroContent');
-let idx=0, startX=null, timer=null;
-function render(i){const c=heroContent[i]; const title=c.t.split('\n').map(l=>`<span class="line">${l}</span>`).join(''); hc.innerHTML=`<h1>${title}</h1><div class="sub">${c.s}</div><p class="lead">${c.d}</p><div class="cta">${c.c}</div>`;}
-function go(n){slides[idx].classList.remove('active'); dots[idx].classList.remove('active'); idx=(n+slides.length)%slides.length; slides[idx].classList.add('active'); dots[idx].classList.add('active'); render(idx);}
-function autoplay(){stop(); timer=setInterval(()=>go(idx+1),6000); if (matchMedia('(prefers-reduced-motion: reduce)').matches) stop();}
-function stop(){if(timer){clearInterval(timer); timer=null;}}
-render(idx); autoplay(); dots.forEach((d,k)=>d.addEventListener('click',()=>{go(k); autoplay();}));
-const hero=document.querySelector('.hero'); hero.addEventListener('mouseenter', stop); hero.addEventListener('mouseleave', autoplay);
-hero.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;},{passive:true});
-hero.addEventListener('touchend',e=>{if(startX===null) return; const dx=e.changedTouches[0].clientX-startX; if(Math.abs(dx)>50) go(idx+(dx<0?1:-1)); startX=null; autoplay();},{passive:true});
-
-// formular demo
-function submitForm(e){e.preventDefault(); alert('Cererea ta a fost trimisă. Revenim cu chefi disponibili!');}
-
-// rating localStorage
-(function(){const KEY='bp_rating_'; const paint=(el,val)=>{el.querySelectorAll('.star').forEach(s=>s.classList.toggle('filled',Number(s.dataset.value)<=val)); const n=el.querySelector('.rating-note'); if(n) n.textContent=val?`(${val}/5)`:'';};
-  document.querySelectorAll('#chefi .rating').forEach(r=>{const id=r.closest('[data-chef-id]')?.dataset.chefId||'chef'; const initial=Number(r.dataset.initial)||0; const saved=Number(localStorage.getItem(KEY+id))||0; paint(r,saved||initial);
-    r.addEventListener('mousemove',e=>{const t=e.target.closest('.star'); if(t) paint(r,Number(t.dataset.value));});
-    r.addEventListener('mouseleave',()=>paint(r, Number(localStorage.getItem(KEY+id))||initial));
-    r.addEventListener('click',e=>{const t=e.target.closest('.star'); if(!t) return; const v=Number(t.dataset.value); localStorage.setItem(KEY+id,v); paint(r,v); const note=r.querySelector('.rating-note'); if(note){note.textContent=`Mulțumim! (${v}/5)`; setTimeout(()=>note.textContent=`(${v}/5)`,900);} });
-  });
-})();
-
-// CTA servicii -> precompletare formular
-document.querySelectorAll('[data-service]').forEach(btn=>{
-  btn.addEventListener('click', ()=>{ const tip=document.getElementById('tip-eveniment'); const detalii=document.getElementById('detalii'); const map=btn.getAttribute('data-map')||'Altele'; const service=btn.getAttribute('data-service')||'Serviciu';
-    if(tip){[...tip.options].forEach(o=>o.selected=(o.textContent.trim()===map));}
-    if(detalii){const prefix=detalii.value?detalii.value.trim()+"\n":""; detalii.value=`${prefix}Serviciu solicitat: ${service}`; detalii.focus();}
-  });
+// header + meniu mobil (fără optional chaining)
+var bpHeader = document.getElementById('bp-header');
+window.addEventListener('scroll', function () {
+  if (bpHeader) bpHeader.classList.toggle('scrolled', window.scrollY > 4);
 });
 
-<!-- PWA: înregistrare SW + buton „Instalează aplicația” -->
-<script>
+var bpHamb = document.querySelector('.bp-hamb');
+var bpMobile = document.getElementById('bp-mobile');
+if (bpHamb) {
+  bpHamb.addEventListener('click', function () {
+    var open = bpMobile && bpMobile.style.display === 'block';
+    if (bpMobile) bpMobile.style.display = open ? 'none' : 'block';
+    bpHamb.setAttribute('aria-expanded', String(!open));
+  });
+}
+if (bpMobile) {
+  var links = bpMobile.querySelectorAll('a');
+  for (var i = 0; i < links.length; i++) {
+    links[i].addEventListener('click', function () {
+      bpMobile.style.display = 'none';
+      bpHamb && bpHamb.setAttribute('aria-expanded', 'false');
+    });
+  }
+}
+
+// --- HERO slider ---
+var heroContent = [
+  { t:"Chef la tine acasă\nmeniuri personalizate",
+    s:"Chefi profesioniști pentru cine private și evenimente corporate.",
+    d:"Ingrediente premium, contract clar și plating elegant.",
+    c:'<a class="btn" style="background:var(--accent);color:#231f1a;border:1px solid var(--accent-700)" href="#vreau">Vreau un bucătar</a><a class="btn" style="background:transparent;border:1px solid rgba(255,255,255,.45);color:#fff" href="#cum">Cum funcționează</a>' },
+  { t:"Evenimente private\n& corporate",
+    s:"Transformăm orice ocazie într-o experiență gourmet memorabilă.",
+    d:"Cină acasă, garden party sau eveniment de firmă — full service.",
+    c:'<a class="btn" style="background:var(--accent);color:#231f1a;border:1px solid var(--accent-700)" href="#vreau">Rezervă acum</a><a class="btn" style="background:transparent;border:1px solid rgba(255,255,255,.45);color:#fff" href="#chefi">Vezi bucătarii</a>' },
+  { t:"Meniuri zilnice\nadaptate ție",
+    s:"Planuri echilibrate gătite în avans (batch cooking), pentru toată familia.",
+    d:"Preferințe, alergii, calorii — totul personalizat.",
+    c:'<a class="btn" style="background:var(--accent);color:#231f1a;border:1px solid var(--accent-700)" href="#servicii">Vezi serviciul</a><a class="btn" style="background:transparent;border:1px solid rgba(255,255,255,.45);color:#fff" href="#testi">Recenzii</a>' }
+];
+
+var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+var dots   = Array.prototype.slice.call(document.querySelectorAll('.dot'));
+var hc     = document.getElementById('heroContent');
+var idx = 0, timer = null, startX = null;
+
+function render(i){
+  if (!hc) return;
+  var c = heroContent[i];
+  var title = c.t.split('\n').map(function (l){ return '<span class="line">'+l+'</span>'; }).join('');
+  hc.innerHTML = '<h1>'+title+'</h1><div class="sub">'+c.s+
+                 '</div><p class="lead">'+c.d+'</p><div class="cta">'+c.c+'</div>';
+}
+function go(n){
+  if (!slides.length || !dots.length) return;
+  slides[idx].classList.remove('active'); dots[idx].classList.remove('active');
+  idx = (n + slides.length) % slides.length;
+  slides[idx].classList.add('active'); dots[idx].classList.add('active');
+  render(idx);
+}
+function stop(){ if (timer){ clearInterval(timer); timer = null; } }
+function autoplay(){
+  stop();
+  timer = setInterval(function(){ go(idx+1); }, 6000);
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) stop();
+}
+
+render(idx);
+autoplay();
+dots.forEach(function(d,k){ d.addEventListener('click', function(){ go(k); autoplay(); }); });
+
+var hero = document.querySelector('.hero');
+if (hero){
+  hero.addEventListener('mouseenter', stop);
+  hero.addEventListener('mouseleave', autoplay);
+  hero.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
+  hero.addEventListener('touchend', function(e){
+    if (startX === null) return;
+    var dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) go(idx + (dx < 0 ? 1 : -1));
+    startX = null; autoplay();
+  }, {passive:true});
+}
+
+// Formular demo
+function submitForm(e){ e.preventDefault(); alert('Cererea ta a fost trimisă. Revenim cu chefi disponibili!'); }
+
+// Rating (fără optional chaining)
+(function(){
+  var KEY='bp_rating_';
+  function paint(el,val){
+    var stars = el.querySelectorAll('.star');
+    for (var i=0;i<stars.length;i++){
+      stars[i].classList.toggle('filled', Number(stars[i].dataset.value) <= val);
+    }
+    var n = el.querySelector('.rating-note');
+    if (n) n.textContent = val ? '('+val+'/5)' : '';
+  }
+  var groups = document.querySelectorAll('#chefi .rating');
+  for (var g=0; g<groups.length; g++){
+    var r = groups[g];
+    var cont = r.closest('[data-chef-id]');
+    var id = cont ? cont.getAttribute('data-chef-id') : 'chef';
+    var initial = Number(r.getAttribute('data-initial')) || 0;
+    var saved = Number(localStorage.getItem(KEY+id)) || 0;
+    paint(r, saved || initial);
+    r.addEventListener('mousemove', function(e){
+      var t = e.target.closest('.star'); if (t) paint(this, Number(t.dataset.value));
+    });
+    r.addEventListener('mouseleave', function(){
+      var cont = this.closest('[data-chef-id]');
+      var id = cont ? cont.getAttribute('data-chef-id') : 'chef';
+      var initial = Number(this.getAttribute('data-initial')) || 0;
+      paint(this, Number(localStorage.getItem(KEY+id)) || initial);
+    });
+    r.addEventListener('click', function(e){
+      var t = e.target.closest('.star'); if (!t) return;
+      var v = Number(t.dataset.value);
+      var cont = this.closest('[data-chef-id]');
+      var id = cont ? cont.getAttribute('data-chef-id') : 'chef';
+      localStorage.setItem(KEY+id, v); paint(this, v);
+      var note = this.querySelector('.rating-note');
+      if (note){ note.textContent = 'Mulțumim! ('+v+'/5)'; setTimeout(function(){ note.textContent = '('+v+'/5)'; }, 900); }
+    });
+  }
+})();
+
+// PWA (Vercel: fără prefix)
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/bucatarulpersonal/sw.js')
-      .then(() => console.log("SW registered"))
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(){ console.log('SW registered'); })
       .catch(console.error);
   });
 }
-
-let deferredPrompt = null;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById('installBtn')?.classList.remove('hidden');
+var deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e){
+  e.preventDefault(); deferredPrompt = e;
+  var b = document.getElementById('installBtn'); if (b) b.classList.remove('hidden');
 });
-
-document.getElementById('installBtn')?.addEventListener('click', async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  document.getElementById('installBtn')?.classList.add('hidden');
-});
+var btn = document.getElementById('installBtn');
+if (btn){
+  btn.addEventListener('click', function(){
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.finally(function(){
+      deferredPrompt = null;
+      btn.classList.add('hidden');
+    });
+  });
+}
 </script>
 </body>
 </html>
