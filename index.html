@@ -123,21 +123,29 @@ footer a{color:#cdd}
 #installBtn{position:fixed;right:14px;bottom:14px;z-index:60;padding:12px 16px;border-radius:12px;border:1px solid var(--accent-700);background:var(--accent);color:#231f1a;font-weight:700}
 .hidden{display:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:12px 18px;border:1px solid rgba(0,0,0,.3);border-radius:999px;font-weight:600;cursor:pointer;text-decoration:none}
+
+  /* Brand */
+.bp-brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none}
+.bp-wordmark{
+  font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight:800; letter-spacing:.32em; text-transform:uppercase;
+  font-size: clamp(16px, 2.2vw, 24px);
+  white-space:nowrap;
+}
+.bp-logo{width:42px;height:42px;flex:0 0 auto;display:block}
+@media (max-width:560px){
+  .bp-wordmark{letter-spacing:.22em;font-size:18px}
+  .bp-logo{width:38px;height:38px}
+}
 </style>
 </head>
 <body id="top">
 
 <!-- HEADER -->
-<header id="bp-header" role="banner">
-  <div class="bp-nav">
-    <div class="bp-bar bp-container">
-      <a class="bp-brand" href="#top" aria-label="Bucătarul Personal – pagina principală">
-        <svg viewBox="0 0 200 200" aria-hidden="true">
-          <circle cx="100" cy="100" r="80" fill="none" stroke-width="6"/>
-          <text x="100" y="116" text-anchor="middle" font-family="Playfair Display,serif" font-weight="700" font-size="54" letter-spacing="2">BP</text>
-        </svg>
-        BUCĂTARUL&nbsp;PERSONAL
-      </a>
+<a class="bp-brand" href="#top" aria-label="Bucătarul Personal – acasă">
+  <svg class="bp-logo" role="img" aria-label="BP"><use href="#bp-mark"/></svg>
+  <span class="bp-wordmark">Bucătarul&nbsp;Personal</span>
+</a>
 
       <nav class="bp-links" aria-label="Navigație principală">
         <a href="Despre_noi.html">Despre noi</a>
@@ -292,10 +300,11 @@ footer a{color:#cdd}
 <footer role="contentinfo">
   <div class="container footer">
     <div>
-      <div style="display:flex;align-items:center;gap:10px;color:#fff;margin-bottom:8px">
-        <svg viewBox="0 0 200 200" width="26" height="26" aria-hidden="true"><circle cx="100" cy="100" r="80" fill="none" stroke="#C9A646" stroke-width="6"/><text x="100" y="116" text-anchor="middle" font-family="Playfair Display,serif" font-weight="700" font-size="54" letter-spacing="2" fill="#fff">BP</text></svg>
-        <strong>BUCĂTARUL PERSONAL</strong>
-      </div>
+      <div class="bp-brand" style="color:#fff">
+  <svg class="bp-logo" role="img" aria-label="BP"><use href="#bp-mark"/></svg>
+  <span class="bp-wordmark">Bucătarul&nbsp;Personal</span>
+</div>
+
       <p style="margin:0 0 10px">Experiențe culinare premium cu chefi profesioniști.</p>
       <div class="social" aria-label="Social media"><a href="#">f</a><a href="#">ig</a><a href="#">tt</a><a href="#">in</a></div>
     </div>
@@ -361,6 +370,21 @@ if ('serviceWorker' in navigator) {
 let deferredPrompt=null;
 window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault(); deferredPrompt=e; document.getElementById('installBtn')?.classList.remove('hidden');});
 document.getElementById('installBtn')?.addEventListener('click', async ()=>{ if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; document.getElementById('installBtn')?.classList.add('hidden');});
+<!-- DEFINIȚIE LOGO (o singură dată în pagină) -->
+<svg aria-hidden="true" width="0" height="0" style="position:absolute;left:-9999px;overflow:hidden">
+  <symbol id="bp-mark" viewBox="0 0 64 64">
+    <!-- cerc fundal negru -->
+    <circle cx="32" cy="32" r="28" fill="#0f1412"/>
+    <!-- inel auriu -->
+    <circle cx="32" cy="32" r="29" fill="none" stroke="#C9A646" stroke-width="3"/>
+    <!-- litere BP albe, bold, ușor centrate vertical -->
+    <text x="32" y="37" text-anchor="middle"
+          font-family="Montserrat, Arial, sans-serif"
+          font-weight="800" font-size="22" fill="#ffffff">BP</text>
+  </symbol>
+</svg>
+
+  
 </script>
 </body>
 </html>
