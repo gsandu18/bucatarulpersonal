@@ -72,7 +72,16 @@ h1 .line{display:block}
 .card{background:#fff;border:1px solid #eee;border-radius:var(--rad);padding:22px;box-shadow:var(--shadow);text-align:center}
 .icon{width:64px;height:64px;margin:0 auto 10px;border-radius:14px;display:grid;place-items:center;background:#f5efe0;border:1px solid #ead08b;color:#6a520a}
 .icon svg{width:30px;height:30px}
-
+  
+/* Inline SVG icons */
+.icon-badge svg{
+  width:38px; height:38px;
+  stroke:currentColor; fill:none;
+  stroke-linecap:round; stroke-linejoin:round; stroke-width:1.9;
+}
+.icon-badge svg.rubin{ color:var(--rubin); }   /* verde rubin */
+.icon-badge svg.dark{ color:#1e2b27; }         /* gri închis implicit */
+  
 /* Chefi */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
 .chef{overflow:hidden;border:1px solid #eee;border-radius:var(--rad);box-shadow:var(--shadow);background:#fff}
