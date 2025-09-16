@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Chef Andrei",
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop",
+    "alt": "Chef Andrei pregătind un preparat fine-dining",
+    "rating": 4.8,
+    "reviews": 126,
+    "specialty": "Fine Dining",
+    "city": "București",
+    "tags": ["Mediteranean", "Steak"]
+  },
+  {
+    "name": "Chef Elisa",
+    "image": "https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1200&auto=format&fit=crop",
+    "alt": "Chef Elisa pregătind paste proaspete",
+    "rating": 4.6,
+    "reviews": 98,
+    "specialty": "Italian",
+    "city": "Cluj",
+    "tags": ["Pasta", "Seafood"]
+  },
+  {
+    "name": "Chef Radu",
+    "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop",
+    "alt": "Chef Radu la grătar",
+    "rating": 4.9,
+    "reviews": 203,
+    "specialty": "BBQ",
+    "city": "Timișoara",
+    "tags": ["BBQ", "Corporate"]
+  }
+]
