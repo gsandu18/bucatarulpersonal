@@ -284,89 +284,153 @@
       </div>
     </div>
   </section>
+<!-- =================== BUCĂTARII NOȘTRI (COMPLET) =================== -->
+<section id="chefs" class="chefs-section" style="padding-top:0">
+  <style>
+    /* --- Scoped doar pentru această secțiune --- */
+    .chefs-section{--rubin:#0e5a43; --line:#e6ece8; --muted:#5c6a6f}
+    .chefs-wrap{max-width:1160px;margin:0 auto;padding:0 clamp(12px,4vw,32px)}
+    .chefs-head{text-align:center;margin:0 0 8px;font-family:"Playfair Display",serif}
+    .chefs-sub{color:var(--muted);text-align:center;margin:0 0 16px}
+    .chefs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media(max-width:1080px){.chefs-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:700px){.chefs-grid{grid-template-columns:1fr}}
 
-  <!-- BUCĂTARII NOȘTRI -->
-  <section id="chefs" style="padding-top:0">
-    <div class="container">
-      <h2 style="text-align:center;margin:0 0 8px">Bucătarii noștri</h2>
-      <p class="muted" style="text-align:center;margin:0 0 16px">Profesioniști cu experiență în fine dining, evenimente private și corporate.</p>
-      <div class="grid-3">
-        <article class="card">
-          <div class="media">
-            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop" alt="Chef Andrei — Fine Dining București">
+    .chef-card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(16,24,40,.08);overflow:hidden;transition:transform .2s ease, box-shadow .2s ease}
+    .chef-card:hover{transform:translateY(-2px);box-shadow:0 18px 50px rgba(16,24,40,.12)}
+    .chef-media{aspect-ratio:4/3;background:#eef3ef}
+    .chef-media img{width:100%;height:100%;object-fit:cover}
+    .chef-body{padding:16px}
+    .chef-body h3{margin:0 0 6px;color:var(--rubin);font-family:"Playfair Display",serif}
+    .chef-meta{color:var(--muted);margin:6px 0 12px}
+
+    /* Tags */
+    .chef-tags{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{display:inline-block;font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:#184236;background:#fff}
+
+    /* Stars (SVG fără dependințe) */
+    .stars{display:inline-flex;align-items:center;gap:4px}
+    .star{position:relative;width:18px;height:18px;display:inline-block}
+    .star svg{width:100%;height:100%;display:block}
+    .star .bot path{fill:#d9e2dc}     /* contur ne-umplut */
+    .star .top{position:absolute;inset:0;overflow:hidden} /* masca pentru umplere parțială */
+    .star .top path{fill:#f5c518}     /* auriu */
+
+    .rating-meta{margin-left:6px;font-size:14px;color:var(--muted);font-weight:600}
+    .chefs-actions{text-align:center;margin-top:16px}
+    .btn-ghost{display:inline-block;padding:10px 16px;border-radius:999px;border:1px solid var(--rubin);color:var(--rubin);text-decoration:none;font-weight:800;background:#fff}
+    .btn-ghost:hover{background:#eef6f1}
+  </style>
+
+  <div class="chefs-wrap">
+    <h2 class="chefs-head">Bucătarii noștri</h2>
+    <p class="chefs-sub">Profesioniști cu experiență în fine dining, evenimente private și corporate.</p>
+
+    <div class="chefs-grid">
+      <!-- === Chef Andrei === -->
+      <article class="chef-card">
+        <div class="chef-media">
+          <img loading="lazy" decoding="async"
+               src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop"
+               alt="Chef Andrei pregătind un preparat fine-dining">
+        </div>
+        <div class="chef-body">
+          <h3>Chef Andrei</h3>
+
+          <!-- rating: setezi data-rating și data-count -->
+          <div class="stars" data-rating="4.8" data-count="126" role="img" aria-label="Evaluare 4,8 din 5">
+            <!-- 5 stele; JS va ajusta lățimea '.top' pe baza ratingului -->
+            <span class="star" aria-hidden="true">
+              <span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
+              <span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
+            </span>
+            <span class="star" aria-hidden="true"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star" aria-hidden="true"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star" aria-hidden="true"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star" aria-hidden="true"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="rating-meta">4,8 (126)</span>
           </div>
-          <!-- Chef Andrei -->
-<div class="body">
-  <h3>Chef Andrei</h3>
-  <div class="stars" role="img" aria-label="Evaluare 4,8 din 5" style="--rating:4.8">
-    <!-- 5 stele; umplerea se face per stea cu lățime controlată în .top -->
-    <!-- Stea 1 -->
-    <span class="s" aria-hidden="true">
-      <span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
-      <span class="top" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
-    </span>
-    <!-- Stea 2 -->
-    <span class="s" aria-hidden="true">
-      <span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
-      <span class="top" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
-    </span>
-    <!-- Stea 3 -->
-    <span class="s" aria-hidden="true">
-      <span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
-      <span class="top" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
-    </span>
-    <!-- Stea 4 -->
-    <span class="s" aria-hidden="true">
-      <span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
-      <span class="top" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
-    </span>
-    <!-- Stea 5 (0.8 ≈ 80% → “jumătate+”) -->
-    <span class="s" aria-hidden="true">
-      <span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
-      <span class="top" style="width:80%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
-    </span>
-    <span class="rating-meta">4,8 (126)</span>
-  </div>
-  <p class="muted">Fine Dining • București</p>
-  <span class="tag">Mediteranean</span> <span class="tag">Steak</span>
-</div>
 
-<!-- Chef Elisa -->
-<div class="body">
-  <h3>Chef Elisa</h3>
-  <div class="stars" role="img" aria-label="Evaluare 4,6 din 5" style="--rating:4.6">
-    <!-- 4 pline + 60% -->
-    <span class="s"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-    <span class="s"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-    <span class="s"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-    <span class="s"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-    <span class="s"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:60%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-    <span class="rating-meta">4,6 (98)</span>
-  </div>
-  <p class="muted">Italian • Cluj</p>
-  <span class="tag">Pasta</span> <span class="tag">Seafood</span>
-</div>
+          <p class="chef-meta">Fine Dining • București</p>
+          <div class="chef-tags"><span class="tag">Mediteranean</span><span class="tag">Steak</span></div>
+        </div>
+      </article>
 
-<!-- Chef Radu -->
-<div class="body">
-  <h3>Chef Radu</h3>
-  <div class="stars" role="img" aria-label="Evaluare 4,9 din 5" style="--rating:4.9">
-    <!-- 4 pline + 90% -->
-    <span class="s"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-    <span class="s"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-    <span class="s"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-    <span class="s"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:100%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-    <span class="s"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:90%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-    <span class="rating-meta">4,9 (203)</span>
-  </div>
-  <p class="muted">BBQ • Timișoara</p>
-  <span class="tag">BBQ</span> <span class="tag">Corporate</span>
-</div>
-      <div style="text-align:center;margin-top:16px">
-        <a class="btn ghost" href="/bucatarii.html">Vezi toți bucătarii</a>
-      </div>
+      <!-- === Chef Elisa === -->
+      <article class="chef-card">
+        <div class="chef-media">
+          <img loading="lazy" decoding="async"
+               src="https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1200&auto=format&fit=crop"
+               alt="Chef Elisa pregătind paste proaspete">
+        </div>
+        <div class="chef-body">
+          <h3>Chef Elisa</h3>
+
+          <div class="stars" data-rating="4.6" data-count="98" role="img" aria-label="Evaluare 4,6 din 5">
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="rating-meta">4,6 (98)</span>
+          </div>
+
+          <p class="chef-meta">Italian • Cluj</p>
+          <div class="chef-tags"><span class="tag">Pasta</span><span class="tag">Seafood</span></div>
+        </div>
+      </article>
+
+      <!-- === Chef Radu === -->
+      <article class="chef-card">
+        <div class="chef-media">
+          <img loading="lazy" decoding="async"
+               src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop"
+               alt="Chef Radu la grătar">
+        </div>
+        <div class="chef-body">
+          <h3>Chef Radu</h3>
+
+          <div class="stars" data-rating="4.9" data-count="203" role="img" aria-label="Evaluare 4,9 din 5">
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="rating-meta">4,9 (203)</span>
+          </div>
+
+          <p class="chef-meta">BBQ • Timișoara</p>
+          <div class="chef-tags"><span class="tag">BBQ</span><span class="tag">Corporate</span></div>
+        </div>
+      </article>
     </div>
-  </section>
+
+    <div class="chefs-actions">
+      <a class="btn-ghost" href="/bucatarii.html">Vezi toți bucătarii</a>
+    </div>
+  </div>
+
+  <!-- JS mic: completează umplerea stelelor în funcție de data-rating -->
+  <script>
+    (function(){
+      const groups = document.querySelectorAll('#chefs .stars');
+      groups.forEach(g=>{
+        const rating = Math.max(0, Math.min(5, parseFloat(g.dataset.rating||'0')));
+        const stars = g.querySelectorAll('.star');
+        for(let i=0;i<5;i++){
+          const fill = Math.max(0, Math.min(1, rating - i)); // 1, 0.6, 0...
+          const top = stars[i]?.querySelector('.top');
+          if(top) top.style.width = (fill*100)+'%';
+        }
+        const count = g.dataset.count;
+        const meta = g.querySelector('.rating-meta');
+        if(meta && count){ meta.textContent = rating.toFixed(1).replace('.',',') + ' ('+count+')'; }
+        g.setAttribute('aria-label', `Evaluare ${rating.toFixed(1).replace('.',',')} din 5`);
+      });
+    })();
+  </script>
+</section>
+<!-- ================= END BUCĂTARII NOȘTRI ================= -->
 
   <!-- SERVICII -->
   <section id="servicii">
