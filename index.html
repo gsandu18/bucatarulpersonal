@@ -227,32 +227,53 @@
   </div>
 
   <!-- SLIDER -->
-  <section class="slider safe" id="hero">
-    <div class="slide active">
-      <img class="bg" src="/IMG_RUX00220.jpeg" alt="Meniuri personalizate" loding="lazy" decoding="async">
-      <div class="content">
-        <span class="pill" aria-hidden="true">Premium • Verificați • Contract & Factură</span>
-        <h1>Experiență de restaurant, direct la tine acasă.</h1>
-        <p class="lead">Chefi verificați, meniuri personalizate și echipă completă pentru cine private, corporate și meniuri zilnice.</p>
-        <div class="hero-cta">
-          <a href="#formular" class="btn-lg btn primary">Vreau un bucătar</a>
-          <a href="#cum-func" class="btn-lg btn-outline">Cum funcționează</a>
-        </div>
+<section class="slider safe" id="hero" aria-label="Hero cu oferte" aria-live="polite">
+  <!-- Slide 1 -->
+  <div class="slide active">
+    <img class="bg"
+         src="./IMG_RUX00220.jpeg"
+         srcset="./IMG_RUX00220.jpeg 1200w, ./IMG_RUX00220.jpeg 1920w"
+         sizes="100vw"
+         alt="Meniuri personalizate gătite acasă"
+         loading="eager" fetchpriority="high" decoding="sync">
+    <div class="overlay" aria-hidden="true"></div>
+    <div class="content">
+      <span class="pill">Premium • Verificați • Contract &amp; Factură</span>
+      <h1>Experiență de restaurant, direct la tine acasă.</h1>
+      <p class="lead">Chefi verificați, meniuri personalizate și echipă completă pentru cine private, corporate și meniuri zilnice.</p>
+      <div class="hero-cta">
+        <a href="#formular" class="btn-lg btn primary">Vreau un bucătar</a>
+        <a href="#cum-func" class="btn-lg btn-outline">Cum funcționează</a>
       </div>
     </div>
+  </div>
 
-    <div class="slide">
-      <img class="bg" src="./IMG_9406.jpeg" alt="Chef în acțiune" loading="lazy" decoding="async">
-      <div class="content">
-        <span class="pill">Devino partener</span>
-        <h1>Înscrie-te ca bucătar personal</h1>
-        <p class="lead">Primești cereri verificate, contract și plăți sigure. Îți alegi programul și evenimentele.</p>
-        <div class="hero-cta">
-          <a href="contul.html" class="btn-lg btn primary">Mă înscriu</a>
-          <a href="colaborare.html" class="btn-lg btn-outline">Află mai multe</a>
-        </div>
+  <!-- Slide 2 -->
+  <div class="slide">
+    <img class="bg"
+         src="./IMG_9406.jpeg"
+         srcset="./IMG_9406.jpeg 1200w, ./IMG_9406.jpeg 1920w"
+         sizes="100vw"
+         alt="Chef în acțiune"
+         loading="lazy" decoding="async">
+    <div class="overlay" aria-hidden="true"></div>
+    <div class="content">
+      <span class="pill">Devino partener</span>
+      <h1>Înscrie-te ca bucătar personal</h1>
+      <p class="lead">Primești cereri verificate, contract și plăți sigure. Îți alegi programul și evenimentele.</p>
+      <div class="hero-cta">
+        <a href="contul.html" class="btn-lg btn primary">Mă înscriu</a>
+        <a href="colaborare.html" class="btn-lg btn-outline">Află mai multe</a>
       </div>
     </div>
+  </div>
+
+  <!-- Dots -->
+  <div class="dots" role="tablist" aria-label="Schimbă slide-ul">
+    <button class="dot active" role="tab" aria-selected="true" aria-controls="hero" tabindex="0"></button>
+    <button class="dot" role="tab" aria-selected="false" aria-controls="hero" tabindex="-1"></button>
+  </div>
+</section>
 
     <div class="dots" aria-label="Navigare slide-uri">
       <button class="dot active" aria-label="Slide 1"></button>
