@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meniuri zilnice — Bucătarul Personal</title>
+<meta name="description" content="Chef personal la tine acasă: plan alimentar, cumpărături, gătit, organizare & meal-prep. Abonamente flexibile și meniuri adaptate dietelor.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#0e5a43; --brand2:#0b4a36; --ink:#182422; --muted:#6b7477; --line:#e6ece8; --card:#fff; --soft:#f6fbf8;
+  --max:1160px; --pad:clamp(12px,4vw,24px); --rad:18px; --shadow:0 14px 36px rgba(16,24,40,.08)
+}
+@media(prefers-color-scheme:dark){
+  :root{--ink:#e9efed;--muted:#a7b2ae;--line:#22332c;--card:#0f1413;--soft:#0f1715;--shadow:0 22px 60px rgba(0,0,0,.45)}
+  body{background:#0a0f0e}
+}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:#fff;font:400 16px/1.7 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+a{text-decoration:none;color:inherit} img{max-width:100%;display:block}
+
+/* Header */
+header{position:sticky;top:0;z-index:60;background:rgba(14,90,67,.94);backdrop-filter:saturate(180%) blur(12px);color:#fff}
+.nav{max-width:var(--max);margin:0 auto;padding:12px var(--pad);display:flex;gap:12px;align-items:center}
+.nav a{color:#fff;font-weight:800}
+.spacer{flex:1}
+.burger{display:none;margin-left:auto;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;border-radius:12px;width:42px;height:42px;font-size:22px}
+@media(max-width:880px){ .nav a[href="/bucatarii.html"], .nav a[href="/blog.html"], .nav a[href="/#formular"]{display:none} .burger{display:inline-grid;place-items:center} }
+
+/* Drawer */
+.drawer{position:fixed;inset:0;background:rgba(0,0,0,.32);backdrop-filter:blur(2px);display:none;z-index:90}
+.drawer.open{display:block}
+.sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:var(--card);border-left:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column}
+.sheet .head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.links{display:grid;gap:8px;padding:16px}
+.links a{padding:12px;border:1px solid var(--line);border-radius:12px;font-weight:700}
+.close-x{margin-left:auto;border:1px solid var(--line);background:transparent;border-radius:12px;width:40px;height:40px;font-size:20px}
+
+/* Layout helpers */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+h2{font-family:"Playfair Display",serif;margin:0 0 8px;color:#0e382d}
+.muted{color:var(--muted)}
+.btn{display:inline-block;padding:12px 24px;border-radius:999px;border:2px solid transparent;font-weight:800;min-height:44px;text-align:center}
+.btn.primary{background:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand2)}
+.btn.ghost{background:transparent;border-color:var(--brand);color:var(--brand)}
+.btn.ghost:hover{background:var(--brand);color:#fff}
+
+/* Hero */
+.hero{padding:clamp(48px,8vw,92px) 0;background:
+  radial-gradient(1200px 1200px at 50% -20%, rgba(14,90,67,.06), transparent 60%),
+  linear-gradient(180deg,#f3faf6,#ffffff00)}
+h1{font-family:"Playfair Display",serif;font-size:clamp(30px,6vw,56px);line-height:1.06;margin:0 0 8px;color:#0e382d}
+.hero p{color:var(--muted);max-width:820px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pill{padding:6px 10px;border-radius:999px;border:1px solid var(--line);font-weight:800}
+
+/* Highlights */
+.high{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+@media(max-width:980px){.high{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.high{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:14px;display:grid;gap:8px}
+.card .k{font-size:12px;font-weight:800;color:var(--brand)}
+.card h3{margin:0;color:#0e382d;font-family:"Playfair Display",serif}
+
+/* Packages */
+.pk .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:980px){.pk .plans{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.pk .plans{grid-template-columns:1fr}}
+.pk .plan{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow);display:grid;gap:8px}
+.pk .plan.pop{border-color:#c7e6d7;box-shadow:0 18px 50px rgba(14,90,67,.16)}
+.pk .badge{position:absolute;top:12px;right:12px;background:#eaf5ef;border:1px solid #c7e6d7;color:#0e5a43;font-weight:800;border-radius:999px;padding:6px 10px;font-size:12px}
+.pk .plan h3{margin:0;color:#0e382d;font-family:"Playfair Display",serif}
+.pk .price{font-size:28px;font-weight:800;color:#0e382d}
+.pk .hint{color:var(--muted);font-size:13px;margin-top:-6px}
+.pk .features{display:grid;gap:8px;margin-top:6px}
+.pk .features li{list-style:none;display:flex;gap:8px;align-items:flex-start}
+.pk .features li::before{content:"✓";color:#0e5a43;font-weight:800}
+.pk .cta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pk .toggle{display:flex;gap:8px;align-items:center;margin:8px 0 14px}
+.pk .toggle input{accent-color:#0e5a43;width:18px;height:18px}
+
+/* Calculator */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:14px}
+.form{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:980px){.form{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.form{grid-template-columns:1fr}}
+label{display:block;font-weight:800;color:#143b30;margin-bottom:6px}
+input,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+@media(prefers-color-scheme:dark){input,select{background:#0f1413}}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#184236;font-weight:800;font-size:12px}
+.total{font-size:22px;font-weight:800;color:#0e382d}
+
+/* Diets */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.filter{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:800;cursor:pointer}
+.filter.active{background:#eaf5ef;border-color:#c7e6d7;color:#0e5a43}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.dot{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:#5c6a6f}
+.ic{width:14px;height:14px;border-radius:3px}
+
+/* Weekly menu */
+.week{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px}
+@media(max-width:980px){.week{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.week{grid-template-columns:1fr}}
+.day{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:12px}
+.day h4{margin:0 0 6px;color:#0e382d}
+.meal{display:flex;gap:10px;align-items:flex-start;padding:8px;border:1px solid var(--line);border-radius:12px;margin:6px 0;background:#fff}
+.meal .pic{width:72px;height:54px;border-radius:8px;object-fit:cover;background:#eaf3ef}
+.meal .txt{flex:1}
+.meal .tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11px;padding:4px 8px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#184236}
+
+/* FAQ & CTA */
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+summary{cursor:pointer;font-weight:800;color:#0e382d;list-style:none}
+summary::-webkit-details-marker{display:none}
+.cta{padding:clamp(28px,6vw,48px) 0;background:linear-gradient(180deg,#f6fbf8,#ffffff)}
+.cta .box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:10px;align-items:center;grid-template-columns:1fr auto}
+
+/* Footer */
+footer{color:var(--muted);text-align:center;border-top:1px solid var(--line);margin-top:28px;padding:16px 0}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="/">Bucătarul Personal</a>
+    <div class="spacer"></div>
+    <a href="/bucatarii.html">Bucătarii</a>
+    <a href="/blog.html">Blog</a>
+    <a href="/#formular">Comandă</a>
+    <button class="burger" id="burger" aria-label="Meniu">☰</button>
+  </div>
+</header>
+
+<!-- Drawer -->
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu">
+    <div class="head"><strong>Bucătarul Personal</strong>
+      <button class="close-x" id="closeDrawer" aria-label="Închide">✕</button>
+    </div>
+    <nav class="links">
+      <a href="/">Acasă</a>
+      <a href="/bucatarii.html">Bucătării</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/#formular">Comandă</a>
+    </nav>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Meniuri zilnice (abonament)</h1>
+    <p>Chef personal la tine acasă: plan alimentar, cumpărături, gătit, organizare frigider & meal-prep. Adaptat pentru diete speciale și programul familiei tale.</p>
+    <div class="pills">
+      <span class="pill">Plan alimentar personalizat</span>
+      <span class="pill">Cumpărături & aprovizionare</span>
+      <span class="pill">Gătit & organizare</span>
+      <span class="pill">Curățenie la final</span>
+    </div>
+
+    <div class="high">
+      <div class="card"><span class="k">Flexibil</span><h3>1–5 zile/săptămână</h3><p class="muted">Alegi frecvența, intervalul orar și numărul de porții.</p></div>
+      <div class="card"><span class="k">Sănătos</span><h3>Diete & alergii</h3><p class="muted">Fără gluten/lactoză, vegetarian/vegan, low-carb, copii.</p></div>
+      <div class="card"><span class="k">Transparent</span><h3>Contract & factură</h3><p class="muted">Plată sigură, calendar programări, feedback după fiecare sesiune.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="wrap pk" id="pachete">
+  <h2>Pachete / abonamente</h2>
+  <p class="muted">Prețurile sunt orientative pentru manoperă. Poți bifa opțiunea pentru estimare cu ingrediente incluse.</p>
+  <label class="toggle"><input type="checkbox" id="incluse"> Vreau estimare cu ingredientele incluse</label>
+  <div id="plans" class="plans" aria-live="polite"></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+    <a class="btn primary" href="/blog/contul.html#formular">Solicită ofertă exactă</a>
+    <a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/40772893476?text=Salut!%20Sunt%20interesat%20de%20pachetele%20de%20meniuri%20zilnice.">Întreabă pe WhatsApp</a>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="wrap">
+  <h2>Calculator orientativ</h2>
+  <p class="muted">Costul final depinde de meniu, timp de gătit, cumpărături și numărul de porții. Ingredientele pot fi incluse sau separate.</p>
+  <div class="panel">
+    <form id="calc" class="form">
+      <div><label>Persoane</label><select id="pers"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></div>
+      <div><label>Zile / săptămână</label><select id="zile"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option></select></div>
+      <div><label>Porții / zi</label><select id="portii"><option>1</option><option selected>2</option><option>3</option></select></div>
+      <div><label>Ingredientele</label><select id="ingred"><option value="separate" selected>Separate (le plătești tu)</option><option value="incluse">Incluse</option></select></div>
+    </form>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:10px">
+      <span class="badge">Manoperă/zi: <strong id="mano">—</strong> lei</span>
+      <span class="badge">Estimare ingrediente/zi: <strong id="ing">—</strong> lei</span>
+      <span class="badge">Total săptămânal: <span class="total" id="total">—</span> lei</span>
+      <a class="btn primary" href="/blog/contul.html#formular">Solicită ofertă</a>
+    </div>
+  </div>
+</section>
+
+<!-- DIETS -->
+<section class="wrap">
+  <h2>Preferințe & alergii</h2>
+  <div id="diet-filters" class="filters" role="group" aria-label="Filtre dietă">
+    <button class="filter" data-diet="standard">Standard</button>
+    <button class="filter" data-diet="vegetarian">Vegetarian</button>
+    <button class="filter" data-diet="vegan">Vegan</button>
+    <button class="filter" data-diet="lowcarb">Low-carb</button>
+    <button class="filter" data-diet="glutenfree">Fără gluten</button>
+    <button class="filter" data-diet="lactosefree">Fără lactoză</button>
+    <button class="filter" data-diet="kids">Kids friendly</button>
+  </div>
+  <div class="legend">
+    <span class="dot"><span class="ic" style="background:#bbf7d0"></span> vegetarian</span>
+    <span class="dot"><span class="ic" style="background:#fde68a"></span> vegan</span>
+    <span class="dot"><span class="ic" style="background:#bae6fd"></span> fără gluten</span>
+    <span class="dot"><span class="ic" style="background:#fecaca"></span> fără lactoză</span>
+  </div>
+</section>
+
+<!-- WEEKLY MENU -->
+<section class="wrap">
+  <h2>Exemplu meniu pe o săptămână</h2>
+  <p class="muted">Se schimbă în funcție de sezon, preferințe și alergii. Produse proaspete, gătite în aceeași zi.</p>
+  <div id="week" class="week" aria-live="polite"></div>
+</section>
+
+<!-- FAQ -->
+<section class="wrap" style="padding-top:0">
+  <h2>Întrebări frecvente</h2>
+  <details><summary>Ingredientele sunt incluse în preț?</summary><p class="muted">La alegere. Poți opta ca noi să facem cumpărăturile (cu bon/factură) sau să le asiguri tu.</p></details>
+  <details><summary>Faceți meniuri pentru copii sau sportivi?</summary><p class="muted">Da. Avem variante kids friendly, high-protein/low-carb, fără zahăr adăugat etc.</p></details>
+  <details><summary>Pot opri/relua abonamentul?</summary><p class="muted">Sigur. Anunți cu 48h înainte pentru modificări în calendar.</p></details>
+  <details><summary>Lucrați și în weekend?</summary><p class="muted">În funcție de disponibilitatea echipei din orașul tău — menționează în cerere.</p></details>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <div class="box">
+      <div>
+        <h3 style="margin:0 0 4px;color:#0e382d;font-family:'Playfair Display',serif">Vrei un meniu pe gustul tău?</h3>
+        <p class="muted" style="margin:0">Completează 5 câmpuri și revenim cu o propunere personalizată în max. 60 de minute.</p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn primary" href="/blog/contul.html#formular">Solicită ofertă</a>
+        <a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/40772893476?text=Salut!%20Vreau%20abonament%20meniuri%20zilnice.">Întreabă pe WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© <span id="year"></span> Bucătarul Personal</footer>
+
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+
+/* Drawer mobil */
+(function(){
+  const body=document.body, d=document.getElementById('drawer'), b=document.getElementById('burger'), x=document.getElementById('closeDrawer');
+  const open=()=>{d.classList.add('open'); body.style.overflow='hidden'};
+  const close=()=>{d.classList.remove('open'); body.style.overflow=''};
+  b?.addEventListener('click',open); x?.addEventListener('click',close);
+  d?.addEventListener('click',e=>{ if(e.target===d) close(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+})();
+
+/* ——— Pachete ——— */
+const PACHETE=[
+  {id:'start',nume:'Start',frecventa:'1 zi / săptămână',pretManopera:200,plusIngrediente:70,hint:'manoperă / zi',features:['2 mese/zi','Cumpărături & gătit acasă','Organizare frigider & etichetare'],popular:false},
+  {id:'balance',nume:'Balance',frecventa:'3 zile / săptămână',pretManopera:180,plusIngrediente:65,hint:'manoperă / zi • cel mai ales',features:['2–3 mese/zi + gustări','Adaptare dietă & alergii','Calendar recurent & raport săptămânal'],popular:true},
+  {id:'full',nume:'Full',frecventa:'5 zile / săptămână',pretManopera:160,plusIngrediente:60,hint:'manoperă / zi',features:['3 mese/zi + meal-prep weekend','Listă cumpărături & optimizare buget','Opțional: mic dejun „grab & go”'],popular:false}
+];
+const incluse=document.getElementById('incluse');
+const plansEl=document.getElementById('plans');
+const nf=n=> new Intl.NumberFormat('ro-RO').format(Math.round(n));
+function planCard(p){
+  const totalZi = p.pretManopera + (incluse.checked ? p.plusIngrediente : 0);
+  return `<article class="plan ${p.popular?'pop':''}">
+    ${p.popular?'<span class="badge">Cel mai popular</span>':''}
+    <h3>${p.nume}</h3>
+    <div class="price">de la ${nf(totalZi)} lei/zi</div>
+    <div class="hint">${incluse.checked?'manoperă + ingrediente / zi':p.hint}</div>
+    <div class="muted" style="font-weight:700">${p.frecventa}</div>
+    <ul class="features">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul>
+    <div class="cta">
+      <a class="btn primary" href="/blog/contul.html#formular">Alege pachetul</a>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/40772893476?text=${encodeURIComponent('Salut! Mă interesează pachetul '+p.nume)}">Întreabă</a>
+    </div>
+  </article>`;
+}
+function renderPlans(){ plansEl.innerHTML=PACHETE.map(planCard).join(''); }
+incluse.addEventListener('change',renderPlans); renderPlans();
+
+/* ——— Calculator ——— */
+const pers=document.getElementById('pers');
+const zile=document.getElementById('zile');
+const portii=document.getElementById('portii');
+const ingred=document.getElementById('ingred');
+const mano=document.getElementById('mano');
+const ing=document.getElementById('ing');
+const total=document.getElementById('total');
+
+function calc(){
+  const p=+pers.value, z=+zile.value, m=+portii.value;
+  const base=180, volumeDisc=(z>=5?0.85:z>=3?0.9:1), peopleAdj=p>2?(1+(p-2)*0.15):1, mealsAdj=(m===3?1.25:m===2?1:0.8);
+  const manoperaZi=Math.max(140, base*volumeDisc*peopleAdj*mealsAdj);
+  const ingredZi=ingred.value==='incluse' ? (45*p*(m===3?1.3:1)) : 0;
+  mano.textContent=nf(manoperaZi); ing.textContent=nf(ingredZi); total.textContent=nf((manoperaZi+ingredZi)*z);
+}
+[pers,zile,portii,ingred].forEach(el=> el.addEventListener('change',calc)); calc();
+
+/* ——— Meniu săptămânal + filtre dietă ——— */
+const MENU={
+  luni:[
+    {meal:"Mic dejun",title:"Overnight oats cu fructe de pădure",pic:"https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=900&auto=format&fit=crop",tags:["vegetarian","lactosefree"]},
+    {meal:"Prânz",title:"Pui la cuptor cu legume și quinoa",pic:"https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=900&auto=format&fit=crop",tags:["glutenfree"]},
+    {meal:"Cină",title:"Supă cremă de dovleac + semințe",pic:"https://images.unsplash.com/photo-1546549037-2fa319e6a384?q=80&w=900&auto=format&fit=crop",tags:["vegan","glutenfree","lactosefree"]}
+  ],
+  marti:[
+    {meal:"Mic dejun",title:"Omletă cu spanac și feta",pic:"https://images.unsplash.com/photo-1543772514-7e0a15f4d72b?q=80&w=900&auto=format&fit=crop",tags:["vegetarian"]},
+    {meal:"Prânz",title:"Somon la cuptor, sparanghel, orez",pic:"https://images.unsplash.com/photo-1485921325833-c519f76c4927?q=80&w=900&auto=format&fit=crop",tags:["glutenfree","lactosefree"]},
+    {meal:"Cină",title:"Buddha bowl cu năut și tahini",pic:"https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=900&auto=format&fit=crop",tags:["vegan","glutenfree","lactosefree"]}
+  ],
+  miercuri:[
+    {meal:"Mic dejun",title:"Iaurt grecesc cu granola & miere",pic:"https://images.unsplash.com/photo-1488477304112-4944851de03d?q=80&w=900&auto=format&fit=crop",tags:["vegetarian","glutenfree"]},
+    {meal:"Prânz",title:"Curcan la grill, cartofi dulci, salată",pic:"https://images.unsplash.com/photo-1542444459-db63c1ea5a56?q=80&w=900&auto=format&fit=crop",tags:["glutenfree","lactosefree"]},
+    {meal:"Cină",title:"Pasta integrală cu sos roșu & busuioc",pic:"https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=900&auto=format&fit=crop",tags:["vegetarian"]}
+  ],
+  joi:[
+    {meal:"Mic dejun",title:"Smoothie verde (spanac, kiwi, măr)",pic:"https://images.unsplash.com/photo-1542442828-287223270105?q=80&w=900&auto=format&fit=crop",tags:["vegan","glutenfree","lactosefree"]},
+    {meal:"Prânz",title:"Tocană de linte roșie cu curry",pic:"https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=900&auto=format&fit=crop",tags:["vegan","glutenfree","lactosefree"]},
+    {meal:"Cină",title:"Dorada la tigaie, salată de fenicul",pic:"https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?q=80&w=900&auto=format&fit=crop",tags:["glutenfree","lactosefree"]}
+  ],
+  vineri:[
+    {meal:"Mic dejun",title:"Clătite banană & ou (fără făină)",pic:"https://images.unsplash.com/photo-1509460913899-35fdcad0b016?q=80&w=900&auto=format&fit=crop",tags:["glutenfree","lactosefree"]},
+    {meal:"Prânz",title:"Curry de pui cu lapte de cocos",pic:"https://images.unsplash.com/photo-1537130508299-46ab547b4bbe?q=80&w=900&auto=format&fit=crop",tags:["glutenfree","lactosefree"]},
+    {meal:"Cină",title:"Quiche cu legume (crustă integrală)",pic:"https://images.unsplash.com/photo-1504387433273-9a8d0a7a2e12?q=80&w=900&auto=format&fit=crop",tags:["vegetarian"]}
+  ]
+};
+const week=document.getElementById('week');
+let DIET=new Set();
+function mealTag(t){ return `<span class="tag">${t}</span>` }
+function dayHTML(name, meals){
+  const nice=name[0].toUpperCase()+name.slice(1);
+  const ms=meals.filter(m=>{
+    if(DIET.size===0) return true;
+    if(DIET.has('vegetarian') && !m.tags.includes('vegetarian')) return false;
+    if(DIET.has('vegan') && !m.tags.includes('vegan')) return false;
+    if(DIET.has('glutenfree') && !m.tags.includes('glutenfree')) return false;
+    if(DIET.has('lactosefree') && !m.tags.includes('lactosefree')) return false;
+    return true;
+  });
+  return `<article class="day">
+    <h4>${nice}</h4>
+    ${ms.map(x=>`
+      <div class="meal">
+        <img class="pic" src="${x.pic}" alt="${x.title}" loading="lazy" decoding="async">
+        <div class="txt"><strong>${x.meal}:</strong> ${x.title}<div class="tags">${x.tags.map(mealTag).join('')}</div></div>
+      </div>`).join('')}
+    ${ms.length? '' : '<div class="muted">Nu există preparate pentru filtrele selectate.</div>'}
+  </article>`;
+}
+function renderWeek(){ week.innerHTML=Object.entries(MENU).map(([k,v])=>dayHTML(k,v)).join(''); }
+renderWeek();
+document.getElementById('diet-filters').addEventListener('click',e=>{
+  const b=e.target.closest('.filter'); if(!b) return;
+  const key=b.dataset.diet;
+  if(b.classList.contains('active')){b.classList.remove('active'); DIET.delete(key);}
+  else{b.classList.add('active'); DIET.add(key);}
+  renderWeek();
+});
+</script>
+</body>
+</html>
