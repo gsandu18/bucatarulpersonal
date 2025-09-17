@@ -1,4 +1,359 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="ro" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Servicii — Bucătarul Personal</title>
+  <meta name="description" content="Cine private la tine acasă, evenimente corporate și meniuri zilnice. Chef personal verificat, contract & factură, acoperire națională.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#0e5a43" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a2d22" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --rubin:#0e5a43; --rubin-2:#0b4a36; --ink:#182422; --muted:#6b7477; --line:#e6ece8;
+      --card:#fff; --soft:#f6fbf8; --max:1160px; --shadow:0 14px 36px rgba(16,24,40,.08);
+      --rad:18px; --pad: clamp(12px, 4vw, 24px);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{ --ink:#edf3f1; --muted:#9fb2ab; --line:#22332c; --card:#0f1413; --soft:#0f1715; --shadow:0 22px 60px rgba(0,0,0,.45) }
+      body{background:#0a0f0e}
+    }
+    *{box-sizing:border-box}
+    body{margin:0;color:var(--ink);background:#fff;font:400 16px/1.7 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+
+    /* Header sticky */
+    header{position:sticky;top:0;z-index:80;backdrop-filter:saturate(180%) blur(12px);background:rgba(14,90,67,.94);color:#fff}
+    .nav{max-width:var(--max);margin:0 auto;padding:12px var(--pad);display:flex;gap:12px;align-items:center}
+    .nav a{color:#fff;font-weight:700}
+    .spacer{flex:1}
+    .burger{display:none;margin-left:auto;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;border-radius:12px;width:42px;height:42px;font-size:22px}
+    @media(max-width:880px){
+      .nav a[href="/bucatarii.html"], .nav a[href="/blog.html"], .nav a[href="/#formular"]{display:none}
+      .burger{display:inline-grid;place-items:center}
+    }
+    /* Drawer */
+    .drawer{position:fixed;inset:0;background:rgba(0,0,0,.32);backdrop-filter:blur(2px);display:none;z-index:90}
+    .drawer.open{display:block}
+    .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:var(--card);
+      border-left:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .sheet .head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
+    .links{display:grid;gap:8px;padding:16px}
+    .links a{padding:12px;border:1px solid var(--line);border-radius:12px;font-weight:700}
+    .close-x{margin-left:auto;border:1px solid var(--line);background:transparent;border-radius:12px;width:40px;height:40px;font-size:20px}
+
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+
+    /* Hero */
+    .hero{padding:clamp(48px,8vw,92px) 0;background:
+      radial-gradient(1200px 1200px at 50% -20%, rgba(14,90,67,.06), transparent 60%),
+      linear-gradient(180deg,#f3faf6,#ffffff00)}
+    .hero h1{font-family:"Playfair Display",serif;font-size:clamp(30px,6vw,56px);line-height:1.06;margin:0 0 10px;color:#0e382d}
+    .hero p{color:var(--muted);max-width:820px}
+
+    /* Grid servicii */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media(max-width:1080px){.grid{grid-template-columns:repeat(2,1fr);gap:18px}}
+    @media(max-width:680px){.grid{grid-template-columns:1fr;gap:14px}}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;box-shadow:var(--shadow);transition:transform .2s ease}
+    .card:hover{transform:translateY(-3px)}
+    .media{aspect-ratio:16/10;background:#eaf3ef}
+    .media img{width:100%;height:100%;object-fit:cover}
+    .body{padding:16px}
+    .kicker{font-size:12px;font-weight:800;letter-spacing:.3px;color:var(--rubin)}
+    .card h3{margin:6px 0 6px;font-family:"Playfair Display",serif;color:#0e382d;font-size:clamp(18px,3.6vw,24px)}
+    .muted{color:var(--muted)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#184236;font-weight:700;font-size:12px}
+
+    /* Pachete / Prețuri */
+    .pricing{padding:clamp(36px,6vw,60px) 0}
+    .switch{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:14px;color:var(--muted);font-weight:700}
+    .toggle{position:relative;width:56px;height:30px;border-radius:999px;background:#dfe9e4;cursor:pointer}
+    .thumb{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:left .2s ease}
+    .toggle.active .thumb{left:29px}
+    .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media(max-width:980px){.plans{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){.plans{grid-template-columns:1fr}}
+    .plan{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);display:grid;gap:10px}
+    .plan.pop{border-color:#c7e6d7;box-shadow:0 18px 50px rgba(14,90,67,.16)}
+    .plan h4{margin:0;color:#0e382d;font-family:"Playfair Display",serif}
+    .price{font-size:28px;font-weight:800;color:#0e382d}
+    .price small{font-weight:600;color:var(--muted)}
+    .features{display:grid;gap:8px;margin-top:8px}
+    .features li{list-style:none;display:flex;gap:8px;align-items:flex-start}
+    .features li::before{content:"✓";color:#0e5a43;font-weight:800}
+    .btn{display:inline-block;padding:12px 18px;border-radius:999px;border:1px solid var(--rubin);font-weight:800;min-height:44px}
+    .btn.primary{background:var(--rubin);color:#fff;border-color:transparent}
+    .btn.ghost{background:#fff;color:var(--rubin)}
+
+    /* Comparație */
+    .compare{padding:clamp(20px,5vw,40px) 0}
+    .table{border:1px solid var(--line);border-radius:16px;overflow:auto}
+    table{width:100%;border-collapse:collapse;background:var(--card)}
+    th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left}
+    th{background:color-mix(in oklab, var(--rubin) 6%, transparent);color:#0e382d}
+    td.center{text-align:center}
+
+    /* Table -> cards pe mobil */
+    @media(max-width:640px){
+      .table{overflow:visible}
+      table, thead, tbody, th, td, tr{display:block}
+      thead{display:none}
+      tbody tr{border:1px solid var(--line);border-radius:14px;margin-bottom:12px;background:var(--card);padding:10px}
+      td{border:0;padding:8px 10px}
+      td::before{content: attr(data-th);display:block;font-weight:800;color:#0e382d;margin-bottom:2px}
+      td.center{text-align:left}
+    }
+
+    /* FAQ */
+    .faq{padding:clamp(36px,6vw,60px) 0}
+    details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+    summary{cursor:pointer;font-weight:800;color:#0e382d;list-style:none}
+    summary::-webkit-details-marker{display:none}
+    details[open]{box-shadow:var(--shadow)}
+
+    /* CTA final */
+    .cta{padding:clamp(28px,6vw,48px) 0;background:linear-gradient(180deg,#f6fbf8,#ffffff)}
+    .cta-box{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:10px;align-items:center;grid-template-columns:1fr auto}
+
+    footer{color:var(--muted);text-align:center;border-top:1px solid var(--line);margin-top:28px;padding:16px 0}
+
+    @media (prefers-reduced-motion: reduce){ .card, .plan{ transition:none } }
+  </style>
+
+  <!-- JSON-LD basic -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"LocalBusiness","name":"Bucătarul Personal",
+   "description":"Chef personal pentru cine private, evenimente corporate și meniuri zilnice.",
+   "areaServed":"RO","url":"https://bucatarulpersonal.ro"}
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <a href="/">Bucătarul Personal</a>
+      <div class="spacer"></div>
+      <a href="/bucatarii.html">Bucătării</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/#formular">Comandă</a>
+      <button class="burger" id="burger" aria-label="Meniu">☰</button>
+    </div>
+  </header>
+
+  <!-- Drawer mobil -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu">
+      <div class="head"><strong>Bucătarul Personal</strong>
+        <button class="close-x" id="closeDrawer" aria-label="Închide">✕</button>
+      </div>
+      <nav class="links">
+        <a href="/">Acasă</a>
+        <a href="/bucatarii.html">Bucătarii</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/#formular">Comandă</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <h1>Servicii</h1>
+      <p>Experiență de restaurant, livrată acasă sau la birou. Chefi verificați, meniuri personalizate — de la cumpărături la curățenie.</p>
+    </div>
+  </section>
+
+  <!-- Servicii principale -->
+  <section class="wrap" aria-labelledby="servicii-head">
+    <h2 id="servicii-head" style="font-family:'Playfair Display',serif;margin:0 0 12px;color:#0e382d">Ce oferim</h2>
+    <div class="grid">
+      <article class="card">
+        <div class="media"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1533777324565-a040eb52fac1?q=80&w=1600&auto=format&fit=crop" alt="Cină privată gourmet"></div>
+        <div class="body">
+          <span class="kicker">Cină privată</span>
+          <h3>Cină gourmet la tine acasă</h3>
+          <p class="muted">Meniu în 3–7 feluri, plating impecabil, servire la masă. Ideal pentru aniversări & ocazii speciale.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+            <span class="pill">Somelier opțional</span><span class="pill">Vegetarian/vegan</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="media"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=1600&auto=format&fit=crop" alt="Eveniment corporate"></div>
+        <div class="body">
+          <span class="kicker">Corporate</span>
+          <h3>Evenimente & catering premium</h3>
+          <p class="muted">Team-building și workshop-uri culinare, recepții, lansări și cine executive scalabile.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+            <span class="pill">Scalabil</span><span class="pill">Logistică inclusă</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="media"><img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1526366003456-b6c1f1b4d3d2?q=80&w=1600&auto=format&fit=crop" alt="Meniuri zilnice"></div>
+        <div class="body">
+          <span class="kicker">Meniuri zilnice</span>
+          <h3>Chef personal acasă (abonament)</h3>
+          <p class="muted">Plan alimentar pe gustul tău, cumpărături, gătit, organizare frigider & meal-prep.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+            <span class="pill">Dietetic</span><span class="pill">Family-style</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Pachete & prețuri -->
+  <section class="pricing">
+    <div class="wrap">
+      <h2 style="font-family:'Playfair Display',serif;margin:0 0 10px;color:#0e382d">Pachete & prețuri orientative</h2>
+      <p class="muted" style="margin:0 0 12px">Prețul final depinde de meniu, persoane și logistică. Toate pachetele includ cumpărături, gătit, servire și curățenie.</p>
+
+      <div class="switch">
+        <span>Cină privată</span>
+        <button id="toggle" class="toggle" aria-label="Comută tipul" aria-pressed="false"><span class="thumb"></span></button>
+        <span>Eveniment</span>
+      </div>
+
+      <div id="plans" class="plans" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Comparație -->
+  <section class="compare">
+    <div class="wrap">
+      <h2 style="font-family:'Playfair Display',serif;margin:0 0 10px;color:#0e382d">Ce include fiecare serviciu</h2>
+      <div class="table">
+        <table aria-describedby="legend">
+          <thead>
+            <tr><th>Beneficiu</th><th>Cină privată</th><th>Eveniment corporate</th><th>Meniuri zilnice</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Chef dedicat</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td></tr>
+            <tr><td>Plating & servire la masă</td><td class="center">✓</td><td class="center">—</td><td class="center">—</td></tr>
+            <tr><td>Bar / Somelier opțional</td><td class="center">✓</td><td class="center">✓</td><td class="center">—</td></tr>
+            <tr><td>Echipă de ospătari</td><td class="center">opțional</td><td class="center">✓</td><td class="center">—</td></tr>
+            <tr><td>Plan alimentar / meal-prep</td><td class="center">—</td><td class="center">—</td><td class="center">✓</td></tr>
+            <tr><td>Contract & factură</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="legend" class="muted" style="margin-top:8px">Bifele reprezintă includere standard; „opțional” = extra la cerere.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="wrap">
+      <h2 style="font-family:'Playfair Display',serif;margin:0 0 10px;color:#0e382d">Întrebări frecvente</h2>
+      <details>
+        <summary>Cât durează o cină privată?</summary>
+        <p class="muted">Între 2,5 și 4 ore, în funcție de numărul de feluri și ritmul servirii.</p>
+      </details>
+      <details>
+        <summary>Veniți cu tacâmuri și veselă?</summary>
+        <p class="muted">Putem asigura seturi complete la cerere; în mod uzual folosim vesela gazdei.</p>
+      </details>
+      <details>
+        <summary>Faceți meniuri vegetariene/vegane sau fără gluten?</summary>
+        <p class="muted">Da. Adaptăm meniul pentru preferințe, diete și alergii.</p>
+      </details>
+      <details>
+        <summary>Care este aria de acoperire?</summary>
+        <p class="muted">Acoperire națională; pentru distanțe mari se aplică transport.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA final -->
+  <section class="cta">
+    <div class="wrap">
+      <div class="cta-box">
+        <div>
+          <h3 style="margin:0 0 4px;color:#0e382d;font-family:'Playfair Display',serif">Gata să începem?</h3>
+          <p class="muted" style="margin:0">Completează 5 câmpuri și revenim cu 1–2 propuneri potrivite evenimentului tău.</p>
+        </div>
+        <a class="btn primary" href="/#formular">Vreau un bucătar</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© <span id="year"></span> Bucătarul Personal</footer>
+
+  <script>
+    // An
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Drawer mobil
+    (function(){
+      const body=document.body, d=document.getElementById('drawer'), b=document.getElementById('burger'), x=document.getElementById('closeDrawer');
+      const open=()=>{d.classList.add('open'); body.style.overflow='hidden'};
+      const close=()=>{d.classList.remove('open'); body.style.overflow=''};
+      b?.addEventListener('click',open); x?.addEventListener('click',close);
+      d?.addEventListener('click',e=>{ if(e.target===d) close(); });
+      document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+    })();
+
+    // Pachete demo
+    const PLANS = {
+      private: [
+        {name:"Essentials", price:"de la 150 lei/pers", note:"3 feluri • 6–10 pers.",
+         features:["Chef dedicat","Meniu personalizat","Cumpărături & transport ingrediente","Gătit, servire & curățenie"]},
+        {name:"Signature", price:"de la 220 lei/pers", note:"5 feluri • 6–10 pers.", pop:true,
+         features:["Tot Essentials","Amuse-bouche & desert","Plating premium","Opțiuni pairing vin"]},
+        {name:"Chef’s Table", price:"de la 320 lei/pers", note:"7 feluri • 4–8 pers.",
+         features:["Fine dining experiență","Mise en place extins","Somelier opțional","Personal de servire (opțional)"]}
+      ],
+      event: [
+        {name:"Business", price:"de la 95 lei/pers", note:"bufet cald/rece • 20+ pers",
+         features:["Meniuri modulare","Stații live cooking (opțional)","Consumabile & set-up","Curățenie finală"]},
+        {name:"Premium", price:"de la 150 lei/pers", note:"canapele & finger food", pop:true,
+         features:["Rețete semnătură","Bar catering (opțional)","Coordonator eveniment","Echipă logistică"]},
+        {name:"Workshop", price:"ofertă la cerere", note:"team-building culinar",
+         features:["Chef trainer","Box de ingrediente/persoană","Degustare & diplomă","Spațiu & echipamente (opțional)"]}
+      ]
+    };
+
+    const plansEl = document.getElementById('plans');
+    const toggle = document.getElementById('toggle');
+
+    function planCard(p){
+      const el = document.createElement('article');
+      el.className = 'plan' + (p.pop?' pop':'');
+      el.innerHTML = `
+        <h4>${p.name}</h4>
+        <div class="price">${p.price} <small>${p.note?`• ${p.note}`:''}</small></div>
+        <ul class="features">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul>
+        <div><a class="btn ${p.pop?'primary':'ghost'}" href="/#formular">Solicită ofertă</a></div>`;
+      return el;
+    }
+    function render(which='private'){ plansEl.innerHTML=''; PLANS[which].forEach(p=>plansEl.appendChild(planCard(p))); }
+    render('private');
+    toggle.addEventListener('click', ()=>{
+      toggle.classList.toggle('active');
+      const onEvent = toggle.classList.contains('active');
+      toggle.setAttribute('aria-pressed', onEvent ? 'true' : 'false');
+      render(onEvent ? 'event' : 'private');
+    });
+
+    // Table -> data-th pentru mobil
+    (function(){
+      const table=document.querySelector('.compare table'); if(!table) return;
+      const heads=[...table.querySelectorAll('thead th')].map(th=>th.textContent.trim());
+      table.querySelectorAll('tbody tr').forEach(row=>{
+        [...row.children].forEach((td,i)=> td.setAttribute('data-th', heads[i]||''));
+      });
+    })();
+  </script>
+</body>
+</html><!doctype html>
 <html lang="ro">
 <head>
 <meta charset="utf-8">
