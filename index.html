@@ -271,19 +271,137 @@
     </div>
   </section>
 
-  <!-- CUM FUNCȚIONEAZĂ -->
-  <section id="cum-func">
-    <div class="container">
-      <h2 style="text-align:center;margin:0 0 8px">Cum funcționează</h2>
-      <p class="muted" style="text-align:center;margin:0 0 18px">Proces simplu în 4 pași. Rezervi în câteva minute.</p>
-      <div class="steps">
-        <div class="step"><h3>1) Completezi cererea</h3><p>Oraș, dată, persoane și stil de meniu.</p></div>
-        <div class="step"><h3>2) Primești 1–2 oferte</h3><p>Potrivite bugetului și preferințelor tale.</p></div>
-        <div class="step"><h3>3) Confirmi & avans</h3><p>Contract, factură, data blocată.</p></div>
-        <div class="step"><h3>4) Gătim & servim</h3><p>Cumpărături, gătit, servire, curățenie.</p></div>
-      </div>
+  <!<!-- ===== CUM FUNCȚIONEAZĂ – FULL-WIDTH, BACKGROUND VERDE, NUMERE MARI ===== -->
+<section id="cum-func" class="how-fw">
+  <style>
+    .how-fw{
+      --rubin:#0e5a43; --rubin-2:#0b4a36; --ink:#0f362b; --muted:#5f6b6f; --line:#dfe9e4;
+      padding:clamp(64px,9vw,108px) 0; color:var(--ink);
+      background:
+        radial-gradient(1200px 1200px at 50% -20%, rgba(14,90,67,.06), transparent 60%),
+        linear-gradient(180deg,#f3faf6,#f7fbf9);
+      overflow:hidden;
+    }
+    .how-fw .wrap{max-width:1160px;margin:0 auto;padding:0 clamp(12px,4vw,32px)}
+    .how-fw h2{margin:0 0 10px;text-align:center;font-family:"Playfair Display",serif;letter-spacing:.2px}
+    .how-fw .sub{color:var(--muted);text-align:center;max-width:820px;margin:0 auto clamp(30px,4.5vw,48px)}
+
+    /* Grid */
+    .how-fw .grid{display:grid;gap:clamp(18px,2.8vw,26px);grid-template-columns:repeat(4,1fr)}
+    @media(max-width:1024px){.how-fw .grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:620px){.how-fw .grid{grid-template-columns:1fr}}
+
+    /* Card */
+    .how-fw .card{
+      position:relative; isolation:isolate;
+      background:#fff;border:1px solid var(--line);border-radius:20px;
+      padding:clamp(20px,2.8vw,26px);
+      box-shadow:0 12px 36px rgba(16,24,40,.08);
+      min-height:170px; display:grid; gap:10px; align-content:start;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .how-fw .card:hover{ transform:translateY(-2px); box-shadow:0 22px 60px rgba(16,24,40,.12) }
+
+    /* Număr mare pe fundal */
+    .how-fw .card .big{
+      position:absolute; inset:auto 8px 8px auto; z-index:-1;
+      font-weight:800; font-size:clamp(64px,12vw,120px); line-height:.9;
+      color:rgba(14,90,67,.08); user-select:none; pointer-events:none;
+    }
+
+    /* Icon în cerc */
+    .how-fw .icon{
+      width:68px;height:68px;border-radius:50%;
+      display:grid;place-items:center;margin-bottom:6px;
+      background:#eaf5ef;border:1px solid #d7e9df;
+      box-shadow:0 8px 24px rgba(16,24,40,.06);
+    }
+    .how-fw .icon svg{width:34px;height:34px;fill:var(--rubin)}
+    .how-fw h3{margin:2px 0 4px;font-size:18px;color:var(--ink);font-weight:800}
+    .how-fw p{margin:0;color:var(--muted)}
+    .how-fw .no{font-weight:800;color:#fff;background:var(--rubin);border-radius:999px;padding:6px 10px;font-size:12px;letter-spacing:.3px;display:inline-block}
+
+    /* Linie de ghidare între carduri pe desktop */
+    @media(min-width:1025px){
+      .how-fw .grid{counter-reset:step}
+      .how-fw .card::after{
+        content:""; position:absolute; top:calc(50% - 1px); right:-13px; width:26px; height:2px;
+        background:linear-gradient(90deg, rgba(14,90,67,.16), rgba(14,90,67,.0));
+      }
+      .how-fw .card:last-child::after{display:none}
+    }
+
+    /* CTA */
+    .how-fw .foot-cta{ text-align:center; margin-top:clamp(28px,4.5vw,44px) }
+    .how-fw .btn{
+      display:inline-block;padding:12px 20px;border-radius:999px;font-weight:800;text-decoration:none;
+      border:1px solid var(--rubin); color:#fff; background:var(--rubin)
+    }
+    .how-fw .btn:hover{ background:var(--rubin-2) }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion:reduce){ .how-fw .card{transition:none} }
+  </style>
+
+  <div class="wrap">
+    <h2>Cum funcționează</h2>
+    <p class="sub">Patru pași simpli. Tu alegi data & stilul, noi livrăm experiența completă.</p>
+
+    <div class="grid" role="list">
+      <!-- 01 -->
+      <article class="card" role="listitem">
+        <div class="big" aria-hidden="true">01</div>
+        <div class="icon" aria-hidden="true">
+          <!-- Clipboard -->
+          <svg viewBox="0 0 24 24"><path d="M9 3h6a2 2 0 0 1 2 2h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2-2Zm0 2v2h6V5H9Z"/></svg>
+        </div>
+        <span class="no">PASUL 1</span>
+        <h3>Completezi cererea</h3>
+        <p>Oraș, dată, nr. persoane și preferințe.</p>
+      </article>
+
+      <!-- 02 -->
+      <article class="card" role="listitem">
+        <div class="big" aria-hidden="true">02</div>
+        <div class="icon" aria-hidden="true">
+          <!-- Bonetă -->
+          <svg viewBox="0 0 24 24"><path d="M7 10a5 5 0 1 1 10 0h2a3 3 0 1 0-3.7-4.6A5.98 5.98 0 0 0 12 4a5.98 5.98 0 0 0-3.3 1.4A3 3 0 1 0 5 10h2Zm-2 2h14v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-6Zm4 2v4h2v-4H9Zm4 0v4h2v-4h-2Z"/></svg>
+        </div>
+        <span class="no">PASUL 2</span>
+        <h3>Primești 1–2 oferte</h3>
+        <p>Aliniate bugetului și stilului tău.</p>
+      </article>
+
+      <!-- 03 -->
+      <article class="card" role="listitem">
+        <div class="big" aria-hidden="true">03</div>
+        <div class="icon" aria-hidden="true">
+          <!-- Contract/Plată -->
+          <svg viewBox="0 0 24 24"><path d="M3 5h18a2 2 0 0 1 2 2v3H1V7a2 2 0 0 1 2-2Zm20 7v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-5h22ZM6 17h5v-2H6v2Z"/></svg>
+        </div>
+        <span class="no">PASUL 3</span>
+        <h3>Confirmi & achiți avansul</h3>
+        <p>Contract, factură și blocarea datei.</p>
+      </article>
+
+      <!-- 04 -->
+      <article class="card" role="listitem">
+        <div class="big" aria-hidden="true">04</div>
+        <div class="icon" aria-hidden="true">
+          <!-- Cloche -->
+          <svg viewBox="0 0 24 24"><path d="M12 5a2 2 0 0 1 2 2v.1A8.002 8.002 0 0 1 20 15H4a8.002 8.002 0 0 1 6-7.9V7a2 2 0 0 1 2-2Zm-9 10h18a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2Z"/></svg>
+        </div>
+        <span class="no">PASUL 4</span>
+        <h3>Gătim & servim</h3>
+        <p>Cumpărături, gătit, servire & curățenie.</p>
+      </article>
     </div>
-  </section>
+
+    <div class="foot-cta">
+      <a class="btn" href="#formular">Începe comanda</a>
+    </div>
+  </div>
+</section>
 <!-- =================== BUCĂTARII NOȘTRI (COMPLET) =================== -->
 <section id="chefs" class="chefs-section" style="padding-top:0">
   <style>
