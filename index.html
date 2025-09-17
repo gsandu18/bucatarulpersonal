@@ -549,62 +549,7 @@
   </script>
 </section>
 
-    /************** FIREBASE (OPTIONAL) **************/
-    async function loadFromFirebase() {
-      // necesită includere SDK în pagină sau bundler; aici folosim importuri dinamice din CDN oficial
-      const [{ initializeApp }, { getFirestore, collection, getDocs, query, orderBy, limit }] = await Promise.all([
-        import('https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js'),
-        import('https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js')
-      ]);
-
-      const app = initializeApp(window.firebaseConfig);
-      const db = getFirestore(app);
-
-      // Colecție: chefs  (câmpuri recomandate: name, image, alt, rating, reviews, specialty, city, tags[ ])
-      const q = query(collection(db, 'chefs'), orderBy('rating', 'desc'), limit(12));
-      const snap = await getDocs(q);
-
-      const data = snap.docs.map(d => {
-        const x = d.data();
-        return {
-          id: d.id,
-          name: x.name || 'Chef',
-          image: x.image || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop',
-          alt: x.alt || '',
-          rating: Number(x.rating || 0),
-          reviews: Number(x.reviews || 0),
-          specialty: x.specialty || 'Private Dining',
-          city: x.city || '—',
-          tags: Array.isArray(x.tags) ? x.tags : []
-        };
-      });
-
-      renderChefs(data);
-    }
-
-    /************** JSON STATIC **************/
-    async function loadFromJSON() {
-      const res = await fetch(CHEFS_JSON_URL, { cache: 'no-store' });
-      const data = await res.json();
-      renderChefs(data);
-    }
-
-    /************** INIT **************/
-    (async function initChefs(){
-      try{
-        if (USE_FIREBASE && window.firebaseConfig) {
-          await loadFromFirebase();
-        } else {
-          await loadFromJSON();
-        }
-      } catch(err){
-        console.error('Eroare încărcare chefi:', err);
-        const grid = document.getElementById('chefs-grid');
-        grid.innerHTML = `<div class="loader">Nu am putut încărca bucătarii. Încearcă din nou.</div>`;
-      }
-    })();
-  </script>
-</section>
+    /
 <!-- ================= END dinamic ================= -->
   <!-- BLOG -->
   <section id="blog" style="background:linear-gradient(135deg, var(--soft), #ffffff00)">
