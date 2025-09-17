@@ -548,6 +548,152 @@
     })();
   </script>
 </section>
+  <!-- ===== HARTA SERVICII ACTIVE (România) ===== -->
+<section id="harta-servicii" style="padding:clamp(40px,7vw,64px) 0">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <style>
+    .map-wrap{max-width:1160px;margin:0 auto;padding:0 clamp(12px,4vw,24px)}
+    .map-head{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
+    .map-head h2{font-family:"Playfair Display",serif;margin:0;color:#0e382d}
+    .map-filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .chip{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid #e6ece8;background:#fff;color:#184236;font-weight:700;font-size:14px;cursor:pointer}
+    .chip input{accent-color:#0e5a43;width:18px;height:18px}
+    .map{height:clamp(360px,60vh,680px);border:1px solid #e6ece8;border-radius:18px;overflow:hidden;box-shadow:0 14px 36px rgba(16,24,40,.08)}
+    .leaflet-popup-content-wrapper{border-radius:14px}
+    .leaflet-control-attribution{font-size:11px}
+    @media(prefers-color-scheme:dark){
+      .map{border-color:#22332c}
+      .chip{background:#0f1413;border-color:#22332c;color:#dfe9e4}
+    }
+  </style>
+
+  <div class="map-wrap">
+    <div class="map-head">
+      <h2>Unde suntem activi</h2>
+      <form class="map-filters" id="map-filters">
+        <label class="chip"><input type="checkbox" name="tip" value="cina" checked> Cină privată</label>
+        <label class="chip"><input type="checkbox" name="tip" value="corporate" checked> Corporate</label>
+        <label class="chip"><input type="checkbox" name="tip" value="meniuri" checked> Meniuri zilnice</label>
+      </form>
+    </div>
+    <div id="ro-map" class="map" role="region" aria-label="Harta României - servicii active"></div>
+  </div>
+
+  <script>
+    // ================== DATELE TALE (editează aici) ==================
+    // tipuri: "cina" (cină privată), "corporate", "meniuri" (meniuri zilnice/abonament)
+    const LOCATII = [
+      { oras:"București", judet:"IF", lat:44.4268, lon:26.1025, tip:["cina","corporate","meniuri"] },
+      { oras:"Cluj-Napoca", judet:"CJ", lat:46.7712, lon:23.6236, tip:["cina","corporate"] },
+      { oras:"Timișoara", judet:"TM", lat:45.7489, lon:21.2087, tip:["cina","corporate","meniuri"] },
+      { oras:"Iași", judet:"IS", lat:47.1585, lon:27.6014, tip:["cina","meniuri"] },
+      { oras:"Brașov", judet:"BV", lat:45.6579, lon:25.6012, tip:["cina","corporate"] },
+      { oras:"Constanța", judet:"CT", lat:44.1733, lon:28.6383, tip:["cina"] },
+      { oras:"Sibiu", judet:"SB", lat:45.7930, lon:24.1213, tip:["cina","meniuri"] },
+      { oras:"Oradea", judet:"BH", lat:47.0722, lon:21.9217, tip:["corporate"] }
+    ];
+    const LINK_FORMULAR = "/#formular"; // schimbă dacă ai altă pagină/ancoră
+
+    // ================== HARTA ==================
+    const brand = "#0e5a43";
+    const map = L.map('ro-map', { scrollWheelZoom:true }).setView([45.9432, 24.9668], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:'&copy; OpenStreetMap',
+      maxZoom: 19
+    }).addTo(map);
+
+    // icon marker (SVG inline, în culoarea brand)
+    const pinSVG = encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="${brand}">
+        <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+      </svg>`);
+    const pinIcon = L.icon({
+      iconUrl: `data:image/svg+xml;charset=UTF-8,${pinSVG}`,
+      iconSize: [28, 28],
+      iconAnchor: [14, 28],
+      popupAnchor: [0, -28]
+    });
+
+    // grup pentru marker-e
+    const layerAll = L.layerGroup().addTo(map);
+    const markers = []; // păstrăm ca să refiltrăm
+
+    function tipLabel(t){
+      return t === 'cina' ? 'Cină privată' : t === 'corporate' ? 'Corporate' : 'Meniuri zilnice';
+    }
+    function tagHTML(tipuri){
+      return tipuri.map(t=>`<span style="display:inline-block;margin:2px 6px 0 0;padding:5px 9px;border-radius:999px;border:1px solid #e6ece8;background:#fff;color:#184236;font-weight:700;font-size:12px">${tipLabel(t)}</span>`).join('');
+    }
+
+    function addMarkers(){
+      layerAll.clearLayers(); markers.length = 0;
+      LOCATII.forEach(p=>{
+        const m = L.marker([p.lat, p.lon], { icon: pinIcon, title: p.oras });
+        const html = `
+          <div style="min-width:220px">
+            <strong style="color:${brand};font-family:Inter,system-ui">Bucătarul Personal</strong>
+            <div style="font-weight:800;margin:2px 0">${p.oras}${p.judet?`, ${p.judet}`:''}</div>
+            <div style="margin:6px 0 8px">${tagHTML(p.tip)}</div>
+            <a href="${LINK_FORMULAR}" class="btn-map" style="display:inline-block;padding:8px 12px;border-radius:10px;background:${brand};color:#fff;text-decoration:none;font-weight:800">Solicită ofertă</a>
+          </div>`;
+        m.bindPopup(html, { closeButton:true });
+        m.addTo(layerAll);
+        markers.push({ m, data:p });
+      });
+      fitToVisible();
+    }
+
+    function fitToVisible(){
+      const visible = markers.filter(x=> map.hasLayer(x.m));
+      if(!visible.length) return;
+      const bounds = L.latLngBounds(visible.map(x=> x.m.getLatLng()));
+      // limite România (ca fallback)
+      const roBounds = L.latLngBounds([43.6,20.26],[48.3,29.7]);
+      map.fitBounds(bounds.pad(0.15));
+      // dacă bounds-ul e prea „mic”, asigură-te că rămânem pe România:
+      const b = map.getBounds();
+      if(!roBounds.contains(b.getNorthWest()) || !roBounds.contains(b.getSouthEast())){
+        map.fitBounds(roBounds.pad(0.05));
+      }
+    }
+
+    // filtrare după checkbox-uri
+    function currentFilters(){
+      return [...document.querySelectorAll('#map-filters input[name="tip"]:checked')].map(i=>i.value);
+    }
+    function applyFilters(){
+      const allowed = new Set(currentFilters());
+      markers.forEach(({m, data})=>{
+        const match = data.tip.some(t=> allowed.has(t));
+        if(match){ layerAll.addLayer(m); } else { layerAll.removeLayer(m); }
+      });
+      fitToVisible();
+    }
+
+    // init
+    addMarkers();
+    document.getElementById('map-filters').addEventListener('change', applyFilters);
+
+    // accesibilitate: Enter deschide pop-up-ul primului marker vizibil
+    document.getElementById('ro-map').addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){
+        const first = markers.find(({m})=> map.hasLayer(m));
+        first?.m.openPopup();
+      }
+    });
+  </script>
+</section>
 <!-- ===== CE SPUN CLIENȚII / TESTIMONIALE ===== -->
 <section id="testimoniale" class="tst">
   <style>
