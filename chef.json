@@ -30,3 +30,356 @@
     "tags": ["BBQ", "Corporate"]
   }
 ]
+<!-- ============== BUCĂTARII NOȘTRI – DINAMIC + FILTRE + LOAD MORE ============== -->
+<section id="chefs" class="chefs-section" style="padding-top:0">
+  <style>
+    .chefs-section{--rubin:#0e5a43; --line:#e6ece8; --muted:#5c6a6f}
+    .chefs-wrap{max-width:1160px;margin:0 auto;padding:0 clamp(12px,4vw,32px)}
+    .chefs-head{text-align:center;margin:0 0 8px;font-family:"Playfair Display",serif}
+    .chefs-sub{color:var(--muted);text-align:center;margin:0 0 20px}
+
+    /* FILTRE */
+    .filters{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1.2fr auto;gap:10px;margin:0 0 16px;align-items:end}
+    @media(max-width:980px){.filters{grid-template-columns:1fr 1fr 1fr}}
+    @media(max-width:620px){.filters{grid-template-columns:1fr}}
+    .f{display:grid;gap:6px}
+    .f label{font-weight:700;color:#133c2f}
+    .f input,.f select{padding:10px 12px;border:1px solid #dfe9e4;border-radius:12px;background:#fbfdfc}
+    .btn-apply{padding:10px 16px;border-radius:999px;border:1px solid var(--rubin);color:#fff;background:var(--rubin);font-weight:800}
+    .btn-reset{padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:800;color:var(--rubin)}
+    .filters .actions{display:flex;gap:8px}
+
+    /* GRID/CARDS */
+    .chefs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;min-height:200px}
+    @media(max-width:1080px){.chefs-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:700px){.chefs-grid{grid-template-columns:1fr}}
+    .chef-card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(16,24,40,.08);overflow:hidden;transition:transform .2s ease, box-shadow .2s ease}
+    .chef-card:hover{transform:translateY(-2px);box-shadow:0 18px 50px rgba(16,24,40,.12)}
+    .chef-media{aspect-ratio:4/3;background:#eef3ef}
+    .chef-media img{width:100%;height:100%;object-fit:cover}
+    .chef-body{padding:16px}
+    .chef-body h3{margin:0 0 6px;color:var(--rubin);font-family:"Playfair Display",serif}
+    .chef-meta{color:var(--muted);margin:6px 0 12px}
+    .chef-tags{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{display:inline-block;font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:#184236;background:#fff}
+
+    /* STELE */
+    .stars{display:inline-flex;align-items:center;gap:4px}
+    .star{position:relative;width:18px;height:18px;display:inline-block}
+    .star svg{width:100%;height:100%;display:block}
+    .star .bot path{fill:#d9e2dc}
+    .star .top{position:absolute;inset:0;overflow:hidden}
+    .star .top path{fill:#f5c518}
+    .rating-meta{margin-left:6px;font-size:14px;color:var(--muted);font-weight:600}
+
+    /* Loader + CTA */
+    .loader{display:grid;place-items:center;padding:28px;color:var(--muted)}
+    .spinner{width:24px;height:24px;border:3px solid #dfe9e4;border-top-color:var(--rubin);border-radius:50%;animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .chefs-actions{text-align:center;margin-top:16px}
+    .btn-ghost{display:inline-block;padding:10px 16px;border-radius:999px;border:1px solid var(--rubin);color:var(--rubin);text-decoration:none;font-weight:800;background:#fff}
+    .btn-ghost:hover{background:#eef6f1}
+    .btn-more{display:inline-block;margin-top:12px;padding:12px 18px;border-radius:999px;border:1px solid var(--rubin);background:#fff;color:var(--rubin);font-weight:800}
+  </style>
+
+  <div class="chefs-wrap">
+    <h2 class="chefs-head">Bucătarii noștri</h2>
+    <p class="chefs-sub">Filtrează după oraș, specialitate sau rating minim.</p>
+
+    <!-- FILTRE -->
+    <form id="chefs-filters" class="filters" onsubmit="return false;">
+      <div class="f">
+        <label for="q">Caută</label>
+        <input id="q" name="q" placeholder="Nume, tag, cuvânt cheie…" />
+      </div>
+      <div class="f">
+        <label for="city">Oraș</label>
+        <select id="city" name="city">
+          <option value="">Toate</option>
+        </select>
+      </div>
+      <div class="f">
+        <label for="spec">Specialitate</label>
+        <select id="spec" name="spec">
+          <option value="">Toate</option>
+        </select>
+      </div>
+      <div class="f">
+        <label for="min">Rating minim</label>
+        <select id="min" name="min">
+          <option value="">Orice</option>
+          <option>4.0</option><option>4.5</option><option>4.7</option><option>4.8</option><option>4.9</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button class="btn-apply" id="btn-apply">Aplică</button>
+        <button class="btn-reset" id="btn-reset" type="button">Reset</button>
+      </div>
+    </form>
+
+    <!-- GRID -->
+    <div id="chefs-grid" class="chefs-grid">
+      <div class="loader" id="chefs-loader" aria-live="polite">
+        <div class="spinner" aria-hidden="true"></div>
+        <span style="margin-top:8px">Se încarcă bucătarii…</span>
+      </div>
+    </div>
+
+    <div class="chefs-actions">
+      <button id="btn-more" class="btn-more" style="display:none">Încarcă mai multe</button>
+      <div><a class="btn-ghost" href="/bucatarii.html">Vezi toți bucătarii</a></div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE CARD -->
+  <template id="chef-card-tpl">
+    <article class="chef-card">
+      <div class="chef-media"><img loading="lazy" decoding="async" alt=""></div>
+      <div class="chef-body">
+        <h3></h3>
+        <div class="stars" role="img" aria-label="">
+          <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+          <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+          <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+          <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+          <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+          <span class="rating-meta"></span>
+        </div>
+        <p class="chef-meta"></p>
+        <div class="chef-tags"></div>
+      </div>
+    </article>
+  </template>
+
+  <script>
+    /************** SETĂRI **************/
+    const USE_FIREBASE = false;     // true pentru Firestore
+    const PAGE_SIZE = 6;            // câte carduri/pagină
+    const CHEFS_JSON_URL = "/chefs.json";
+
+    // Dacă folosești Firebase:
+    // window.firebaseConfig = { apiKey:"", authDomain:"", projectId:"", ... };
+
+    /************** STATE **************/
+    const state = {
+      q: "", city: "", spec: "", min: "",
+      page: 0,
+      lastDoc: null,          // pentru Firestore
+      cache: [],              // pentru JSON (încărcare o singură dată)
+      filtered: []            // pentru JSON: rezultatul curent după filtre
+    };
+
+    /************** UTILS RENDER **************/
+    function renderStars(container, rating, count) {
+      const tops = container.querySelectorAll('.star .top');
+      for (let i = 0; i < 5; i++) {
+        const fill = Math.max(0, Math.min(1, rating - i));
+        tops[i].style.width = (fill * 100) + '%';
+      }
+      const meta = container.querySelector('.rating-meta');
+      if (meta) meta.textContent = (rating.toFixed(1)).replace('.', ',') + (count ? ` (${count})` : '');
+      container.setAttribute('aria-label', `Evaluare ${rating.toFixed(1).replace('.', ',')} din 5`);
+    }
+
+    function elTag(text){ const s=document.createElement('span'); s.className='tag'; s.textContent=text; return s; }
+
+    function cardFromData(c){
+      const tpl = document.getElementById('chef-card-tpl');
+      const node = tpl.content.cloneNode(true);
+      node.querySelector('img').src = c.image;
+      node.querySelector('img').alt = c.alt || `Chef ${c.name}`;
+      node.querySelector('h3').textContent = c.name;
+      renderStars(node.querySelector('.stars'), Number(c.rating||0), Number(c.reviews||0));
+      node.querySelector('.chef-meta').textContent = `${c.specialty} • ${c.city}`;
+      const tc = node.querySelector('.chef-tags');
+      (c.tags||[]).forEach(t => tc.appendChild(elTag(t)));
+      return node;
+    }
+
+    function clearGrid(){ document.getElementById('chefs-grid').innerHTML = ''; }
+    function appendCards(items){
+      const grid = document.getElementById('chefs-grid');
+      const frag = document.createDocumentFragment();
+      items.forEach(c => frag.appendChild(cardFromData(c)));
+      grid.appendChild(frag);
+    }
+
+    function setMoreVisible(v){ document.getElementById('btn-more').style.display = v ? 'inline-block' : 'none'; }
+    function setLoading(v){
+      const grid = document.getElementById('chefs-grid');
+      if(v){ grid.innerHTML = `<div class="loader"><div class="spinner"></div><span style="margin-top:8px">Se încarcă…</span></div>`; }
+    }
+
+    /************** JSON FLOW **************/
+    async function ensureCache(){
+      if(state.cache.length) return;
+      const res = await fetch(CHEFS_JSON_URL, {cache:'no-store'});
+      state.cache = await res.json();
+      // populatează opțiunile de filtre din cache (oraș + specialitate)
+      populateOptionsFromCache();
+    }
+
+    function populateOptionsFromCache(){
+      const cities = Array.from(new Set(state.cache.map(x=>x.city).filter(Boolean))).sort();
+      const specs  = Array.from(new Set(state.cache.map(x=>x.specialty).filter(Boolean))).sort();
+      fillSelect('city', cities);
+      fillSelect('spec', specs);
+    }
+    function fillSelect(id, arr){
+      const sel = document.getElementById(id);
+      const cur = sel.value;
+      sel.innerHTML = `<option value="">Toate</option>`;
+      arr.forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); });
+      if(cur) sel.value = cur;
+    }
+
+    function applyFiltersLocal(){
+      const q = state.q.trim().toLowerCase();
+      const min = parseFloat(state.min || '0') || 0;
+      state.filtered = state.cache.filter(c=>{
+        const okQ = !q || (c.name?.toLowerCase().includes(q) || c.tags?.join(' ').toLowerCase().includes(q));
+        const okCity = !state.city || c.city===state.city;
+        const okSpec = !state.spec || c.specialty===state.spec;
+        const okMin = Number(c.rating||0) >= min;
+        return okQ && okCity && okSpec && okMin;
+      });
+    }
+
+    function renderPageLocal(reset=false){
+      if(reset){ clearGrid(); state.page = 0; }
+      const start = state.page * PAGE_SIZE;
+      const slice = state.filtered.slice(start, start + PAGE_SIZE);
+      appendCards(slice);
+      state.page++;
+      setMoreVisible(state.page * PAGE_SIZE < state.filtered.length);
+    }
+
+    async function reloadLocal(){
+      setLoading(true);
+      await ensureCache();
+      applyFiltersLocal();
+      clearGrid();
+      renderPageLocal(true);
+    }
+
+    /************** FIRESTORE FLOW **************/
+    let fbApp, fbDb, fbMod;
+    async function ensureFirebase(){
+      if(fbDb) return;
+      const [{ initializeApp }, firestore] = await Promise.all([
+        import('https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js'),
+        import('https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js')
+      ]);
+      fbMod = firestore;
+      fbApp = initializeApp(window.firebaseConfig);
+      fbDb  = firestore.getFirestore(fbApp);
+    }
+
+    function buildQuery(){
+      const { collection, query, orderBy, where, limit, startAfter } = fbMod;
+      const col = collection(fbDb, 'chefs');
+
+      let q = query(col, orderBy('rating','desc'), orderBy('name','asc')); // pentru startAfter stabil
+      if(state.city) q = query(q, where('city','==', state.city));
+      if(state.spec) q = query(q, where('specialty','==', state.spec));
+      if(state.min){ q = query(q, where('rating','>=', parseFloat(state.min))); }
+      if(state.lastDoc) q = query(q, startAfter(state.lastDoc));
+      q = query(q, limit(PAGE_SIZE));
+      return q;
+    }
+
+    async function reloadFirebase(reset=true){
+      await ensureFirebase();
+      const { getDocs } = fbMod;
+      if(reset){ state.lastDoc = null; clearGrid(); }
+      const snap = await getDocs(buildQuery());
+      const items = snap.docs.map(d=>{
+        const x = d.data();
+        return {
+          id:d.id,
+          name:x.name||'Chef',
+          image:x.image||'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop',
+          alt:x.alt||'',
+          rating:Number(x.rating||0),
+          reviews:Number(x.reviews||0),
+          specialty:x.specialty||'Private Dining',
+          city:x.city||'—',
+          tags:Array.isArray(x.tags)?x.tags:[]
+        };
+      });
+      appendCards(items);
+      state.lastDoc = snap.docs.length ? snap.docs[snap.docs.length-1] : state.lastDoc;
+      setMoreVisible(snap.docs.length === PAGE_SIZE);
+      // Notă: pentru filtre combinate + orderBy pot fi necesare indexuri compuse în Firestore.
+    }
+
+    /************** UI HOOKS **************/
+    function readFilters(){
+      const f = document.getElementById('chefs-filters');
+      state.q    = f.q.value;
+      state.city = f.city.value;
+      state.spec = f.spec.value;
+      state.min  = f.min.value;
+    }
+
+    document.getElementById('btn-apply').addEventListener('click', async ()=>{
+      readFilters();
+      if(USE_FIREBASE && window.firebaseConfig){
+        await reloadFirebase(true);
+      } else {
+        await reloadLocal();
+      }
+    });
+
+    document.getElementById('btn-reset').addEventListener('click', async ()=>{
+      const f = document.getElementById('chefs-filters');
+      f.reset();
+      readFilters();
+      if(USE_FIREBASE && window.firebaseConfig){
+        await reloadFirebase(true);
+      } else {
+        await reloadLocal();
+      }
+    });
+
+    // Live search (debounce) pe câmpul q — doar pentru JSON (pt. Firestore folosim Aplică)
+    (function(){
+      const f = document.getElementById('chefs-filters');
+      let t=null;
+      f.q.addEventListener('input', ()=>{
+        if(USE_FIREBASE) return; // skip
+        clearTimeout(t);
+        t=setTimeout(()=>{ readFilters(); reloadLocal(); }, 220);
+      });
+    })();
+
+    document.getElementById('btn-more').addEventListener('click', async ()=>{
+      if(USE_FIREBASE && window.firebaseConfig){
+        await reloadFirebase(false);
+      } else {
+        renderPageLocal(false);
+      }
+    });
+
+    /************** INIT **************/
+    (async function initChefs(){
+      try{
+        if(USE_FIREBASE && window.firebaseConfig){
+          await reloadFirebase(true);
+        } else {
+          // JSON: pre-încarcăm și populăm filtrele
+          await ensureCache();
+          // completează opțiunile în drop-down-uri
+          readFilters();
+          applyFiltersLocal();
+          clearGrid();
+          renderPageLocal(true);
+        }
+      } catch(err){
+        console.error(err);
+        document.getElementById('chefs-grid').innerHTML = `<div class="loader">Nu am putut încărca bucătarii. Încearcă din nou.</div>`;
+      }
+    })();
+  </script>
+</section>
+<!-- ================= END dinamic + filtre ================= -->
