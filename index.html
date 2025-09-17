@@ -402,15 +402,15 @@
     </div>
   </div>
 </section>
-<!-- ============== BUCĂTARII NOȘTRI – DINAMIC (JSON sau Firebase) ============== -->
+<!-- =================== BUCĂTARII NOȘTRI (COMPLET) =================== -->
 <section id="chefs" class="chefs-section" style="padding-top:0">
   <style>
+    /* --- Scoped doar pentru această secțiune --- */
     .chefs-section{--rubin:#0e5a43; --line:#e6ece8; --muted:#5c6a6f}
     .chefs-wrap{max-width:1160px;margin:0 auto;padding:0 clamp(12px,4vw,32px)}
     .chefs-head{text-align:center;margin:0 0 8px;font-family:"Playfair Display",serif}
     .chefs-sub{color:var(--muted);text-align:center;margin:0 0 16px}
-
-    .chefs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;min-height:200px}
+    .chefs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     @media(max-width:1080px){.chefs-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:700px){.chefs-grid{grid-template-columns:1fr}}
 
@@ -421,37 +421,106 @@
     .chef-body{padding:16px}
     .chef-body h3{margin:0 0 6px;color:var(--rubin);font-family:"Playfair Display",serif}
     .chef-meta{color:var(--muted);margin:6px 0 12px}
+
+    /* Tags */
     .chef-tags{display:flex;flex-wrap:wrap;gap:8px}
     .tag{display:inline-block;font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:#184236;background:#fff}
 
-    /* Stele (SVG fără dependențe) */
+    /* Stars (SVG fără dependințe) */
     .stars{display:inline-flex;align-items:center;gap:4px}
     .star{position:relative;width:18px;height:18px;display:inline-block}
     .star svg{width:100%;height:100%;display:block}
-    .star .bot path{fill:#d9e2dc}
-    .star .top{position:absolute;inset:0;overflow:hidden}
-    .star .top path{fill:#f5c518}
-    .rating-meta{margin-left:6px;font-size:14px;color:var(--muted);font-weight:600}
+    .star .bot path{fill:#d9e2dc}     /* contur ne-umplut */
+    .star .top{position:absolute;inset:0;overflow:hidden} /* masca pentru umplere parțială */
+    .star .top path{fill:#f5c518}     /* auriu */
 
+    .rating-meta{margin-left:6px;font-size:14px;color:var(--muted);font-weight:600}
     .chefs-actions{text-align:center;margin-top:16px}
     .btn-ghost{display:inline-block;padding:10px 16px;border-radius:999px;border:1px solid var(--rubin);color:var(--rubin);text-decoration:none;font-weight:800;background:#fff}
     .btn-ghost:hover{background:#eef6f1}
-
-    /* Loader simplu */
-    .loader{display:grid;place-items:center;padding:28px;color:var(--muted)}
-    .spinner{width:24px;height:24px;border:3px solid #dfe9e4;border-top-color:var(--rubin);border-radius:50%;animation:spin 1s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
   </style>
 
   <div class="chefs-wrap">
     <h2 class="chefs-head">Bucătarii noștri</h2>
     <p class="chefs-sub">Profesioniști cu experiență în fine dining, evenimente private și corporate.</p>
 
-    <div id="chefs-grid" class="chefs-grid">
-      <div class="loader" id="chefs-loader" aria-live="polite">
-        <div class="spinner" aria-hidden="true"></div>
-        <span style="margin-top:8px">Se încarcă bucătarii…</span>
-      </div>
+    <div class="chefs-grid">
+      <!-- === Chef Andrei === -->
+      <article class="chef-card">
+        <div class="chef-media">
+          <img loading="lazy" decoding="async"
+               src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop"
+               alt="Chef Andrei pregătind un preparat fine-dining">
+        </div>
+        <div class="chef-body">
+          <h3>Chef Andrei</h3>
+
+          <!-- rating: setezi data-rating și data-count -->
+          <div class="stars" data-rating="4.8" data-count="126" role="img" aria-label="Evaluare 4,8 din 5">
+            <!-- 5 stele; JS va ajusta lățimea '.top' pe baza ratingului -->
+            <span class="star" aria-hidden="true">
+              <span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
+              <span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
+            </span>
+            <span class="star" aria-hidden="true"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star" aria-hidden="true"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star" aria-hidden="true"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star" aria-hidden="true"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="rating-meta">4,8 (126)</span>
+          </div>
+
+          <p class="chef-meta">Fine Dining • București</p>
+          <div class="chef-tags"><span class="tag">Mediteranean</span><span class="tag">Steak</span></div>
+        </div>
+      </article>
+
+      <!-- === Chef Elisa === -->
+      <article class="chef-card">
+        <div class="chef-media">
+          <img loading="lazy" decoding="async"
+               src="https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1200&auto=format&fit=crop"
+               alt="Chef Elisa pregătind paste proaspete">
+        </div>
+        <div class="chef-body">
+          <h3>Chef Elisa</h3>
+
+          <div class="stars" data-rating="4.6" data-count="98" role="img" aria-label="Evaluare 4,6 din 5">
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="rating-meta">4,6 (98)</span>
+          </div>
+
+          <p class="chef-meta">Italian • Cluj</p>
+          <div class="chef-tags"><span class="tag">Pasta</span><span class="tag">Seafood</span></div>
+        </div>
+      </article>
+
+      <!-- === Chef Radu === -->
+      <article class="chef-card">
+        <div class="chef-media">
+          <img loading="lazy" decoding="async"
+               src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop"
+               alt="Chef Radu la grătar">
+        </div>
+        <div class="chef-body">
+          <h3>Chef Radu</h3>
+
+          <div class="stars" data-rating="4.9" data-count="203" role="img" aria-label="Evaluare 4,9 din 5">
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
+            <span class="rating-meta">4,9 (203)</span>
+          </div>
+
+          <p class="chef-meta">BBQ • Timișoara</p>
+          <div class="chef-tags"><span class="tag">BBQ</span><span class="tag">Corporate</span></div>
+        </div>
+      </article>
     </div>
 
     <div class="chefs-actions">
@@ -459,86 +528,26 @@
     </div>
   </div>
 
-  <!-- Template card (clonat din JS) -->
-  <template id="chef-card-tpl">
-    <article class="chef-card">
-      <div class="chef-media">
-        <img loading="lazy" decoding="async" alt="">
-      </div>
-      <div class="chef-body">
-        <h3></h3>
-        <div class="stars" role="img" aria-label="">
-          <!-- 5 stele goale, le umplem din JS -->
-          <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-          <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-          <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-          <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-          <span class="star"><span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span><span class="top" style="width:0%"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span></span>
-          <span class="rating-meta"></span>
-        </div>
-        <p class="chef-meta"></p>
-        <div class="chef-tags"></div>
-      </div>
-    </article>
-  </template>
-
+  <!-- JS mic: completează umplerea stelelor în funcție de data-rating -->
   <script>
-    /************** SETĂRI **************/
-    const USE_FIREBASE = false; // pune true dacă vrei să citești din Firestore
-    // Dacă folosești Firebase, definește window.firebaseConfig mai jos:
-    // window.firebaseConfig = { apiKey:"", authDomain:"", projectId:"", ... };
-
-    // Calea fișierului JSON static (dacă nu folosești Firebase)
-    const CHEFS_JSON_URL = "/chefs.json";
-
-    /************** RENDER **************/
-    function renderStars(container, rating, count) {
-      const stars = container.querySelectorAll('.star .top');
-      for (let i = 0; i < 5; i++) {
-        const fill = Math.max(0, Math.min(1, rating - i)); // 1, 0.6, 0 ...
-        stars[i].style.width = (fill * 100) + '%';
-      }
-      const meta = container.querySelector('.rating-meta');
-      if (meta) meta.textContent = (rating.toFixed(1)).replace('.', ',') + (count ? ` (${count})` : '');
-      container.setAttribute('aria-label', `Evaluare ${rating.toFixed(1).replace('.', ',')} din 5`);
-    }
-
-    function tagEl(text) {
-      const s = document.createElement('span');
-      s.className = 'tag';
-      s.textContent = text;
-      return s;
-    }
-
-    function renderChefs(list) {
-      const grid = document.getElementById('chefs-grid');
-      grid.innerHTML = '';
-      const tpl = document.getElementById('chef-card-tpl');
-
-      list.forEach(c => {
-        const node = tpl.content.cloneNode(true);
-        const img = node.querySelector('img');
-        const h3  = node.querySelector('h3');
-        const stars = node.querySelector('.stars');
-        const metaP = node.querySelector('.chef-meta');
-        const tagsC = node.querySelector('.chef-tags');
-
-        img.src = c.image;
-        img.alt = c.alt || `Chef ${c.name}`;
-        h3.textContent = c.name;
-
-        // stele
-        renderStars(stars, Number(c.rating || 0), Number(c.reviews || 0));
-
-        // meta ex: "Fine Dining • București"
-        metaP.textContent = `${c.specialty} • ${c.city}`;
-
-        // tag-uri
-        (c.tags || []).forEach(t => tagsC.appendChild(tagEl(t)));
-
-        grid.appendChild(node);
+    (function(){
+      const groups = document.querySelectorAll('#chefs .stars');
+      groups.forEach(g=>{
+        const rating = Math.max(0, Math.min(5, parseFloat(g.dataset.rating||'0')));
+        const stars = g.querySelectorAll('.star');
+        for(let i=0;i<5;i++){
+          const fill = Math.max(0, Math.min(1, rating - i)); // 1, 0.6, 0...
+          const top = stars[i]?.querySelector('.top');
+          if(top) top.style.width = (fill*100)+'%';
+        }
+        const count = g.dataset.count;
+        const meta = g.querySelector('.rating-meta');
+        if(meta && count){ meta.textContent = rating.toFixed(1).replace('.',',') + ' ('+count+')'; }
+        g.setAttribute('aria-label', `Evaluare ${rating.toFixed(1).replace('.',',')} din 5`);
       });
-    }
+    })();
+  </script>
+</section>
 
     /************** FIREBASE (OPTIONAL) **************/
     async function loadFromFirebase() {
