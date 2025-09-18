@@ -183,7 +183,19 @@
 @media (max-width:480px){
   #hero .content{ transform:translateY(-2%); }
 }
-  
+  /* ridică ușor conținutul din HERO pe ecrane mici */
+@media (max-width: 768px){
+  #hero .content{
+    transform: translateY(-5vh);  /* urcă ~5% din înălțimea ecranului */
+  }
+}
+
+/* dacă vrei încă un pic pe telefoane foarte mici */
+@media (max-width: 420px){
+  #hero .content{
+    transform: translateY(-7vh);
+  }
+}
   </style>
   
 
