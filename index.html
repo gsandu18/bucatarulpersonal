@@ -1137,9 +1137,11 @@ header{ position: sticky; top: 0; z-index: 100; }
     </div>
   </div>
 
+<footer>
+  …
   <div class="copyright">
     © <span id="year"></span> Bucătarul Personal — Toate drepturile rezervate.
-    &nbsp;•&nbsp;<a href="javascript:void(0)" onclick="openConsent()">Modifică preferințele de confidențialitate</a>
+    • <a href="javascript:void(0)" onclick="openConsent()">Modifică preferințele de confidențialitate</a>
   </div>
 </footer>
 
@@ -1147,7 +1149,7 @@ header{ position: sticky; top: 0; z-index: 100; }
   // setează anul o singură dată aici
   (function(){
     var y = document.getElementById('year');
-    if(y) y.textContent = new Date().getFullYear();
+    if (y) y.textContent = new Date().getFullYear();
   })();
 </script>
   <script>
