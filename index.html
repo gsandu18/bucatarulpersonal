@@ -1102,48 +1102,54 @@ header{ position: sticky; top: 0; z-index: 100; }
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
-    <div class="foot">
-      <div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-          <img src="./IMG_6413.png" alt="Bucătarul Personal" style="height:48px;width:auto" />
-        </div>
-        <p class="muted">Servicii premium de chef personal pentru evenimente private și corporate. Acoperire națională.</p>
+  <div class="foot">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <img src="./IMG_6413.png" alt="Bucătarul Personal" style="height:48px;width:auto" />
       </div>
-      <div>
-        <h4>Companie</h4>
-        <ul>
-          <li><a href="#despre">Despre noi</a></li>
-          <li><a href="#servicii">Servicii</a></li>
-          <li><a href="#chefs">Bucătarii noștri</a></li>
-          <li><a href="#blog">Blog</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="/termeni">Termeni & Condiții</a></li>
-          <li><a href="/confidentialitate">Confidențialitate</a></li>
-          <li><a href="/cookies">Cookies</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <ul>
-          <li><a href="tel:+40772893476">0772 893 476</a></li>
-          <li><a href="mailto:contact@bucatarulpersonal.ro">contact@bucatarulpersonal.ro</a></li>
-          <li>România</li>
-        </ul>
-      </div>
+      <p class="muted">Servicii premium de chef personal pentru evenimente private și corporate. Acoperire națională.</p>
     </div>
-    <div class="copyright">© <span id="year"></span> Bucătarul Personal — Toate drepturile rezervate.</div>
+    <div>
+      <h4>Companie</h4>
+      <ul>
+        <li><a href="#despre">Despre noi</a></li>
+        <li><a href="#servicii">Servicii</a></li>
+        <li><a href="#chefs">Bucătarii noștri</a></li>
+        <li><a href="#blog">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/termeni">Termeni & Condiții</a></li>
+        <li><a href="/confidentialitate">Confidențialitate</a></li>
+        <li><a href="/cookies">Cookies</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+40772893476">0772 893 476</a></li>
+        <li><a href="mailto:contact@bucatarulpersonal.ro">contact@bucatarulpersonal.ro</a></li>
+        <li>România</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="copyright">
+    © <span id="year"></span> Bucătarul Personal — Toate drepturile rezervate.
+    &nbsp;•&nbsp;<a href="javascript:void(0)" onclick="openConsent()">Modifică preferințele de confidențialitate</a>
+  </div>
+</footer>
 
 <script>
-  <a href="javascript:void(0)" onclick="openConsent()">Modifică preferințele de confidențialitate</a>
-  document.getElementById('year').textContent = new Date().getFullYear();
+  // setează anul o singură dată aici
+  (function(){
+    var y = document.getElementById('year');
+    if(y) y.textContent = new Date().getFullYear();
+  })();
 </script>
-
   <script>
     // ===== Header: active link
     (function(){
