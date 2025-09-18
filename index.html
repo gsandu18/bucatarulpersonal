@@ -157,7 +157,35 @@
 
     /* iOS safe areas */
     .safe{padding-left:calc(env(safe-area-inset-left));padding-right:calc(env(safe-area-inset-right))}
+  /* === Center fix pentru HERO === */
+#hero .slide{
+  display:grid;                /* grilă pe tot slide-ul */
+  place-items:center;          /* centru pe ambele axe */
+  padding:0;                   /* fără extra spațiu vertical */
+}
+
+#hero .content{
+  max-width:min(760px,92vw);
+  margin:0 auto;               /* centru orizontal garantat */
+  display:grid;
+  gap:12px;
+  justify-items:center;        /* aliniază TOATE child-urile pe centru */
+  align-items:center;          /* ajută la balans vertical */
+  text-align:center;
+}
+
+#hero .pill{ margin-inline:auto; }
+#hero .hero-cta{ justify-content:center; }
+#hero h1{ margin-block:10px 6px; }    /* titlul nu mai împinge în jos   */
+#hero .lead{ margin:0; }               /* paragraful nu mai adaugă gap   }
+
+/* pe ecrane mici, ține conținutul ușor mai sus dacă vrei (optional) */
+@media (max-width:480px){
+  #hero .content{ transform:translateY(-2%); }
+}
+  
   </style>
+  
 
   <!-- JSON-LD (Service) -->
   <script type="application/ld+json">
