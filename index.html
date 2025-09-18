@@ -1140,7 +1140,7 @@ header{ position: sticky; top: 0; z-index: 100; }
     <div class="copyright">© <span id="year"></span> Bucătarul Personal — Toate drepturile rezervate.</div>
 <!-- undeva în footer -->
 <a href="javascript:void(0)" onclick="openConsent()">Modifică preferințele de confidențialitate</a>
-    
+    document.getElementById('year').textContent=new Date().getFullYear();
   </footer>
 
   <script>
