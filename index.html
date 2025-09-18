@@ -269,7 +269,8 @@ header{ position: sticky; top: 0; z-index: 100; }
   .brand img{ height: clamp(40px, 8vw, 56px); }
 }
     .copyright a{ white-space: nowrap; }
-    
+    .linklike{background:none;border:0;padding:0;cursor:pointer;color:var(--rubin);font-weight:800}
+.copyright a,.copyright .linklike{white-space:nowrap}
   </style>
   
 <script>
@@ -705,7 +706,7 @@ header{ position: sticky; top: 0; z-index: 100; }
     @media(prefers-color-scheme:dark){
       .map{border-color:#22332c}
       .chip{background:#0f1413;border-color:#22332c;color:#dfe9e4}
-    }
+    } un
   </style>
 
   <div class="map-wrap">
@@ -1138,10 +1139,13 @@ header{ position: sticky; top: 0; z-index: 100; }
     </div>
   </div>
 
-  <div class="copyright">
-    © <span id="year"></span> Bucătarul Personal — Toate drepturile rezervate.
-    &nbsp;•&nbsp;<a href="javascript:void(0)" onclick="openConsent()">Modifică preferințele de confidențialitate</a>
-  </div>
+ <div class="copyright">
+  © <span id="year"></span> Bucătarul Personal — Toate drepturile rezervate.
+  • <a href="/confidentialitate">GDPR & Confidențialitate</a>
+  • <a href="/cookies">Politica cookie-uri</a>
+  • <button class="linklike" type="button" onclick="openConsent()">Setări cookie-uri</button>
+  • <button class="linklike" type="button" onclick="resetConsent()">Șterge consimțământul</button>
+</div>
 </footer>
 
 <script>
@@ -1325,6 +1329,22 @@ header{ position: sticky; top: 0; z-index: 100; }
   // opțional: expune funcție ca să redeschizi din footer
   window.openConsent = show;
 })();
+  <script>
+  // Revoke: șterge preferințele + revine la denied + redeschide bannerul
+  function resetConsent(){
+    try{ localStorage.removeItem('bpConsentV2'); }catch(e){}
+    try{
+      gtag('consent','update',{
+        ad_storage:'denied',
+        analytics_storage:'denied',
+        ad_user_data:'denied',
+        ad_personalization:'denied',
+        functionality_storage:'granted',
+        security_storage:'granted'
+      });
+    }catch(e){}
+    if (typeof openConsent === 'function') openConsent();
+  }
 </script>
 </body>
 </html>
