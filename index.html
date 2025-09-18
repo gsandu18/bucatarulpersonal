@@ -213,6 +213,28 @@
     background: linear-gradient(180deg, rgba(12,64,49,.74), rgba(12,64,49,.58));
   }
 }
+    /* === Finisaje desktop pentru HERO (>=1024px) === */
+@media (min-width: 1024px){
+  #hero .content{
+    max-width: 720px;          /* text mai compact */
+    transform: translateY(-4vh); /* ridică ușor blocul de text */
+    gap: 10px;
+  }
+  #hero h1{
+    font-size: clamp(44px, 5vw, 64px);
+    line-height: 1.06;
+    margin-block: 8px 4px;
+  }
+  #hero .lead{ font-size: 18px; }
+  /* un dram de contrast în plus, doar pe desktop */
+  #hero .slide .bg{ filter: brightness(.82) saturate(110%) contrast(108%); }
+  #hero .slide::before{
+    background: linear-gradient(180deg, rgba(12,64,49,.62), rgba(12,64,49,.48));
+  }
+}
+
+/* aliniere perfectă a punctelor sub conținut */
+#hero .dots{ bottom: 18px; }
   </style>
   
 
