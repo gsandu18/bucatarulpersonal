@@ -271,7 +271,7 @@ header{ position: sticky; top: 0; z-index: 100; }
     
   </style>
   
-
+<script>
   <!-- JSON-LD (Service) -->
   <script type="application/ld+json">
   {
@@ -287,9 +287,9 @@ header{ position: sticky; top: 0; z-index: 100; }
     "areaServed":"Romania",
     "sameAs":["https://www.facebook.com/chefpersonale"]
   }
-  </script>
-</head>
 </script>
+</head>
+<script>
   .cmp-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);z-index:9998;display:none}
   .cmp{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);
        width:min(680px,92%);background:#fff;border:1px solid #dfe5e2;border-radius:14px;
@@ -312,112 +312,8 @@ header{ position: sticky; top: 0; z-index: 100; }
   }
     
 })();
-</script>
-
-<div id="cmp-backdrop" class="cmp-backdrop"></div>
-<section id="cmp" class="cmp" role="dialog" aria-modal="true" aria-labelledby="cmp-title" style="display:none">
-  <h3 id="cmp-title">Confidențialitate & publicitate</h3>
-  <p>Folosim cookie-uri pentru analiză și pentru reclame (Google). Poți alege „Refuz” sau să personalizezi ce accepți.
-     <a class="link" href="/politica-confidentialitate.html" target="_blank" rel="noopener">Politica</a></p>
-
-  <div id="cmp-opts" class="opts" aria-label="Opțiuni personalizate">
-    <label class="opt"><input type="checkbox" id="opt-analytics"> Analiză (analytics_storage)</label>
-    <label class="opt"><input type="checkbox" id="opt-ads"> Stocare reclame (ad_storage)</label>
-    <label class="opt"><input type="checkbox" id="opt-user"> Date pt. reclame (ad_user_data)</label>
-    <label class="opt"><input type="checkbox" id="opt-pers"> Personalizare reclame (ad_personalization)</label>
-  </div>
-
-  <div class="row">
-    <button id="cmp-customize" class="btn">Personalizează</button>
-    <button id="cmp-reject" class="btn reject">Refuz</button>
-    <button id="cmp-accept" class="btn primary">Accept tot</button>
-  </div>
-</section>
-
-<script>
-(function(){
-  const STORAGE_KEY = 'bpConsentV2';
-  const cmp = document.getElementById('cmp');
-  const bd  = document.getElementById('cmp-backdrop');
-  const opts= document.getElementById('cmp-opts');
-  const cst = document.getElementById('cmp-customize');
-  const acc = document.getElementById('cmp-accept');
-  const rej = document.getElementById('cmp-reject');
-
-  const ckA = document.getElementById('opt-analytics');
-  const ckS = document.getElementById('opt-ads');
-  const ckU = document.getElementById('opt-user');
-  const ckP = document.getElementById('opt-pers');
-
-  function show(){ cmp.style.display='block'; bd.style.display='block'; document.body.style.overflow='hidden'; }
-  function hide(){ cmp.style.display='none'; bd.style.display='none'; document.body.style.overflow=''; }
-
-  function saveAndApply(state){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    // trimitem consimțământul la Google
-    gtag('consent','update',{
-      'ad_storage': state.ad_storage ? 'granted' : 'denied',
-      'analytics_storage': state.analytics_storage ? 'granted' : 'denied',
-      'ad_user_data': state.ad_user_data ? 'granted' : 'denied',
-      'ad_personalization': state.ad_personalization ? 'granted' : 'denied',
-      'functionality_storage': 'granted',
-      'security_storage': 'granted'
-    });
-  }
-
-  // butoane
-  cst.addEventListener('click', ()=>{
-    const open = opts.style.display !== 'block';
-    opts.style.display = open ? 'block' : 'none';
-    if(open){
-      ckA.checked = ckS.checked = ckU.checked = ckP.checked = false;
-    }
-  });
-
-  acc.addEventListener('click', ()=>{
-    saveAndApply({
-      analytics_storage: true,
-      ad_storage: true,
-      ad_user_data: true,
-      ad_personalization: true
-    });
-    hide();
-  });
-
-  rej.addEventListener('click', ()=>{
-    saveAndApply({
-      analytics_storage: false,
-      ad_storage: false,
-      ad_user_data: false,
-      ad_personalization: false
-    });
-    hide();
-  });
-
-  // dacă utilizatorul a intrat pe "Personalizează", salvează la schimbarea checkbox-urilor
-  opts.addEventListener('change', ()=>{
-    saveAndApply({
-      analytics_storage: ckA.checked,
-      ad_storage: ckS.checked,
-      ad_user_data: ckU.checked,
-      ad_personalization: ckP.checked
-    });
-  });
-
-  // init: dacă nu avem o alegere, arătăm bannerul
-  try{
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
-    if(saved){
-      saveAndApply(saved); // reaplică la reîncărcare
-    }else{
-      show();
-    }
-  }catch(e){ show(); }
-
-  // expune un buton în footer ca să poți redeschide bannerul
-  window.openConsent = function(){ show(); };
-<body>
-
+  </script>
+</body>
   <!-- HEADER -->
   <header class="safe">
     <div class="nav" role="navigation" aria-label="Navigație principală">
