@@ -196,6 +196,23 @@
     transform: translateY(-7vh);
   }
 }
+    /* === HERO mai închis pentru contrast mai bun === */
+#hero .slide .bg{
+  /* mică scădere de luminozitate + un strop de contrast */
+  filter: brightness(.78) saturate(110%) contrast(108%);
+}
+
+#hero .slide::before{
+  /* overlay mai puternic (de la ~.55/.40 la .66/.52) */
+  background: linear-gradient(180deg, rgba(12,64,49,.66), rgba(12,64,49,.52));
+}
+
+/* pe mobil, încă un pic mai închis (textul e mai mare) */
+@media (max-width: 768px){
+  #hero .slide::before{
+    background: linear-gradient(180deg, rgba(12,64,49,.74), rgba(12,64,49,.58));
+  }
+}
   </style>
   
 
