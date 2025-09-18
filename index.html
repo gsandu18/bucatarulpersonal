@@ -294,7 +294,7 @@ header{ position: sticky; top: 0; z-index: 100; }
   <header class="safe">
     <div class="nav" role="navigation" aria-label="Navigație principală">
       <a class="brand" href="/" aria-label="Acasă">
-       <img src="./IMG_6413.png" alt="Bucătarul Personal" style="height:38px;width:auto" />
+       <img src="./IMG_6413.png" alt="Bucătarul Personal" />
       </a>
     
 
@@ -1138,10 +1138,10 @@ header{ position: sticky; top: 0; z-index: 100; }
       </div>
     </div>
     <div class="copyright">© <span id="year"></span> Bucătarul Personal — Toate drepturile rezervate.</div>
-<!-- undeva în footer -->
 <a href="javascript:void(0)" onclick="openConsent()">Modifică preferințele de confidențialitate</a>
-    document.getElementById('year').textContent=new Date().getFullYear();
-  </footer>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 
   <script>
     // ===== Header: active link
