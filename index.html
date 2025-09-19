@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ro" dir="ltr">
 <head>
@@ -29,9 +30,9 @@
 
   // pornim coada gtag
   gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX'); // ← ID-ul tău GA4
+  gtag('config', 'G-RRBV7EEMTJ'); // ← ID-ul tău GA4
 </script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RRBV7EEMTJ"></script>
   <style>
     :root{
       --rubin:#0e5a43; --rubin-2:#0b4a36; --ink:#182422; --muted:#5f6b6f;
@@ -73,6 +74,22 @@
     .btn.ghost{background:transparent;color:var(--rubin)}
     .burger{display:none;margin-left:auto;border:1px solid var(--line);background:transparent;border-radius:12px;width:42px;height:42px;align-items:center;justify-content:center;font-size:22px;color:var(--ink)}
     @media (max-width:980px){ .menu,.cta-mini{display:none} .burger{display:inline-flex} }
+
+    /* === Realiniază meniul la dreapta, înaintea butonului === */
+.nav{ display:flex; align-items:center; gap:14px; } /* e ok, doar întărim contextul flex */
+
+.menu{
+  margin-left:auto;          /* împinge meniul și ce urmează spre dreapta */
+  display:flex; gap:6px; flex-wrap:wrap;
+}
+
+.cta-mini{
+  margin-left:12px;          /* un mic spațiu între meniu și buton */
+  /* (NU auto) */
+}
+
+/* opțional: ca logo-ul să nu se taseze excesiv pe ecrane înguste desktop */
+.brand{ flex-shrink:0; }
 
     /* Mobile drawer */
     .drawer{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);display:none;z-index:120}
@@ -168,286 +185,7 @@
     .cmp .opts{display:none;margin-top:10px;border-top:1px solid #e9efec;padding-top:10px}
     .cmp .opt{display:flex;align-items:center;gap:10px;margin:6px 0}
     .cmp input[type=checkbox]{width:18px;height:18px;accent-color:#0e5a43}
-    /* Footer */
-    footer{background:color-mix(in oklab, var(--rubin) 4%, #f5f7f6);border-top:3px solid var(--rubin);margin-top:56px}
-    .foot{max-width:var(--max);margin:0 auto;padding:26px clamp(12px,4vw,32px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:18px}
-    @media(max-width:980px){.foot{grid-template-columns:1fr 1fr}}
-    @media(max-width:640px){.foot{grid-template-columns:1fr}}
-    .foot h4{margin:0 0 10px;color:#133c2f}
-    .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-    .copyright{max-width:var(--max);margin:0 auto;padding:12px clamp(12px,4vw,32px);border-top:1px solid #e0e5e2;color:#6b7a74;text-align:center;font-size:14px}
-
-    /* Motion preferences */
-    @media (prefers-reduced-motion: reduce){
-      *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-    }
-
-    /* iOS safe areas */
-    .safe{padding-left:calc(env(safe-area-inset-left));padding-right:calc(env(safe-area-inset-right))}
-  /* === Center fix pentru HERO === */
-#hero .slide{
-  display:grid;                /* grilă pe tot slide-ul */
-  place-items:center;          /* centru pe ambele axe */
-  padding:0;                   /* fără extra spațiu vertical */
-}
-
-#hero .content{
-  max-width:min(760px,92vw);
-  margin:0 auto;               /* centru orizontal garantat */
-  display:grid;
-  gap:12px;
-  justify-items:center;        /* aliniază TOATE child-urile pe centru */
-  align-items:center;          /* ajută la balans vertical */
-  text-align:center;
-}
-
-#hero .pill{ margin-inline:auto; }
-#hero .hero-cta{ justify-content:center; }
-#hero h1{ margin-block:10px 6px; }    /* titlul nu mai împinge în jos   */
-#hero .lead{ margin:0; }               /* paragraful nu mai adaugă gap   }
-
-/* pe ecrane mici, ține conținutul ușor mai sus dacă vrei (optional) */
-@media (max-width:480px){
-  #hero .content{ transform:translateY(-2%); }
-}
-  /* ridică ușor conținutul din HERO pe ecrane mici */
-@media (max-width: 768px){
-  #hero .content{
-    transform: translateY(-5vh);  /* urcă ~5% din înălțimea ecranului */
-  }
-}
-
-/* dacă vrei încă un pic pe telefoane foarte mici */
-@media (max-width: 420px){
-  #hero .content{
-    transform: translateY(-7vh);
-  }
-}
-    /* === HERO mai închis pentru contrast mai bun === */
-#hero .slide .bg{
-  /* mică scădere de luminozitate + un strop de contrast */
-  filter: brightness(.78) saturate(110%) contrast(108%);
-}
-
-#hero .slide::before{
-  /* overlay mai puternic (de la ~.55/.40 la .66/.52) */
-  background: linear-gradient(180deg, rgba(12,64,49,.66), rgba(12,64,49,.52));
-}
-
-/* pe mobil, încă un pic mai închis (textul e mai mare) */
-@media (max-width: 768px){
-  #hero .slide::before{
-    background: linear-gradient(180deg, rgba(12,64,49,.74), rgba(12,64,49,.58));
-  }
-}
-    /* === Finisaje desktop pentru HERO (>=1024px) === */
-@media (min-width: 1024px){
-  #hero .content{
-    max-width: 720px;          /* text mai compact */
-    transform: translateY(-4vh); /* ridică ușor blocul de text */
-    gap: 10px;
-  }
-  #hero h1{
-    font-size: clamp(44px, 5vw, 64px);
-    line-height: 1.06;
-    margin-block: 8px 4px;
-  }
-  #hero .lead{ font-size: 18px; }
-  /* un dram de contrast în plus, doar pe desktop */
-  #hero .slide .bg{ filter: brightness(.82) saturate(110%) contrast(108%); }
-  #hero .slide::before{
-    background: linear-gradient(180deg, rgba(12,64,49,.62), rgba(12,64,49,.48));
-  }
-}
-
-/* aliniere perfectă a punctelor sub conținut */
-#hero .dots{ bottom: 18px; }
-:root{ --hdrH: 84px; }              /* înălțimea minimă a barei pe desktop */
-
-header{ position: sticky; top: 0; z-index: 100; }
-.nav{ max-width: var(--max); margin: 0 auto;
-      padding: 10px clamp(12px,3vw,22px);
-      min-height: var(--hdrH);      /* bara crește după logo */
-      display: flex; gap: 14px; align-items: center; }
-
-.brand img{
-  height: clamp(44px, 6vw, 68px);   /* << mărește/micșorează aici */
-  width: auto; display: block;
-}
-
-@media (max-width: 980px){
-  :root{ --hdrH: 72px; }            /* puțin mai mic pe mobil */
-  .brand img{ height: clamp(40px, 8vw, 56px); }
-<!DOCTYPE html>
-<html lang="ro" dir="ltr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Bucătarul Personal — Chef la tine acasă</title>
-  <meta name="description" content="Experiență de restaurant la tine acasă: cine private, evenimente corporate, meniuri zilnice. Chefi verificați, contract & factură." />
-  <meta name="theme-color" content="#0e5a43" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#0a2d22" media="(prefers-color-scheme: dark)" />
-  <meta name="color-scheme" content="light dark" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
-  <script>
-  // gtag bootstrap – întotdeauna disponibil
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-
-  // CONSENT IMPLICIT (global; scoatem "region" ca să nu fie ignorat în dev)
-  gtag('consent', 'default', {
-    ad_storage: 'denied',
-    analytics_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-    functionality_storage: 'granted',
-    security_storage: 'granted',
-    wait_for_update: 500
-  });
-
-  // pornim coada gtag
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX'); // ← ID-ul tău GA4
-</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <style>
-    :root{
-      --rubin:#0e5a43; --rubin-2:#0b4a36; --ink:#182422; --muted:#5f6b6f;
-      --line:#e8eeea; --soft:#f6faf8; --card:#ffffff; --max:1160px;
-      --rad:16px; --shadow:0 12px 36px rgba(16,24,40,.08);
-      --header-bg:rgba(255,255,255,.6); --header-border:rgba(14,90,67,.12);
-      --glass-blur:12px;
-    }
-    @media (prefers-color-scheme: dark){
-      :root{
-        --ink:#eaefed; --muted:#9fb2aa; --line:#22342d; --soft:#0f1715; --card:#0f1413;
-        --header-bg:rgba(15,20,19,.55); --header-border:rgba(255,255,255,.08);
-        --shadow:0 18px 50px rgba(0,0,0,.45);
-      }
-      body{background:#0a0f0e;}
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;color:var(--ink);background:#fff;font:400 16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif}
-    h1,h2,h3{font-family:"Playfair Display",serif;letter-spacing:.2px}
-    img{max-width:100%;display:block}
-    a{color:var(--rubin);text-decoration:none}
-    a:focus-visible, button:focus-visible, .btn:focus-visible{outline:3px solid color-mix(in oklab, var(--rubin), white 35%); outline-offset:2px; border-radius:12px}
-    .container{max-width:var(--max);margin:0 auto;padding:0 clamp(12px,4vw,32px)}
-    section{padding:clamp(40px,7vw,64px) 0}
-
-    /* ===== Header – glassy like Apple ===== */
-    header{position:sticky;top:0;z-index:100;backdrop-filter:saturate(180%) blur(var(--glass-blur));background:var(--header-bg);border-bottom:1px solid var(--header-border)}
-    .nav{max-width:var(--max);margin:0 auto;padding:10px clamp(12px,3vw,22px);display:flex;gap:14px;align-items:center}
-    .brand{display:flex;gap:10px;align-items:center;min-width:0}
-    .brand img{height:36px;width:auto}
-    .brand strong{color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .menu{display:flex;gap:6px;flex-wrap:wrap;margin-left:8px}
-    .menu a{padding:10px 12px;border-radius:12px;color:var(--ink);font-weight:700}
-    .menu a[aria-current="page"], .menu a:hover{background:color-mix(in oklab, var(--rubin) 9%, transparent);color:var(--ink)}
-    .cta-mini{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
-    .btn{padding:10px 16px;border-radius:999px;border:1px solid color-mix(in oklab, var(--rubin) 30%, #0000);font-weight:800}
-    .btn.primary{background:var(--rubin);border-color:transparent;color:#fff}
-    .btn.ghost{background:transparent;color:var(--rubin)}
-    .burger{display:none;margin-left:auto;border:1px solid var(--line);background:transparent;border-radius:12px;width:42px;height:42px;align-items:center;justify-content:center;font-size:22px;color:var(--ink)}
-    @media (max-width:980px){ .menu,.cta-mini{display:none} .burger{display:inline-flex} }
-
-    /* Mobile drawer */
-    .drawer{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);display:none;z-index:120}
-    .drawer.open{display:block}
-    .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:var(--card);border-left:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column}
-    .sheet .sheet-head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
-    .close-x{margin-left:auto;border:1px solid var(--line);background:transparent;border-radius:12px;width:42px;height:42px;font-size:20px;color:var(--ink)}
-    .sheet .links{display:grid;gap:8px;padding:16px}
-    .sheet .links a{padding:12px;border:1px solid var(--line);border-radius:12px;font-weight:700;color:var(--ink)}
-    .sheet .links a:hover{background:color-mix(in oklab, var(--rubin) 8%, transparent)}
-    .sheet .cta{margin-top:auto;padding:16px;display:grid;gap:10px;border-top:1px solid var(--line)}
-
-    /* ===== Hero slider ===== */
-    .slider{position:relative;width:100%;height:clamp(56vh,92vh,880px);min-height:520px;overflow:hidden}
-    .slide{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;color:#fff;opacity:0;transition:opacity .7s ease}
-    .slide.active{opacity:1}
-    .slide .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(115%) contrast(105%)}
-    .slide::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,90,67,.55),rgba(14,90,67,.40))}
-    .slide .content{position:relative;z-index:1;max-width:min(800px,92vw)}
-    h1{font-size:clamp(30px,6vw,60px);line-height:1.06;margin:8px 0}
-    .lead{color:#eef7f3;text-shadow:0 1px 3px rgba(0,0,0,.25);font-size:clamp(15px,2.2vw,18px)}
-    .pill{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border-radius:999px;background:#eaf5ef;border:1px solid #d2e9df;color:var(--rubin);font-weight:800;font-size:14px}
-    .hero-cta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px}
-    .btn-lg{display:inline-block;padding:12px clamp(18px,3.8vw,24px);border-radius:999px;font-weight:800}
-    .btn-outline{border:2px solid #fff;color:#fff;background:transparent}
-    .btn-outline:hover{background:#fff;color:var(--rubin)}
-    .dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2}
-    .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.55);border:1px solid rgba(0,0,0,.1);cursor:pointer}
-    .dot.active{background:#fff}
-
-    /* ===== Sections / Cards ===== */
-    .muted{color:var(--muted)}
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    @media(max-width:1080px){.grid-3{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:700px){.grid-3{grid-template-columns:1fr}}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);box-shadow:var(--shadow);overflow:hidden;transition:transform .2s ease, box-shadow .2s ease}
-    .card:hover{transform:translateY(-2px);box-shadow:0 18px 50px rgba(16,24,40,.12)}
-    .card .media{aspect-ratio:4/3;background:color-mix(in oklab, var(--rubin) 6%, #eaf3ef)}
-    .card .media img{width:100%;height:100%;object-fit:cover}
-    .card .body{padding:16px}
-    .card .body h3{margin:0 0 6px;color:var(--rubin)}
-    .tag{display:inline-block;font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;margin-right:6px;color:#184236}
-/* Rating stars */
-.stars{
-  --rating: 4.5;            /* 0 → 5, cu zecimale */
-  --size: 18px;
-  --gap: 2px;
-  --fill:#f5c518;           /* auriu */
-  --empty:#d9e2dc;          /* gri deschis */
-  display:inline-grid;
-  grid-auto-flow: column;
-  gap: var(--gap);
-  align-items:center;
-}
-.stars .s{
-  width: var(--size); height: var(--size);
-  position: relative; display:inline-block;
-}
-.stars .s svg{width:100%;height:100%;display:block}
-.stars .s .top{
-  position:absolute; inset:0; overflow:hidden;
-}
-.stars .s .top svg path{ fill: var(--fill); }
-.stars .s .bot svg path{ fill: var(--empty); }
-
-/* text lîngă stele */
-.rating-meta{margin-left:6px;font-size:13px;color:var(--muted);font-weight:600}
-    /* Steps */
-    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-    @media(max-width:1080px){.steps{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:620px){.steps{grid-template-columns:1fr}}
-    .step{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:16px;box-shadow:var(--shadow)}
-    .step h3{margin:0 0 6px;color:var(--rubin)}
-
-    /* Forms */
-    .box{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:16px;box-shadow:var(--shadow)}
-    .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    @media(max-width:720px){.form-grid{grid-template-columns:1fr}}
-    label{display:block;font-weight:700;color:#133c2f;margin-bottom:6px}
-    input,select,textarea{width:100%;padding:12px 14px;border:1px solid #dfe9e4;border-radius:12px;background:#fbfdfc;color:inherit}
-    @media (prefers-color-scheme: dark){ input,select,textarea{background:#0c1412;border-color:#1f2b26} }
-    textarea{min-height:110px;resize:vertical}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-
-    /* GDPR CMP */
-    .cmp-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);z-index:9998;display:none}
-    .cmp{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(680px,92%);background:#fff;border:1px solid #dfe5e2;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.18);padding:16px;z-index:9999;font:14px/1.45 Inter,system-ui;display:none}
-    .cmp h3{margin:0 0 6px;font-weight:800;font-size:18px;color:#0e382d}
-    .cmp p{margin:0 0 10px;color:#5d6b66}
-    .cmp .row{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:10px}
-    .cmp .btn{padding:10px 14px;border-radius:999px;border:1px solid #cfd7d2;background:#fff;font-weight:800;cursor:pointer}
-    .cmp .btn.primary{background:#0e5a43;color:#fff;border-color:#0e5a43}
-    .cmp .opts{display:none;margin-top:10px;border-top:1px solid #e9efec;padding-top:10px}
-    .cmp .opt{display:flex;align-items:center;gap:10px;margin:6px 0}
-    .cmp input[type=checkbox]{width:18px;height:18px;accent-color:#0e5a43}
+    
     /* Footer */
     footer{background:color-mix(in oklab, var(--rubin) 4%, #f5f7f6);border-top:3px solid var(--rubin);margin-top:56px}
     .foot{max-width:var(--max);margin:0 auto;padding:26px clamp(12px,4vw,32px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:18px}
@@ -989,7 +727,7 @@ header{ position: sticky; top: 0; z-index: 100; }
     @media(prefers-color-scheme:dark){
       .map{border-color:#22332c}
       .chip{background:#0f1413;border-color:#22332c;color:#dfe9e4}
-    } un
+    } 
   </style>
 
   <div class="map-wrap">
