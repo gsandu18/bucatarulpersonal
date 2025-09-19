@@ -157,6 +157,17 @@
     textarea{min-height:110px;resize:vertical}
     .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
+    /* GDPR CMP */
+    .cmp-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);z-index:9998;display:none}
+    .cmp{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(680px,92%);background:#fff;border:1px solid #dfe5e2;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.18);padding:16px;z-index:9999;font:14px/1.45 Inter,system-ui;display:none}
+    .cmp h3{margin:0 0 6px;font-weight:800;font-size:18px;color:#0e382d}
+    .cmp p{margin:0 0 10px;color:#5d6b66}
+    .cmp .row{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:10px}
+    .cmp .btn{padding:10px 14px;border-radius:999px;border:1px solid #cfd7d2;background:#fff;font-weight:800;cursor:pointer}
+    .cmp .btn.primary{background:#0e5a43;color:#fff;border-color:#0e5a43}
+    .cmp .opts{display:none;margin-top:10px;border-top:1px solid #e9efec;padding-top:10px}
+    .cmp .opt{display:flex;align-items:center;gap:10px;margin:6px 0}
+    .cmp input[type=checkbox]{width:18px;height:18px;accent-color:#0e5a43}
     /* Footer */
     footer{background:color-mix(in oklab, var(--rubin) 4%, #f5f7f6);border-top:3px solid var(--rubin);margin-top:56px}
     .foot{max-width:var(--max);margin:0 auto;padding:26px clamp(12px,4vw,32px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:18px}
@@ -1105,79 +1116,81 @@ header{ position: sticky; top: 0; z-index: 100; }
     </div>
   </section>
 
-<footer>
-  <div class="foot">
-    <div>
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <img src="./IMG_6413.png" alt="Bucătarul Personal" style="height:48px;width:auto" />
+<!-- FOOTER -->
+  <footer>
+    <div class="foot">
+      <div>
+        <img src="./IMG_6413.png" alt="Bucătarul Personal" style="height:48px;width:auto;margin-bottom:6px" />
+        <p class="muted">Servicii premium de chef personal pentru evenimente private și corporate. Acoperire națională.</p>
       </div>
-      <p class="muted">Servicii premium de chef personal pentru evenimente private și corporate. Acoperire națională.</p>
+      <div>
+        <h4>Companie</h4>
+        <ul>
+          <li><a href="#despre">Despre noi</a></li>
+          <li><a href="#chefs">Bucătarii noștri</a></li>
+          <li><a href="#servicii">Servicii</a></li>
+          <li><a href="#blog">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/termeni">Termeni &amp; Condiții</a></li>
+          <li><a href="/confidentialitate">Confidențialitate</a></li>
+          <li><a href="/cookies">Politica cookie-uri</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+40772893476">0772 893 476</a></li>
+          <li><a href="mailto:contact@exemplu.ro">contact@exemplu.ro</a></li>
+          <li>România</li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <h4>Companie</h4>
-      <ul>
-        <li><a href="#despre">Despre noi</a></li>
-        <li><a href="#servicii">Servicii</a></li>
-        <li><a href="#chefs">Bucătarii noștri</a></li>
-        <li><a href="#blog">Blog</a></li>
-      </ul>
+    <div class="copyright">
+      © <span id="year"></span> Bucătarul Personal •
+      <button class="linklike" onclick="openConsent()">Setări cookie-uri</button> •
+      <button class="linklike" onclick="resetConsent()">Șterge consimțământul</button>
     </div>
-    <div>
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="/termeni">Termeni & Condiții</a></li>
-        <li><a href="/confidentialitate">Confidențialitate</a></li>
-        <li><a href="/cookies">Cookies</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="tel:+40772893476">0772 893 476</a></li>
-        <li><a href="mailto:contact@bucatarulpersonal.ro">contact@bucatarulpersonal.ro</a></li>
-        <li>România</li>
-      </ul>
-    </div>
-  </div>
+  </footer>
 
- <div class="copyright">
-  © <span id="year"></span> Bucătarul Personal — Toate drepturile 
-  • <button class="linklike" type="button" onclick="resetConsent()">Șterge consimțământul</button>
-• <a href="/confidentialitate">GDPR & Confidențialitate</a>
-• <a href="/cookies">Politica cookie-uri</a>
-• <button class="linklike" type="button" onclick="openConsent()">Setări cookie-uri</button>
- </div>
-</footer>
+  <!-- CMP BACKDROP + BANNER -->
+  <div id="cmp-backdrop" class="cmp-backdrop" aria-hidden="true"></div>
+  <section id="cmp" class="cmp" role="dialog" aria-modal="true" aria-labelledby="cmp-title">
+    <h3 id="cmp-title">Confidențialitate &amp; publicitate</h3>
+    <p>Folosim cookie-uri pentru analiză și reclame Google. Poți accepta tot, refuza sau personaliza.</p>
+    <div id="cmp-opts" class="opts">
+      <label class="opt"><input type="checkbox" id="opt-analytics"> Analiză (analytics_storage)</label>
+      <label class="opt"><input type="checkbox" id="opt-ads"> Stocare reclame (ad_storage)</label>
+      <label class="opt"><input type="checkbox" id="opt-user"> Date pt. reclame (ad_user_data)</label>
+      <label class="opt"><input type="checkbox" id="opt-pers"> Personalizare reclame (ad_personalization)</label>
+    </div>
+    <div class="row">
+      <button id="cmp-customize" class="btn">Personalizează</button>
+      <button id="cmp-reject" class="btn">Refuz</button>
+      <button id="cmp-accept" class="btn primary">Accept tot</button>
+    </div>
+  </section>
 
-<script>
-  // setează anul o singură dată aici
-  (function(){
-    var y = document.getElementById('year');
-    if(y) y.textContent = new Date().getFullYear();
-  })();
-  // setează anul o singură dată aici
-  (function(){
-    var y = document.getElementById('year');
-    if (y) y.textContent = new Date().getFullYear();
-  })();
-</script>
+  <!-- JS: anul din footer -->
   <script>
-    // ===== Header: active link
+    (function(){ const y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear(); })();
+  </script>
+
+  <!-- JS: meniu activ, drawer, slider -->
+  <script>
+    // link activ
     (function(){
-      const links = document.querySelectorAll('.menu a');
-      const path = location.hash || '/';
-      links.forEach(a => {
-        const same = a.getAttribute('href') === path;
-        if(same) a.setAttribute('aria-current','page');
-      });
+      const links=document.querySelectorAll('.menu a');
+      const h=location.hash||'#';
+      links.forEach(a=>{ if(a.getAttribute('href')===h) a.setAttribute('aria-current','page');});
     })();
 
-    // ===== Drawer mobil =====
+    // Drawer mobil
     (function(){
-      const body=document.body;
-      const drawer=document.getElementById('drawer');
-      const burger=document.getElementById('burger');
-      const closeBtn=document.getElementById('closeDrawer');
+      const body=document.body, drawer=document.getElementById('drawer'), burger=document.getElementById('burger'), closeBtn=document.getElementById('closeDrawer');
       const open=()=>{drawer.classList.add('open'); burger.setAttribute('aria-expanded','true'); body.style.overflow='hidden'};
       const close=()=>{drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); body.style.overflow=''};
       burger?.addEventListener('click',open);
@@ -1187,7 +1200,7 @@ header{ position: sticky; top: 0; z-index: 100; }
       drawer?.querySelectorAll('a').forEach(a=> a.addEventListener('click', close));
     })();
 
-    // ===== Slider: auto + dots + swipe (respects reduced motion) =====
+    // Slider simplu
     (function(){
       const slides=[...document.querySelectorAll('.slide')];
       const dots=[...document.querySelectorAll('.dot')];
@@ -1206,37 +1219,57 @@ header{ position: sticky; top: 0; z-index: 100; }
       hero.addEventListener('touchend', e=>{ if(xStart==null) return; const dx=e.changedTouches[0].clientX-xStart; if(Math.abs(dx)>40){ go(i+(dx<0?1:-1)); } xStart=null; play(); }, {passive:true});
       play();
     })();
+  </script>
 
-    // ===== Formular feedback & year =====
+  <!-- JS: Formular demo -->
+  <script>
     (function(){
       const form=document.getElementById('order-form');
       const ok=document.getElementById('ok');
       form?.addEventListener('submit', e=>{
         e.preventDefault();
-        // TODO: integrează aici fetch('/api/cerere', {method:'POST', body: new FormData(form)})
         ok.style.display='inline-block';
         setTimeout(()=>{ ok.style.display='none'; form.reset(); }, 3500);
       });
-      document.getElementById('year').textContent=new Date().getFullYear();
     })();
   </script>
-  <style>
-  cmp-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);z-index:9998;display:none}
-  .cmp{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(680px,92%);
-       background:#fff;border:1px solid #dfe5e2;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.18);
-       padding:16px;z-index:9999;font:14px/1.45 Inter,system-ui;display:none}
-  .cmp h3{margin:0 0 6px;font-weight:800;font-size:18px;color:#0e382d}
-  .cmp p{margin:0 0 10px;color:#5d6b66}
-  .cmp .row{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:10px}
-  .cmp .btn{padding:10px 14px;border-radius:999px;border:1px solid #cfd7d2;background:#fff;font-weight:800;cursor:pointer}
-  .cmp .btn.primary{background:#0e5a43;color:#fff;border-color:#0e5a43}
-  .cmp .btn.reject{border-color:#cfd7d2}
-  .cmp .opts{display:none;margin-top:10px;border-top:1px solid #e9efec;padding-top:10px}
-  .cmp .opt{display:flex;align-items:center;gap:10px;margin:6px 0}
-  .cmp input[type=checkbox]{width:18px;height:18px;accent-color:#0e5a43}
-</style>
 
+  <!-- JS: GDPR CMP + Consent Mode update -->
+  <script>
+    (function(){
+      const KEY='bpConsentV3';
+      const $=s=>document.querySelector(s);
+      const cmp=$('#cmp'),bd=$('#cmp-backdrop');
+      const opts=$('#cmp-opts'),btnC=$('#cmp-customize'),btnA=$('#cmp-accept'),btnR=$('#cmp-reject');
+      const ckA=$('#opt-analytics'),ckS=$('#opt-ads'),ckU=$('#opt-user'),ckP=$('#opt-pers');
+      window.dataLayer=window.dataLayer||[];
+      window.gtag=window.gtag||function(){dataLayer.push(arguments);};
 
+      function show(){cmp.style.display='block';bd.style.display='block';document.body.style.overflow='hidden';}
+      function hide(){cmp.style.display='none';bd.style.display='none';document.body.style.overflow='';}
+      function apply(state){
+        const s=Object.assign({analytics_storage:false,ad_storage:false,ad_user_data:false,ad_personalization:false},state||{});
+        gtag('consent','update',{
+          analytics_storage:s.analytics_storage?'granted':'denied',
+          ad_storage:s.ad_storage?'granted':'denied',
+          ad_user_data:s.ad_user_data?'granted':'denied',
+          ad_personalization:s.ad_personalization?'granted':'denied',
+          functionality_storage:'granted',
+          security_storage:'granted'
+        });
+      }
+      function save(st){localStorage.setItem(KEY,JSON.stringify(st));apply(st);}
+      btnC.onclick=()=>{opts.style.display=opts.style.display==='block'?'none':'block';};
+      btnA.onclick=()=>{save({analytics_storage:true,ad_storage:true,ad_user_data:true,ad_personalization:true});hide();};
+      btnR.onclick=()=>{save({analytics_storage:false,ad_storage:false,ad_user_data:false,ad_personalization:false});hide();};
+      opts.onchange=()=>save({
+        analytics_storage:ckA.checked,ad_storage:ckS.checked,ad_user_data:ckU.checked,ad_personalization:ckP.checked
+      });
+      const saved=JSON.parse(localStorage.getItem(KEY)||'null');
+      if(saved){apply(saved);}else{show();}
+      window.openConsent=show;
+      window.resetConsent=function(){localStorage.removeItem(KEY);apply({});show();};
+    })();
 </script>
 </body>
 </html>
