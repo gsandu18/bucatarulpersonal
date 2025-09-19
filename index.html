@@ -75,22 +75,6 @@
     .burger{display:none;margin-left:auto;border:1px solid var(--line);background:transparent;border-radius:12px;width:42px;height:42px;align-items:center;justify-content:center;font-size:22px;color:var(--ink)}
     @media (max-width:980px){ .menu,.cta-mini{display:none} .burger{display:inline-flex} }
 
-    /* === Realiniază meniul la dreapta, înaintea butonului === */
-.nav{ display:flex; align-items:center; gap:14px; } /* e ok, doar întărim contextul flex */
-
-.menu{
-  margin-left:auto;          /* împinge meniul și ce urmează spre dreapta */
-  display:flex; gap:6px; flex-wrap:wrap;
-}
-
-.cta-mini{
-  margin-left:12px;          /* un mic spațiu între meniu și buton */
-  /* (NU auto) */
-}
-
-/* opțional: ca logo-ul să nu se taseze excesiv pe ecrane înguste desktop */
-.brand{ flex-shrink:0; }
-
     /* Mobile drawer */
     .drawer{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);display:none;z-index:120}
     .drawer.open{display:block}
