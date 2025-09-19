@@ -294,9 +294,10 @@ header{ position: sticky; top: 0; z-index: 100; }
   :root{ --hdrH: 72px; }            /* puțin mai mic pe mobil */
   .brand img{ height: clamp(40px, 8vw, 56px); }
   
-  </style>
-   <script type="application/ld+json">      
+  </style>  
      <!-- JSON-LD (Service) -->
+  <script type="application/ld+json">
+  {
     "@context":"https://schema.org",
     "@type":"LocalBusiness",
     "name":"Bucătarul Personal",
@@ -709,8 +710,9 @@ header{ position: sticky; top: 0; z-index: 100; }
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
+    crossorigin="">
+    
+    </script>
 
   <style>
     .map-wrap{max-width:1160px;margin:0 auto;padding:0 clamp(12px,4vw,24px)}
