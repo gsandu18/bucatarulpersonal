@@ -178,7 +178,20 @@
     .foot h4{margin:0 0 10px;color:#133c2f}
     .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
     .copyright{max-width:var(--max);margin:0 auto;padding:12px clamp(12px,4vw,32px);border-top:1px solid #e0e5e2;color:#6b7a74;text-align:center;font-size:14px}
-
+footer .copyright .linklike {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 6px;
+  font: inherit;
+  color: var(--rubin);
+  cursor: pointer;
+  text-decoration: underline;
+}
+footer .copyright .linklike:hover {
+  text-decoration: none;
+  color: var(--rubin-2);
+}
     /* Motion preferences */
     @media (prefers-reduced-motion: reduce){
       *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -1692,8 +1705,9 @@ header{ position: sticky; top: 0; z-index: 100; }
     </div>
     <div class="copyright">
       © <span id="year"></span> Bucătarul Personal •
-      <button class="linklike" onclick="openConsent()">Setări cookie-uri</button> •
-      <button class="linklike" onclick="resetConsent()">Șterge consimțământul</button>
+     © <span id="year"></span> Bucătarul Personal •
+<button class="linklike" onclick="openConsent()">Setări cookie-uri</button> •
+<button class="linklike" onclick="resetConsent()">Șterge consimțământul</button>
     </div>
   </footer>
 
