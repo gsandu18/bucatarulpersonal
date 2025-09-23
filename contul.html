@@ -200,6 +200,33 @@
     }
   </style>
 </head>
+<main class="wrap" style="max-width:520px;margin:40px auto">
+  <h1>Contul meu</h1>
+
+  <!-- Tab Înregistrare (chef) -->
+  <section style="margin:24px 0;padding:16px;border:1px solid #e5e8ec;border-radius:12px;background:#fff">
+    <h2 style="margin-top:0">Înregistrează-te ca Bucătar</h2>
+    <form id="signup">
+      <p><label>Nume<br><input name="name" required></label></p>
+      <p><label>Email<br><input name="email" type="email" required></label></p>
+      <p><label>Parolă<br><input name="pass" type="password" minlength="6" required></label></p>
+      <button type="submit">Creează cont</button>
+    </form>
+  </section>
+
+  <!-- Tab Autentificare -->
+  <section style="margin:24px 0;padding:16px;border:1px solid #e5e8ec;border-radius:12px;background:#fff">
+    <h2 style="margin-top:0">Autentificare</h2>
+    <form id="login">
+      <p><label>Email<br><input name="email" type="email" required></label></p>
+      <p><label>Parolă<br><input name="pass" type="password" required></label></p>
+      <button type="submit">Autentificare</button>
+    </form>
+  </section>
+
+  <p id="msg" style="color:#0e5a43"></p>
+</main>
+
 <body>
   <!-- ===== HEADER ===== -->
   <header>
@@ -494,6 +521,26 @@
         updateDrawer();
       })();
     })();
-  </script>
+    // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCRFbgtajpu2O44HWXAWXC-VPOOQ-Cx7Dw",
+  authDomain: "bucatarul-personal.firebaseapp.com",
+  projectId: "bucatarul-personal",
+  storageBucket: "bucatarul-personal.firebasestorage.app",
+  messagingSenderId: "140628829497",
+  appId: "1:140628829497:web:8e639aaf2906c85473f4e8",
+  measurementId: "G-TQFMGTGPP3"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);  </script>
 </body>
 </html>
