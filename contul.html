@@ -460,7 +460,27 @@
     </div>
   </footer>
 
-  <script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = { /* ACELAȘI config ca în contul.html */ };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  onAuthStateChanged(auth, async (user)=>{
+    if(!user){ location.href = "contul.html"; return; }
+    const snap = await getDoc(doc(db, "users", user.uid));
+    const role = snap.exists() ? snap.data().role : null;
+    if(role !== "chef"){ await signOut(auth); location.href = "contul.html"; return; }
+    // ok, e chef — poți porni restul JS-ului dashboard-ului aici (chat, cereri etc.)
+    document.documentElement.dataset.ready = "1";
+  });
+
+    
     (() => {
       const qs = (s, r=document) => r.querySelector(s);
 
@@ -538,9 +558,78 @@ const firebaseConfig = {
   appId: "1:140628829497:web:8e639aaf2906c85473f4e8",
   measurementId: "G-TQFMGTGPP3"
 };
+    
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);  </script>
+const analytics = getAnalytics(app);  
+
+  // === Auth + Firestore ===
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+// 1) Redirect automat dacă e deja logat și are rolul corect
+onAuthStateChanged(auth, async (user)=>{
+  if(!user) return;
+  try{
+    const snap = await getDoc(doc(db, "users", user.uid));
+    const role = snap.exists() ? snap.data().role : null;
+    if(role === "chef") {
+      location.href = "dashboard-bucatar.html";
+    }
+  }catch(e){ console.warn(e); }
+});
+
+// 2) Înregistrare CHEF
+const signup = document.getElementById('signup');
+if (signup) signup.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const f = new FormData(signup);
+  const name = f.get('name').trim();
+  const email = f.get('email').trim();
+  const pass = f.get('pass');
+
+  try{
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    await updateProfile(cred.user, { displayName: name });
+    await setDoc(doc(db, "users", cred.user.uid), {
+      uid: cred.user.uid,
+      name, email,
+      role: "chef",
+      createdAt: serverTimestamp()
+    });
+    // intrăm direct în dashboard
+    location.href = "dashboard-bucatar.html";
+  }catch(err){
+    document.getElementById('msg').textContent = err.message;
+  }
+});
+
+// 3) Login (verifică rolul și redirecționează)
+const login = document.getElementById('login');
+if (login) login.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const f = new FormData(login);
+  const email = f.get('email').trim();
+  const pass  = f.get('pass');
+
+  try{
+    const cred = await signInWithEmailAndPassword(auth, email, pass);
+    const snap = await getDoc(doc(db, "users", cred.user.uid));
+    const role = snap.exists() ? snap.data().role : null;
+
+    if(role === "chef") {
+      location.href = "dashboard-bucatar.html";
+    } else {
+      document.getElementById('msg').textContent = "Contul nu are rol de bucătar.";
+    }
+  }catch(err){
+    document.getElementById('msg').textContent = err.message;
+  }
+});
+  </script>
 </body>
 </html>
