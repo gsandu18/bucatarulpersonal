@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Despre noi – Bucătarul Personal</title>
 
+<!-- Fonturi -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -29,7 +30,7 @@ body{
 }
 
 /* ===== HEADER ===== */
-.site-header{ position:sticky; top:0; z-index:100; background:var(--alb); box-shadow:var(--shadow); }
+.site-header{ position:sticky; top:0; z-index:100; background:var(--alb); box-shadow:var(--shadow);}
 .nav-wrap{ max-width:1100px; margin:auto; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 20px; }
 .brand img{ display:block; height:auto; }
 .menu-shell{ display:flex; align-items:center; gap:16px; }
@@ -71,7 +72,7 @@ body{
 }
 
 /* ===== HERO ===== */
-.hero{ position:relative; isolation:isolate; min-height:380px; display:grid; place-items:center; color:#fff; text-align:center; background:var(--verde2); }
+.hero{ position:relative; isolation:isolate; min-height:380px; display:grid; place-items:center; color:#fff; text-align:center; background:var(--verde2);}
 .hero picture,.hero img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2 }
 .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.4), rgba(0,0,0,.45)); z-index:-1 }
 .hero-content{ padding:80px 20px }
@@ -167,11 +168,75 @@ p{ margin:0 0 16px }
   <div class="hero-content">
     <h1>Despre noi</h1>
     <p>Povestea Bucătarul Personal – experiențe culinare la cel mai înalt nivel</p>
-    <a href="#" class="cta-btn">Rezervă un chef</a>
+    <a href="/contact.html" class="cta-btn">Rezervă un chef</a>
   </div>
 </header>
-<html>
-            <li><a href="/politica-confidentialitate.html">Confidențialitate</a></li>
+
+<!-- ===== MAIN ===== -->
+<main id="main-content">
+  <section class="wrap section">
+    <h2>Cine suntem</h2>
+    <p><strong>Bucătarul Personal</strong> a luat naștere din dorința de a aduce acasă o experiență culinară de restaurant premium. De peste 6 ani oferim cine private, meniuri zilnice, evenimente corporate și consultanță gastronomică.</p>
+    <p>Filosofia noastră: fiecare masă trebuie să fie o experiență memorabilă, construită cu ingrediente de calitate, pasiune și atenție la detalii.</p>
+  </section>
+
+  <section class="wrap section">
+    <h2>Misiune & Viziune</h2>
+    <p>Misiunea noastră este să redefinim modul în care clienții se bucură de gastronomie acasă sau la evenimente, oferind soluții complete și personalizate.</p>
+    <p>Viziunea: să devenim partenerul de referință în gastronomia privată și corporate, în România și Italia.</p>
+
+    <div class="kpis">
+      <div class="kpi"><span class="kpi-num">6+</span><p>Ani de experiență</p></div>
+      <div class="kpi"><span class="kpi-num">300+</span><p>Evenimente livrate</p></div>
+      <div class="kpi"><span class="kpi-num">4.9/5</span><p>Rating clienți</p></div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2>Valorile noastre</h2>
+    <div class="valori">
+      <article class="card"><h3>Pasiune</h3><p>Iubim ceea ce facem și transmitem această pasiune în fiecare preparat.</p></article>
+      <article class="card"><h3>Calitate</h3><p>Folosim doar ingrediente atent selecționate și tehnici profesionale.</p></article>
+      <article class="card"><h3>Inovație</h3><p>Îmbinăm tradiția cu tehnologia (AI pentru nutriție, meniuri personalizate).</p></article>
+      <article class="card"><h3>Profesionalism</h3><p>Respectăm clienții, colaboratorii și fiecare detaliu al serviciului oferit.</p></article>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2>Echipa noastră</h2>
+    <div class="echipa">
+      <figure class="member">
+        <img src="https://images.unsplash.com/photo-1544062542-1cf6624b9987?auto=format&fit=crop&w=600&q=70" alt="Gabriel Sandu, fondator Bucătarul Personal">
+        <figcaption><h3>Gabriel Sandu</h3><p>Fondator & Administrator</p></figcaption>
+      </figure>
+      <figure class="member">
+        <img src="https://images.unsplash.com/photo-1568913038155-9a7d6a3f6a09?auto=format&fit=crop&w=600&q=70" alt="Chef invitat, specialist în bucătăria italiană">
+        <figcaption><h3>Chef Invitat</h3><p>Specialist în bucătăria italiană</p></figcaption>
+      </figure>
+      <figure class="member">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=70" alt="Echipa Bucătarul Personal">
+        <figcaption><h3>Echipa Bucătarul Personal</h3><p>Bucătari, cofetari și asistenți dedicați</p></figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-brand" href="/" aria-label="Bucătarul Personal - acasă">
+      <img src="/assets/img/logo-color.svg" width="120" height="34" alt="Bucătarul Personal">
+    </a>
+    <div class="footer-cols">
+      <section class="f-col"><h4>Companie</h4>
+        <ul><li><a href="/despre-noi.html" aria-current="page">Despre noi</a></li>
+            <li><a href="/servicii.html">Servicii</a></li>
+            <li><a href="/bucatarii.html">Bucătarii noștri</a></li>
+            <li><a href="/blog/">Blog</a></li></ul></section>
+      <section class="f-col"><h4>Legal</h4>
+        <ul><li><a href="/termeni-conditii.html">Termeni &amp; Condiții</a></li>
+            <li><a href="/politica
+                              <li><a href="/politica-confidentialitate.html">Confidențialitate</a></li>
             <li><a href="/cookies.html">Cookies</a></li>
         </ul>
       </section>
