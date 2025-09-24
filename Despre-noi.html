@@ -173,15 +173,13 @@ p{margin:0 0 16px}
 </head>
 <body>
 
-<!-- HEADER (ca pe homepage) -->
-<header class="site-header nav nav--transparent" data-header>
+<header class="site-header" data-header>
   <div class="nav-wrap">
     <a class="brand" href="/" aria-label="Pagina principală">
-      <img src="https://www.bucatarulpersonal.ro/assets/img/logo-mark.svg" alt="" width="28" height="28" loading="eager">
-      <span>Bucătarul Personal</span>
+      <!-- Logo color SVG/PNG încărcat local -->
+      <img src="/assets/img/logo-color.svg" alt="Bucătarul Personal" width="160" height="50" loading="eager">
     </a>
 
-    <!-- buton hamburger (mobil) -->
     <button class="hamburger" aria-label="Deschide meniul" aria-expanded="false" aria-controls="main-menu">
       <span></span>
     </button>
@@ -197,6 +195,7 @@ p{margin:0 0 16px}
       <a class="btn cta" href="/contact.html">Vreau un bucătar</a>
     </nav>
   </div>
+  <div class="backdrop" data-backdrop></div>
 
   <!-- backdrop pentru drawer pe mobil -->
   <div class="backdrop" data-backdrop></div>
