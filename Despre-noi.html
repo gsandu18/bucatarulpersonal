@@ -171,3 +171,56 @@ p{ margin:0 0 16px }
   </div>
 </header>
 <html>
+            <li><a href="/politica-confidentialitate.html">Confidențialitate</a></li>
+            <li><a href="/cookies.html">Cookies</a></li>
+        </ul>
+      </section>
+
+      <section class="f-col"><h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+40772893476">0772 893 476</a></li>
+          <li><a href="mailto:contact@bucatarulpersonal.ro">contact@bucatarulpersonal.ro</a></li>
+          <li><span>România</span></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>
+      © 2025 Bucătarul Personal — Toate drepturile rezervate.
+      <span class="dot" aria-hidden="true">•</span>
+      <a class="cookie-link" href="/cookies-preferinte.html">Modifică preferințele de confidențialitate</a>
+    </p>
+  </div>
+</footer>
+
+<!-- CTA sticky pe mobil -->
+<div class="mobile-cta" role="region" aria-label="Rezervare rapidă">
+  <a href="/contact.html" class="mobile-cta__btn" aria-label="Rezervă un chef acum">Rezervă un chef</a>
+</div>
+
+<!-- JS: hamburger / drawer mobil -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const header   = document.querySelector('.site-header');
+  const burger   = header.querySelector('.hamburger');
+  const shell    = header.querySelector('.menu-shell');
+  const backdrop = header.querySelector('.backdrop');
+
+  const openDrawer = (open) => {
+    shell.classList.toggle('open', open);
+    burger.classList.toggle('active', open);
+    burger.setAttribute('aria-expanded', String(open));
+    backdrop.classList.toggle('show', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+
+  burger.addEventListener('click', () => openDrawer(!shell.classList.contains('open')));
+  backdrop.addEventListener('click', () => openDrawer(false));
+  shell.querySelectorAll('a').forEach(a => a.addEventListener('click', () => openDrawer(false)));
+});
+</script>
+
+</body>
+</html>
