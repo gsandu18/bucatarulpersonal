@@ -993,6 +993,78 @@
       window.openConsent=show;
       window.resetConsent=function(){localStorage.removeItem(KEY);apply({});show();};
     })();
+    <script>
+(() => {
+  const root = document.querySelector('#testimoniale');
+  if(!root) return;
+
+  const viewport = root.querySelector('.viewport');
+  const track    = root.querySelector('.track');
+  const items    = [...root.querySelectorAll('.item')];
+  const prevBtn  = root.querySelector('.btn.prev');
+  const nextBtn  = root.querySelector('.btn.next');
+  const dotsBox  = root.querySelector('.dots');
+
+  if (items.length === 0) return;
+
+  // calc pasul = lățimea unui card + gap
+  const getStep = () => {
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    const w   = items[0].getBoundingClientRect().width;
+    return w + gap;
+  };
+
+  // index curent bazat pe scrollLeft
+  const getIndex = () => {
+    const step = getStep();
+    return Math.round(viewport.scrollLeft / step);
+  };
+
+  // mută la index
+  const goTo = (i) => {
+    const step = getStep();
+    const maxIndex = Math.max(0, items.length - 1);
+    const clamped = Math.max(0, Math.min(i, maxIndex));
+    viewport.scrollTo({ left: clamped * step, behavior: 'smooth' });
+    updateDots(clamped);
+  };
+
+  // butoane
+  prevBtn?.addEventListener('click', () => goTo(getIndex() - 1));
+  nextBtn?.addEventListener('click', () => goTo(getIndex() + 1));
+
+  // dots (opțional)
+  const updateDots = (active) => {
+    if (!dotsBox) return;
+    const total = items.length;
+    dotsBox.innerHTML = '';
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'dot' + (i === active ? ' active' : '');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Slide ${i+1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsBox.appendChild(dot);
+    }
+  };
+
+  // sincronizează dots când se face scroll manual
+  viewport.addEventListener('scroll', () => {
+    const i = getIndex();
+    const act = dotsBox?.querySelectorAll('.dot')[i];
+    dotsBox?.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+    act?.classList.add('active');
+  }, { passive:true });
+
+  // autoplay (opțional) – comentează dacă nu-l vrei
+  let timer = setInterval(() => nextBtn?.click(), 5000);
+  root.addEventListener('mouseenter', () => clearInterval(timer));
+  root.addEventListener('mouseleave', () => timer = setInterval(() => nextBtn?.click(), 5000));
+
+  // inițial
+  updateDots(0);
+})();
+</script>
   </script>
 </body>
 </html>
