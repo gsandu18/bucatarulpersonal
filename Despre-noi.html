@@ -18,41 +18,85 @@
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;
-     color:var(--text);background:var(--gri);line-height:1.7}
+     color:var(--text);background:var(--gri);line-height:/* ===== HEADER ca pe homepage ===== */
+.site-header{
+  position:sticky; top:0; z-index:100;
+  transition:background .25s ease, box-shadow .25s ease, border-color .25s ease;
+  border-bottom:1px solid transparent;
+}
+.nav--transparent{ background:transparent; }
+.nav--solid{
+  background:var(--alb);
+  border-bottom:1px solid color-mix(in oklab, var(--text) 10%, transparent);
+  box-shadow:var(--shadow);
+}
+.nav-wrap{
+  max-width:1100px; margin:auto;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:12px 20px;
+}
+.brand{display:flex; gap:10px; align-items:center; text-decoration:none; font-weight:700; color:var(--alb);}
+.nav--solid .brand{ color:var(--verde2); }
+.brand img{display:block}
 
-/* Navbar */
-.nav{position:sticky;top:0;z-index:100;background:var(--alb);box-shadow:var(--shadow);}
-.nav-wrap{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
-.brand{display:flex;gap:10px;align-items:center;color:var(--verde2);font-weight:700;text-decoration:none}
-.menu{list-style:none;display:flex;gap:16px;margin:0;padding:0}
-.menu a{color:var(--text);text-decoration:none;padding:8px 12px;border-radius:8px}
-.menu a:hover{background:color-mix(in oklab,var(--verde) 12%,transparent)}
-.menu .active{color:var(--alb);background:var(--verde2)}
-.menu .btn{background:var(--verde);color:#fff;border-radius:10px;padding:10px 14px;font-weight:600}
-.menu .btn:hover{background:var(--verde2)}
+/* shell meniu (pt. aliniere buton + listă) */
+.menu-shell{display:flex; align-items:center; gap:16px}
 
-/* --- Nav responsive --- */
-.hamburger{display:none}
-@media (max-width:900px){
-  .menu{display:none;flex-direction:column;background:var(--alb);position:absolute;
-        top:100%;left:0;right:0;padding:20px;gap:12px;box-shadow:var(--shadow);}
-  .menu.open{display:flex}
-  .hamburger{display:block;width:32px;height:32px;cursor:pointer;position:relative}
-  .hamburger span,
-  .hamburger::before,
-  .hamburger::after{
-    content:"";position:absolute;left:0;width:100%;height:4px;background:var(--verde2);
-    transition:transform .3s ease,opacity .3s ease;
+/* Desktop menu */
+.menu{list-style:none; display:flex; gap:16px; margin:0; padding:0}
+.menu a{
+  text-decoration:none; padding:8px 10px; border-radius:8px;
+  color:#fff; /* pe transparent */
+}
+.nav--solid .menu a{ color:var(--text); }
+.menu a:hover{ background:color-mix(in oklab, var(--alb) 14%, transparent) }
+.menu .active{ background:color-mix(in oklab, var(--alb) 18%, transparent) }
+
+/* CTA */
+.btn.cta{
+  background:var(--verde); color:#fff; text-decoration:none;
+  padding:10px 14px; border-radius:10px; font-weight:700;
+}
+.btn.cta:hover{ background:var(--verde2) }
+
+/* Hamburger */
+.hamburger{ display:none; width:36px; height:36px; position:relative; border:0; background:transparent; cursor:pointer }
+.hamburger span,
+.hamburger::before,.hamburger::after{
+  content:""; position:absolute; left:6px; right:6px; height:3px;
+  background:#fff; transition:transform .3s ease, opacity .3s ease, background .25s ease;
+}
+.nav--solid .hamburger span,
+.nav--solid .hamburger::before,
+.nav--solid .hamburger::after{ background:var(--verde2); }
+.hamburger::before{ top:9px } .hamburger span{ top:50%; transform:translateY(-50%) } .hamburger::after{ bottom:9px }
+.hamburger.active span{ opacity:0 }
+.hamburger.active::before{ transform:translateY(9px) rotate(45deg) }
+.hamburger.active::after{ transform:translateY(-9px) rotate(-45deg) }
+
+/* Drawer mobil */
+@media (max-width: 900px){
+  .hamburger{ display:block }
+  .menu-shell{
+    position:fixed; inset:0 0 0 auto; width:min(86vw,360px);
+    background:var(--alb); transform:translateX(100%); transition:transform .3s ease;
+    flex-direction:column; align-items:stretch; padding:18px; gap:14px; z-index:110;
+    box-shadow: -24px 0 40px rgba(0,0,0,.18);
   }
-  .hamburger span{top:50%;transform:translateY(-50%)}
-  .hamburger::before{top:8px}
-  .hamburger::after{bottom:8px}
-  .hamburger.active span{opacity:0}
-  .hamburger.active::before{transform:translateY(12px) rotate(45deg)}
-  .hamburger.active::after{transform:translateY(-12px) rotate(-45deg)}
-  .nav-wrap{position:relative}
+  .menu-shell.open{ transform:translateX(0) }
+  .menu{ flex-direction:column; gap:8px }
+  .menu a{ color:var(--text); padding:10px 12px; border-radius:10px; }
+  .menu a:hover{ background:color-mix(in oklab, var(--text) 8%, transparent) }
+  .btn.cta{ text-align:center }
+  .backdrop{
+    position:fixed; inset:0; background:rgba(0,0,0,.35);
+    opacity:0; visibility:hidden; transition:opacity .3s ease, visibility .3s ease; z-index:105;
+  }
+  .backdrop.show{ opacity:1; visibility:visible }
 }
 
+/* Asigură lizibilitate pe HERO */
+.hero :where(h1,p,.cta-btn){ position:relative; z-index:1 }
 /* Hero */
 .hero{position:relative;isolation:isolate;min-height:380px;display:grid;place-items:center;
       color:#fff;text-align:center;background:var(--verde2);}
