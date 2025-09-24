@@ -129,25 +129,34 @@ p{margin:0 0 16px}
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="nav">
+<!-- HEADER (ca pe homepage) -->
+<header class="site-header nav nav--transparent" data-header>
   <div class="nav-wrap">
-    <a class="brand" href="#">
-      <svg width="28" height="28"><rect width="28" height="28" rx="6" fill="#0b4a36"/></svg>
+    <a class="brand" href="/" aria-label="Pagina principală">
+      <img src="https://www.bucatarulpersonal.ro/assets/img/logo-mark.svg" alt="" width="28" height="28" loading="eager">
       <span>Bucătarul Personal</span>
     </a>
-    <div class="hamburger" aria-label="Deschide meniul" role="button" tabindex="0">
+
+    <!-- buton hamburger (mobil) -->
+    <button class="hamburger" aria-label="Deschide meniul" aria-expanded="false" aria-controls="main-menu">
       <span></span>
-    </div>
-    <ul class="menu">
-      <li><a href="#">Servicii</a></li>
-      <li><a href="#">Bucătarii noștri</a></li>
-      <li><a href="#">Prețuri</a></li>
-      <li><a class="active" href="#" aria-current="page">Despre noi</a></li>
-      <li><a class="btn" href="#">Rezervă un chef</a></li>
-    </ul>
+    </button>
+
+    <nav class="menu-shell" aria-label="Principal">
+      <ul id="main-menu" class="menu">
+        <li><a href="/despre-noi.html" class="active">Despre noi</a></li>
+        <li><a href="/bucatarii.html">Bucătarii noștri</a></li>
+        <li><a href="/servicii.html">Servicii</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+      <a class="btn cta" href="/contact.html">Vreau un bucătar</a>
+    </nav>
   </div>
-</nav>
+
+  <!-- backdrop pentru drawer pe mobil -->
+  <div class="backdrop" data-backdrop></div>
+</header>
 
 <!-- Hero -->
 <header class="hero">
