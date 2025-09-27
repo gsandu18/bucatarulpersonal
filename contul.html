@@ -257,28 +257,157 @@
     document.getElementById('y').textContent=new Date().getFullYear();
 
 
-  <!-- ===== Firebase + logică ===== -->
- // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+<!-- ===== JS: meniu mobil ===== -->
+<script>
+  const b=document.getElementById('burger'), back=document.getElementById('drawer-back'), x=document.getElementById('drawer-close');
+  if(b&&back&&x){
+    b.onclick=()=>back.classList.add('active');
+    x.onclick=()=>back.classList.remove('active');
+    back.addEventListener('click',e=>{ if(e.target===back) back.classList.remove('active');});
+  }
+  document.getElementById('y').textContent=new Date().getFullYear();
+</script>
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCRFbgtajpu2O44HWXAWXC-VPOOQ-Cx7Dw",
-  authDomain: "bucatarul-personal.firebaseapp.com",
-  projectId: "bucatarul-personal",
-  storageBucket: "bucatarul-personal.firebasestorage.app",
-  messagingSenderId: "140628829497",
-  appId: "1:140628829497:web:8e639aaf2906c85473f4e8",
-  measurementId: "G-TQFMGTGPP3"
-};
+<!-- ===== Firebase + logică (ES Modules CDN) ===== -->
+<script type="module">
+  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+    updateProfile, onAuthStateChanged, sendPasswordResetEmail,
+    setPersistence, browserLocalPersistence, browserSessionPersistence
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import {
+    getFirestore, doc, setDoc, getDoc, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+  // ⚠️ Config corect – storageBucket trebuie .appspot.com
+  const firebaseConfig = {
+    apiKey: "AIzaSyCRFbgtajpu2O44HWXAWXC-VPOOQ-Cx7Dw",
+    authDomain: "bucatarul-personal.firebaseapp.com",
+    projectId: "bucatarul-personal",
+    storageBucket: "bucatarul-personal.appspot.com",
+    messagingSenderId: "140628829497",
+    appId: "1:140628829497:web:8e639aaf2906c85473f4e8",
+    measurementId: "G-TQFMGTGPP3"
+  };
+
+  const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  // Toggle parole
+  const toggle1 = document.getElementById('toggle-login-pass');
+  const pass1   = document.getElementById('login-pass');
+  if (toggle1 && pass1) toggle1.addEventListener('click', ()=>{ pass1.type = pass1.type==='password'?'text':'password'; });
+
+  const toggle2 = document.getElementById('toggle-signup-pass');
+  const pass2   = document.getElementById('signup-pass');
+  if (toggle2 && pass2) toggle2.addEventListener('click', ()=>{ pass2.type = pass2.type==='password'?'text':'password'; });
+
+  // Auto-redirect dacă e deja logat
+  onAuthStateChanged(auth, async (user)=>{
+    if(!user) return;
+    try{
+      const snap = await getDoc(doc(db, "users", user.uid));
+      const role = snap.exists() ? snap.data().role : null;
+      location.href = (role === "chef") ? "dashboard-bucatar.html" : "dashboard-client.html";
+    }catch(e){ console.warn(e); }
+  });
+
+  // Login
+  const login    = document.getElementById('login');
+  const loginMsg = document.getElementById('login-msg');
+  const loginOk  = document.getElementById('login-ok');
+
+  if (login){
+    login.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if (loginMsg) loginMsg.style.display='none';
+      if (loginOk)  loginOk.style.display='none';
+
+      const f = new FormData(login);
+      const email = (f.get('email')||'').toString().trim();
+      const pass  = f.get('pass');
+      const pick  = f.get('role'); // fallback
+
+      const remember = document.getElementById('remember')?.checked;
+      await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
+
+      try{
+        const cred = await signInWithEmailAndPassword(auth, email, pass);
+        const snap = await getDoc(doc(db, "users", cred.user.uid));
+        const role = snap.exists() ? snap.data().role : pick;
+
+        if (loginOk){
+          loginOk.style.display='block';
+          loginOk.textContent = (role === "chef")
+            ? "Autentificat! Te ducem în Dashboard Bucătar…"
+            : "Autentificat! Te ducem în Dashboard Client…";
+        }
+        setTimeout(()=>{ location.href = (role === "chef") ? "dashboard-bucatar.html" : "dashboard-client.html"; }, 900);
+      }catch(err){
+        if (loginMsg){
+          loginMsg.style.display='block';
+          loginMsg.textContent = err.message;
+        } else {
+          alert(err.message);
+        }
+      }
+    });
+  }
+
+  // Reset parolă
+  const forgot = document.getElementById('forgot');
+  if (forgot){
+    forgot.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const email = (new FormData(login)).get('email');
+      if(!email){
+        if (loginMsg){ loginMsg.style.display='block'; loginMsg.textContent = "Introdu adresa de email pentru resetare."; }
+        return;
+      }
+      try{
+        await sendPasswordResetEmail(auth, String(email));
+        if (loginOk){ loginOk.style.display='block'; loginOk.textContent = "Ți-am trimis email pentru resetarea parolei."; }
+      }catch(err){
+        if (loginMsg){ loginMsg.style.display='block'; loginMsg.textContent = err.message; }
+      }
+    });
+  }
+
+  // Signup chef
+  const signup    = document.getElementById('signup');
+  const signupMsg = document.getElementById('signup-msg');
+
+  if (signup){
+    signup.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if (signupMsg){ signupMsg.className='notice'; signupMsg.textContent='Se procesează…'; }
+
+      const f = new FormData(signup);
+      const name  = (f.get('name')||'').toString().trim();
+      const email = (f.get('email')||'').toString().trim();
+      const pass  = f.get('pass');
+
+      try{
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+        await updateProfile(cred.user, { displayName: name });
+        await setDoc(doc(db, "users", cred.user.uid), {
+          uid: cred.user.uid, name, email, role: "chef", createdAt: serverTimestamp()
+        });
+
+        if (signupMsg){
+          signupMsg.className='notice';
+          signupMsg.textContent='Mulțumim! Ți-am creat contul de bucătar. Te redirecționăm în dashboard…';
+          signupMsg.scrollIntoView({ behavior:'smooth', block:'center' });
+        }
+        setTimeout(()=>{ location.href = "dashboard-bucatar.html"; }, 1200);
+      }catch(err){
+        if (signupMsg){ signupMsg.className='notice error'; signupMsg.textContent = err.message; }
+      }
+    });
+  }
+</script>
 
     // Toggle parole
     const toggle1 = document.getElementById('toggle-login-pass');
