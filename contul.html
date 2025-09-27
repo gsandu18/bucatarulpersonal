@@ -22,8 +22,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <style>
+  
+  @<div id="signup-msg" class="notice" role="status" aria-live="polite" style="display:none"></div>
+<div id="login-ok"   class="notice" role="status" aria-live="polite" style="display:none"></div>
+<div id="login-msg"  class="notice error" role="alert" aria-live="polite" style="display:none"></div>
+ (max-width:600px){ .foot{grid-template-columns:1fr} }  <style>
     :root{ --verde:#0e5a43; --verde2:#0b4a36; --stroke:#e6ecef; --gri:#f6f7f9; }
 
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#182a24;background:#fff}
@@ -100,7 +103,8 @@
     .foot a:hover{opacity:1;text-decoration:underline}
     .legal{border-top:1px solid rgba(255,255,255,.2);padding:12px 0;color:#cfe6dc;font-size:14px}
     @media (max-width:900px){ .foot{grid-template-columns:1fr 1fr} }
-    @media (max-width:600px){ .foot{grid-template-columns:1fr} }
+ 
+    
   </style>
 </head>
 <body>
