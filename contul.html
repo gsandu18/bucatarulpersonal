@@ -13,6 +13,7 @@
   <meta property="og:image" content="/static/og-bucatarul-personal.jpg" />
   <meta name="theme-color" content="#0e5a43" />
   <meta name="color-scheme" content="light dark" />
+
   <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
@@ -22,11 +23,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
-  @<div id="signup-msg" class="notice" role="status" aria-live="polite" style="display:none"></div>
-<div id="login-ok"   class="notice" role="status" aria-live="polite" style="display:none"></div>
-<div id="login-msg"  class="notice error" role="alert" aria-live="polite" style="display:none"></div>
- (max-width:600px){ .foot{grid-template-columns:1fr} }  <style>
+
+  <style>
     :root{ --verde:#0e5a43; --verde2:#0b4a36; --stroke:#e6ecef; --gri:#f6f7f9; }
 
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#182a24;background:#fff}
@@ -82,17 +80,11 @@
     .row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
     .hint{font-size:13px;color:#5c6c66}
     .muted{color:#6a7a73}
-    .error{color:#b42318;margin-top:8px}
-    .success{color:#0e5a43;margin-top:8px}
 
-    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:1px solid #cfe0da;background:#fff;padding:12px 18px;cursor:pointer;font-weight:700}
-    .btn-primary{background:#0e5a43;color:#fff;border-color:transparent;box-shadow:0 10px 24px rgba(14,90,67,.22)}
-    .btn-ghost{border:1px solid #e1e9e6;padding:10px 12px;height:40px}
-    .pill-link{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:#fff;border:1px solid #dfe9e5;box-shadow:0 8px 22px rgba(0,0,0,.06);color:#0e5a43;text-decoration:none}
-
-    /* Mesaje de status */
+    /* Mesaje */
     .notice{margin-top:10px;padding:10px 14px;border-radius:12px;border:1px solid #dbe7e2;background:#f3faf6;color:#0e5a43}
     .notice.error{background:#fff5f5;border-color:#f1c2c0;color:#b42318}
+    .notice:empty{display:none} /* NU arăta containerul când nu are text */
 
     /* ===== Footer ===== */
     footer.site{background:#0b4a36;color:#eaf5ef;margin-top:40px}
@@ -103,8 +95,116 @@
     .foot a:hover{opacity:1;text-decoration:underline}
     .legal{border-top:1px solid rgba(255,255,255,.2);padding:12px 0;color:#cfe6dc;font-size:14px}
     @media (max-width:900px){ .foot{grid-template-columns:1fr 1fr} }
- 
-    
+    @media (max-width:600px){ .foot{grid-template-columns:1fr} }
+    /* ---- Forțează butoanele verzi ---- */
+:root {
+  --verde: #0e5a43;
+}
+
+/* butoane de tip primar: <button class="btn btn-primary"> sau <a class="btn btn-primary"> */
+.btn.btn-primary,
+button.btn-primary,
+a.btn.btn-primary {
+  background: var(--verde) !important;
+  color: #fff !important;
+  border-color: var(--verde) !important;
+  box-shadow: 0 10px 24px rgba(14,90,67,.22);
+}
+
+/* hover / focus */
+.btn.btn-primary:hover,
+button.btn-primary:hover,
+a.btn.btn-primary:hover,
+.btn.btn-primary:focus-visible {
+  filter: brightness(0.96);
+  outline: none;
+}
+
+/* stare disabled, ca să nu pară activ */
+.btn.btn-primary:disabled,
+button.btn-primary:disabled,
+a.btn.btn-primary[aria-disabled="true"] {
+  background: #8fb9ab !important;
+  border-color: #8fb9ab !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+  opacity: 0.85;
+}/* ===== Design tokens */
+:root{
+  --btn-radius: 14px;
+  --btn-green: #0e5a43;
+  --btn-green-2:#0b4a36;
+  --btn-text: #ffffff;
+  --btn-outline:#cfe0da;
+  --ring:#1fbf82;
+}
+
+/* Reset & bază */
+.btn{
+  --_bg:#fff; --_fg:#0e2a22; --_bd:#d9e6e1;
+  display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+  height:48px; padding:0 18px; border-radius:var(--btn-radius);
+  border:1px solid var(--_bd); background:var(--_bg); color:var(--_fg);
+  font-weight:700; line-height:1; text-decoration:none; cursor:pointer;
+  transition:transform .06s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active{ transform:translateY(1px) }
+.btn[disabled], .btn:disabled{ opacity:.6; cursor:not-allowed; box-shadow:none }
+
+/* Focus ring accesibil */
+.btn:focus-visible{
+  outline:0;
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--ring) 28%, transparent),
+             0 10px 26px rgba(0,0,0,.14);
+}
+
+/* Varianta primară (verde) */
+.btn-primary{
+  --_bg:var(--btn-green); --_fg:#fff; --_bd:transparent;
+  box-shadow:0 10px 24px rgba(14,90,67,.22);
+}
+.btn-primary:hover{ background:var(--btn-green-2) }
+
+/* Varianta outline (contur) */
+.btn-outline{
+  --_bg:#fff; --_fg:var(--btn-green); --_bd:var(--btn-green);
+}
+.btn-outline:hover{
+  background:color-mix(in srgb, var(--btn-green) 6%, white);
+}
+
+/* Ghost (transparent) */
+.btn-ghost{
+  --_bg:transparent; --_fg:var(--btn-green); --_bd:#e2ece8;
+  box-shadow:none;
+}
+.btn-ghost:hover{ background:#f3faf6 }
+
+/* Dimensiuni */
+.btn-sm{ height:40px; padding:0 14px; border-radius:12px }
+.btn-lg{ height:56px; padding:0 22px; border-radius:16px }
+
+/* Icon only */
+.btn-icon{
+  width:48px; height:48px; padding:0; border-radius:12px;
+}
+
+/* Stare loading */
+.btn.is-loading{ position:relative; pointer-events:none; opacity:.9 }
+.btn.is-loading::after{
+  content:""; width:18px; height:18px; border-radius:50%;
+  border:2px solid #fff; border-right-color:transparent;
+  display:inline-block; animation:spin .8s linear infinite;
+}
+.btn-outline.is-loading::after{ border-color:var(--btn-green); border-right-color:transparent }
+@keyframes spin{ to{ transform:rotate(360deg) } }
+
+/* Aliniere icon la stânga (ex: fontawesome) */
+.btn i{ font-size:1rem; line-height:0 }
+
+
   </style>
 </head>
 <body>
@@ -180,8 +280,8 @@
               <a id="forgot" class="pill-link" href="#">Ai uitat parola?</a>
             </div>
             <button class="btn btn-primary" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Intră în cont</button>
-            <div id="login-ok" class="notice" role="status" aria-live="polite" style="display:none"></div>
-            <div id="login-msg" class="notice error" role="alert" aria-live="polite" style="display:none"></div>
+            <div id="login-ok"  class="notice" role="status" aria-live="polite"></div>
+            <div id="login-msg" class="notice error" role="alert"  aria-live="polite"></div>
           </form>
         </div>
       </section>
@@ -257,82 +357,72 @@
   <!-- ===== JS: meniu mobil ===== -->
   <script>
     const b=document.getElementById('burger'), back=document.getElementById('drawer-back'), x=document.getElementById('drawer-close');
-    if(b&&back&&x){ b.onclick=()=>back.classList.add('active'); x.onclick=()=>back.classList.remove('active'); back.addEventListener('click',e=>{ if(e.target===back) back.classList.remove('active');}); }
+    if(b&&back&&x){
+      b.onclick=()=>back.classList.add('active');
+      x.onclick=()=>back.classList.remove('active');
+      back.addEventListener('click',e=>{ if(e.target===back) back.classList.remove('active');});
+    }
     document.getElementById('y').textContent=new Date().getFullYear();
+  </script>
 
+  <!-- ===== Firebase + logică ===== -->
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+      updateProfile, onAuthStateChanged, sendPasswordResetEmail,
+      setPersistence, browserLocalPersistence, browserSessionPersistence
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      getFirestore, doc, setDoc, getDoc, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-<!-- ===== JS: meniu mobil ===== -->
-<script>
-  const b=document.getElementById('burger'), back=document.getElementById('drawer-back'), x=document.getElementById('drawer-close');
-  if(b&&back&&x){
-    b.onclick=()=>back.classList.add('active');
-    x.onclick=()=>back.classList.remove('active');
-    back.addEventListener('click',e=>{ if(e.target===back) back.classList.remove('active');});
-  }
-  document.getElementById('y').textContent=new Date().getFullYear();
-</script>
+    // Config (bucket corect .appspot.com)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCRFbgtajpu2O44HWXAWXC-VPOOQ-Cx7Dw",
+      authDomain: "bucatarul-personal.firebaseapp.com",
+      projectId: "bucatarul-personal",
+      storageBucket: "bucatarul-personal.appspot.com",
+      messagingSenderId: "140628829497",
+      appId: "1:140628829497:web:8e639aaf2906c85473f4e8",
+      measurementId: "G-TQFMGTGPP3"
+    };
 
-<!-- ===== Firebase + logică (ES Modules CDN) ===== -->
-<script type="module">
-  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import {
-    getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-    updateProfile, onAuthStateChanged, sendPasswordResetEmail,
-    setPersistence, browserLocalPersistence, browserSessionPersistence
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import {
-    getFirestore, doc, setDoc, getDoc, serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
 
-  // ⚠️ Config corect – storageBucket trebuie .appspot.com
-  const firebaseConfig = {
-    apiKey: "AIzaSyCRFbgtajpu2O44HWXAWXC-VPOOQ-Cx7Dw",
-    authDomain: "bucatarul-personal.firebaseapp.com",
-    projectId: "bucatarul-personal",
-    storageBucket: "bucatarul-personal.appspot.com",
-    messagingSenderId: "140628829497",
-    appId: "1:140628829497:web:8e639aaf2906c85473f4e8",
-    measurementId: "G-TQFMGTGPP3"
-  };
+    // Toggle parole
+    document.getElementById('toggle-login-pass')?.addEventListener('click', ()=>{
+      const el = document.getElementById('login-pass'); el.type = el.type==='password'?'text':'password';
+    });
+    document.getElementById('toggle-signup-pass')?.addEventListener('click', ()=>{
+      const el = document.getElementById('signup-pass'); el.type = el.type==='password'?'text':'password';
+    });
 
-  const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db   = getFirestore(app);
+    // Auto-redirect dacă e deja logat
+    onAuthStateChanged(auth, async (user)=>{
+      if(!user) return;
+      try{
+        const snap = await getDoc(doc(db, "users", user.uid));
+        const role = snap.exists() ? snap.data().role : null;
+        location.href = (role === "chef") ? "dashboard-bucatar.html" : "dashboard-client.html";
+      }catch(e){ console.warn(e); }
+    });
 
-  // Toggle parole
-  const toggle1 = document.getElementById('toggle-login-pass');
-  const pass1   = document.getElementById('login-pass');
-  if (toggle1 && pass1) toggle1.addEventListener('click', ()=>{ pass1.type = pass1.type==='password'?'text':'password'; });
+    // Login
+    const login    = document.getElementById('login');
+    const loginMsg = document.getElementById('login-msg');
+    const loginOk  = document.getElementById('login-ok');
 
-  const toggle2 = document.getElementById('toggle-signup-pass');
-  const pass2   = document.getElementById('signup-pass');
-  if (toggle2 && pass2) toggle2.addEventListener('click', ()=>{ pass2.type = pass2.type==='password'?'text':'password'; });
-
-  // Auto-redirect dacă e deja logat
-  onAuthStateChanged(auth, async (user)=>{
-    if(!user) return;
-    try{
-      const snap = await getDoc(doc(db, "users", user.uid));
-      const role = snap.exists() ? snap.data().role : null;
-      location.href = (role === "chef") ? "dashboard-bucatar.html" : "dashboard-client.html";
-    }catch(e){ console.warn(e); }
-  });
-
-  // Login
-  const login    = document.getElementById('login');
-  const loginMsg = document.getElementById('login-msg');
-  const loginOk  = document.getElementById('login-ok');
-
-  if (login){
-    login.addEventListener('submit', async (e)=>{
+    login?.addEventListener('submit', async (e)=>{
       e.preventDefault();
-      if (loginMsg) loginMsg.style.display='none';
-      if (loginOk)  loginOk.style.display='none';
+      loginMsg.textContent=''; loginOk.textContent='';
 
       const f = new FormData(login);
       const email = (f.get('email')||'').toString().trim();
       const pass  = f.get('pass');
-      const pick  = f.get('role'); // fallback
+      const pick  = f.get('role'); // fallback dacă nu găsim în Firestore
 
       const remember = document.getElementById('remember')?.checked;
       await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
@@ -342,51 +432,37 @@
         const snap = await getDoc(doc(db, "users", cred.user.uid));
         const role = snap.exists() ? snap.data().role : pick;
 
-        if (loginOk){
-          loginOk.style.display='block';
-          loginOk.textContent = (role === "chef")
-            ? "Autentificat! Te ducem în Dashboard Bucătar…"
-            : "Autentificat! Te ducem în Dashboard Client…";
-        }
+        loginOk.textContent = (role === "chef")
+          ? "Autentificat! Te ducem în Dashboard Bucătar…"
+          : "Autentificat! Te ducem în Dashboard Client…";
+
         setTimeout(()=>{ location.href = (role === "chef") ? "dashboard-bucatar.html" : "dashboard-client.html"; }, 900);
       }catch(err){
-        if (loginMsg){
-          loginMsg.style.display='block';
-          loginMsg.textContent = err.message;
-        } else {
-          alert(err.message);
-        }
+        loginMsg.textContent = err.message;
       }
     });
-  }
 
-  // Reset parolă
-  const forgot = document.getElementById('forgot');
-  if (forgot){
-    forgot.addEventListener('click', async (e)=>{
+    // Reset parolă
+    document.getElementById('forgot')?.addEventListener('click', async (e)=>{
       e.preventDefault();
       const email = (new FormData(login)).get('email');
-      if(!email){
-        if (loginMsg){ loginMsg.style.display='block'; loginMsg.textContent = "Introdu adresa de email pentru resetare."; }
-        return;
-      }
+      if(!email){ loginMsg.textContent = "Introdu adresa de email pentru resetare."; return; }
       try{
         await sendPasswordResetEmail(auth, String(email));
-        if (loginOk){ loginOk.style.display='block'; loginOk.textContent = "Ți-am trimis email pentru resetarea parolei."; }
+        loginOk.textContent = "Ți-am trimis email pentru resetarea parolei.";
       }catch(err){
-        if (loginMsg){ loginMsg.style.display='block'; loginMsg.textContent = err.message; }
+        loginMsg.textContent = err.message;
       }
     });
-  }
 
-  // Signup chef
-  const signup    = document.getElementById('signup');
-  const signupMsg = document.getElementById('signup-msg');
+    // Signup chef
+    const signup    = document.getElementById('signup');
+    const signupMsg = document.getElementById('signup-msg');
 
-  if (signup){
-    signup.addEventListener('submit', async (e)=>{
+    signup?.addEventListener('submit', async (e)=>{
       e.preventDefault();
-      if (signupMsg){ signupMsg.className='notice'; signupMsg.textContent='Se procesează…'; }
+      signupMsg.className='notice';
+      signupMsg.textContent='Se procesează…';
 
       const f = new FormData(signup);
       const name  = (f.get('name')||'').toString().trim();
@@ -400,125 +476,9 @@
           uid: cred.user.uid, name, email, role: "chef", createdAt: serverTimestamp()
         });
 
-        if (signupMsg){
-          signupMsg.className='notice';
-          signupMsg.textContent='Mulțumim! Ți-am creat contul de bucătar. Te redirecționăm în dashboard…';
-          signupMsg.scrollIntoView({ behavior:'smooth', block:'center' });
-        }
-        setTimeout(()=>{ location.href = "dashboard-bucatar.html"; }, 1200);
-      }catch(err){
-        if (signupMsg){ signupMsg.className='notice error'; signupMsg.textContent = err.message; }
-      }
-    });
-  }
-
-<scipt>
-    // Toggle parole
-    const toggle1 = document.getElementById('toggle-login-pass');
-    const pass1   = document.getElementById('login-pass');
-    toggle1.addEventListener('click', ()=>{ pass1.type = pass1.type==='password'?'text':'password'; });
-
-    const toggle2 = document.getElementById('toggle-signup-pass');
-    const pass2   = document.getElementById('signup-pass');
-    toggle2.addEventListener('click', ()=>{ pass2.type = pass2.type==='password'?'text':'password'; });
-
-    // Redirect automat după login (în funcție de rol)
-    onAuthStateChanged(auth, async (user)=>{
-      if(!user) return;
-      try{
-        const snap = await getDoc(doc(db, "users", user.uid));
-        const role = snap.exists() ? snap.data().role : null;
-        if (role === "chef") {
-          location.href = "dashboard-bucatar.html";
-        } else {
-          location.href = "dashboard-client.html";
-        }
-      }catch(e){ console.warn(e); }
-    });
-
-    // Login
-    const login = document.getElementById('login');
-    const loginMsg = document.getElementById('login-msg');
-    const loginOk  = document.getElementById('login-ok');
-
-    login.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      loginMsg.style.display='none'; loginOk.style.display='none';
-      const f = new FormData(login);
-      const email = f.get('email').trim();
-      const pass  = f.get('pass');
-      const pick  = f.get('role'); // client / chef (fallback)
-
-      const remember = document.getElementById('remember').checked;
-      await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
-
-      try{
-        const cred = await signInWithEmailAndPassword(auth, email, pass);
-        const snap = await getDoc(doc(db, "users", cred.user.uid));
-        const role = snap.exists() ? snap.data().role : pick;
-
-        loginOk.style.display='block';
-        loginOk.textContent = (role === "chef")
-          ? "Autentificat! Te ducem în Dashboard Bucătar…"
-          : "Autentificat! Te ducem în Dashboard Client…";
-
-        setTimeout(()=>{
-          location.href = (role === "chef") ? "dashboard-bucatar.html" : "dashboard-client.html";
-        }, 900);
-      }catch(err){
-        loginMsg.style.display='block';
-        loginMsg.textContent = err.message;
-      }
-    });
-
-    // Reset parolă
-    document.getElementById('forgot').addEventListener('click', async (e)=>{
-      e.preventDefault();
-      const email = (new FormData(login)).get('email');
-      if(!email){
-        loginMsg.style.display='block';
-        loginMsg.textContent = "Introdu adresa de email pentru resetare.";
-        return;
-      }
-      try{
-        await sendPasswordResetEmail(auth, String(email));
-        loginOk.style.display='block';
-        loginOk.textContent = "Ți-am trimis email pentru resetarea parolei.";
-      }catch(err){
-        loginMsg.style.display='block';
-        loginMsg.textContent = err.message;
-      }
-    });
-
-    // Signup chef (mulțumire + redirect)
-    const signup    = document.getElementById('signup');
-    const signupMsg = document.getElementById('signup-msg');
-
-    signup.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      signupMsg.className='notice';
-      signupMsg.textContent='Se procesează…';
-
-      const f = new FormData(signup);
-      const name  = f.get('name').trim();
-      const email = f.get('email').trim();
-      const pass  = f.get('pass');
-
-      try{
-        const cred = await createUserWithEmailAndPassword(auth, email, pass);
-        await updateProfile(cred.user, { displayName: name });
-        await setDoc(doc(db, "users", cred.user.uid), {
-          uid: cred.user.uid, name, email, role: "chef", createdAt: serverTimestamp()
-        });
-
-        // arată
-signupMsg.textContent = 'Mulțumim! Ți-am creat contul…';
-signupMsg.style.display = 'block';
-
-// ascunde
-signupMsg.textContent = '';
-signupMsg.style.display = 'none';
-
+        signupMsg.className='notice';
+        signupMsg.textContent='Mulțumim! Ți-am creat contul de bucătar. Te redirecționăm în dashboard…';
+        signupMsg.scrollIntoView({ behavior:'smooth', block:'center' });
 
         setTimeout(()=>{ location.href = "dashboard-bucatar.html"; }, 1200);
       }catch(err){
