@@ -4,339 +4,314 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Contul meu | Bucătarul Personal</title>
-  <meta name="description" content="Autentificare clienți și înregistrare ca bucătar. Include consimțământ GDPR cu afișare termeni pe scurt." />
+  <meta name="description" content="Autentificare (cu rol) și înregistrare ca bucătar – Bucătarul Personal." />
   <link rel="canonical" href="https://www.bucatarulpersonal.ro/cont.html" />
-
-  <!-- Open Graph -->
   <meta property="og:title" content="Contul meu" />
-  <meta property="og:description" content="Intră în cont sau înregistrează-te ca bucătar." />
+  <meta property="og:description" content="Intră în cont (Client/Bucătar) sau înregistrează-te ca bucătar." />
   <meta property="og:url" content="https://www.bucatarulpersonal.ro/cont.html" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="/static/og-bucatarul-personal.jpg" />
   <meta name="theme-color" content="#0e5a43" />
   <meta name="color-scheme" content="light dark" />
-
-  <!-- Icons -->
   <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
 
-  <!-- ======= CONTUL MEU – CLIENT & BUCĂTAR ======= -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<style>
-  :root{
-    --verde:#0e5a43; --verde2:#0b4a36; --gri:#f6f7f9; --stroke:#e6ecef;
-    --shadow:0 14px 44px rgba(0,0,0,.08); --radius:18px;
-  }
-  .acc-wrap{max-width:1100px;margin:40px auto;padding:0 16px;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-  .acc-hero{background:linear-gradient(180deg,#f4fbf7 0%, transparent 100%);border:1px solid var(--stroke);border-radius:22px;padding:28px 22px;margin-bottom:16px}
-  .acc-hero h1{margin:0 0 6px;font-size:42px;line-height:1.1;color:#173a2f}
-  .acc-tabs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
-  .acc-tab{padding:12px;border:1px solid var(--stroke);border-radius:999px;text-align:center;font-weight:800;color:#2a463d;background:#fff}
-  .acc-tab.active{background:#e9f6f1;border-color:#cfe7df}
-  .acc-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  @media (max-width:900px){ .acc-grid{grid-template-columns:1fr} }
-  .card{border:1px solid var(--stroke);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow)}
-  .card .head{padding:14px 16px;border-bottom:1px solid var(--stroke);font-weight:800}
-  .card .body{padding:18px}
-  .form p{margin:0 0 14px}
-  .form input[type="email"],
-  .form input[type="password"],
-  .form input[type="text"]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--stroke);background:#f8fbfc}
-  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:1px solid #cfe0da;background:#fff;padding:10px 16px;cursor:pointer;font-weight:700}
-  .btn-primary{background:var(--verde);border-color:transparent;color:#fff}
-  .btn-ghost{background:#fff}
-  .hint{font-size:13px;color:#5c6c66}
-  .row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-  .muted{color:#6a7a73}
-  .error{color:#b42318;margin-top:8px}
-  .success{color:#0e5a43;margin-top:8px}
-  /* ====== LOOK ca în primul screenshot ====== */
+  <style>
+    :root{ --verde:#0e5a43; --stroke:#e6ecef; }
+    .acc-wrap{max-width:1100px;margin:40px auto;padding:0 16px;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
 
-/* Hero container mai “plinuț” + umbră */
-.acc-hero{
-  background: linear-gradient(180deg,#f2fbf6 0%, #ffffff 100%);
-  border: 1px solid #e6ecef;
-  border-radius: 24px;
-  box-shadow: 0 22px 60px rgba(9,45,32,.08);
-  padding: 28px 24px;
-}
+    /* Hero */
+    .acc-hero{
+      background: linear-gradient(180deg,#f2fbf6 0%, #ffffff 100%);
+      border: 1px solid #e6ecef; border-radius: 24px;
+      box-shadow: 0 22px 60px rgba(9,45,32,.08);
+      padding: 28px 24px; margin-bottom:16px
+    }
+    .acc-hero h1{margin:0 0 6px;font-size:42px;line-height:1.1;color:#173a2f}
 
-/* Tabs segmentate, pastilă, cu activ verde deschis */
-.acc-tabs{ gap:14px; }
-.acc-tab{
-  background:#fff;
-  border:1px solid #d8e6e1;
-  border-radius: 999px;
-  padding: 14px 10px;
-  font-weight: 800;
-  color:#2a463d;
-}
-.acc-tab.active{
-  background:#e9f5ef;
-  border-color:#cde7df;
-  box-shadow: inset 0 0 0 1px #cfe7df;
-}
+    /* Tabs (doar pentru aspect; ambele panouri sunt vizibile) */
+    .acc-tabs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+    .acc-tab{background:#fff;border:1px solid #d8e6e1;border-radius:999px;padding:14px 10px;font-weight:800;color:#2a463d}
+    .acc-tab.active{background:#e9f5ef;border-color:#cde7df;box-shadow:inset 0 0 0 1px #cfe7df}
 
-/* Grid 2 coloane cu spațiu generos + umbre “card” */
-.acc-grid{ gap: 22px; }
-.card{
-  border:1px solid #e6ecef;
-  border-radius: 22px;
-  box-shadow: 0 18px 48px rgba(0,0,0,.08);
-  overflow:hidden; /* pentru head cu fundal */
-}
-.card .head{
-  padding:16px 18px;
-  border-bottom:1px solid #e9efee;
-  font-weight:800;
-}
-/* Head cu fundal discret pe cardul din dreapta */
-.card .head.is-soft{
-  background:#f5faf7;
-}
+    /* Layout */
+    .acc-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    @media (max-width:900px){ .acc-grid{grid-template-columns:1fr} }
 
-/* Inputs mai mari, rotunjite, ca în mock */
+    /* Cards */
+    .card{border:1px solid #e6ecef;border-radius:22px;box-shadow:0 18px 48px rgba(0,0,0,.08);background:#fff;overflow:hidden}
+    .card .head{padding:16px 18px;border-bottom:1px solid #e9efee;font-weight:800}
+    .card .head.is-soft{background:#f5faf7}
+    .card .body{padding:18px}
+
+    /* Form */
+    .form p{margin:0 0 16px}
+    .form input[type="email"], .form input[type="password"], .form input[type="text"], .form select{
+      width:100%; background:#f4faf7; border:1px solid #e3ece8; border-radius:14px; padding:14px 16px; font-size:16px
+    }
+    .row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .hint{font-size:13px;color:#5c6c66}
+    .muted{color:#6a7a73}
+    .error{color:#b42318;margin-top:8px}
+    .success{color:#0e5a43;margin-top:8px}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:1px solid #cfe0da;background:#fff;padding:12px 18px;cursor:pointer;font-weight:700}
+    .btn-primary{background:#0e5a43;color:#fff;border-color:transparent;box-shadow:0 10px 24px rgba(14,90,67,.22)}
+    .btn-ghost{border:1px solid #e1e9e6;padding:8px 12px}
+
+    /* Pill link */
+    .pill-link{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:#fff;border:1px solid #dfe9e5;box-shadow:0 8px 22px rgba(0,0,0,.06);color:#0e5a43;text-decoration:none}
+ /* === FIX: încadrăm frumos câmpurile în carduri === */
+
+/* spațiu mai generos în interiorul cardurilor */
+.card .body{ padding:22px }
+
+/* etichete pe rând propriu + spacing constant */
+.form label{ display:block; font-weight:600; margin-bottom:8px; color:#123b30 }
+.form p{ margin:0 0 18px } /* respirație egală între câmpuri */
+
+/* toate controalele: aceeași înălțime, colțuri, padding, fără overflow */
 .form input[type="email"],
 .form input[type="password"],
-.form input[type="text"]{
-  background:#f4faf7;
-  border:1px solid #e3ece8;
-  border-radius: 14px;
-  padding: 14px 16px;
-  font-size: 16px;
+.form input[type="text"],
+.form select{
+  width:100%;
+  box-sizing:border-box;
+  height:52px;
+  padding:12px 16px;
+  border-radius:14px;
+  border:1px solid #dfe7e3;
+  background:#f3faf6;
+  line-height:1.2;
 }
 
-/* Butoane */
-.btn{ border-radius:999px; padding:12px 18px; }
-.btn-primary{
-  background:#0e5a43; color:#fff; border-color:transparent;
-  box-shadow: 0 10px 24px rgba(14,90,67,.22);
-}
-.btn-primary:hover{ filter:brightness(.98) }
-
-/* Link “Ai uitat parola?” stil pastilă */
-.pill-link{
-  display:inline-flex; align-items:center; gap:8px;
-  padding:10px 14px; border-radius:999px;
-  background:#fff; border:1px solid #dfe9e5;
-  box-shadow:0 8px 22px rgba(0,0,0,.06);
-  color:#0e5a43; text-decoration:none;
+/* select: săgeată corectă și padding pe dreapta */
+.form select{
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  padding-right:40px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #0e5a43 50%),
+    linear-gradient(135deg, #0e5a43 50%, transparent 50%);
+  background-position:
+    calc(100% - 22px) 22px, calc(100% - 14px) 22px;
+  background-size:7px 7px, 7px 7px;
+  background-repeat:no-repeat;
 }
 
-/* “Arată” parola în pastilă mică */
-.btn-ghost{ border:1px solid #e1e9e6; padding:8px 12px }
+/* butonul „arată” = pastilă mică, aliniat cu câmpul */
+.btn-ghost{ padding:10px 12px; height:40px }
 
-/* Spațiere generală la fel ca în mock */
-.form p{ margin: 0 0 16px }
-.row{ gap:12px }
-</style>
+/* rândul cu „Ține-mă minte” + „Ai uitat parola?” perfect aliniat */
+#panel-client .row{ margin:8px 0 18px }
+.pill-link{ line-height:1 }
 
-<div class="acc-wrap">
-  <!-- Intro / headline -->
-  <div class="acc-hero">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-      <span class="btn btn-ghost" aria-hidden="true">Premium</span>
-      <span class="btn btn-ghost" aria-hidden="true">Verificați</span>
-      <span class="btn btn-ghost" aria-hidden="true">Contract & Factură</span>
+/* când ecranul e îngust, păstrăm proporțiile frumoase */
+@media (max-width:900px){
+  .card .body{ padding:18px }
+  .form input[type="email"],
+  .form input[type="password"],
+  .form input[type="text"],
+  .form select{ height:50px }
+}
+  </style>
+</head>
+<body>
+  <div class="acc-wrap">
+    <!-- Intro / headline -->
+    <div class="acc-hero">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span class="btn" aria-hidden="true">Premium</span>
+        <span class="btn" aria-hidden="true">Verificați</span>
+        <span class="btn" aria-hidden="true">Contract & Factură</span>
+      </div>
+      <h1>Acces rapid la comenzi, rezervări și documente.</h1>
+      <div class="hint">Conectează-te ca <strong>Client</strong> sau <strong>Bucătar</strong>. Integrare ușoară cu facturare & calendar.</div>
+
+      <div class="acc-tabs" role="tablist" aria-label="Tip cont">
+        <div class="acc-tab active">Client</div>
+        <div class="acc-tab">Înregistrare Bucătar</div>
+      </div>
     </div>
-    <h1>Acces rapid la comenzi, rezervări și documente.</h1>
-    <div class="hint">Conectează-te ca <strong>Client</strong> sau <strong>Bucătar</strong>. Integrare ușoară cu facturare & calendar.</div>
 
-    <!-- Tabs -->
-    <div class="acc-tabs" role="tablist" aria-label="Tip cont">
-      <button class="acc-tab active" id="tab-client" aria-selected="true" aria-controls="panel-client">Client</button>
-      <button class="acc-tab" id="tab-chef" aria-selected="false" aria-controls="panel-chef">Înregistrare Bucătar</button>
+    <div class="acc-grid">
+      <!-- Autentificare cu rol -->
+      <section id="panel-client" class="card" role="region" aria-labelledby="tab-client">
+        <div class="head"><i class="fa-solid fa-right-to-bracket"></i> Autentificare</div>
+        <div class="body">
+          <form id="login" class="form" novalidate>
+            <p><label>Rol<br>
+              <select id="login-role" name="role">
+                <option value="client">Client</option>
+                <option value="chef">Bucătar</option>
+              </select>
+            </label></p>
+            <p><label>Email<br><input name="email" type="email" placeholder="nume@exemplu.com" required></label></p>
+            <p>
+              <label>Parolă<br>
+                <span class="row">
+                  <input id="login-pass" name="pass" type="password" required>
+                  <button class="btn btn-ghost" id="toggle-login-pass" type="button" aria-controls="login-pass">arată</button>
+                </span>
+              </label>
+            </p>
+            <div class="row" style="margin:6px 0 16px">
+              <label class="hint"><input id="remember" type="checkbox"> Ține-mă minte</label>
+              <a id="forgot" class="pill-link" href="#">Ai uitat parola?</a>
+            </div>
+            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Intră în cont</button>
+            <div id="login-msg" class="error" role="alert" aria-live="polite"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ÎNREGISTRARE BUCĂTAR (vizibil mereu) -->
+      <section id="panel-chef" class="card" role="region" aria-labelledby="tab-chef">
+        <div class="head is-soft">Înregistrează-te ca Bucătar</div>
+        <div class="body">
+          <p class="muted">Creează-ți cont de bucătar și primește cereri pentru evenimente.</p>
+
+          <form id="signup" class="form" style="margin-top:6px" novalidate>
+            <p><label>Nume<br><input name="name" required></label></p>
+            <p><label>Email<br><input name="email" type="email" required></label></p>
+            <p>
+              <label>Parolă<br>
+                <span class="row">
+                  <input id="signup-pass" name="pass" type="password" minlength="6" required>
+                  <button class="btn btn-ghost" id="toggle-signup-pass" type="button" aria-controls="signup-pass">arată</button>
+                </span>
+              </label>
+            </p>
+            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-check"></i> Creează cont</button>
+            <div id="signup-msg" class="error" role="alert" aria-live="polite"></div>
+          </form>
+
+          <p class="hint" style="margin-top:12px">Ai deja cont? Autentifică-te în stânga.</p>
+        </div>
+      </section>
     </div>
   </div>
 
-  <div class="acc-grid">
-    <!-- Panel Client (Login) -->
-    <section id="panel-client" class="card" role="tabpanel" aria-labelledby="tab-client">
-      <div class="head"><i class="fa-solid fa-right-to-bracket"></i> Autentificare</div>
-      <div class="body">
-        <form id="login" class="form" novalidate>
-          <p><label>Email<br><input name="email" type="email" placeholder="nume@exemplu.com" required></label></p>
-          <p>
-            <label>Parolă<br>
-              <span class="row">
-                <input id="login-pass" name="pass" type="password" required>
-                <button class="btn btn-ghost" id="toggle-login-pass" type="button" aria-controls="login-pass">arată</button>
-              </span>
-            </label>
-          </p>
-          <div class="row" style="margin:8px 0 14px">
-            <label class="hint"><input id="remember" type="checkbox"> Ține-mă minte</label>
-           <a id="forgot" class="pill-link" href="#">Ai uitat parola?</a>
+  <!-- Firebase + logică -->
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged, sendPasswordResetEmail, setPersistence, browserLocalPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-          </div>
-          <button class="btn btn-primary" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Intră în cont</button>
-          <div id="login-msg" class="error" role="alert" aria-live="polite"></div>
-        </form>
-      </div>
-    </section>
+    // CONFIG
+    const firebaseConfig = {
+      apiKey: "AIzaSyCRFbgtajpu2O44HWXAWXC-VPOOQ-Cx7Dw",
+      authDomain: "bucatarul-personal.firebaseapp.com",
+      projectId: "bucatarul-personal",
+      storageBucket: "bucatarul-personal.appspot.com",
+      messagingSenderId: "140628829497",
+      appId: "1:140628829497:web:8e639aaf2906c85473f4e8",
+      measurementId: "G-TQFMGTGPP3"
+    };
 
-    <!-- Panel Chef (CTA + formular de signup toggle) -->
-    <section id="panel-chef" class="card" role="tabpanel" aria-labelledby="tab-chef" hidden>
-      <div class="head">Înregistrează-te ca Bucătar</div>
-      <div class="body">
-        <p class="muted">Vrei să colaborezi cu noi? Creează-ți cont de bucătar și primește cereri pentru evenimente.</p>
-        <button id="show-signup" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Înregistrează-te ca bucătar</button>
+    const app  = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
 
-        <!-- Formularul apare la click -->
-        <form id="signup" class="form" style="margin-top:16px;display:none" novalidate>
-          <p><label>Nume<br><input name="name" required></label></p>
-          <p><label>Email<br><input name="email" type="email" required></label></p>
-          <p>
-            <label>Parolă<br>
-              <span class="row">
-                <input id="signup-pass" name="pass" type="password" minlength="6" required>
-                <button class="btn btn-ghost" id="toggle-signup-pass" type="button" aria-controls="signup-pass">arată</button>
-              </span>
-            </label>
-          </p>
-          <button class="btn btn-primary" type="submit"><i class="fa-solid fa-check"></i> Creează cont</button>
-          <div id="signup-msg" class="error" role="alert" aria-live="polite"></div>
-        </form>
+    // Toggle parole
+    const toggle1 = document.getElementById('toggle-login-pass');
+    const pass1   = document.getElementById('login-pass');
+    toggle1.addEventListener('click', ()=>{ pass1.type = pass1.type==='password'?'text':'password'; });
 
-        <p class="hint" style="margin-top:12px">Ai deja cont? Autentifică-te din secțiunea <strong>Autentificare</strong>.</p>
-      </div>
-    </section>
-  </div>
-</div>
+    const toggle2 = document.getElementById('toggle-signup-pass');
+    const pass2   = document.getElementById('signup-pass');
+    toggle2.addEventListener('click', ()=>{ pass2.type = pass2.type==='password'?'text':'password'; });
 
-<!-- FontAwesome pentru iconițe (opțional; dacă îl ai deja, poți elimina) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    // Redirect dacă e deja logat (ducem bucătarul direct în dashboard)
+    onAuthStateChanged(auth, async (user)=>{
+      if(!user) return;
+      try{
+        const snap = await getDoc(doc(db, "users", user.uid));
+        const role = snap.exists() ? snap.data().role : null;
+        if(role === "chef"){ location.href = "dashboard-bucatar.html"; }
+      }catch(e){ console.warn(e); }
+    });
 
-<!-- Firebase + logică -->
-<script type="module">
-  // Firebase
-  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged, sendPasswordResetEmail, setPersistence, browserLocalPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    // Login (cu selector de rol pentru UX; adevărul rămâne în Firestore)
+    const login = document.getElementById('login');
+    const loginMsg = document.getElementById('login-msg');
+    login.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      loginMsg.textContent = '';
+      const f = new FormData(login);
+      const email = f.get('email').trim();
+      const pass  = f.get('pass');
+      const selectedRole = f.get('role'); // client / chef
 
-  // >>> PUNE CONFIG-UL TĂU REAL AICI <<<
-  const firebaseConfig = {
-    apiKey: "AIzaSyCRFbgtajpu2O44HWXAWXC-VPOOQ-Cx7Dw",
-  authDomain: "bucatarul-personal.firebaseapp.com",
-  projectId: "bucatarul-personal",
-  storageBucket: "bucatarul-personal.firebasestorage.app",
-  messagingSenderId: "140628829497",
-  appId: "1:140628829497:web:8e639aaf2906c85473f4e8",
-  measurementId: "G-TQFMGTGPP3"
-  };
+      const remember = document.getElementById('remember').checked;
+      await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
 
-  const app  = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db   = getFirestore(app);
+      try{
+        const cred = await signInWithEmailAndPassword(auth, email, pass);
+        const snap = await getDoc(doc(db, "users", cred.user.uid));
+        const role = snap.exists() ? snap.data().role : null;
 
-  // Tabs
-  const tabClient = document.getElementById('tab-client');
-  const tabChef   = document.getElementById('tab-chef');
-  const panelClient = document.getElementById('panel-client');
-  const panelChef   = document.getElementById('panel-chef');
+        // dacă avem rol în DB, folosim DB; altfel, cădem pe selecția din UI
+        const finalRole = role || selectedRole;
 
-  function showTab(which){
-    const isClient = which === 'client';
-    tabClient.classList.toggle('active', isClient);
-    tabChef.classList.toggle('active', !isClient);
-    panelClient.hidden = !isClient;
-    panelChef.hidden   =  isClient;
-    tabClient.setAttribute('aria-selected', String(isClient));
-    tabChef.setAttribute('aria-selected', String(!isClient));
-  }
-  tabClient.addEventListener('click', ()=> showTab('client'));
-  tabChef.addEventListener('click',   ()=> showTab('chef'));
+        if(finalRole === "chef") location.href = "dashboard-bucatar.html";
+        else location.href = "/";
 
-  // Toggle parole
-  const toggle1 = document.getElementById('toggle-login-pass');
-  const pass1   = document.getElementById('login-pass');
-  toggle1.addEventListener('click', ()=>{ pass1.type = pass1.type==='password'?'text':'password'; });
+        // dacă selecția din UI nu corespunde rolului real, afișăm o notă (nu blocăm)
+        if(role && role !== selectedRole){
+          console.warn("Rolul din cont este", role, "dar în UI s-a selectat", selectedRole);
+        }
+      }catch(err){
+        loginMsg.textContent = err.message;
+      }
+    });
 
-  const toggle2 = document.getElementById('toggle-signup-pass');
-  const pass2   = document.getElementById('signup-pass');
-  toggle2.addEventListener('click', ()=>{ pass2.type = pass2.type==='password'?'text':'password'; });
+    // Reset parolă
+    document.getElementById('forgot').addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const email = (new FormData(login)).get('email');
+      if(!email){ loginMsg.textContent = "Introdu adresa de email pentru resetare."; return; }
+      try{
+        await sendPasswordResetEmail(auth, String(email));
+        loginMsg.className = 'success';
+        loginMsg.textContent = "Ți-am trimis email pentru resetarea parolei.";
+      }catch(err){
+        loginMsg.className = 'error';
+        loginMsg.textContent = err.message;
+      }
+    });
 
-  // Arată formularul de signup la click
-  const showSignup = document.getElementById('show-signup');
-  const signupForm = document.getElementById('signup');
-  showSignup.addEventListener('click', ()=> { signupForm.style.display = 'block'; showSignup.style.display='none'; });
+    // Signup ca BUCĂTAR (role: chef)
+    const signup = document.getElementById('signup');
+    const signupMsg = document.getElementById('signup-msg');
+    signup.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      signupMsg && (signupMsg.textContent = '');
+      const f = new FormData(signup);
+      const name  = f.get('name').trim();
+      const email = f.get('email').trim();
+      const pass  = f.get('pass');
 
-  // Redirect dacă e deja logat (și e bucătar)
-  onAuthStateChanged(auth, async (user)=>{
-    if(!user) return;
-    try{
-      const snap = await getDoc(doc(db, "users", user.uid));
-      const role = snap.exists() ? snap.data().role : null;
-      if(role === "chef"){ location.href = "dashboard-bucatar.html"; }
-    }catch(e){ console.warn(e); }
-  });
-
-  // Login client/bucătar (dacă e chef -> dashboard chef)
-  const login = document.getElementById('login');
-  const loginMsg = document.getElementById('login-msg');
-  login.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    loginMsg.textContent = '';
-    const f = new FormData(login);
-    const email = f.get('email').trim();
-    const pass  = f.get('pass');
-
-    // Ține-mă minte
-    const remember = document.getElementById('remember').checked;
-    await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
-
-    try{
-      const cred = await signInWithEmailAndPassword(auth, email, pass);
-      const snap = await getDoc(doc(db, "users", cred.user.uid));
-      const role = snap.exists() ? snap.data().role : null;
-      if(role === "chef") location.href = "dashboard-bucatar.html";
-      else location.href = "/"; // schimbă dacă ai dashboard pentru clienți
-    }catch(err){
-      loginMsg.textContent = err.message;
-    }
-  });
-
-  // Reset parolă
-  document.getElementById('forgot').addEventListener('click', async (e)=>{
-    e.preventDefault();
-    const email = (new FormData(login)).get('email');
-    if(!email){ loginMsg.textContent = "Introdu adresa de email pentru resetare."; return; }
-    try{
-      await sendPasswordResetEmail(auth, String(email));
-      loginMsg.className = 'success';
-      loginMsg.textContent = "Ți-am trimis email pentru resetarea parolei.";
-    }catch(err){
-      loginMsg.className = 'error';
-      loginMsg.textContent = err.message;
-    }
-  });
-
-  // Signup ca BUCĂTAR (rol: chef)
-  const signupMsg = document.getElementById('signup-msg');
-  signupForm.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    signupMsg.textContent = '';
-    const f = new FormData(signupForm);
-    const name  = f.get('name').trim();
-    const email = f.get('email').trim();
-    const pass  = f.get('pass');
-
-    try{
-      const cred = await createUserWithEmailAndPassword(auth, email, pass);
-      await updateProfile(cred.user, { displayName: name });
-      await setDoc(doc(db, "users", cred.user.uid), {
-        uid: cred.user.uid, name, email, role: "chef", createdAt: serverTimestamp()
-      });
-      location.href = "dashboard-bucatar.html";
-    }catch(err){
-      signupMsg.textContent = err.message;
-    }
-  });
+      try{
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+        await updateProfile(cred.user, { displayName: name });
+        await setDoc(doc(db, "users", cred.user.uid), {
+          uid: cred.user.uid, name, email, role: "chef", createdAt: serverTimestamp()
+        });
+        location.href = "dashboard-bucatar.html";
+      }catch(err){
+        if(signupMsg) signupMsg.textContent = err.message;
+      }
+    });
   </script>
 </body>
 </html>
