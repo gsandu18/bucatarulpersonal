@@ -511,9 +511,14 @@
           uid: cred.user.uid, name, email, role: "chef", createdAt: serverTimestamp()
         });
 
-        signupMsg.className='notice';
-        signupMsg.textContent='Mulțumim! Ți-am creat contul de bucătar. Te redirecționăm în dashboard…';
-        signupMsg.scrollIntoView({ behavior:'smooth', block:'center' });
+        // arată
+signupMsg.textContent = 'Mulțumim! Ți-am creat contul…';
+signupMsg.style.display = 'block';
+
+// ascunde
+signupMsg.textContent = '';
+signupMsg.style.display = 'none';
+
 
         setTimeout(()=>{ location.href = "dashboard-bucatar.html"; }, 1200);
       }catch(err){
