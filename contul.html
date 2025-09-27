@@ -280,13 +280,20 @@ const analytics = getAnalytics(app);
     const pass2   = document.getElementById('signup-pass');
     toggle2.addEventListener('click', ()=>{ pass2.type = pass2.type==='password'?'text':'password'; });
 
-    // redirect dacă e deja bucătar
-    onAuthStateChanged(auth, async (user)=>{
-      if(!user) return;
-      try{
-        const snap = await getDoc(doc(db, "users", user.uid));
-        if(snap.exists() && snap.data().role === "chef"){ location.href = "dashboard-bucatar.html"; }
-      }catch(e){ console.warn(e); }
+  onAuthStateChanged(auth, async (user)=>{
+  if(!user) return;
+  try{
+    const snap = await getDoc(doc(db, "users", user.uid));
+    const role = snap.exists() ? snap.data().role : null;
+    if (role === "chef") {
+      location.href = "dashboard-bucatar.html";
+    } else {
+      // lipsă rol sau alt rol => tratăm ca client
+      location.href = "dashboard-client.html";
+    }
+  }catch(e){ console.warn(e); }
+});
+
     });
 
     // login
@@ -301,13 +308,20 @@ const analytics = getAnalytics(app);
       await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
 
       try{
-        const cred = await signInWithEmailAndPassword(auth, email, pass);
-        const snap = await getDoc(doc(db,"users",cred.user.uid));
-        const role = snap.exists() ? snap.data().role : pick;
-        if(role === "chef") location.href="dashboard-bucatar.html";
-        else location.href="/";
-      }catch(err){ loginMsg.textContent = err.message; }
-    });
+        try{
+  const cred = await signInWithEmailAndPassword(auth, email, pass);
+  const snap = await getDoc(doc(db, "users", cred.user.uid));
+  const role = snap.exists() ? snap.data().role : pick; // pick = selectul din UI (fallback)
+
+  if (role === "chef") {
+    location.href = "dashboard-bucatar.html";
+  } else {
+    location.href = "dashboard-client.html";
+  }
+}catch(err){
+  loginMsg.textContent = err.message;
+}
+
 
     // reset parolă
     document.getElementById('forgot').addEventListener('click', async (e)=>{
