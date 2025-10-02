@@ -260,7 +260,7 @@ body.menu-locked{
   <!-- ===== Header ===== -->
   <header class="site">
     <div class="container nav">
-     <img src="./IMG_6413.png" alt="Bucătarul Personal" width="70" height="70" loading="eager">
+     <img src="./IMG_6413.png" alt="Bucătarul Personal" style="height:70px;width:auto;margin-bottom:50px" />
       <nav class="links" aria-label="Navigație principală">
         <a href="/despre-noi.html">Despre noi</a>
         <a href="/bucatarii.html">Bucătarii noștri</a>
@@ -358,32 +358,28 @@ body.menu-locked{
       </section>
     </div>
   </main>
-
-  <!-- ===== Footer ===== -->
-  <footer class="site">
-    <div class="container foot">
+ <!-- FOOTER -->
+  <footer>
+    <div class="foot">
       <div>
-        <div style="display:flex;align-items:center;gap:12px">
-          <img src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal" style="height:42px" />
-          <strong style="font-size:18px">Bucătarul Personal</strong>
-        </div>
-        <p style="margin:10px 0 0;opacity:.9">Platformă pentru chef-i și clienți: comenzi, rezervări și documente într-un singur loc.</p>
+        <img src="./IMG_6413.png" alt="Bucătarul Personal" style="height:70px;width:auto;margin-bottom:50px" />
+        <p class="muted">Servicii premium de chef personal pentru evenimente private și corporate. Acoperire națională.</p>
       </div>
       <div>
         <h4>Companie</h4>
         <ul>
-          <li><a href="/despre-noi.html">Despre noi</a></li>
-          <li><a href="/servicii.html">Servicii</a></li>
-          <li><a href="/bucatarii.html">Bucătarii noștri</a></li>
-          <li><a href="/blog.html">Blog</a></li>
+          <li><a href="#despre">Despre noi</a></li>
+          <li><a href="#chefs">Bucătarii noștri</a></li>
+          <li><a href="#servicii">Servicii</a></li>
+          <li><a href="#blog">Blog</a></li>
         </ul>
       </div>
       <div>
         <h4>Legal</h4>
         <ul>
-          <li><a href="/termeni-conditii.html">Termeni & Condiții</a></li>
-          <li><a href="/politica-confidentialitate.html">Confidențialitate</a></li>
-          <li><a href="/cookies.html">Cookies</a></li>
+          <li><a href="/termeni">Termeni &amp; Condiții</a></li>
+          <li><a href="/confidentialitate">Confidențialitate</a></li>
+          <li><a href="/cookies">Politica cookie-uri</a></li>
         </ul>
       </div>
       <div>
@@ -395,12 +391,12 @@ body.menu-locked{
         </ul>
       </div>
     </div>
-    <div class="container legal">
-      © <span id="y"></span> Bucătarul Personal — Toate drepturile rezervate.
-      <span style="opacity:.6"> • </span>
-      <a href="/privacy-preferinte.html" style="color:#eaf5ef">Modifică preferințele de confidențialitate</a>
+    <div class="copyright">
+      © <span id="year"></span> Bucătarul Personal •
+      <button class="linklike" onclick="openConsent()">Setări cookie-uri</button> •
+      <button class="linklike" onclick="resetConsent()">Șterge consimțământul</button>
     </div>
-  </footer>
+  </footer> 
 
   <!-- ===== JS: meniu mobil ===== -->
   <script>
