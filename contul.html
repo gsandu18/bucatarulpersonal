@@ -252,6 +252,70 @@ body.menu-locked{
   outline:0; box-shadow:0 0 0 3px rgba(31,191,130,.18);
   border-color:transparent;
 }
+    /* paletă consistentă */
+:root{
+  --verde:#0e5a43; --verde-2:#0b4a36;
+  --text:#0f2720;  --gri-bord:#e6ecef;
+}
+
+/* container generic (dacă nu ai deja) */
+.container{ width: min(1160px, 92%); margin-inline:auto }
+
+/* footer */
+footer.site{
+  background:var(--verde-2);
+  color:#eaf5ef;
+  margin-top:40px;
+}
+
+/* grilă coloane */
+footer.site .foot{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:24px;
+  padding:28px 0;
+}
+@media (max-width:900px){ footer.site .foot{ grid-template-columns:1fr 1fr } }
+@media (max-width:600px){ footer.site .foot{ grid-template-columns:1fr } }
+
+/* titluri coloane */
+footer.site .foot h4{
+  margin:0 0 10px;
+  font-size:20px;
+  color:#eaf5ef;
+}
+
+/* liste linkuri */
+footer.site .foot ul{ list-style:none; padding:0; margin:0; display:grid; gap:8px }
+
+/* IMPORTANT: linkurile din footer devin verzi deschis, nu albastre */
+footer.site .foot a{
+  color:#d6efe7 !important;
+  text-decoration:none !important;
+}
+footer.site .foot a:hover{ color:#ffffff !important; text-decoration:underline !important }
+
+/* rândul de jos */
+footer.site .legal{
+  border-top:1px solid rgba(255,255,255,.2);
+  padding:12px 0;
+  color:#cfe6dc;
+  font-size:14px;
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+}
+footer.site .legal .sep{ opacity:.6 }
+
+/* linkurile utilitare din banda de jos */
+footer.site .legal a.foot-action{
+  color:#eaf5ef !important; text-decoration:none !important;
+  border-bottom:1px dashed rgba(234,245,239,.5);
+}
+footer.site .legal a.foot-action:hover{
+  color:#ffffff !important; border-bottom-color:rgba(255,255,255,.9);
+}
+
+/* logo în footer (dacă e nevoie) */
+footer.site img{ height:42px; display:block }
     
   </style>
 </head>
