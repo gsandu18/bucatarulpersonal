@@ -242,6 +242,17 @@ a.btn.btn-primary[aria-disabled="true"] {
 body.menu-locked{
   position:fixed; width:100%;            /* împiedică “jitter” pe iOS */
 }
+   .forgot-simple{
+  color:#0e5a43; font-weight:700; text-decoration:none;
+  border-bottom:2px solid rgba(14,90,67,.25); /* “underline” mai elegant */
+  padding-bottom:2px;
+}
+.forgot-simple:hover{ border-color:#0e5a43 }
+.forgot-simple:focus-visible{
+  outline:0; box-shadow:0 0 0 3px rgba(31,191,130,.18);
+  border-color:transparent;
+}
+    
   </style>
 </head>
 <body>
@@ -314,7 +325,7 @@ body.menu-locked{
             </p>
             <div class="row" style="margin:8px 0 18px">
               <label class="hint"><input id="remember" type="checkbox"> Ține-mă minte</label>
-              <a id="forgot" class="pill-link" href="#">Ai uitat parola?</a>
+              <a id="forgot" class="pill-link forgot-link" href="#">Ai uitat parola?</a>
             </div>
             <button class="btn btn-primary" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Intră în cont</button>
             <div id="login-ok"  class="notice" role="status" aria-live="polite"></div>
