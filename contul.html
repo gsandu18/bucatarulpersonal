@@ -86,16 +86,16 @@
     .notice.error{background:#fff5f5;border-color:#f1c2c0;color:#b42318}
     .notice:empty{display:none} /* NU arăta containerul când nu are text */
 
-    /* ===== Footer ===== */
-    footer.site{background:#0b4a36;color:#eaf5ef;margin-top:40px}
-    .foot{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:22px;padding:28px 0}
-    .foot h4{margin:0 0 10px}
-    .foot ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
-    .foot a{color:#eaf5ef;text-decoration:none;opacity:.9}
-    .foot a:hover{opacity:1;text-decoration:underline}
-    .legal{border-top:1px solid rgba(255,255,255,.2);padding:12px 0;color:#cfe6dc;font-size:14px}
-    @media (max-width:900px){ .foot{grid-template-columns:1fr 1fr} }
-    @media (max-width:600px){ .foot{grid-template-columns:1fr} }
+    /* Footer */
+    footer{background:color-mix(in oklab, var(--rubin) 4%, #f5f7f6);border-top:3px solid var(--rubin);margin-top:56px}
+    .foot{max-width:var(--max);margin:0 auto;padding:26px clamp(12px,4vw,32px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:18px}
+    @media(max-width:980px){.foot{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){.foot{grid-template-columns:1fr}}
+    .foot h4{margin:0 0 10px;color:#133c2f}
+    .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+    .copyright{max-width:var(--max);margin:0 auto;padding:12px clamp(12px,4vw,32px);border-top:1px solid #e0e5e2;color:#6b7a74;text-align:center;font-size:14px}
+    footer .copyright .linklike{background:none;border:none;padding:0;margin:0 6px;font:inherit;color:var(--rubin);cursor:pointer;text-decoration:underline}
+    footer .copyright .linklike:hover{text-decoration:none;color:var(--rubin-2)}
     /* ---- Forțează butoanele verzi ---- */
 :root {
   --verde: #0e5a43;
@@ -260,7 +260,7 @@ body.menu-locked{
   <!-- ===== Header ===== -->
   <header class="site">
     <div class="container nav">
-      <a class="brand" href="/"><img src="/IMG_6413.png" alt="Bucătarul Personal">
+     <img src="./IMG_6413.png" alt="Bucătarul Personal" width="70" height="70" loading="eager">
       <nav class="links" aria-label="Navigație principală">
         <a href="/despre-noi.html">Despre noi</a>
         <a href="/bucatarii.html">Bucătarii noștri</a>
