@@ -106,7 +106,8 @@
     .marquee{overflow:hidden; border-top:1px solid var(--gri-2); border-bottom:1px solid var(--gri-2); background:#fafcfa}
     .marquee .track{display:flex; gap:40px; padding:14px 0; animation: slide 22s linear infinite}
     .marquee img{height:26px; opacity:.85; filter: grayscale(100%)}
-    @keyframes slide{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @keyframes slide{ from{transform:translateX(0)} to{transform:translateX(-
+      50%)} }
 
     /* Footer ca pe homepage */
     footer{background:var(--negru); color:#cdd6dc; padding:48px 0 24px; margin-top:48px}
@@ -317,8 +318,7 @@
       </div>
     </div>
   </section>
-
-  <!-- Footer ca pe homepage -->
+<!-- Footer ca pe homepage -->
   <footer>
     <div class="container foot-grid">
       <div>
@@ -352,6 +352,7 @@
     <div class="container legal">© <span id="bp-year"></span> Bucătarul Personal — Toate drepturile rezervate.</div>
   </footer>
 
+  
   <script>
     // Izolare pentru a evita variabile globale sau redeclarări (ex: burger)
     (() => {
@@ -406,6 +407,9 @@
         console.log('[Evenimente] teste trecute ✅');
       } catch(e){ console.error(e); } } };
     })();
+    <script>
+  (function(){ var y=document.getElementById('bp-year'); if(y){ y.textContent = new Date().getFullYear(); } })();
+</script>
   </script>
 </body>
 </html>
