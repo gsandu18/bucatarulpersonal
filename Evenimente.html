@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Evenimente | Bucătarul Personal</title>
-  <meta name="description" content="Evenimente corporate, private, degustări și cursuri de gătit. Organizare cap‑coadă cu bucătari verificați, fără griji."/>
+  <meta name="description" content="Evenimente corporate, private, degustări și cursuri de gătit. Organizare cap-coadă cu bucătari verificați, fără griji."/>
   <link rel="canonical" href="https://www.bucatarulpersonal.ro/evenimente.html" />
   <meta property="og:title" content="Evenimente" />
   <meta property="og:description" content="Chef la tine: corporate, private, degustări, cursuri. Organizare completă, fără griji." />
@@ -22,7 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfcbZlfrX+qGIGlG4XkGUCZ3G1xZPlhQ4KJIpKj8GQ4ZC0YJwY9QYx5w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
   <style>
     :root{ --rubin:#0e5a43; --rubin-2:#0b4a36; --negru:#000; --alb:#fff; --gri-1:#f5f7f8; --gri-2:#e8ecee; --gri-3:#cfd6da; --text:#1c2226; --shadow:0 16px 48px rgba(0,0,0,.16); --radius-xl:22px; --radius-lg:16px; --radius-md:12px; }
     *{box-sizing:border-box} html,body{margin:0} body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.45}
@@ -34,7 +35,7 @@
     .nav-links{display:flex;gap:22px;align-items:center}
     .brand-logo-img{height:52px}
     @media(max-width:980px){.nav-links{display:none}.brand-logo-img{height:42px}}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;border:1px solid var(--gri-3);font-weight:700}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;border:1px solid var(--gri-3);font-weight:700;cursor:pointer}
     .btn-primary{background:var(--rubin);color:#fff;border-color:transparent}
     .btn-ghost{background:#fff}
     .burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--gri-3);align-items:center;justify-content:center}
@@ -44,7 +45,6 @@
     .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:16px}
     .sheet a{padding:12px 8px;border-bottom:1px solid var(--gri-2);font-weight:600}
 
-    /* Subnav */
     .subnav{position:sticky; top:64px; z-index:30; background:rgba(255,255,255,.9); backdrop-filter: blur(8px); border-bottom:1px solid var(--gri-2)}
     .subnav .inner{display:flex; gap:12px; align-items:center; padding:10px 0; overflow:auto}
     .pill{padding:8px 12px; border:1px solid var(--gri-3); border-radius:999px; white-space:nowrap}
@@ -55,20 +55,19 @@
     .hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
     .hero-media::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35) 50%, rgba(0,0,0,.75));}
     .hero .content{padding:18vh 0 14vh;color:#f3f5f6}
-    .kicker{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(14,90,67,.12);color:#ffffff;border:1px solid rgba(14,90,67,.35);font-weight:700;letter-spacing:.25px}
+    .kicker{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(14,90,67,.12);color:#ffffff;border:1px solid rgba(14,90,67,.35);font-weight:700}
     h1{font-family:"Playfair Display",serif;font-size:clamp(34px,6vw,56px);line-height:1.05;margin:16px 0}
     .hero p{font-size:clamp(16px,2.2vw,20px);max-width:780px}
     .hero-stats{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
     .chip{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.25)}
 
-    section{padding:56px 0;scroll-margin-top:110px}
+    section{padding:56px 0;scroll-margin-top:130px}
     .section-title{font-family:"Playfair Display",serif;font-size:clamp(28px,4.8vw,40px);margin:0 0 14px}
     .muted{color:#58636b}
 
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     @media(max-width:980px){.grid-3{grid-template-columns:1fr}}
 
-    /* Event cards */
     .event-card{position:relative;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--gri-2); transform: translateY(0); transition: transform .3s ease, box-shadow .3s ease}
     .event-card:hover{transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,.22)}
     .event-card .bg{position:absolute;inset:0}
@@ -80,19 +79,12 @@
     .shine::after{content:""; position:absolute; inset:0; background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,.25) 40%, transparent 80%); transform: translateX(-120%); transition: transform .8s ease;}
     .event-card:hover.shine::after{transform: translateX(120%)}
 
-    /* Benefits */
     .benefits{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px}
     @media(max-width:980px){.benefits{grid-template-columns:1fr}}
     .benefit{display:flex; flex-direction:column; align-items:flex-start; gap:10px; background:#fff; border:1px solid var(--gri-2); border-radius:18px; padding:18px; box-shadow:var(--shadow)}
     .icon-circle{width:54px; height:54px; border-radius:50%; background:#fff; border:2px solid var(--rubin); display:grid; place-items:center; box-shadow:0 6px 18px rgba(14,90,67,.15)}
     .icon-circle i{font-size:22px; color:var(--rubin)}
-    .benefit strong{font-size:18px}
-    .benefit p{margin:6px 0 0}
-    @media(max-width:980px){.benefits{grid-template-columns:1fr}}
-    .benefit{display:flex; gap:14px; align-items:flex-start; background:#fff; border:1px solid var(--gri-2); border-radius:18px; padding:16px; box-shadow:var(--shadow)}
-    .benefit i{font-size:22px; background:var(--rubin); color:#fff; width:42px; height:42px; display:grid; place-items:center; border-radius:12px}
 
-    /* Galerie */
     .gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
     .gallery .item{border-radius:14px;overflow:hidden; position:relative}
     .gallery .item img{width:100%;height:100%;object-fit:cover; transition: transform .5s ease; transform: scale(1.02)}
@@ -102,14 +94,21 @@
     @media(max-width:980px){.gallery{grid-template-columns:repeat(3,1fr)}.gallery .item.tall{grid-row:span 1}}
     @media(max-width:560px){.gallery{grid-template-columns:repeat(2,1fr)}}
 
-    /* Marquee */
     .marquee{overflow:hidden; border-top:1px solid var(--gri-2); border-bottom:1px solid var(--gri-2); background:#fafcfa}
-    .marquee .track{display:flex; gap:40px; padding:14px 0; animation: slide 22s linear infinite}
+    .marquee .track{display:flex; gap:40px; padding:14px 0; animation: slide 22s linear infinite; width:max-content}
     .marquee img{height:26px; opacity:.85; filter: grayscale(100%)}
-    @keyframes slide{ from{transform:translateX(0)} to{transform:translateX(-
-      50%)} }
+    @keyframes slide{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* Footer ca pe homepage */
+    /* CTA final */
+    .cta{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px;border:1px solid var(--gri-2);border-radius:16px;box-shadow:var(--shadow);background:#fff}
+    @media(max-width:720px){.cta{flex-direction:column;align-items:flex-start}}
+
+    /* FAQ */
+    details.acc{border:1px solid var(--gri-2);border-radius:12px;background:#fff;box-shadow:var(--shadow);padding:0;margin-bottom:10px}
+    details.acc summary{cursor:pointer;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;list-style:none;font-weight:700}
+    details.acc .content{padding:0 14px 12px;color:#58636b}
+    details.acc[open] summary{border-bottom:1px solid var(--gri-2)}
+
     footer{background:var(--negru); color:#cdd6dc; padding:48px 0 24px; margin-top:48px}
     .foot-grid{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:18px}
     @media (max-width:980px){.foot-grid{grid-template-columns:1fr 1fr}}
@@ -119,6 +118,7 @@
   </style>
 </head>
 <body>
+  <!-- HEADER -->
   <header>
     <div class="container nav">
       <a href="/" aria-label="Acasă"><img class="brand-logo-img" src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal"/></a>
@@ -131,7 +131,7 @@
         <a href="cont.html" class="btn btn-ghost"><i class="fa-solid fa-user"></i> Contul meu</a>
         <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> VREAU UN BUCĂTAR</a>
       </nav>
-      <button class="burger" id="bp-burger" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
+      <button class="burger" id="bp-burger" aria-label="Deschide meniul" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
     </div>
     <div class="mobile" id="bp-mobile" aria-hidden="true">
       <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu principal">
@@ -150,7 +150,7 @@
     </div>
   </header>
 
-  <!-- Subnav ancore -->
+  <!-- SUBNAV -->
   <div class="subnav" aria-label="Navigație secundară">
     <div class="container inner">
       <a class="pill active" href="#tipuri"><i class="fa-solid fa-clipboard-list"></i> Tipuri</a>
@@ -161,16 +161,16 @@
     </div>
   </div>
 
-  <!-- Hero Evenimente -->
+  <!-- HERO -->
   <section class="hero" aria-label="Hero Evenimente">
     <div class="hero-media" aria-hidden="true">
-      <picture>
-        <source srcset="https://images.unsplash.com/photo-1514516870926-20598933b25c?w=2400&auto=format&fit=crop&q=70&fm=webp" type="image/webp">
-        <img src="https://images.unsplash.com/photo-1514516870926-20598933b25c?q=80&w=2400&auto=format&fit=crop" alt="Eveniment elegant cu chef la fața locului" loading="eager" style="width:100%; height:58vh; object-fit:cover">
-      </picture>
+      <img src="https://images.unsplash.com/photo-1514516870926-20598933b25c?q=80&w=2400&auto=format&fit=crop"
+           alt="Eveniment elegant cu chef la fața locului"
+           loading="eager" fetchpriority="high"
+           style="width:100%; height:58vh; object-fit:cover">
     </div>
     <div class="container content">
-      <span class="kicker"><i class="fa-solid fa-calendar-check"></i> Organizare cap‑coadă</span>
+      <span class="kicker"><i class="fa-solid fa-calendar-check"></i> Organizare cap-coadă</span>
       <h1>Evenimente fără griji, gătite de profesioniști</h1>
       <p>Corporate, private sau educative — aducem restaurantul la tine cu meniuri personalizate, servicii complete și echipă de chefi verificați.</p>
       <div style="margin-top:16px" class="hero-stats">
@@ -178,16 +178,24 @@
         <span class="chip"><i class="fa-solid fa-star"></i> 4.9/5 rating</span>
         <span class="chip"><i class="fa-solid fa-truck"></i> Logistică inclusă</span>
       </div>
-      <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap">
+      <div style="margin-top:22px;display:flex;gap:12px
+                ;flex-wrap:wrap">
         <a href="contact.html" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Solicitați ofertă</a>
         <a href="#tipuri" class="btn"><i class="fa-solid fa-clipboard-list"></i> Tipuri de evenimente</a>
       </div>
     </div>
   </section>
 
-  <!-- Marquee branduri -->
+  <!-- MARQUEE (dublat pentru efect infinit) -->
   <div class="marquee" aria-label="Branduri & parteneri">
-    <div class="container track">
+    <div class="container track" aria-hidden="true">
+      <img alt="Brand" src="https://dummyimage.com/140x26/ebeff2/777&text=Eccellenze+Italiane">
+      <img alt="Brand" src="https://dummyimage.com/110x26/ebeff2/777&text=Gourmet">
+      <img alt="Brand" src="https://dummyimage.com/120x26/ebeff2/777&text=Event+Pro">
+      <img alt="Brand" src="https://dummyimage.com/130x26/ebeff2/777&text=Luxury+Home">
+      <img alt="Brand" src="https://dummyimage.com/120x26/ebeff2/777&text=Cafe+Roastery">
+      <img alt="Brand" src="https://dummyimage.com/110x26/ebeff2/777&text=Vinum">
+      <!-- set 2 -->
       <img alt="Brand" src="https://dummyimage.com/140x26/ebeff2/777&text=Eccellenze+Italiane">
       <img alt="Brand" src="https://dummyimage.com/110x26/ebeff2/777&text=Gourmet">
       <img alt="Brand" src="https://dummyimage.com/120x26/ebeff2/777&text=Event+Pro">
@@ -197,7 +205,7 @@
     </div>
   </div>
 
-  <!-- Tipuri de evenimente -->
+  <!-- TIPURI DE EVENIMENTE -->
   <section id="tipuri" class="container">
     <h2 class="section-title">Tipuri de evenimente</h2>
     <p class="muted">Alege formatul potrivit. Personalizăm meniul și logistica după preferințe și numărul de invitați.</p>
@@ -224,7 +232,7 @@
           <div>
             <h3>Petreceri private</h3>
             <div class="event-bullets">
-              <span><i class="fa-regular fa-circle-check"></i> aniversări, botezuri, micro‑nunți</span>
+              <span><i class="fa-regular fa-circle-check"></i> aniversări, botezuri, micro-nunți</span>
               <span><i class="fa-regular fa-circle-check"></i> plating gourmet acasă</span>
               <span><i class="fa-regular fa-circle-check"></i> bar & pairing la cerere</span>
             </div>
@@ -240,7 +248,7 @@
             <h3>Degustări & cursuri</h3>
             <div class="event-bullets">
               <span><i class="fa-regular fa-circle-check"></i> chef’s table & wine pairing</span>
-              <span><i class="fa-regular fa-circle-check"></i> workshopuri hands‑on</span>
+              <span><i class="fa-regular fa-circle-check"></i> workshopuri hands-on</span>
               <span><i class="fa-regular fa-circle-check"></i> pentru echipe sau prieteni</span>
             </div>
             <div style="margin-top:12px"><a class="btn btn-primary" href="contact.html?tip=degustari">Solicită ofertă</a></div>
@@ -250,7 +258,7 @@
     </div>
   </section>
 
-  <!-- Avantaje -->
+  <!-- AVANTAJE -->
   <section id="avantaje" class="container">
     <h2 class="section-title">De ce cu noi</h2>
     <div class="benefits" style="margin-top:12px">
@@ -261,7 +269,7 @@
       </div>
       <div class="benefit">
         <div class="icon-circle"><i class="fa-solid fa-bell-concierge" aria-hidden="true"></i></div>
-        <strong>Servicii end‑to‑end</strong>
+        <strong>Servicii end-to-end</strong>
         <p class="muted">Meniu, cumpărături, gătit, servire, curățenie.</p>
       </div>
       <div class="benefit">
@@ -272,7 +280,7 @@
     </div>
   </section>
 
-  <!-- Galerie -->
+  <!-- GALERIE -->
   <section id="galerie" class="container" aria-label="Galerie evenimente">
     <h2 class="section-title">Galerie</h2>
     <p class="muted">Momente din proiectele noastre: plating, echipă, atmosferă.</p>
@@ -305,7 +313,7 @@
     </div>
   </section>
 
-  <!-- CTA final -->
+  <!-- CTA FINAL -->
   <section id="contact-final" class="container">
     <div class="cta">
       <div>
@@ -318,7 +326,8 @@
       </div>
     </div>
   </section>
-<!-- Footer ca pe homepage -->
+
+  <!-- FOOTER -->
   <footer>
     <div class="container foot-grid">
       <div>
@@ -352,21 +361,21 @@
     <div class="container legal">© <span id="bp-year"></span> Bucătarul Personal — Toate drepturile rezervate.</div>
   </footer>
 
-  
+  <!-- SCRIPTS -->
   <script>
-    // Izolare pentru a evita variabile globale sau redeclarări (ex: burger)
     (() => {
       const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
       const yearEl = document.getElementById('bp-year');
       if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+      // Mobile nav + accessibility
       const burgerBtn = document.getElementById('bp-burger');
       const mobile = document.getElementById('bp-mobile');
       const closeBtn = document.getElementById('bp-close');
       if (burgerBtn && mobile && closeBtn && mobile.dataset.bound !== '1'){
         mobile.dataset.bound = '1';
-        const open = () => mobile.classList.add('active');
-        const close = () => mobile.classList.remove('active');
+        const open = () => { mobile.classList.add('active'); burgerBtn.setAttribute('aria-expanded','true'); };
+        const close = () => { mobile.classList.remove('active'); burgerBtn.setAttribute('aria-expanded','false'); };
         burgerBtn.addEventListener('click', open);
         closeBtn.addEventListener('click', close);
         mobile.addEventListener('click', e=>{ if(e.target === mobile) close(); });
@@ -374,9 +383,10 @@
         document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
       }
 
-      // Subnav activ
+      // Subnav activ (on view)
       const pills = $$('.pill');
-      const sections = ['tipuri','avantaje','galerie','faq','contact-final'].map(id=>document.getElementById(id));
+      const ids = ['tipuri','avantaje','galerie','faq','contact-final'];
+      const sections = ids.map(id=>document.getElementById(id)).filter(Boolean);
       const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
           if(entry.isIntersecting){
@@ -386,6 +396,18 @@
       },{rootMargin:'-40% 0px -55% 0px', threshold:0.01}) : null;
       sections.forEach(s=>{ if(s && io) io.observe(s); });
 
+      // Smooth scroll pentru ancore
+      document.querySelectorAll('.subnav .pill[href^="#"]').forEach(a=>{
+        a.addEventListener('click', e=>{
+          e.preventDefault();
+          const id = a.getAttribute('href').slice(1);
+          const el = document.getElementById(id);
+          if(!el) return;
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+          history.pushState(null,'','#'+id);
+        });
+      });
+
       // FAQ icon toggle
       $$('.acc').forEach(d=>{
         d.addEventListener('toggle',()=>{
@@ -394,22 +416,52 @@
         });
       });
 
-      // Lazy fade pentru galerie
+      // Galerie: fade-in la intrare în viewport
       const io2 = ('IntersectionObserver' in window) ? new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.style.transition='opacity .4s ease, transform .4s ease'; entry.target.style.opacity=1; entry.target.style.transform='none'; io2.unobserve(entry.target);} });
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.style.transition='opacity .4s ease, transform .4s ease';
+            entry.target.style.opacity=1; entry.target.style.transform='none';
+            io2.unobserve(entry.target);
+          }
+        });
       },{rootMargin:'120px'}) : null;
-      $$('.gallery img').forEach(img=>{ img.style.opacity=0; img.style.transform='scale(1.02)'; if(io2) io2.observe(img); else {img.style.opacity=1; img.style.transform='none';} });
+      $$('.gallery img').forEach(img=>{
+        img.style.opacity=0; img.style.transform='scale(1.02)';
+        if(io2) io2.observe(img); else { img.style.opacity=1; img.style.transform='none'; }
+      });
 
-      // Mini-teste (opțional)
+      // Mini-teste
       function assert(c,m){ if(!c) throw new Error('TEST FAIL: '+m); console.log('TEST OK:', m); }
-      window.BP_EVENTS = { run: () => { try{
+      try{
         assert(document.querySelectorAll('.event-card').length === 3, 'sunt 3 tipuri de evenimente');
         console.log('[Evenimente] teste trecute ✅');
-      } catch(e){ console.error(e); } } };
+      } catch(e){ console.error(e); }
     })();
-    <script>
-  (function(){ var y=document.getElementById('bp-year'); if(y){ y.textContent = new Date().getFullYear(); } })();
-</script>
+  </script>
+
+  <!-- SEO: FAQPage + Organization -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Cu cât timp înainte trebuie să rezerv?","acceptedAnswer":{"@type":"Answer","text":"Ideal cu 7–14 zile, dar încercăm să răspundem rapid și pentru cereri urgente."}},
+      {"@type":"Question","name":"Aduceți voi ingredientele și ustensilele?","acceptedAnswer":{"@type":"Answer","text":"Da. Ne ocupăm de cumpărături și aducem echipamentele esențiale. Verificăm la telefon ce există deja la locație."}},
+      {"@type":"Question","name":"Se poate meniu vegetarian / fără alergeni?","acceptedAnswer":{"@type":"Answer","text":"Sigur. Personalizăm complet în funcție de preferințe și alergii."}}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Bucătarul Personal",
+    "url":"https://www.bucatarulpersonal.ro/",
+    "logo":"https://www.bucatarulpersonal.ro/static/logo-bucatarul-personal.png",
+    "sameAs":["https://www.facebook.com/","https://www.instagram.com/"],
+    "contactPoint":{"@type":"ContactPoint","telephone":"+40-772-893-476","contactType":"customer support","areaServed":"RO","availableLanguage":["ro","en"]}
+  }
   </script>
 </body>
 </html>
