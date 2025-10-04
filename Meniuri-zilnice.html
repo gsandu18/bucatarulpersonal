@@ -3,482 +3,362 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Meniuri zilnice – Abonamente Esențial, Comfort, Premium | Bucătarul Personal</title>
-  <meta name="description" content="Abonamente de meniu zilnic gătite de un chef personal: Esențial, Comfort, Premium. Ingrediente livrate, gătire în avans (batch cooking), meniuri pentru copii, servire și depozitare. România." />
+  <title>Meniuri zilnice – Esențial, Comfort, Premium | CHEF PRIVÉ · Bucătarul Personal</title>
+  <meta name="description" content="Abonamente de meniu zilnic gătite de un chef personal: Esențial, Comfort, Premium. Achiziție ingrediente, batch cooking, depozitare & etichetare, meniuri pentru copii. România & Italia." />
   <link rel="canonical" href="https://www.bucatarulpersonal.ro/servicii_meniuri_zilnice" />
-  <meta name="theme-color" content="#0e5a43" />
+  <meta name="theme-color" content="#1C1C1C" />
 
-  <!-- OpenGraph / Twitter -->
-  <meta property="og:title" content="Meniuri zilnice – Abonamente" />
-  <meta property="og:description" content="Esențial, Comfort, Premium – alege pachetul potrivit și scapă de grija gătitului toată săptămâna." />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Bucătarul Personal" />
-  <meta property="og:url" content="https://www.bucatarulpersonal.ro/servicii_meniuri_zilnice" />
-  <meta property="og:image" content="https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&auto=format&fit=crop&q=70" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Perf: fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
   <style>
     :root{
-      /* Paleta brand – respectă culorile tale */
-      --brand:#0e5a43;          /* verde principal */
-      --brand-2:#0b4a36;        /* verde închis */
-      --accent:#d4af37;         /* auriu CTA */
-      --accent-2:#c1991d;       /* auriu închis */
-      --ink:#1c2220;            /* text */
-      --muted:#5f6b66;          /* text secundar */
-      --bg:#f7f9f8;             /* fundal pagină */
-      --card:#ffffff;           /* suprafețe card */
-      --line:#e3ebe6;           /* linii subtile */
-      --shadow:0 18px 50px rgba(7,20,15,.16);
-      --radius-xl:24px; --radius-lg:16px; --radius-md:12px;
-      --max:1180px;             /* lățimea containerului pe desktop */
+      --noir:#1C1C1C; --noir-2:#0F0F10;
+      --gold:#D4AF37; --gold-2:#C1991D;
+      --ink:#1C1C1C; --muted:#8E8E93; --bg:#FFFFFF; --card:#FFFFFF; --line:#E9E9EC;
+      --shadow:0 18px 50px rgba(0,0,0,.12);
+      --max:1180px; --radius-xl:24px; --radius-lg:16px; --radius:12px;
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
     *{box-sizing:border-box}
-    html,body{margin:0}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;touch-action:manipulation}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+    img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
-    a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:10px}
-    img{max-width:100%;display:block;height:auto}
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:10px}
+    .container{width:min(var(--max),calc(100% - 24px));margin:0 auto}
 
-    .container{width:min(var(--max),calc(100% - 16px));margin:0 auto}
+    /* ========== HEADER (ca în screenshot) ========== */
+    header.site{
+      position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid #eee;
+    }
+    header.site::before{ /* linia aurie foarte subțire sus */
+      content:"";position:absolute;left:0;top:0;width:100%;height:4px;background:var(--gold);
+    }
+    .bar{display:flex;align-items:center;gap:18px;min-height:80px}
+    .brand{display:flex;align-items:center;gap:14px;min-width:0}
+    .brand img{height:34px;width:auto}
+    .stack{display:grid;line-height:1}
+    .stack b{font-weight:800;letter-spacing:.12em}
+    .stack small{color:#7b8186;font-weight:700}
+    nav.main{display:flex;gap:34px;align-items:center;margin-left:32px;flex:1}
+    nav.main a{font-weight:800;color:#0E0F10}
+    nav.main a:hover{opacity:.8}
+    .right{margin-left:auto;display:flex;gap:14px;align-items:center}
+    .lang-pill{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--line);border-radius:14px;background:#fff;font-weight:800}
+    .lang-pill i{font-size:16px}
+    .burger{display:none;border:1px solid var(--line);background:#fff;border-radius:12px;width:44px;height:44px;align-items:center;justify-content:center}
+    .burger svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none}
+    @media(max-width:1024px){ nav.main,.right{display:none} .burger{display:inline-flex} }
 
-    /* Header Pro (dark, cu blur) */
-    header.nav-pro{position:sticky;top:0;z-index:60;background:linear-gradient(180deg,rgba(22,28,26,.96),rgba(22,28,26,.84));backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0;color:#f1f6f3}
-    .brand{display:flex;gap:12px;align-items:center}
-    .brand img{height:44px}
-    .nav-center{display:flex;gap:22px;align-items:center;justify-content:center;flex:1}
-    .nav-center a{color:#eaf2ee;opacity:.92;padding:10px 12px;border-radius:999px}
-    .nav-center a:hover{background:rgba(255,255,255,.06);opacity:1}
-    .nav-cta{display:flex;gap:10px;align-items:center}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:transparent;color:#eaf2ee;font-weight:800;cursor:pointer}
-    .btn:hover{background:rgba(255,255,255,.06)}
-    .btn-primary{background:var(--accent);border-color:transparent;color:#1b1f1d;box-shadow:0 10px 28px rgba(212,175,55,.32)}
-    .btn-primary:hover{background:var(--accent-2)}
-    .btn-outline{background:transparent;border-color:rgba(255,255,255,.28);color:#eaf2ee}
-    .burger{display:none;width:44px;height:44px;border:none;background:transparent;padding:0;border-radius:0;align-items:center;justify-content:center;color:#fff;-webkit-tap-highlight-color:transparent}
-    .burger:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
-    .burger svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-    .burger svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+    /* Drawer mobil */
+    .drawer{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(3px);display:none;z-index:70}
+    .drawer.open{display:block}
+    .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+    .sheet a{padding:12px 8px;border-bottom:1px solid var(--line);font-weight:800}
+    .sheet .btn{margin-top:auto}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:999px;border:1px solid #E0E0E0;background:#fff;color:#1c1c1c;font-weight:800;cursor:pointer}
+    .btn.primary{background:var(--gold);border-color:var(--gold);color:#1c1c1c;box-shadow:0 10px 28px rgba(212,175,55,.22)}
+    .btn.primary:hover{background:var(--gold-2)}
 
-    /* Mobile sheet (fix vizibilitate "Închide" pe iOS) */
-    .mobile{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(3px);display:none;z-index:9999}
-    .mobile .sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#141a18;color:#eaf2ee;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;transform:translateX(100%);opacity:0;transition:transform .28s cubic-bezier(.2,.7,.2,1), opacity .2s}
-    .mobile.active{display:block}
-    .mobile.active .sheet{transform:translateX(0);opacity:1}
-    @media (prefers-reduced-motion: reduce){ .mobile .sheet{transition:none} }
-    .sheet a{padding:12px;border-bottom:1px solid rgba(255,255,255,.08);font-weight:700}
+    /* ========== HERO ========== */
+    section.hero{padding:clamp(56px,8vh,92px) 0 56px;background:linear-gradient(180deg,#fff,#fafafa)}
+    .hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
+    @media(max-width:980px){ .hero .grid{grid-template-columns:1fr} }
+    h1,h2,h3{font-family:"Playfair Display",serif}
+    .eyebrow{font-weight:800;color:#6b7176;margin:0 0 8px}
+    .hero h1{font-size:clamp(34px,6.8vw,64px);line-height:1.04;margin:8px 0 10px}
+    .lead{color:#5b6166;font-size:clamp(16px,2.2vw,20px);max-width:65ch}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .hero-media{position:relative;border-radius:22px;overflow:hidden;border:1px solid #ececec;box-shadow:0 18px 50px rgba(0,0,0,.08);min-height:320px}
+    .hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#f5f5f7, #efefef 50%, #f5f5f7);background-size:200% 100%;animation:sheen 1.2s linear infinite}
+    .hero-media.ready::after{display:none}
+    .hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+    @keyframes sheen{to{background-position:-200% 0}}
 
-    /* HERO Pro (gradiente + tipografie premium) */
-    .hero{position:relative;padding:clamp(56px,8vh,92px) 0 64px;color:#eef5f1;background:#121816;overflow:hidden;min-height:65vh}
-    @supports (height: 1dvh){ .hero{ min-height:65dvh; } }
-    .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(1000px 420px at 20% 10%, rgba(14,90,67,.45), transparent 60%),radial-gradient(1000px 440px at 80% 0%, rgba(14,90,67,.30), transparent 60%),linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.40));opacity:.9;pointer-events:none}
-    .hero .container{position:relative;z-index:1}
-    .hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
-    .hero-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.02)}
-    .hero h1{font-family:"Playfair Display",serif;font-size:clamp(32px,7vw,72px);line-height:1.04;letter-spacing:-.4px;margin:8px 0 10px}
-    .hero p.lead{color:#cfe0d8;font-size:clamp(16px,2.2vw,20px);max-width:68ch}
-    .hero .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-
-    /* Secțiuni */
+    /* ========== SECTION generic ========== */
     section{padding:60px 0}
-    .section-title{font-family:"Playfair Display",serif;font-size:clamp(26px,4.8vw,42px);margin:0 0 8px;color:#16201c}
-    .muted{color:#6a7771}
+    .section-title{font-size:clamp(26px,4.6vw,40px);margin:0 0 6px}
+    .muted{color:var(--muted)}
 
-    /* Pricing – auto-fit pentru orice lățime */
-    .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:18px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-xl);box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
-    .card .top{padding:18px;background:linear-gradient(180deg,#0e5a43,#0b4a36);color:#fff;display:flex;align-items:center;justify-content:space-between}
-    .card .top h3{margin:0;font-size:20px;letter-spacing:.5px}
-    .badge{border:1px solid rgba(255,255,255,.55);padding:6px 10px;border-radius:999px;font-size:12px}
+    /* Pricing */
+    .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
+    @media(max-width:980px){.pricing{grid-template-columns:1fr 1fr}}
+    @media(max-width:680px){.pricing{grid-template-columns:1fr}}
+    .card{background:#fff;border:1px solid #ececec;border-radius:24px;box-shadow:0 18px 50px rgba(0,0,0,.08);overflow:hidden;display:flex;flex-direction:column}
+    .card .top{padding:18px;background:linear-gradient(180deg,#1c1c1c,#0f0f10);color:#fff;display:flex;align-items:center;justify-content:space-between}
+    .card .top h3{margin:0;font-size:18px;letter-spacing:.4px}
+    .badge{padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.55);font-size:12px}
     .features{padding:18px;display:grid;gap:10px}
     .row{display:flex;gap:10px;align-items:flex-start}
-    .row i{flex:0 0 auto;width:26px;height:26px;display:grid;place-items:center;border-radius:8px;background:#eef7f2;color:var(--brand)}
+    .row i{width:26px;height:26px;border-radius:8px;background:#f5f5f7;border:1px solid #ececec;display:grid;place-items:center}
     .price{display:flex;align-items:flex-end;gap:10px;margin:6px 0 0}
     .price strong{font-size:clamp(28px,3.2vw,36px);line-height:.95}
-    .per{color:#7e8c86;font-weight:700}
-    .foot{padding:16px 18px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .per{color:#7a7a7a;font-weight:700}
+    .foot{padding:16px 18px;border-top:1px solid #ececec;display:flex;gap:10px;flex-wrap:wrap}
+    .card.pop{outline:2px solid var(--gold);outline-offset:-2px}
 
-    /* Callouts */
-    .note{border:1px dashed var(--brand);background:linear-gradient(135deg,#fff,#f2f8f4);border-radius:18px;padding:16px}
-    .cta-slab{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border:1px solid var(--line);background:#fff;border-radius:18px;padding:16px;box-shadow:var(--shadow)}
-
-    /* Comparison – scroll orizontal pe ecrane mici */
-    .compare{background:#fff;border:1px solid var(--line);border-radius:var(--radius-xl);box-shadow:var(--shadow);overflow:hidden}
+    /* Compare */
+    .compare{background:#fff;border:1px solid #ececec;border-radius:24px;box-shadow:0 18px 50px rgba(0,0,0,.08);overflow:hidden}
     .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-    .table-wrap table{min-width:640px}
-    table{width:100%;border-collapse:collapse}
-    th,td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left}
-    th{background:#f7fbf9}
-    tr:last-child td{border-bottom:none}
-    .check{display:inline-flex;align-items:center;gap:8px}
-    .check i{color:var(--brand)}
+    table{width:100%;border-collapse:collapse;min-width:660px}
+    th,td{padding:14px 16px;border-bottom:1px solid #ececec;text-align:left}
+    th{background:#f8f8f9}
 
-    /* Footer */
-    footer{background:#0a0f0d;color:#cfe0d8;margin-top:48px;padding:48px 0 calc(20px + var(--safe-bottom))}
-    .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:22px}
-    .legal{border-top:1px solid #21332b;margin-top:16px;padding-top:12px;color:#98ab9f;font-size:13px}
-
-    /* ======= Responsive breakpoints ======= */
-    /* XL desktops */
-    @media (min-width:1440px){
-      :root{ --max:1240px }
-      .hero{padding:110px 0 72px}
-    }
-    /* Laptops */
-    @media (max-width:1200px){
-      .brand img{height:42px}
-    }
-    /* Tablets */
-    @media (max-width:1024px){
-      .nav-center{display:none}
-      .burger{display:flex}
-      .foot-grid{grid-template-columns:1fr 1fr}
-      .hero{padding:80px 0 54px}
-    }
-    /* Large phones / small tablets */
-    @media (max-width:768px){
-      section{padding:48px 0}
-      .hero{padding:70px 0 46px}
-      .hero h1{font-size:clamp(28px,8vw,44px)}
-      .hero .actions .btn{width:100%;justify-content:center}
-      .btn{padding:12px 16px}
-      .brand img{height:40px}
-    }
-    /* Phones */
-    @media (max-width:560px){
-      .container{width:calc(100% - 24px)}
-      .foot-grid{grid-template-columns:1fr}
-      th,td{padding:12px 10px}
-      .nav-cta .btn{display:none}
-      .burger{display:flex}
-    }
-    /* Small phones */
-    @media (max-width:360px){
-      .btn{padding:10px 12px}
-      .brand img{height:36px}
-    }
+    /* ========== FOOTER (ca în screenshot) ========== */
+    footer.site{background:#f7f7f8;color:#1c1c1c;border-top:4px solid var(--gold)}
+    .foot{width:min(var(--max),calc(100% - 24px));margin:0 auto;padding:34px 0;display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:28px}
+    @media(max-width:980px){.foot{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){.foot{grid-template-columns:1fr}}
+    .foot .lead{color:#8c9398}
+    .foot h4{margin:0 0 10px}
+    .foot ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px}
+    .mini-brand{display:flex;align-items:center;gap:12px}
+    .mini-brand img{height:34px}
+    .nl-card{background:#fff;border:1px solid #eee;border-radius:18px;padding:18px;box-shadow:0 20px 40px rgba(0,0,0,.08)}
+    .nl-card input{width:100%;padding:12px 14px;border:1px solid #e6e6ea;border-radius:12px;margin:10px 0;background:#fff}
+    .legal{width:min(var(--max),calc(100% - 24px));margin:0 auto;padding:14px 0 20px;border-top:1px solid #e6e6ea;color:#8d9297;text-align:center;font-size:14px}
   </style>
 </head>
 <body>
-  <!-- Header Pro -->
-  <header class="nav-pro">
-    <div class="container nav">
+
+  <!-- ===== Header ===== -->
+  <header class="site">
+    <div class="container bar">
       <a class="brand" href="/" aria-label="Acasă">
-        <img src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal – logo" />
-        <strong style="font-weight:800;letter-spacing:.5px">BUCĂTARUL PERSONAL</strong>
+        <img src="/static/logo-chef-prive.svg" alt="CHEF PRIVÉ">
+        <span class="stack">
+          <b>CHEF PRIVÉ</b>
+          <small>Bucătarul Personal</small>
+        </span>
       </a>
-      <nav class="nav-center" aria-label="Navigație principală">
-        <a href="/servicii.html" aria-current="page">Servicii</a>
-        <a href="/bucatarii.html">Bucătării noștri</a>
-        <a href="/cum-functioneaza.html">Cum funcționează</a>
+
+      <nav class="main" aria-label="Meniu principal">
         <a href="/despre-noi.html">Despre noi</a>
+        <a href="/bucatarii.html">Bucătarii noștri</a>
+        <a href="/servicii.html" aria-current="page">Servicii</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/contact.html">Contact</a>
         <a href="/contul_meu">Contul meu</a>
       </nav>
-      <div class="nav-cta">
-        <a href="/contact.html" class="btn btn-primary"><i class="fa-solid fa-utensils"></i> Vreau un bucătar</a>
-        <button id="burger" class="burger" aria-label="Meniu" title="Meniu">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M4 7h16M4 12h16M4 17h16"></path>
-          </svg>
-        </button>
+
+      <div class="right">
+        <span class="lang-pill"><i class="fa-solid fa-globe"></i> RO</span>
       </div>
-    </div>
-    <!-- Mobile nav overlay -->
-    <div id="mobile" class="mobile" aria-hidden="true">
-      <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu principal">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <strong>Meniu</strong>
-          <button id="close" class="btn btn-outline" aria-label="Închide"><i class="fa-solid fa-xmark"></i> Închide</button>
-        </div>
-        <a href="/servicii.html">Servicii</a>
-        <a href="/bucatarii.html">Bucătarii noștri</a>
-        <a href="/cum-functioneaza.html">Cum funcționează</a>
-        <a href="/despre-noi.html">Despre noi</a>
-        <a href="/contul_meu">Contul meu</a>
-        <a href="/contact.html" class="btn btn-primary" style="margin-top:8px"><i class="fa-solid fa-utensils"></i> Rezervă bucătar</a>
-      </div>
+
+      <button id="burger" class="burger" aria-label="Deschide meniul">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
   </header>
 
-  <!-- HERO Pro -->
-  <section class="hero">
-    <div class="hero-media" aria-hidden="true">
-      <picture>
-        <source srcset="https://images.unsplash.com/photo-1533777324565-a040eb52fac1?w=2200&auto=format&fit=crop&q=60&fm=webp" type="image/webp">
-        <img src="https://images.unsplash.com/photo-1533777324565-a040eb52fac1?w=2200&auto=format&fit=crop&q=70" alt="Preparate gătite pentru toată săptămâna" loading="eager" />
-      </picture>
+  <!-- Drawer mobil -->
+  <div id="drawer" class="drawer" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="Meniu">
+      <a href="/despre-noi.html">Despre noi</a>
+      <a href="/bucatarii.html">Bucătarii noștri</a>
+      <a href="/servicii.html">Servicii</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/contul_meu">Contul meu</a>
+      <button id="closeDrawer" class="btn">Închide</button>
     </div>
-    <div class="container">
-      <p class="eyebrow" style="margin:0 0 8px;color:#cfe0d8;font-weight:800;letter-spacing:.6px;opacity:.9">Meniuri zilnice gătite de chef</p>
-      <h1>Meniuri personalizate<br>pentru tine</h1>
-      <p class="lead">Bucătari profesioniști care creează meniuri adaptate preferințelor tale. Consultanță, ingrediente premium și plating elegant.</p>
-      <div class="actions">
-        <a href="#abonamente" class="btn btn-primary"><i class="fa-solid fa-list-check"></i> Comandă meniu</a>
-        <a href="/bucatarii.html" class="btn btn-outline"><i class="fa-solid fa-user"></i> Vezi bucătari</a>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="grid">
+        <div>
+          <p class="eyebrow">Meniuri zilnice gătite de chef</p>
+          <h1>Meniuri personalizate,<br> gătite pentru toată săptămâna</h1>
+          <p class="lead">Alegi stilul și preferințele, noi ne ocupăm de tot: consultanță, achiziție ingrediente, gătire în avans (<em>batch cooking</em>), depozitare & etichetare. Opțional: meniuri pentru copii & servire la masă.</p>
+          <div class="actions">
+            <a href="#abonamente" class="btn primary"><i class="fa-solid fa-list-check"></i> Vezi abonamente</a>
+            <a href="/bucatarii.html" class="btn"><i class="fa-solid fa-user"></i> Vezi bucătarii</a>
+          </div>
+        </div>
+
+        <!-- Media cu fallback și skeleton -->
+        <div class="hero-media" aria-hidden="true">
+          <picture>
+            <source srcset="/static/hero-batch.webp" type="image/webp">
+            <source srcset="/static/hero-batch.jpg" type="image/jpeg">
+            <img id="hero-img" src="https://images.unsplash.com/photo-1533777324565-a040eb52fac1?w=1600&auto=format&fit=crop&q=70" alt="">
+          </picture>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Abonamente -->
+  <!-- ===== Abonamente ===== -->
   <section id="abonamente">
     <div class="container">
-      <h2 class="section-title">Abonamente meniu zilnic</h2>
-      <p class="muted">Toate pachetele includ achiziționarea și livrarea ingredientelor și gătire <em>la tine acasă</em>. <strong>*La aceste prețuri se adaugă costul alimentelor.</strong></p>
+      <h2 class="section-title">Abonamente lunare</h2>
+      <p class="muted">*La prețuri se adaugă costul alimentelor (conform bonurilor). Gătire la tine acasă.</p>
 
       <div class="pricing">
-        <!-- ESENȚIAL -->
-        <article class="card" id="esential" aria-labelledby="t-esential">
-          <div class="top">
-            <h3 id="t-esential">ESENȚIAL</h3>
-            <span class="badge">Practic</span>
-          </div>
+        <article class="card">
+          <div class="top"><h3>ESENȚIAL</h3><span class="badge">Practic</span></div>
           <div class="features">
-            <div class="price"><strong>2.500</strong><span>lei/lună</span></div>
-            <div class="per">4 vizite/lună · 24 preparate</div>
-            <div class="row"><i class="fa-solid fa-truck" aria-hidden="true"></i><div>Achiziție & livrare ingrediente</div></div>
-            <div class="row"><i class="fa-solid fa-utensils" aria-hidden="true"></i><div>Gătire <strong>6 preparate/vizită</strong> (batch cooking)</div></div>
-            <div class="row"><i class="fa-solid fa-seedling" aria-hidden="true"></i><div>Meniuri tradiționale personalizate</div></div>
-            <div class="row"><i class="fa-solid fa-child" aria-hidden="true"></i><div>Meniuri pentru copii</div></div>
-            <div class="row"><i class="fa-solid fa-broom" aria-hidden="true"></i><div>Curățare spațiu utilizat</div></div>
-            <div class="row"><i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i><div>Depozitare și etichetare pentru zilele următoare</div></div>
+            <div class="price"><strong>2.500</strong><span> lei/lună</span></div>
+            <div class="per">4 vizite/lună · ~24 preparate</div>
+            <div class="row"><i class="fa-solid fa-truck"></i><div>Achiziție & livrare ingrediente</div></div>
+            <div class="row"><i class="fa-solid fa-utensils"></i><div>6 preparate/vizită (batch cooking)</div></div>
+            <div class="row"><i class="fa-solid fa-child"></i><div>Meniuri pentru copii</div></div>
+            <div class="row"><i class="fa-solid fa-boxes-stacked"></i><div>Depozitare & etichetare</div></div>
+            <div class="row"><i class="fa-solid fa-broom"></i><div>Curățare spațiu utilizat</div></div>
           </div>
           <div class="foot">
-            <a class="btn btn-primary" href="/contact.html?abonament=Esențial"><i class="fa-solid fa-calendar-check"></i> Comandă</a>
-            <a class="btn btn-outline" href="#compara">Compară</a>
+            <a class="btn primary" href="/contact.html?abonament=Esențial"><i class="fa-solid fa-calendar-check"></i> Comandă</a>
+            <a class="btn" href="#compara">Compară</a>
           </div>
         </article>
 
-        <!-- COMFORT -->
-        <article class="card" id="comfort" aria-labelledby="t-comfort" style="outline:2px solid var(--accent);outline-offset:-2px">
-          <div class="top" style="background:linear-gradient(180deg,#11664c,#0b4a36)">
-            <h3 id="t-comfort">COMFORT</h3>
-            <span class="badge">Popular</span>
-          </div>
+        <article class="card pop">
+          <div class="top"><h3>COMFORT</h3><span class="badge">Popular</span></div>
           <div class="features">
-            <div class="price"><strong>2.900</strong><span>lei/lună</span></div>
-            <div class="per">8 vizite/lună · 32 preparate</div>
-            <div class="row"><i class="fa-solid fa-truck" aria-hidden="true"></i><div>Achiziție & livrare ingrediente</div></div>
-            <div class="row"><i class="fa-solid fa-utensils" aria-hidden="true"></i><div>Gătire <strong>4 preparate/vizită</strong> (ziua vizitei + următoarea)</div></div>
-            <div class="row"><i class="fa-solid fa-seedling" aria-hidden="true"></i><div>Meniuri tradiționale personalizate</div></div>
-            <div class="row"><i class="fa-solid fa-child" aria-hidden="true"></i><div>Meniuri pentru copii</div></div>
-            <div class="row"><i class="fa-solid fa-broom" aria-hidden="true"></i><div>Curățare spațiu utilizat</div></div>
-            <div class="row"><i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i><div>Depozitare & etichetare</div></div>
-            <div class="row"><i class="fa-solid fa-globe" aria-hidden="true"></i><div><strong>Meniuri internaționale</strong> personalizate</div></div>
-            <div class="row"><i class="fa-solid fa-bell" aria-hidden="true"></i><div>Servire la masă</div></div>
+            <div class="price"><strong>2.900</strong><span> lei/lună</span></div>
+            <div class="per">8 vizite/lună · ~32 preparate</div>
+            <div class="row"><i class="fa-solid fa-truck"></i><div>Achiziție & livrare ingrediente</div></div>
+            <div class="row"><i class="fa-solid fa-utensils"></i><div>4 preparate/vizită (ziua vizitei + următoarea)</div></div>
+            <div class="row"><i class="fa-solid fa-globe"></i><div>Meniuri internaționale personalizate</div></div>
+            <div class="row"><i class="fa-solid fa-bell"></i><div>Servire la masă</div></div>
+            <div class="row"><i class="fa-solid fa-boxes-stacked"></i><div>Depozitare & etichetare</div></div>
           </div>
           <div class="foot">
-            <a class="btn btn-primary" href="/contact.html?abonament=Comfort"><i class="fa-solid fa-calendar-check"></i> Comandă</a>
-            <a class="btn btn-outline" href="#compara">Compară</a>
+            <a class="btn primary" href="/contact.html?abonament=Comfort"><i class="fa-solid fa-calendar-check"></i> Comandă</a>
+            <a class="btn" href="#compara">Compară</a>
           </div>
         </article>
 
-        <!-- PREMIUM -->
-        <article class="card" id="premium" aria-labelledby="t-premium">
-          <div class="top">
-            <h3 id="t-premium">PREMIUM</h3>
-            <span class="badge">Maxim</span>
-          </div>
+        <article class="card">
+          <div class="top"><h3>PREMIUM</h3><span class="badge">Maxim</span></div>
           <div class="features">
-            <div class="price"><strong>3.900</strong><span>lei/lună</span></div>
-            <div class="per">12 vizite/lună · 48 preparate</div>
-            <div class="row"><i class="fa-solid fa-truck" aria-hidden="true"></i><div>Achiziție & livrare ingrediente</div></div>
-            <div class="row"><i class="fa-solid fa-utensils" aria-hidden="true"></i><div>Gătire <strong>4 preparate/vizită</strong></div></div>
-            <div class="row"><i class="fa-solid fa-seedling" aria-hidden="true"></i><div>Meniuri tradiționale personalizate</div></div>
-            <div class="row"><i class="fa-solid fa-child" aria-hidden="true"></i><div>Meniuri pentru copii</div></div>
-            <div class="row"><i class="fa-solid fa-broom" aria-hidden="true"></i><div>Curățare spațiu utilizat</div></div>
-            <div class="row"><i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i><div>Depozitare & etichetare</div></div>
-            <div class="row"><i class="fa-solid fa-globe" aria-hidden="true"></i><div><strong>Meniuri internaționale</strong> personalizate</div></div>
-            <div class="row"><i class="fa-solid fa-bell" aria-hidden="true"></i><div>Servire la masă</div></div>
-            <div class="row"><i class="fa-solid fa-list-check" aria-hidden="true"></i><div>Plan alimentar prestabilit</div></div>
-            <div class="row"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i><div>Sfaturi culinare personalizate</div></div>
-            <div class="row"><i class="fa-solid fa-tags" aria-hidden="true"></i><div><strong>Reducere 15%</strong> la evenimente private</div></div>
+            <div class="price"><strong>3.900</strong><span> lei/lună</span></div>
+            <div class="per">12 vizite/lună · ~48 preparate</div>
+            <div class="row"><i class="fa-solid fa-truck"></i><div>Achiziție & livrare ingrediente</div></div>
+            <div class="row"><i class="fa-solid fa-utensils"></i><div>4 preparate/vizită</div></div>
+            <div class="row"><i class="fa-solid fa-list-check"></i><div>Plan alimentar prestabilit</div></div>
+            <div class="row"><i class="fa-solid fa-lightbulb"></i><div>Sfaturi culinare personalizate</div></div>
+            <div class="row"><i class="fa-solid fa-tags"></i><div><strong>Reducere 15%</strong> evenimente private</div></div>
           </div>
           <div class="foot">
-            <a class="btn btn-primary" href="/contact.html?abonament=Premium"><i class="fa-solid fa-calendar-check"></i> Comandă</a>
-            <a class="btn btn-outline" href="#compara">Compară</a>
+            <a class="btn primary" href="/contact.html?abonament=Premium"><i class="fa-solid fa-calendar-check"></i> Comandă</a>
+            <a class="btn" href="#compara">Compară</a>
           </div>
         </article>
-      </div>
-
-      <div class="note" style="margin-top:16px"><strong>Notă:</strong> La aceste prețuri se adaugă costul alimentelor, conform bonurilor.</div>
-
-      <div class="cta-slab" style="margin-top:18px">
-        <div>
-          <strong>Nu te regăsești într-un pachet?</strong>
-          <div>Îți compunem <strong>abonamentul personalizat</strong> cu numărul dorit de vizite și preparate.</div>
-        </div>
-        <a href="/contact.html?abonament=Personalizat" class="btn btn-primary"><i class="fa-solid fa-sliders"></i> Creează-ți abonamentul</a>
       </div>
     </div>
   </section>
 
-  <!-- Comparison -->
+  <!-- ===== Comparație ===== -->
   <section id="compara">
     <div class="container">
       <h2 class="section-title">Compară pachetele</h2>
-      <div class="compare table-wrap" role="region" aria-label="Tabel comparație abonamente">
+      <div class="compare table-wrap" role="region" aria-label="Tabel comparație">
         <table>
-          <thead>
-            <tr>
-              <th>Funcționalități</th>
-              <th>Esențial</th>
-              <th>Comfort</th>
-              <th>Premium</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Funcționalități</th><th>Esențial</th><th>Comfort</th><th>Premium</th></tr></thead>
           <tbody>
-            <tr>
-              <td>Achiziție & livrare ingrediente</td>
-              <td class="check"><i class="fa-solid fa-check"></i></td>
-              <td class="check"><i class="fa-solid fa-check"></i></td>
-              <td class="check"><i class="fa-solid fa-check"></i></td>
-            </tr>
-            <tr>
-              <td>Număr preparate/vizită</td>
-              <td>6</td>
-              <td>4</td>
-              <td>4</td>
-            </tr>
-            <tr>
-              <td>Meniuri pentru copii</td>
-              <td class="check"><i class="fa-solid fa-check"></i></td>
-              <td class="check"><i class="fa-solid fa-check"></i></td>
-              <td class="check"><i class="fa-solid fa-check"></i></td>
-            </tr>
-            <tr>
-              <td>Meniuri internaționale</td>
-              <td>—</td>
-              <td class="check"><i class="fa-solid fa-check"></i></td>
-              <td class="check"><i class="fa-solid fa-check"></i></td>
-            </tr>
-            <tr>
-              <td>Servire la masă</td>
-              <td>—</td>
-              <td class="check"><i class="fa-solid fa-check"></i></td>
-              <td class="check"><i class="fa-solid fa-check"></i></td>
-            </tr>
-            <tr>
-              <td>Plan alimentar prestabilit</td>
-              <td>—</td>
-              <td>—</td>
-              <td class="check"><i class="fa-solid fa-check"></i></td>
-            </tr>
-            <tr>
-              <td>Consultanță & tips culinare</td>
-              <td>—</td>
-              <td>—</td>
-              <td class="check"><i class="fa-solid fa-check"></i></td>
-            </tr>
-            <tr>
-              <td>Reducere evenimente private</td>
-              <td>—</td>
-              <td>—</td>
-              <td><strong>15%</strong></td>
-            </tr>
+            <tr><td>Achiziție & livrare ingrediente</td><td>✔</td><td>✔</td><td>✔</td></tr>
+            <tr><td>Număr preparate/vizită</td><td>6</td><td>4</td><td>4</td></tr>
+            <tr><td>Meniuri pentru copii</td><td>✔</td><td>✔</td><td>✔</td></tr>
+            <tr><td>Meniuri internaționale</td><td>—</td><td>✔</td><td>✔</td></tr>
+            <tr><td>Servire la masă</td><td>—</td><td>✔</td><td>✔</td></tr>
+            <tr><td>Plan alimentar prestabilit</td><td>—</td><td>—</td><td>✔</td></tr>
+            <tr><td>Consultanță & tips culinare</td><td>—</td><td>—</td><td>✔</td></tr>
+            <tr><td>Reducere evenimente private</td><td>—</td><td>—</td><td><strong>15%</strong></td></tr>
           </tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container foot-grid">
+  <!-- ===== Footer ===== -->
+  <footer class="site">
+    <div class="foot">
       <div>
-        <div style="display:flex;align-items:center;gap:12px">
-          <img src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal – logo" style="height:46px" loading="lazy" />
-          <strong style="color:#eaf5ef">Bucătarul Personal</strong>
+        <div class="mini-brand">
+          <img src="/static/logo-chef-prive-mark.svg" alt="Chef Privé">
+          <div>
+            <strong>CHEF PRIVÉ</strong><br>
+            <span style="color:#7e8388">Private Chef Services</span>
+          </div>
         </div>
-        <p style="color:#b7c2c8;margin:10px 0 0">Servicii premium de chef personal pentru evenimente private și corporate, plus meniuri zilnice.</p>
+        <p class="lead" style="margin:16px 0 0">
+          Servicii premium de chef personal pentru evenimente private și corporate în România și Italia.
+        </p>
       </div>
+
       <div>
-        <strong style="color:#eaf5ef">Companie</strong>
-        <ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px">
+        <h4>Companie</h4>
+        <ul>
           <li><a href="/despre-noi.html">Despre noi</a></li>
+          <li><a href="/bucatarii.html">Bucătarii noștri</a></li>
           <li><a href="/servicii.html">Servicii</a></li>
-          <li><a href="/bucatarii.html">Bucătari</a></li>
-          <li><a href="/testimoniale.html">Testimoniale</a></li>
+          <li><a href="/blog.html">Blog</a></li>
         </ul>
       </div>
+
       <div>
-        <strong style="color:#eaf5ef">Legal</strong>
-        <ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px">
-          <li><a href="#">Termeni &amp; Condiții</a></li>
-          <li><a href="#">Politica de confidențialitate</a></li>
-          <li><a href="#">Cookies</a></li>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/termeni.html">Termeni & Condiții</a></li>
+          <li><a href="/confidentialitate.html">Confidențialitate</a></li>
+          <li><a href="/cookies.html">Politica cookie-uri</a></li>
         </ul>
       </div>
+
       <div>
-        <strong style="color:#eaf5ef">Contact rapid</strong>
-        <div style="display:flex;gap:10px;margin-top:10px;align-items:center;flex-wrap:wrap">
-          <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i> 0772 893 476</a>
-          <a href="tel:+40772893476" aria-label="Sună 0772 893 476"><i class="fa-solid fa-phone"></i> Sună acum</a>
-        </div>
+        <h4>Newsletter</h4>
+        <form class="nl-card" onsubmit="event.preventDefault();alert('Mulțumim! Te-am abonat.');this.reset();">
+          <p style="margin:0 0 10px">Primește ocazional idei de meniuri și oferte.</p>
+          <input type="email" required placeholder="email@exemplu.com" aria-label="Email">
+          <button class="btn primary" type="submit">Abonează-te</button>
+        </form>
       </div>
     </div>
-    <div class="container legal">© <span id="year"></span> Bucătarul Personal — Toate drepturile rezervate.</div>
+    <div class="legal">© <span id="year"></span> CHEF PRIVÉ • Toate drepturile rezervate</div>
   </footer>
 
-  <!-- WhatsApp floating CTA -->
-  <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="Scrie pe WhatsApp" style="position:fixed;right:18px;bottom:calc(18px + var(--safe-bottom));width:54px;height:54px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 10px 24px rgba(0,0,0,.18);z-index:60"><i class="fa-brands fa-whatsapp" style="font-size:24px"></i></a>
+  <!-- WhatsApp floating -->
+  <a href="https://wa.me/40772893476" target="_blank" aria-label="Scrie pe WhatsApp"
+     style="position:fixed;right:18px;bottom:calc(18px + var(--safe-bottom));width:54px;height:54px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 10px 24px rgba(0,0,0,.18);z-index:80">
+    <i class="fa-brands fa-whatsapp" style="font-size:24px"></i>
+  </a>
 
   <script>
+    // an curent
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile drawer
     (()=>{
       const burger=document.getElementById('burger');
-      const mobile=document.getElementById('mobile');
-      const closeBtn=document.getElementById('close');
-      const year=document.getElementById('year');
-      if(year) year.textContent=new Date().getFullYear();
-
-      if(!burger||!mobile||!closeBtn) return;
-      if(mobile.dataset.bound==='1') return; mobile.dataset.bound='1';
-
-      const firstFocusable = () => mobile.querySelector('a,button');
-
-      const open=()=>{
-        mobile.classList.add('active');
-        mobile.setAttribute('aria-hidden','false');
-        document.body.style.overflow='hidden';
-        setTimeout(()=>{ const f=firstFocusable(); f&&f.focus(); }, 10);
-      }
-      const close=()=>{
-        mobile.classList.remove('active');
-        mobile.setAttribute('aria-hidden','true');
-        document.body.style.overflow='';
-        burger.focus({preventScroll:true});
-      }
-
-      burger.addEventListener('click', open);
-      closeBtn.addEventListener('click', close);
-      mobile.addEventListener('click', e=>{ if(e.target===mobile) close(); });
-      document.addEventListener('keydown', e=>{
-        if(e.key==='Escape') close();
-        if(e.key==='Tab' && mobile.classList.contains('active')){
-          const focusables = mobile.querySelectorAll('a,button');
-          if(!focusables.length) return;
-          const first = focusables[0];
-          const last = focusables[focusables.length-1];
-          if(e.shiftKey && document.activeElement===first){ last.focus(); e.preventDefault(); }
-          else if(!e.shiftKey && document.activeElement===last){ first.focus(); e.preventDefault(); }
-        }
-      });
-
-      // Închide sheet-ul dacă treci pe desktop din greșeală
+      const drawer=document.getElementById('drawer');
+      const closeBtn=document.getElementById('closeDrawer');
+      const open=()=>{drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';};
+      const close=()=>{drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');document.body.style.overflow='';};
+      burger?.addEventListener('click',open);
+      closeBtn?.addEventListener('click',close);
+      drawer?.addEventListener('click',e=>{ if(e.target===drawer) close(); });
+      document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
       window.addEventListener('resize',()=>{ if(window.innerWidth>1024) close(); });
+    })();
 
-      // Respectă preferința utilizatorilor pentru reducerea animațiilor
-      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if(mq.matches){ document.documentElement.style.scrollBehavior='auto'; }
+    // HERO media fallback + skeleton
+    (()=>{
+      const wrap=document.querySelector('.hero-media');
+      const img=document.getElementById('hero-img');
+      if(!wrap||!img) return;
+      img.addEventListener('load',()=>wrap.classList.add('ready'));
+      img.addEventListener('error',()=>{
+        const isLocal = img.src.startsWith(location.origin) || img.src.startsWith('/');
+        if(!isLocal){ img.src='/static/hero-batch.jpg'; return; }
+        if(!img.dataset.altTried){ img.dataset.altTried='1'; img.src='https://images.unsplash.com/photo-1526318472351-c75fcf070305?w=1600&auto=format&fit=crop&q=70'; return; }
+        wrap.style.display='none';
+      });
     })();
   </script>
 </body>
