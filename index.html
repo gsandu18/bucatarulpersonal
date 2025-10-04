@@ -361,21 +361,50 @@ form textarea{ width:100%; }
     </div>
   </section>
 
-  <!-- CE SPUN CLIENȚII -->
-  <section id="testimoniale" class="section tst">
-    <div class="container">
-      <h2 style="text-align:center;margin:0 0 8px">Ce spun clienții noștri</h2>
-      <p class="muted" style="text-align:center;margin:0 0 16px">Scor mediu: <strong>4.9/5</strong> (300+ recenzii).</p>
+ <!-- ================= CE SPUN CLIENȚII (Slider + Google) ================= -->
+<section id="testimoniale" class="section">
+  <style>
+    /* izolat pe #tst */
+    #tst{--gap:16px;--per:3}
+    @media(max-width:980px){#tst{--per:2}}
+    @media(max-width:640px){#tst{--per:1}}
+    #tst .wrap{max-width:1160px;margin:0 auto;padding:0 clamp(12px,4vw,32px)}
+    #tst h2{margin:0 0 8px;font-family:"Playfair Display",serif}
+    #tst .muted{color:#8E8E93;margin:0 0 14px}
 
+    #tst .viewport{overflow:hidden}
+    #tst .reel{display:flex;gap:var(--gap);will-change:transform;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+    #tst .item{flex:0 0 calc((100% - (var(--gap) * (var(--per) - 1))) / var(--per));min-width:260px}
+    #tst .card{background:#fff;border:1px solid #E9E9EC;border-radius:16px;box-shadow:0 12px 36px rgba(0,0,0,.08);padding:16px;display:grid;gap:10px}
+    #tst .head{display:flex;gap:10px;align-items:center}
+    #tst .ava{width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid #E9E9EC}
+    #tst .name{font-weight:800}
+    #tst .meta{color:#8E8E93;font-size:13px}
+    #tst .stars{display:flex;color:#f59e0b;font-size:18px;letter-spacing:1px}
+    #tst .foot{display:flex;justify-content:space-between;color:#8E8E93;font-size:13px}
+    #tst .ctrl{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:12px}
+    #tst .btn-nav{border:1px solid #E9E9EC;background:#fff;border-radius:12px;width:40px;height:40px;display:grid;place-items:center;cursor:pointer}
+    #tst .dots{display:flex;gap:8px}
+    #tst .dot{width:8px;height:8px;border-radius:50%;background:#d9d9de;border:1px solid #c7c7cc}
+    #tst .dot.active{background:#1C1C1C}
+  </style>
+
+  <div class="wrap" id="tst-root">
+    <h2>Ce spun clienții noștri</h2>
+    <p class="muted">Scor mediu (Google + intern): <strong id="tst-avg">4.9/5 (local)</strong></p>
+
+    <div id="tst" class="tst">
       <div class="viewport">
-        <div class="track" id="tst-track" tabindex="0" aria-label="Carusel testimoniale">
+        <div id="tst-track" class="reel" aria-live="polite">
+          <!-- Fallback local (se înlocuiește când vin review-urile Google) -->
           <article class="item">
             <div class="card">
               <div class="head">
                 <img class="ava" src="https://i.pravatar.cc/100?img=12" alt="Ana M.">
-                <div class="who"><span class="name">Ana M.</span><span class="meta">Cină privată • București</span></div>
+                <div><div class="name">Ana M.</div><div class="meta">Cină privată • București</div></div>
               </div>
-              <p>„Plating ca în restaurant, timpi perfecți, discreție totală. Recomand!”</p>
+              <div class="stars" aria-label="5 din 5">★★★★★</div>
+              <p>„Plating ca în restaurant, timpi perfecți, discreție totală.”</p>
               <div class="foot"><span>6 persoane</span><span>Mai 2025</span></div>
             </div>
           </article>
@@ -383,8 +412,9 @@ form textarea{ width:100%; }
             <div class="card">
               <div class="head">
                 <img class="ava" src="https://i.pravatar.cc/100?img=5" alt="Radu T.">
-                <div class="who"><span class="name">Radu T.</span><span class="meta">Eveniment • Cluj</span></div>
+                <div><div class="name">Radu T.</div><div class="meta">Eveniment • Cluj</div></div>
               </div>
+              <div class="stars" aria-label="5 din 5">★★★★★</div>
               <p>„Setup impecabil, echipă punctuală și flexibilă. Live cooking memorabil.”</p>
               <div class="foot"><span>120 persoane</span><span>Ian 2025</span></div>
             </div>
@@ -393,8 +423,9 @@ form textarea{ width:100%; }
             <div class="card">
               <div class="head">
                 <img class="ava" src="https://i.pravatar.cc/100?img=28" alt="Elisa P.">
-                <div class="who"><span class="name">Elisa P.</span><span class="meta">Cină • Brașov</span></div>
+                <div><div class="name">Elisa P.</div><div class="meta">Cină • Brașov</div></div>
               </div>
+              <div class="stars" aria-label="5 din 5">★★★★★</div>
               <p>„Au personalizat meniul pentru alergii și au fost extrem de atenți.”</p>
               <div class="foot"><span>8 persoane</span><span>Nov 2024</span></div>
             </div>
@@ -402,7 +433,137 @@ form textarea{ width:100%; }
         </div>
       </div>
 
-      
+      <div class="ctrl">
+        <button class="btn-nav" id="tst-prev" aria-label="Înapoi">‹</button>
+        <div id="tst-dots" class="dots" aria-label="Pagini"></div>
+        <button class="btn-nav" id="tst-next" aria-label="Înainte">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Google Places (pentru recenzii) -->
+<script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places&language=ro"></script>
+
+<script>
+(function(){
+  // ===== Slider solid (offsetLeft – aliniere perfectă) =====
+  const track   = document.getElementById('tst-track');
+  const dotsBox = document.getElementById('tst-dots');
+  const prevBtn = document.getElementById('tst-prev');
+  const nextBtn = document.getElementById('tst-next');
+  const root    = document.getElementById('tst-root');
+  let per = 3, index = 0, pages = [], timer=null, dragging=false, startX=0;
+
+  const items = ()=> Array.from(track.children);
+
+  function calcPer(){
+    const w = root.clientWidth;
+    if (w < 640) return 1; if (w < 980) return 2; return 3;
+  }
+  function buildPages(){
+    pages = [];
+    for(let i=0;i<items().length;i+=per){ pages.push(i); }
+  }
+  function go(i){
+    if(!pages.length) return;
+    index = (i + pages.length) % pages.length;
+    const el = items()[ pages[index] ];
+    const offset = el ? el.offsetLeft : 0;            // pixeli reali ⇒ fără „decuplări”
+    track.style.transform = `translate3d(-${offset}px,0,0)`;
+    [...dotsBox.children].forEach((d,k)=> d.classList.toggle('active', k===index));
+  }
+  function buildDots(){
+    dotsBox.innerHTML = '';
+    pages.forEach((_,k)=>{
+      const b=document.createElement('button');
+      b.className='dot'+(k===index?' active':''); b.type='button';
+      b.addEventListener('click',()=>{ go(k); play(); });
+      dotsBox.appendChild(b);
+    });
+  }
+  function resize(){
+    per = calcPer(); track.style.transition='none';
+    buildPages(); buildDots(); requestAnimationFrame(()=>{ go(index); track.offsetHeight; track.style.transition='transform .45s cubic-bezier(.2,.7,.2,1)'; });
+  }
+  function play(){ stop(); timer = setInterval(()=>go(index+1), 5000); }
+  function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+
+  // nav
+  prevBtn.addEventListener('click', ()=>{ go(index-1); play(); });
+  nextBtn.addEventListener('click', ()=>{ go(index+1); play(); });
+
+  // hover/focus pause
+  track.addEventListener('mouseenter', stop);   track.addEventListener('mouseleave', play);
+  track.addEventListener('focusin', stop);      track.addEventListener('focusout', play);
+
+  // swipe simplu
+  track.addEventListener('pointerdown', e=>{ dragging=true; startX=e.clientX; stop(); });
+  window.addEventListener('pointerup', e=>{
+    if(!dragging) return; dragging=false;
+    const dx = e.clientX - startX;
+    if(Math.abs(dx)>40) go(index + (dx<0?1:-1));
+    play();
+  });
+
+  window.addEventListener('resize', resize);
+  // inițializare după ce se calculează dimensiunile
+  window.addEventListener('load', ()=>{ resize(); play(); });
+
+  // ===== Recenzii Google (fallback local dacă lipsesc) =====
+  const AVG = document.getElementById('tst-avg');
+  const PLACE_ID = 'YOUR_GOOGLE_PLACE_ID'; // ← setează Place ID (ex.: ChIJN1t_tDeuEmsRUsoyG83frY4)
+
+  async function loadGoogleReviews(){
+    // așteaptă Google API
+    await new Promise(res=>{
+      (function wait(){ if(window.google?.maps?.places){ res(); } else requestAnimationFrame(wait); })();
+    });
+
+    const svc = new google.maps.places.PlacesService(document.createElement('div'));
+    svc.getDetails({
+      placeId: PLACE_ID,
+      fields: ['rating','user_ratings_total','reviews']
+    }, (place, status)=>{
+      if(status !== google.maps.places.PlacesServiceStatus.OK || !place) return;
+
+      const { rating, user_ratings_total, reviews=[] } = place;
+      if(rating) AVG.textContent = `${rating.toFixed(1)}/5 • ${user_ratings_total||reviews.length}+ recenzii`;
+
+      if(!reviews.length) return;
+
+      reviews.sort((a,b)=> (b.time||0) - (a.time||0));
+      const pick = reviews.slice(0, 9);
+      track.innerHTML = ''; // înlocuim fallback-ul
+
+      for(const r of pick){
+        const item=document.createElement('article'); item.className='item';
+        const score = Math.round(r.rating||5);
+        item.innerHTML = `
+          <div class="card">
+            <div class="head">
+              <img class="ava" src="${r.profile_photo_url || 'https://i.pravatar.cc/100'}" alt="${r.author_name||'Client Google'}">
+              <div>
+                <div class="name">${r.author_name || 'Client Google'}</div>
+                <div class="meta">${r.relative_time_description || ''}</div>
+              </div>
+            </div>
+            <div class="stars" aria-label="${score} din 5">${'★'.repeat(score)}${'☆'.repeat(5-score)}</div>
+            <p>${(r.text||'').replace(/</g,'&lt;').slice(0,280)}${(r.text||'').length>280?'…':''}</p>
+            <div class="foot"><span>Recenzie Google</span><span>${(r.rating||5).toFixed(1)}/5</span></div>
+          </div>`;
+        track.appendChild(item);
+      }
+      resize(); go(0); play();
+    });
+  }
+
+  // pornește integrarea dacă ai cheile setate
+  const hasKeys = !/YOUR_GOOGLE_API_KEY/.test(document.querySelector('script[src*="maps.googleapis"]').src)
+                  && PLACE_ID && !/YOUR_GOOGLE_PLACE_ID/.test(PLACE_ID);
+  if(hasKeys){ loadGoogleReviews().catch(()=>{}); }
+})();
+</script>
 
   <!-- UNDE SUNTEM -->
   <section id="unde" class="section">
