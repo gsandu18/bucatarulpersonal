@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Social Lite – CHEF PRIVÉ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1C1C1C; --gold:#D4AF37; --paper:#FFFFFF; --veil:#0c0f0f; --mist:#F4F5F6;
+  --rad:18px; --ring:1px solid rgba(0,0,0,.10); --shadow:0 14px 40px rgba(0,0,0,.14);
+}
+*{box-sizing:border-box} html,body{margin:0;background:var(--mist);color:var(--ink);font:500 16px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1100px;margin:18px auto;padding:0 14px;display:grid;gap:14px}
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-radius:16px;padding:10px 12px;border:var(--ring);box-shadow:var(--shadow)}
+.brand{display:flex;gap:10px;align-items:center}
+.brand svg{width:46px;height:46px}
+.brand .name{font-family:"Playfair Display",serif;font-weight:800;letter-spacing:3px}
+.badge{padding:6px 10px;border-radius:999px;border:1px dashed rgba(0,0,0,.2);font-weight:800;background:#fff}
+.panels{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}
+@media(max-width:980px){.panels{grid-template-columns:1fr}}
+.card{background:#fff;border:var(--ring);border-radius:16px;box-shadow:var(--shadow)}
+.controls{padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:720px){.controls{grid-template-columns:1fr}}
+.controls label{font-size:13px;font-weight:700;color:#485155}
+.controls input,.controls select,.controls textarea{width:100%;padding:10px 12px;border:1px solid #E1E5E8;border-radius:12px;background:#FBFCFD}
+.controls textarea{min-height:64px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn{padding:10px 14px;border-radius:12px;border:1px solid #D9DEE2;background:#fff;font-weight:800;cursor:pointer}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:#1C1C1C}
+.btn.dark{background:#111;color:#fff;border-color:#111}
+.preview{padding:12px}
+.canvas-wrap{background:linear-gradient(120deg,#eceff2,#f7f8fa);border-radius:16px;border:var(--ring);overflow:hidden;display:grid;place-items:center}
+canvas{max-width:100%;height:auto;display:block;background:#000}
+
+/* tiny helper chips */
+.checks{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.toggle{display:inline-flex;gap:8px;align-items:center}
+.range{display:flex;gap:8px;align-items:center}
+footer{padding:10px 12px;text-align:center;color:#6b7680;font-size:13px}
+kbd{background:#f0f2f4;border:1px solid #dfe4e8;border-radius:6px;padding:2px 6px;font-family:ui-monospace,Menlo,Consolas,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="brand">
+      <!-- mini logo -->
+      <svg viewBox="0 0 220 220" aria-hidden="true">
+        <rect width="220" height="220" rx="110" fill="#fff" />
+        <circle cx="110" cy="110" r="96" fill="none" stroke="#1C1C1C" stroke-width="8"/>
+        <circle cx="110" cy="110" r="74" fill="none" stroke="#D4AF37" stroke-width="10" stroke-dasharray="320 480" stroke-linecap="round"/>
+        <path d="M138 150a50 50 0 1 1 0-80" fill="none" stroke="#1C1C1C" stroke-width="10" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="name">CHEF PRIVÉ</div>
+        <div style="color:#6b7680;font-weight:700;margin-top:2px">Bucătarul Personal</div>
+      </div>
+    </div>
+    <div class="badge">Paletă: Ink #1C1C1C • Gold #D4AF37</div>
+  </div>
+
+  <div class="panels">
+    <!-- Controls -->
+    <div class="card">
+      <form id="ui" class="controls">
+        <div class="row">
+          <div>
+            <label>Format</label>
+            <select id="fmt">
+              <option value="1080x1080">Post 1:1 (1080×1080)</option>
+              <option value="1080x1920">Story/Reel (1080×1920)</option>
+              <option value="1080x1350">4:5 Portrait (1080×1350)</option>
+              <option value="1920x1080">Banner 16:9 (1920×1080)</option>
+            </select>
+          </div>
+          <div>
+            <label>Aliniere text</label>
+            <select id="align">
+              <option value="left">Stânga</option>
+              <option value="center">Centru</option>
+              <option value="right">Dreapta</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="range">
+          <label style="min-width:84px">Overlay</label>
+          <input id="overlay" type="range" min="25" max="80" step="1" value="55">
+          <span id="overlayVal">55%</span>
+        </div>
+
+        <div class="checks" style="margin-top:2px">
+          <label class="toggle"><input id="showLogo" type="checkbox" checked> logo</label>
+          <label class="toggle"><input id="showPill" type="checkbox" checked> pilulă „Private Chefs… ”</label>
+          <label class="toggle"><input id="showBand" type="checkbox" checked> bandă aurie</label>
+          <label class="toggle"><input id="safe" type="checkbox"> safe-zone</label>
+        </div>
+
+        <div>
+          <label>Headline</label>
+          <textarea id="headline">Experiență de restaurant, la tine acasă.</textarea>
+        </div>
+        <div>
+          <label>Avantaje (separator •)</label>
+          <input id="features" value="Chefi verificați • Contract & Factură • România & Italia">
+        </div>
+        <div class="row">
+          <div>
+            <label>Badge mic</label>
+            <input id="badge" value="Private Chefs • Professional Taste">
+          </div>
+          <div>
+            <label>CTA</label>
+            <input id="cta" value="Rezervă">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Oraș • Dată</label>
+            <input id="meta" value="București • 24 iun">
+          </div>
+          <div>
+            <label>Link imagine (opțional)</label>
+            <input id="imgUrl" placeholder="https://images.unsplash.com/photo-...">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Încarcă imagine</label>
+            <input id="file" type="file" accept="image/*">
+          </div>
+          <div>
+            <label>Export</label>
+            <select id="scale">
+              <option value="1">1x (1080px latura)</option>
+              <option value="2">2x (retina)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn" id="apply">Aplică</button>
+          <button type="button" class="btn primary" id="save">Descarcă PNG</button>
+          <button type="button" class="btn dark" id="demo1">Preset Story</button>
+          <button type="button" class="btn" id="demo2">Preset 1:1</button>
+        </div>
+        <div style="font-size:13px;color:#6b7680">
+          Tip: dacă linkul nu se încarcă (CORS), folosește <b>Încarcă imagine</b>. Pentru Unsplash, pune linkul direct din
+          <kbd>images.unsplash.com</kbd>.
+        </div>
+      </form>
+    </div>
+
+    <!-- Preview -->
+    <div class="card preview">
+      <div class="canvas-wrap">
+        <canvas id="cv" width="1080" height="1080" aria-label="Previzualizare"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <footer>© CHEF PRIVÉ — paletă Ink #1C1C1C • Gold #D4AF37 • Paper #FFFFFF</footer>
+</div>
+
+<script>
+(()=>{
+
+const ui = {
+  fmt: qs('#fmt'), align: qs('#align'), overlay: qs('#overlay'), overlayVal: qs('#overlayVal'),
+  showLogo: qs('#showLogo'), showPill: qs('#showPill'), showBand: qs('#showBand'), safe: qs('#safe'),
+  headline: qs('#headline'), features: qs('#features'), badge: qs('#badge'), cta: qs('#cta'),
+  meta: qs('#meta'), imgUrl: qs('#imgUrl'), file: qs('#file'), scale: qs('#scale'),
+  apply: qs('#apply'), save: qs('#save'), demo1: qs('#demo1'), demo2: qs('#demo2')
+};
+const cv = qs('#cv'), ctx = cv.getContext('2d');
+const GOLD = '#D4AF37', INK = '#1C1C1C', PAPER = '#FFFFFF';
+
+let imgObj = null;
+
+ui.overlay.addEventListener('input', ()=> ui.overlayVal.textContent = ui.overlay.value+'%');
+
+ui.file.addEventListener('change', ()=>{
+  const f = ui.file.files[0];
+  if(!f) return;
+  const r = new FileReader();
+  r.onload = e => loadImage(e.target.result);
+  r.readAsDataURL(f);
+});
+
+ui.apply.addEventListener('click', draw);
+ui.save.addEventListener('click', savePNG);
+ui.imgUrl.addEventListener('change', ()=> { if(ui.imgUrl.value.trim()) loadImage(ui.imgUrl.value.trim()); });
+
+ui.demo1.addEventListener('click', ()=>{
+  ui.fmt.value = '1080x1920';
+  ui.align.value = 'left';
+  ui.overlay.value = 60; ui.overlay.dispatchEvent(new Event('input'));
+  ui.headline.value = 'Experiență de restaurant, la tine acasă.';
+  ui.features.value = 'Chefi verificați • Contract & Factură • România & Italia';
+  ui.badge.value = 'Private Chefs • Professional Taste';
+  ui.cta.value = 'Rezervă';
+  ui.meta.value = 'Cluj • 30 iul';
+  ui.showBand.checked = true; ui.showPill.checked = true; ui.showLogo.checked = true;
+  ui.imgUrl.value = 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=2000&q=70';
+  loadImage(ui.imgUrl.value).then(draw);
+});
+
+ui.demo2.addEventListener('click', ()=>{
+  ui.fmt.value = '1080x1080';
+  ui.align.value = 'center';
+  ui.overlay.value = 55; ui.overlay.dispatchEvent(new Event('input'));
+  ui.headline.value = 'Cină privată, meniu personalizat.';
+  ui.features.value = 'Fine dining • Plating premium • Echipa completă';
+  ui.badge.value = 'Private Chefs • Professional Taste';
+  ui.cta.value = 'Rezervă';
+  ui.meta.value = 'București • 24 iun';
+  ui.showBand.checked = true; ui.showPill.checked = true; ui.showLogo.checked = true;
+  ui.imgUrl.value = 'https://images.unsplash.com/photo-1528605105345-5344ea20e269?auto=format&fit=crop&w=2000&q=70';
+  loadImage(ui.imgUrl.value).then(draw);
+});
+
+function qs(s,root=document){ return root.querySelector(s); }
+
+function parseFmt(v){
+  const [w,h] = v.split('x').map(n=>parseInt(n,10));
+  return {w,h};
+}
+
+function loadImage(src){
+  return new Promise((resolve,reject)=>{
+    const im = new Image();
+    // încercăm CORS liber; dacă nu merge, tot desenăm dacă e data:URL
+    im.crossOrigin = 'anonymous';
+    im.onload = ()=>{ imgObj = im; resolve(im); };
+    im.onerror = ()=>{ alert('Imaginea nu a putut fi încărcată. Folosește upload sau un link direct (images.unsplash.com).'); reject(); };
+    im.src = src;
+  });
+}
+
+function coverDraw(img, W, H){
+  const iw = img.width, ih = img.height, ir = iw/ih, cr = W/H;
+  let dw = W, dh = H, sx=0, sy=0, sw=iw, sh=ih;
+  if(ir > cr){ // imaginea e mai lată
+    const need = ih * cr;
+    sx = (iw - need)/2; sw = need;
+  } else {
+    const need = iw / cr;
+    sy = (ih - need)/2; sh = need;
+  }
+  ctx.drawImage(img, sx, sy, sw, sh, 0, 0, W, H);
+}
+
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  const rr = Math.min(r, w/2, h/2);
+  ctx.moveTo(x+rr, y);
+  ctx.arcTo(x+w, y, x+w, y+h, rr);
+  ctx.arcTo(x+w, y+h, x, y+h, rr);
+  ctx.arcTo(x, y+h, x, y, rr);
+  ctx.arcTo(x, y, x+w, y, rr);
+  ctx.closePath();
+}
+
+function drawLogo(x,y, size){
+  // logo simplificat: cerc negru + arc auriu + C
+  const s = size;
+  ctx.save();
+  ctx.translate(x,y);
+  // fundal alb
+  ctx.fillStyle = PAPER; roundRect(-s/2,-s/2,s,s,s*0.5); ctx.fill();
+  ctx.strokeStyle = INK; ctx.lineWidth = Math.max(2, s*0.06);
+  ctx.beginPath(); ctx.arc(0,0,s*0.38,0,Math.PI*2); ctx.stroke();
+  // arc gold
+  ctx.strokeStyle = GOLD; ctx.lineWidth = Math.max(2, s*0.10);
+  ctx.beginPath(); ctx.arc(0,0,s*0.34,Math.PI*0.15,Math.PI*1.6); ctx.stroke();
+  // semnul "C"
+  ctx.strokeStyle = INK; ctx.lineWidth = Math.max(2, s*0.10);
+  ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.arc(0,0,s*0.28,Math.PI*0.2,Math.PI*1.8); ctx.stroke();
+  ctx.restore();
+}
+
+async function draw(){
+  await document.fonts.ready;
+
+  const {w,h} = parseFmt(ui.fmt.value);
+  const scale = parseInt(ui.scale.value,10) || 1;
+  cv.width = w*scale; cv.height = h*scale;
+  cv.style.aspectRatio = `${w}/${h}`;
+  ctx.setTransform(scale,0,0,scale,0,0); // UI desenăm „la 1x” dar exportul e scalat
+
+  // background
+  ctx.fillStyle = '#000'; ctx.fillRect(0,0,w,h);
+  if(imgObj){ coverDraw(imgObj, w, h); }
+  else {
+    // fallback gradient
+    const g = ctx.createLinearGradient(0,0,w,h);
+    g.addColorStop(0,'#1b1f22'); g.addColorStop(1,'#0f1418');
+    ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+  }
+
+  // overlay
+  const ov = (+ui.overlay.value||55)/100;
+  const grd = ctx.createLinearGradient(0,0,0,h);
+  grd.addColorStop(0, `rgba(0,0,0,${ov*0.9})`);
+  grd.addColorStop(0.5, `rgba(0,0,0,${ov*0.55})`);
+  grd.addColorStop(1, `rgba(0,0,0,${ov*0.85})`);
+  ctx.fillStyle = grd; ctx.fillRect(0,0,w,h);
+
+  const padding = Math.round(Math.min(w,h)*0.06);
+  const safe = ui.safe.checked ? Math.round(Math.min(w,h)*0.02) : 0;
+  const contentW = w - padding*2;
+
+  // bandă aurie jos (decor)
+  if(ui.showBand.checked){
+    const bandH = Math.round(Math.min(w,h)*0.035);
+    ctx.globalAlpha = 0.85;
+    ctx.fillStyle = GOLD;
+    roundRect(padding, h-padding-bandH, contentW, bandH, bandH/2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  // top zone: logo + brand mic
+  const topY = padding;
+  if(ui.showLogo.checked){
+    drawLogo(padding + 38, topY + 38, 64);
+    ctx.fillStyle = '#fff';
+    ctx.font = `800 ${Math.round(Math.min(w,h)*0.035)}px "Playfair Display", serif`;
+    ctx.textBaseline = 'middle';
+    ctx.fillText('CHEF PRIVÉ', padding + 80, topY + 26);
+    ctx.font = `700 ${Math.round(Math.min(w,h)*0.018)}px Inter, sans-serif`;
+    ctx.fillStyle = 'rgba(255,255,255,.9)';
+    ctx.fillText('Bucătarul Personal', padding + 80, topY + 54);
+  }
+
+  // pill (badge mic)
+  const pillText = (ui.badge.value||'').trim();
+  if(ui.showPill.checked && pillText){
+    const fs = Math.round(Math.min(w,h)*0.018);
+    ctx.font = `800 ${fs}px Inter, sans-serif`;
+    const tw = ctx.measureText(pillText).width;
+    const ph = Math.round(fs*2.0), pw = tw + fs*1.8;
+    const px = padding, py = topY + 72;
+    ctx.globalAlpha = .9;
+    ctx.fillStyle = 'rgba(0,0,0,.35)';
+    roundRect(px, py, pw, ph, ph/2);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,.45)'; ctx.lineWidth = 1.2; ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#fff';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(pillText, px + fs*0.9, py + ph/2);
+  }
+
+  // text bloc (headline, features, meta, CTA)
+  const align = ui.align.value;
+  const headline = (ui.headline.value||'').trim();
+  const features = (ui.features.value||'').trim();
+  const metaTxt = (ui.meta.value||'').trim();
+  const cta = (ui.cta.value||'').trim();
+
+  let x = padding, anchor = 'left';
+  if(align==='center'){ x = w/2; anchor = 'center'; }
+  if(align==='right'){ x = w - padding; anchor = 'right'; }
+
+  function setAlign(a){
+    if(a==='center'){ ctx.textAlign='center'; }
+    else if(a==='right'){ ctx.textAlign='right'; }
+    else { ctx.textAlign='left'; }
+  }
+
+  let curY = Math.round(h*0.58);
+  if(h > w) curY = Math.round(h*0.62); // story
+
+  // HEADLINE
+  setAlign(anchor);
+  ctx.fillStyle = '#fff';
+  ctx.textBaseline = 'alphabetic';
+  const hSize = Math.round(Math.min(w,h)*0.095); // proporțional
+  ctx.font = `800 ${hSize}px "Playfair Display", serif`;
+  wrapText(headline, x, curY, contentW, hSize*1.05, anchor);
+  curY += hSize*2.2; // spațiere aproximativă după 2 rânduri
+
+  // FEATURES
+  const fz = Math.round(Math.min(w,h)*0.028);
+  ctx.font = `700 ${fz}px Inter, sans-serif`;
+  ctx.fillStyle = 'rgba(255,255,255,.92)';
+  wrapText(features, x, curY, contentW, fz*1.4, anchor);
+  curY += fz*2.1;
+
+  // META (oraș • dată)
+  if(metaTxt){
+    const mz = Math.round(Math.min(w,h)*0.022);
+    ctx.font = `700 ${mz}px Inter, sans-serif`;
+    ctx.fillStyle = 'rgba(255,255,255,.75)';
+    wrapText(metaTxt, x, curY, contentW, mz*1.35, anchor);
+  }
+
+  // CTA
+  if(cta){
+    const btnY = h - padding - Math.round(Math.min(w,h)*0.11);
+    const bh = Math.round(Math.min(w,h)*0.075);
+    const fs = Math.round(bh*0.42);
+    ctx.font = `800 ${fs}px Inter, sans-serif`;
+    const tw = ctx.measureText(cta).width;
+    const bw = tw + fs*2.2;
+    let bx = x;
+    if(anchor==='center') bx = x - bw/2;
+    if(anchor==='right')  bx = x - bw;
+    ctx.fillStyle = GOLD;
+    ctx.globalAlpha = .98;
+    roundRect(bx, btnY, bw, bh, bh/2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = INK;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(cta, bx + bw/2, btnY + bh/2 + 1);
+  }
+
+  // SAFE ZONE vizual (opțional)
+  if(ui.safe.checked){
+    ctx.strokeStyle = 'rgba(255,255,255,.35)';
+    ctx.lineWidth = 2; ctx.setLineDash([10,8]);
+    ctx.strokeRect(padding-safe, padding-safe, contentW+safe*2, h - (padding*2) + safe*2);
+    ctx.setLineDash([]);
+  }
+}
+
+function wrapText(text, x, y, maxWidth, lineHeight, anchor='left'){
+  const words = text.split(/\s+/); let line = '';
+  const savedAlign = ctx.textAlign;
+  if(anchor==='center') ctx.textAlign='center';
+  if(anchor==='right') ctx.textAlign='right';
+  let cursorY = y;
+  for(let n=0;n<words.length;n++){
+    const test = line + words[n] + ' ';
+    const w = ctx.measureText(test).width;
+    if(w > maxWidth){ ctx.fillText(line, x, cursorY); line = words[n] + ' '; cursorY += lineHeight; }
+    else { line = test; }
+  }
+  ctx.fillText(line, x, cursorY);
+  ctx.textAlign = savedAlign;
+}
+
+function savePNG(){
+  const data = cv.toDataURL('image/png');
+  const a = document.createElement('a');
+  a.href = data; a.download = 'chef-prive.png'; a.click();
+}
+
+// init with a nice demo
+loadImage('https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=2000&q=70').then(draw);
+
+})();
+</script>
+</body>
+</html>
