@@ -3,70 +3,93 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Profil bucătar – Bucătarul Personal</title>
-  <meta name="description" content="Profil public bucătar pe Bucătarul Personal: specializări, galerie, recenzii și formular de cerere."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-  <meta name="theme-color" content="#0e5a43" />
+  <title>Profil bucătar — CHEF PRIVÉ</title>
+  <meta name="description" content="Profil public bucătar: specializări, galerie, recenzii și cerere rapidă. Private Chefs. Professional Taste."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FFFFFF" />
+  <meta property="og:title" content="Profil bucătar — CHEF PRIVÉ">
+  <meta property="og:description" content="Specializări, galerie, recenzii și cerere rapidă.">
+  <meta property="og:type" content="profile">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop">
+  <meta property="og:site_name" content="CHEF PRIVÉ">
+  <link rel="canonical" href="" id="canonical">
   <style>
-    :root{ --rubin:#0e5a43; --negru:#000; --alb:#fff; --gri1:#f5f7f8; --gri2:#e8ecee; --gri3:#cfd6da; --text:#1c2226; --shadow:0 16px 48px rgba(0,0,0,.14); --radius-lg:22px; }
+    :root{
+      --noir:#1C1C1C; --gold:#D4AF37; --graph:#8E8E93; --paper:#FFFFFF; --mist:#FAFAFB; --line:#E9E9EC;
+      --shadow-1:0 10px 30px rgba(0,0,0,.08); --shadow-2:0 16px 48px rgba(0,0,0,.14);
+      --rad:18px; --rad-lg:22px; --max:1160px;
+    }
     *{box-sizing:border-box}
-    html,body{margin:0}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.5}
-    a{color:inherit;text-decoration:none}
+    html{scroll-behavior:smooth}
+    body{margin:0;color:var(--noir);background:var(--paper);font:400 16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
     img{max-width:100%;display:block}
-    .container{width:min(1160px,92%);margin:0 auto}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(var(--max),92%);margin:0 auto}
+    h1,h2,h3{font-family:"Playfair Display",serif;color:var(--noir);letter-spacing:.2px}
 
-    /* Header (prefix pf-) */
-    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.8);backdrop-filter:blur(8px);border-bottom:1px solid var(--gri2)}
+    /* Header */
+    header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.8);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line)}
     .pf-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-    .pf-brand{display:flex;align-items:center;gap:10px}
-    .pf-brand img{height:46px}
+    .pf-brand{display:flex;align-items:center;gap:10px;color:inherit}
+    .pf-brand svg{width:40px;height:40px}
     .pf-links{display:flex;gap:18px;align-items:center}
-    .pf-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid var(--gri3);font-weight:700;cursor:pointer;background:#fff}
-    .pf-btn-primary{background:var(--rubin);color:#fff;border-color:transparent}
-    .pf-menu-btn{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--gri3);align-items:center;justify-content:center}
+    .pf-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid #ddd;font-weight:800;background:#fff}
+    .pf-btn-primary{background:var(--gold);border-color:var(--gold);color:#1C1C1C}
+    .pf-menu-btn{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);align-items:center;justify-content:center;background:#fff}
     @media(max-width:980px){.pf-links{display:none}.pf-menu-btn{display:flex}}
     .pf-mobile{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none}
     .pf-mobile.active{display:block}
-    .pf-sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;box-shadow:var(--shadow);padding:20px;display:flex;flex-direction:column;gap:10px}
-    .pf-sheet a{padding:12px 6px;border-bottom:1px solid var(--gri2);font-weight:700}
+    .pf-sheet{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;box-shadow:var(--shadow-2);padding:20px;display:flex;flex-direction:column;gap:6px}
+    .pf-sheet a{padding:12px 6px;border-bottom:1px solid var(--line);font-weight:700}
 
     /* Hero */
     .pf-hero{position:relative;isolation:isolate}
     .pf-hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
-    .pf-hero-media::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,10,.70),rgba(8,12,10,.4) 40%, rgba(8,12,10,.75));}
-    .pf-hero .pf-content{padding:12vh 0 10vh;color:#eaf5ef}
+    .pf-hero-media::before{
+      content:"";position:absolute;inset:0;
+      background:
+        radial-gradient(900px 600px at 110% -10%, rgba(212,175,55,.14), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.58), rgba(0,0,0,.42) 40%, rgba(0,0,0,.68));
+    }
+    .pf-hero .pf-content{padding:12vh 0 10vh;color:#fff}
+    .pf-avatar{width:160px;height:160px;border-radius:50%;overflow:hidden;border:3px solid #fff;box-shadow:0 10px 24px rgba(0,0,0,.25);margin-bottom:12px}
+    .pf-avatar img{width:100%;height:100%;object-fit:cover}
     .pf-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
     .pf-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35)}
-    .pf-avatar{width:160px;height:160px;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.95);box-shadow:0 10px 24px rgba(0,0,0,.25);margin-bottom:12px}
-    .pf-avatar img{width:100%;height:100%;object-fit:cover}
+    .pf-chip svg{width:16px;height:16px}
 
-    /* Layout */
+    /* Sections & cards */
     section{padding:48px 0;scroll-margin-top:90px}
-    .section-title{font-family:Playfair Display,serif;font-size:clamp(26px,4.5vw,36px);margin:0 0 8px}
-    .muted{color:#65737c}
+    .muted{color:var(--graph)}
     .pf-grid-2{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
     @media(max-width:980px){.pf-grid-2{grid-template-columns:1fr}}
-    .pf-card{background:#fff;border:1px solid var(--gri2);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow)}
-    .pf-tag{display:inline-block;padding:6px 10px;border:1px solid var(--gri3);border-radius:999px;font-size:12px;margin-right:6px}
+    .pf-card{background:#fff;border:1px solid var(--line);border-radius:var(--rad-lg);padding:18px;box-shadow:var(--shadow-1)}
+    .pf-tag{display:inline-block;padding:6px 10px;border:1px solid var(--line);border-radius:999px;font-size:12px;margin:0 6px 6px 0}
 
     /* Gallery */
     .pf-gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-    .pf-gallery .item{position:relative;border-radius:14px;overflow:hidden}
+    .pf-gallery .item{position:relative;border-radius:14px;overflow:hidden;box-shadow:var(--shadow-1)}
     .pf-gallery .tall{grid-row:span 2}
     .pf-gallery .wide{grid-column:span 2}
-    @media(max-width:980px){.pf-gallery{grid-template-columns:repeat(3,1fr)}.pf-gallery .tall{grid-row:span 1}}
+    @media(max-width:980px){.pf-gallery{grid-template-columns:repeat(3,1fr)}.pf-gallery .tall{grid-row:auto}}
     @media(max-width:560px){.pf-gallery{grid-template-columns:repeat(2,1fr)}}
 
+    /* Form */
+    .pf-form input, .pf-form textarea{
+      width:100%;padding:12px 14px;border:1px solid #E3E3E6;border-radius:12px;background:#FBFBFC;color:inherit
+    }
+    .pf-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:999px;border:1px solid #ddd;font-weight:800;background:#fff}
+    .btn.primary{background:var(--gold);border-color:var(--gold);color:#1C1C1C}
+
     /* Footer */
-    footer{background:#0b0f12;color:#cdd6dc;padding:46px 0 20px;margin-top:46px}
+    footer{background:#0b0f12;color:#cdd6dc;margin-top:46px}
+    .pf-foot{padding:46px 0 20px}
     .pf-foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:18px}
     @media(max-width:980px){.pf-foot-grid{grid-template-columns:1fr 1fr}}
     @media(max-width:640px){.pf-foot-grid{grid-template-columns:1fr}}
-    .legal{border-top:1px solid #2c353b;margin-top:16px;padding-top:12px;font-size:13px;color:#99a5ad}
+    .legal{border-top:1px solid #2c353b;margin-top:16px;padding:12px 0;font-size:13px;color:#99a5ad;text-align:center}
   </style>
 </head>
 <body>
@@ -74,51 +97,66 @@
   <header>
     <div class="container pf-nav">
       <a class="pf-brand" href="/" aria-label="Acasă">
-        <img src="/static/logo-bucatarul-personal.png" alt="Bucătarul Personal – logo" />
-        <strong>Bucătarul Personal</strong>
+        <!-- Sigiliu -->
+        <svg viewBox="0 0 220 220" aria-hidden="true">
+          <rect width="220" height="220" fill="#FFFFFF"/>
+          <g transform="translate(50,50)">
+            <circle cx="60" cy="60" r="46" fill="none" stroke="#1C1C1C" stroke-width="4"/>
+            <path d="M60 42c7 0 13 6 13 13v1h11c1 0 2 1 2 2v10c0 1-1 2-2 2H36c-1 0-2-1-2-2V58c0-1 1-2 2-2h11v-1c0-7 6-13 13-13z" fill="none" stroke="#D4AF37" stroke-width="4"/>
+            <path d="M81 102a30 30 0 1 1 0-56" fill="none" stroke="#1C1C1C" stroke-width="4" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <div>
+          <div style="font-family:'Playfair Display',serif;letter-spacing:3px">CHEF PRIVÉ</div>
+          <small class="muted" style="letter-spacing:1px">Bucătarul Personal</small>
+        </div>
       </a>
       <nav class="pf-links" aria-label="Navigație">
         <a href="/bucatarii.html">Bucătari</a>
         <a href="/servicii.html">Servicii</a>
         <a href="/despre-noi.html">Despre noi</a>
         <a href="/contact.html">Contact</a>
-        <a href="/contul_meu" class="pf-btn"><i class="fa-solid fa-user"></i> Contul meu</a>
-        <a href="/contact.html" class="pf-btn pf-btn-primary"><i class="fa-solid fa-utensils"></i> Vreau un bucătar</a>
+        <a href="/contul.html" class="pf-btn" aria-label="Contul meu">Contul meu</a>
+        <a href="/#formular" class="pf-btn pf-btn-primary" aria-label="Vreau un bucătar">Vreau un bucătar</a>
       </nav>
-      <button id="pf-menu" class="pf-menu-btn" aria-label="Deschide meniul"><i class="fa-solid fa-bars"></i></button>
+      <button id="pf-menu" class="pf-menu-btn" aria-label="Deschide meniul" aria-controls="pf-mobile" aria-expanded="false">☰</button>
     </div>
     <div id="pf-mobile" class="pf-mobile" aria-hidden="true">
       <div class="pf-sheet" role="dialog" aria-modal="true" aria-label="Meniu">
         <div style="display:flex;align-items:center;justify-content:space-between">
-          <strong>Menu</strong>
-          <button id="pf-close" class="pf-btn"><i class="fa-solid fa-xmark"></i> Închide</button>
+          <strong>Meniu</strong>
+          <button id="pf-close" class="pf-btn" aria-label="Închide meniul">✕ Închide</button>
         </div>
         <a href="/bucatarii.html">Bucătari</a>
         <a href="/servicii.html">Servicii</a>
         <a href="/despre-noi.html">Despre noi</a>
         <a href="/contact.html">Contact</a>
-        <a href="/contul_meu" class="pf-btn"><i class="fa-solid fa-user"></i> Contul meu</a>
-        <a href="/contact.html" class="pf-btn pf-btn-primary"><i class="fa-solid fa-utensils"></i> Vreau un bucătar</a>
+        <a href="/contul.html" class="pf-btn">Contul meu</a>
+        <a href="/#formular" class="pf-btn pf-btn-primary">Vreau un bucătar</a>
       </div>
     </div>
   </header>
 
-  <!-- Hero profil (dinamic) -->
+  <!-- Hero profil -->
   <section class="pf-hero" aria-label="Profil bucătar">
     <div class="pf-hero-media" aria-hidden="true">
       <picture>
         <source srcset="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=2200&auto=format&fit=crop&q=65&fm=webp" type="image/webp">
-        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2200&auto=format&fit=crop" alt="Chef în bucătărie" loading="eager" style="width:100%;height:72vh;object-fit:cover" />
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2200&auto=format&fit=crop" alt="" loading="eager" style="width:100%;height:72vh;object-fit:cover" />
       </picture>
     </div>
     <div class="container pf-content">
-      <div class="pf-avatar"><img id="pf-avatar" src="" alt="Poză bucătar"/></div>
-      <span id="pf-city" class="pf-chip"><i class="fa-solid fa-location-dot"></i> — </span>
-      <h1 id="pf-name" style="font-family:Playfair Display,serif;font-size:clamp(34px,5vw,56px);margin:12px 0 6px">—</h1>
-      <div class="pf-chips" id="pf-specials"></div>
+      <div class="pf-avatar"><img id="pf-avatar" src="" alt="Poză bucătar"></div>
+      <span id="pf-city" class="pf-chip" aria-live="polite">
+        <!-- pin -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="#fff" stroke-width="1.7" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"/></svg>
+        —
+      </span>
+      <h1 id="pf-name" style="font-size:clamp(34px,5vw,56px);margin:12px 0 6px">—</h1>
+      <div class="pf-chips" id="pf-specials" aria-label="Specializări"></div>
       <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
-        <a href="#cerere" class="pf-btn pf-btn-primary"><i class="fa-solid fa-calendar-check"></i> Cere o ofertă</a>
-        <a href="#galerie" class="pf-btn"><i class="fa-solid fa-images"></i> Vezi galerie</a>
+        <a href="#cerere" class="pf-btn pf-btn-primary">Cere o ofertă</a>
+        <a href="#galerie" class="pf-btn">Vezi galerie</a>
       </div>
     </div>
   </section>
@@ -128,7 +166,7 @@
     <div class="pf-grid-2">
       <article class="pf-card">
         <h2 class="section-title">Despre bucătar</h2>
-        <p id="pf-about">—</p>
+        <p id="pf-about" class="muted" style="color:#2a2a2a">—</p>
         <div id="pf-tags" style="margin-top:10px"></div>
       </article>
       <aside class="pf-card">
@@ -146,48 +184,28 @@
     <div class="pf-gallery" id="pf-gallery" style="margin-top:12px"></div>
   </section>
 
-  <!-- Recenzii (placeholder static pentru demo) -->
+  <!-- Recenzii -->
   <section class="container">
     <h2 class="section-title">Recenzii</h2>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px" id="pf-reviews"></div>
+    <div id="pf-reviews" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px"></div>
   </section>
 
-  <!-- Formular cerere-->
+  <!-- Formular cerere -->
   <section id="cerere" class="container">
     <h2 class="section-title">Cere o ofertă</h2>
     <div class="pf-card">
-      <form class="pf-grid-2" onsubmit="event.preventDefault(); alert('Cererea a fost trimisă. Mulțumim!');">
-        <div>
-          <label>Nume</label>
-          <input required placeholder="Nume și Prenume" />
-        </div>
-        <div>
-          <label>Email</label>
-          <input required type="email" placeholder="email@exemplu.ro" />
-        </div>
-        <div>
-          <label>Telefon</label>
-          <input required placeholder="07xx xxx xxx" />
-        </div>
-        <div>
-          <label>Oraș</label>
-          <input placeholder="Oraș" />
-        </div>
-        <div>
-          <label>Data eveniment</label>
-          <input type="date" />
-        </div>
-        <div>
-          <label>Nr. persoane</label>
-          <input type="number" min="1" />
-        </div>
-        <div style="grid-column:1/-1">
-          <label>Detalii</label>
-          <textarea placeholder="Preferințe, restricții, oră de începere…"></textarea>
-        </div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-          <button class="pf-btn pf-btn-primary"><i class="fa-solid fa-paper-plane"></i> Trimite cererea</button>
-          <a class="pf-btn" target="_blank" rel="noopener" href="https://wa.me/40772893476"><i class="fa-brands fa-whatsapp"></i> Scrie pe WhatsApp</a>
+      <form class="pf-grid-2 pf-form" id="pf-form" novalidate>
+        <div><label>Nume</label><input name="nume" required placeholder="Nume și Prenume" /></div>
+        <div><label>Email</label><input name="email" required type="email" placeholder="email@exemplu.ro" /></div>
+        <div><label>Telefon</label><input name="tel" required placeholder="07xx xxx xxx" /></div>
+        <div><label>Oraș</label><input name="oras" placeholder="Oraș" /></div>
+        <div><label>Data eveniment</label><input name="data" type="date" /></div>
+        <div><label>Nr. persoane</label><input name="pers" type="number" min="1" /></div>
+        <div style="grid-column:1/-1"><label>Detalii</label><textarea name="detalii" rows="4" placeholder="Preferințe, restricții, oră de începere…"></textarea></div>
+        <div class="pf-actions">
+          <button class="btn primary" type="submit">Trimite cererea</button>
+          <a class="btn" target="_blank" rel="noopener" href="https://wa.me/40772893476">Scrie pe WhatsApp</a>
+          <span id="pf-ok" style="display:none;color:#2C3E2F;font-weight:800">Cerere trimisă ✅</span>
         </div>
       </form>
     </div>
@@ -195,83 +213,103 @@
 
   <!-- Footer -->
   <footer>
-    <div class="container pf-foot-grid">
-      <div>
-        <strong style="color:#eaf5ef">Bucătarul Personal</strong>
-        <p style="margin:10px 0 0;color:#b7c2c8">Chefs de top pentru cine private, evenimente corporate și meniuri zilnice.</p>
-      </div>
-      <div>
-        <strong style="color:#eaf5ef">Companie</strong>
-        <ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px">
-          <li><a href="/despre-noi.html">Despre noi</a></li>
-          <li><a href="/servicii.html">Servicii</a></li>
-          <li><a href="/bucatarii.html">Bucătari</a></li>
-          <li><a href="/testimoniale.html">Testimoniale</a></li>
-        </ul>
-      </div>
-      <div>
-        <strong style="color:#eaf5ef">Legal</strong>
-        <ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px">
-          <li><a href="#">Termeni & Condiții</a></li>
-          <li><a href="#">Politica de confidențialitate</a></li>
-          <li><a href="#">Cookies</a></li>
-        </ul>
-      </div>
-      <div>
-        <strong style="color:#eaf5ef">Contact</strong>
-        <div style="display:flex;gap:10px;margin-top:10px;align-items:center">
-          <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i> 0772 893 476</a>
+    <div class="pf-foot">
+      <div class="container pf-foot-grid">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <svg width="28" height="28" viewBox="0 0 220 220" aria-hidden="true">
+              <rect width="220" height="220" fill="#FFFFFF"/>
+              <g transform="translate(50,50)">
+                <circle cx="60" cy="60" r="46" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+                <path d="M60 42c7 0 13 6 13 13v1h11c1 0 2 1 2 2v10c0 1-1 2-2 2H36c-1 0-2-1-2-2V58c0-1 1-2 2-2h11v-1c0-7 6-13 13-13z" fill="none" stroke="#D4AF37" stroke-width="4"/>
+                <path d="M81 102a30 30 0 1 1 0-56" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+              </g>
+            </svg>
+            <div>
+              <strong style="color:#eaf5ef;letter-spacing:1.2px">CHEF PRIVÉ</strong><br>
+              <small style="color:#b7c2c8">Bucătarul Personal</small>
+            </div>
+          </div>
+          <p style="margin:10px 0 0;color:#b7c2c8">Chefs de top pentru cine private & evenimente corporate.</p>
+        </div>
+        <div>
+          <strong style="color:#eaf5ef">Companie</strong>
+          <ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px">
+            <li><a href="/despre-noi.html">Despre noi</a></li>
+            <li><a href="/servicii.html">Servicii</a></li>
+            <li><a href="/bucatarii.html">Bucătari</a></li>
+            <li><a href="/testimoniale.html">Testimoniale</a></li>
+          </ul>
+        </div>
+        <div>
+          <strong style="color:#eaf5ef">Legal</strong>
+          <ul style="list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px">
+            <li><a href="/termeni">Termeni & Condiții</a></li>
+            <li><a href="/confidentialitate">Confidențialitate</a></li>
+            <li><a href="/cookies">Cookies</a></li>
+          </ul>
+        </div>
+        <div>
+          <strong style="color:#eaf5ef">Contact</strong>
+          <div style="display:flex;gap:10px;margin-top:10px;align-items:center">
+            <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="WhatsApp">0772 893 476</a>
+          </div>
         </div>
       </div>
     </div>
-    <div class="container legal">© <span id="pf-year"></span> Bucătarul Personal — Toate drepturile rezervate.</div>
+    <div class="container legal">© <span id="pf-year"></span> CHEF PRIVÉ — Toate drepturile rezervate.</div>
   </footer>
 
   <!-- WhatsApp floating -->
-  <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="Scrie pe WhatsApp" style="position:fixed;right:18px;bottom:18px;width:54px;height:54px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 10px 24px rgba(0,0,0,.18);z-index:50"><i class="fa-brands fa-whatsapp" style="font-size:24px"></i></a>
+  <a href="https://wa.me/40772893476" target="_blank" rel="noopener" aria-label="Scrie pe WhatsApp"
+     style="position:fixed;right:18px;bottom:18px;width:54px;height:54px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 10px 24px rgba(0,0,0,.18);z-index:50">💬</a>
+
+  <script type="application/ld+json" id="pf-jsonld">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Chef",
+    "jobTitle":"Private Chef",
+    "image":"",
+    "address":{"@type":"PostalAddress","addressLocality":""}
+  }
+  </script>
 
   <script>
-  // Tot JS izolat (prefix pf-) pentru a evita coliziuni
-  (()=>{
-    const $ = (s, r=document) => r.querySelector(s);
-    const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+  (()=>{ // pf- scope
+    const $=(s,r=document)=>r.querySelector(s);
 
-    const mob = $('#pf-mobile'), btn = $('#pf-menu'), x = $('#pf-close');
-    if(mob && btn && x){
-      if(mob.dataset.bound==='1') return; mob.dataset.bound='1';
-      const open = () => mob.classList.add('active');
-      const close = () => mob.classList.remove('active');
-      btn.addEventListener('click', open); x.addEventListener('click', close);
-      mob.addEventListener('click', e => { if(e.target===mob) close(); });
-      document.addEventListener('keydown', e => { if(e.key==='Escape') close(); });
-      mob.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
-    }
-    const yearEl = $('#pf-year'); if(yearEl) yearEl.textContent = new Date().getFullYear();
+    // Mobile menu
+    const mob=$('#pf-mobile'), btn=$('#pf-menu'), closeBtn=$('#pf-close');
+    function open(){mob.classList.add('active'); btn.setAttribute('aria-expanded','true');}
+    function close(){mob.classList.remove('active'); btn.setAttribute('aria-expanded','false');}
+    btn?.addEventListener('click',open);
+    closeBtn?.addEventListener('click',close);
+    mob?.addEventListener('click',e=>{ if(e.target===mob) close(); });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
 
-    // === Încărcare date profil din localStorage sau fallback (demo) ===
-    const url = new URL(location.href);
-    const id = url.searchParams.get('id') || '99538';
-    const key = 'BP_CHEF_PROFILE_' + id;
-    let data = null;
-    try { data = JSON.parse(localStorage.getItem(key)); } catch(e){}
+    // Year
+    const y=$('#pf-year'); if(y) y.textContent=new Date().getFullYear();
 
+    // Load profile (localStorage demo fallback)
+    const url=new URL(location.href);
+    const id=url.searchParams.get('id')||'99538';
+    const key='BP_CHEF_PROFILE_'+id;
+    let data=null; try{ data=JSON.parse(localStorage.getItem(key)); }catch(e){}
     if(!data){
-      // DEMO fallback – Valeriu
-      data = {
-        id: '99538',
-        name: 'Chef Valeriu',
-        city: 'București, Ilfov',
-        avatar: url.searchParams.get('avatar') || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop',
-        specialties: ['Românesc modern','Grill','Healthy'],
-        tags: ['Plating artistic','Seafood','Dietetic','Family‑style'],
-        about: 'Bucătar cu peste 10 ani experiență, specializat în reinterpretări ale bucătăriei românești și grill. Pasionat de ingrediente locale, plating curat și meniuri echilibrate.',
-        services: [
+      data={
+        id, name:'Chef Valeriu', city:'București, Ilfov',
+        avatar:url.searchParams.get('avatar')||'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop',
+        specialties:['Românesc modern','Grill','Healthy'],
+        tags:['Plating artistic','Seafood','Dietetic','Family-style'],
+        about:'Bucătar cu peste 10 ani experiență, specializat în reinterpretări ale bucătăriei românești și grill. Pasionat de ingrediente locale și plating curat.',
+        services:[
           'Consultanță meniu & achiziție ingrediente',
           'Gătit la fața locului • servire la masă',
           'Curățenie de bază după eveniment',
-          'Opțiuni vegetariene/low‑carb la cerere'
+          'Opțiuni vegetariene/low-carb la cerere'
         ],
-        gallery: [
+        gallery:[
           'https://images.unsplash.com/photo-1526045431048-71d02a171c7f?q=80&w=900&auto=format&fit=crop',
           'https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?q=80&w=1200&auto=format&fit=crop',
           'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop',
@@ -279,57 +317,64 @@
           'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=900&auto=format&fit=crop',
           'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop'
         ],
-        reviews: [
-          {t:'„Meniu impecabil și plating superb. Recomand cu încredere!”', a:'Raluca, cină privată'},
-          {t:'„Servire profesionistă, mâncare excelentă, totul la timp.”', a:'Andrei, HR Manager'},
-          {t:'„A fost exact ce ne doream pentru aniversare.”', a:'Ioana'}
+        reviews:[
+          {t:'„Meniu impecabil și plating superb.”', a:'Raluca, cină privată'},
+          {t:'„Servire profesionistă, mâncare excelentă.”', a:'Andrei, HR Manager'},
+          {t:'„Exact ce ne doream pentru aniversare.”', a:'Ioana'}
         ]
       };
     }
 
-    // Populate UI
-    $('#pf-name').textContent = data.name || 'Bucătar';
-    $('#pf-city').innerHTML = '<i class="fa-solid fa-location-dot"></i> ' + (data.city||'');
-    const av = $('#pf-avatar'); if(av){ av.src = data.avatar || ''; av.addEventListener('error', ()=>{ av.src = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop'; }, { once:true }); }
+    // Populate
+    $('#pf-name').textContent=data.name||'Bucătar';
+    const cityEl=$('#pf-city'); cityEl.innerHTML = cityEl.innerHTML.replace('—', data.city||'');
+    const av=$('#pf-avatar'); av.src=data.avatar||''; av.loading='eager';
+    av.addEventListener('error',()=>{ av.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop'; },{once:true});
 
-    const specials = $('#pf-specials');
-    (data.specialties||[]).forEach(s=>{ const span=document.createElement('span'); span.className='pf-chip'; span.innerHTML=s; specials.appendChild(span); });
+    const specs=$('#pf-specials');
+    (data.specialties||[]).forEach(s=>{ const chip=document.createElement('span'); chip.className='pf-chip'; chip.textContent=s; specs.appendChild(chip); });
+    $('#pf-about').textContent=data.about||'';
+    const tags=$('#pf-tags'); (data.tags||[]).forEach(t=>{ const el=document.createElement('span'); el.className='pf-tag'; el.textContent=t; tags.appendChild(el); });
+    const ul=$('#pf-services'); (data.services||[]).forEach(s=>{ const li=document.createElement('li'); li.textContent=s; ul.appendChild(li); });
 
-    $('#pf-about').textContent = data.about||'';
-    const tags = $('#pf-tags'); (data.tags||[]).forEach(t=>{ const x=document.createElement('span'); x.className='pf-tag'; x.textContent=t; tags.appendChild(x); });
-    const ul = $('#pf-services'); (data.services||[]).forEach(s=>{ const li=document.createElement('li'); li.textContent=s; ul.appendChild(li); });
-
-    const gal = $('#pf-gallery');
+    const gal=$('#pf-gallery');
     (data.gallery||[]).forEach((src,i)=>{
       const d=document.createElement('div'); d.className='item '+((i%3===0)?'tall':(i%4===0)?'wide':'');
-      const img=new Image(); img.loading='lazy'; img.alt='Foto '+(i+1); img.src=src; d.appendChild(img); gal.appendChild(d);
+      const img=new Image(); img.loading='lazy'; img.decoding='async'; img.alt='Foto '+(i+1); img.src=src;
+      d.appendChild(img); gal.appendChild(d);
     });
 
-    const revWrap = $('#pf-reviews');
+    const rev=$('#pf-reviews');
     (data.reviews||[]).forEach(r=>{
       const card=document.createElement('div'); card.className='pf-card';
-      card.innerHTML = `<p>${r.t}</p><p class="muted">— ${r.a}</p>`; revWrap.appendChild(card);
+      card.innerHTML=`<p style="margin:0 0 6px"> ${r.t} </p><p class="muted" style="margin:0">— ${r.a}</p>`;
+      rev.appendChild(card);
     });
 
-    // === Helpers pentru URL frumos: /bucatar/{id}/{slug} ===
-    const slugify = s => (s||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-    const slug = slugify(data.name);
-    const pretty = `/bucatar/${data.id||id}/${slug}`;
-    history.replaceState(null, '', pretty);
+    // Pretty URL + canonical
+    const slugify=s=>(s||'').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    const slug=slugify(data.name); const pretty=`/bucatar/${data.id}/${slug}`;
+    history.replaceState(null,'',pretty);
+    const can=document.getElementById('canonical'); if(can) can.href=location.origin+pretty;
 
-    // Expune util (debug): window.PF_PROFILE.save(data)
-    window.PF_PROFILE = {
-      save:(d)=>{ localStorage.setItem('BP_CHEF_PROFILE_'+(d.id||id), JSON.stringify(d)); alert('Profil salvat local.'); },
-      key
-    };
+    // JSON-LD update
+    const ld=document.getElementById('pf-jsonld'); try{
+      const json=JSON.parse(ld.textContent);
+      json.name=data.name; json.image=data.avatar; json.address.addressLocality=data.city||'';
+      ld.textContent=JSON.stringify(json);
+    }catch(e){}
 
-    // --- Mini test ---
-    function assert(c,m){ if(!c) throw new Error('TEST FAIL: '+m); console.log('TEST OK: '+m); }
-    try{
-      assert($('#pf-name').textContent.trim().length>0,'nume set');
-      assert($('#pf-avatar').getAttribute('src')!=='' ,'avatar set');
-      console.log('[PF] All tests passed ✅');
-    }catch(e){ console.error(e); }
+    // Form demo
+    const form=document.getElementById('pf-form'), ok=document.getElementById('pf-ok');
+    form?.addEventListener('submit', e=>{
+      e.preventDefault();
+      if(!form.checkValidity()) return;
+      ok.style.display='inline-block';
+      setTimeout(()=>{ ok.style.display='none'; form.reset(); }, 3000);
+    });
+
+    // expose util
+    window.PF_PROFILE={ save:(d)=>{ localStorage.setItem('BP_CHEF_PROFILE_'+(d.id||data.id), JSON.stringify(d)); alert('Profil salvat local.'); }, key };
   })();
   </script>
 </body>
