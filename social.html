@@ -2,448 +2,360 @@
 <html lang="ro">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Social Lite – CHEF PRIVÉ</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CHEF PRIVÉ • Template-uri Social v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#1C1C1C; --gold:#D4AF37; --paper:#FFFFFF; --veil:#0c0f0f; --mist:#F4F5F6;
-  --rad:18px; --ring:1px solid rgba(0,0,0,.10); --shadow:0 14px 40px rgba(0,0,0,.14);
-}
-*{box-sizing:border-box} html,body{margin:0;background:var(--mist);color:var(--ink);font:500 16px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-.wrap{max-width:1100px;margin:18px auto;padding:0 14px;display:grid;gap:14px}
-.head{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-radius:16px;padding:10px 12px;border:var(--ring);box-shadow:var(--shadow)}
-.brand{display:flex;gap:10px;align-items:center}
-.brand svg{width:46px;height:46px}
-.brand .name{font-family:"Playfair Display",serif;font-weight:800;letter-spacing:3px}
-.badge{padding:6px 10px;border-radius:999px;border:1px dashed rgba(0,0,0,.2);font-weight:800;background:#fff}
-.panels{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}
-@media(max-width:980px){.panels{grid-template-columns:1fr}}
-.card{background:#fff;border:var(--ring);border-radius:16px;box-shadow:var(--shadow)}
-.controls{padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:720px){.controls{grid-template-columns:1fr}}
-.controls label{font-size:13px;font-weight:700;color:#485155}
-.controls input,.controls select,.controls textarea{width:100%;padding:10px 12px;border:1px solid #E1E5E8;border-radius:12px;background:#FBFCFD}
-.controls textarea{min-height:64px;resize:vertical}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-.btn{padding:10px 14px;border-radius:12px;border:1px solid #D9DEE2;background:#fff;font-weight:800;cursor:pointer}
-.btn.primary{background:var(--gold);border-color:var(--gold);color:#1C1C1C}
-.btn.dark{background:#111;color:#fff;border-color:#111}
-.preview{padding:12px}
-.canvas-wrap{background:linear-gradient(120deg,#eceff2,#f7f8fa);border-radius:16px;border:var(--ring);overflow:hidden;display:grid;place-items:center}
-canvas{max-width:100%;height:auto;display:block;background:#000}
+:root{ --ink:#1C1C1C; --gold:#D4AF37; --paper:#fff; --line:#e9e9ec; --muted:#6f7680; }
+*{box-sizing:border-box}
+html,body{margin:0;background:#f6f7f9;color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+h3{font-family:"Playfair Display",serif;margin:.3em 0}
 
-/* tiny helper chips */
-.checks{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.toggle{display:inline-flex;gap:8px;align-items:center}
-.range{display:flex;gap:8px;align-items:center}
-footer{padding:10px 12px;text-align:center;color:#6b7680;font-size:13px}
-kbd{background:#f0f2f4;border:1px solid #dfe4e8;border-radius:6px;padding:2px 6px;font-family:ui-monospace,Menlo,Consolas,monospace}
+/* panel */
+.wrap{max-width:1200px;margin:16px auto;padding:0 14px}
+.panel{position:sticky;top:0;background:#ffffffcc;backdrop-filter:saturate(140%) blur(6px);
+  border:1px solid var(--line);border-radius:16px;padding:12px;z-index:10}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input[type="text"], input[type="url"], select{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;min-width:200px}
+.btn{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:800;cursor:pointer}
+.btn.primary{background:var(--gold);border-color:transparent;color:#1b1b1b}
+.small{font-size:12px;color:var(--muted)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .logo{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;background:#fff}
+.brand .name{letter-spacing:3px;font-weight:800}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:14px}
+@media(max-width:980px){.grid{grid-template-columns:1fr}}
+
+/* card / frame */
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 42px rgba(0,0,0,.08);padding:10px}
+.meta{display:flex;justify-content:space-between;color:#7b8188;font-size:12px;margin-top:8px}
+
+.frame{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#000;isolation:isolate}
+.frame .bg{position:absolute;inset:0;background:#000 center/cover no-repeat;z-index:0}
+.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.7));z-index:1;opacity:1}
+.inner{position:absolute;inset:0;padding:24px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;z-index:2}
+.top{display:flex;align-items:center;gap:10px}
+.mark{width:44px;height:44px;border-radius:50%;border:1.4px solid #fff;background:#fff;display:grid;place-items:center;overflow:hidden}
+.kicker{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.25);font-weight:800;font-size:13px}
+.title{font-family:"Playfair Display",serif;font-size:40px;line-height:1.06;margin:10px 0}
+.body{color:#e7edf1}
+.cta{align-self:flex-start;background:var(--gold);color:#1b1b1b;padding:10px 16px;border-radius:999px;font-weight:800;text-decoration:none}
+.pill{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.35);font-weight:700}
+
+.strip{position:absolute;left:0;right:0;bottom:0;height:14px;background:var(--gold);z-index:3;display:block}
+
+/* alignment variants */
+.align-center .inner{align-items:center;text-align:center}
+.align-center .cta{align-self:center}
+
+/* sizes preview via aspect-ratio */
+#sq.frame{aspect-ratio:1/1}
+#story.frame{aspect-ratio:9/16}
+#port.frame{aspect-ratio:4/5}
+#land.frame{aspect-ratio:1200/628}
+
+/* selection */
+.sel{outline:3px solid var(--gold)}
+
+/* safe zone */
+.safe{position:absolute;inset:0;border:2px dashed rgba(255,255,255,.55);border-radius:14px;margin:8% 6%;pointer-events:none;z-index:4;display:none}
+.safe.show{display:block}
+
+/* stars */
+.stars{display:flex;gap:3px}
+.stars svg{width:18px;height:18px;fill:#F59E0B;filter:drop-shadow(0 1px 0 rgba(0,0,0,.25))}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="head">
-    <div class="brand">
-      <!-- mini logo -->
-      <svg viewBox="0 0 220 220" aria-hidden="true">
-        <rect width="220" height="220" rx="110" fill="#fff" />
-        <circle cx="110" cy="110" r="96" fill="none" stroke="#1C1C1C" stroke-width="8"/>
-        <circle cx="110" cy="110" r="74" fill="none" stroke="#D4AF37" stroke-width="10" stroke-dasharray="320 480" stroke-linecap="round"/>
-        <path d="M138 150a50 50 0 1 1 0-80" fill="none" stroke="#1C1C1C" stroke-width="10" stroke-linecap="round"/>
-      </svg>
-      <div>
-        <div class="name">CHEF PRIVÉ</div>
-        <div style="color:#6b7680;font-weight:700;margin-top:2px">Bucătarul Personal</div>
+
+  <!-- Control panel -->
+  <div class="panel">
+    <div class="row" style="justify-content:space-between">
+      <div class="brand">
+        <span class="logo" id="brandLogo"></span>
+        <span>
+          <div class="name">CHEF PRIVÉ</div>
+          <div class="small">Bucătarul Personal • Ink #1C1C1C • Gold #D4AF37</div>
+        </span>
+      </div>
+      <div class="row">
+        <select id="preset">
+          <option value="std">Standard</option>
+          <option value="event">Eveniment reușit</option>
+          <option value="review">Recenzie 5★</option>
+          <option value="chef">Chef nou</option>
+          <option value="offer">Ofertă sezonieră</option>
+          <option value="hiring">Recrutăm</option>
+        </select>
+        <select id="align">
+          <option value="left">Aliniere: Stânga</option>
+          <option value="center">Aliniere: Centrat</option>
+        </select>
+        <label class="small">Overlay <input id="veil" type="range" min="20" max="80" value="55"> <span id="veilv">55</span>%</label>
+        <label class="small"><input type="checkbox" id="strip" checked> bandă aurie</label>
+        <label class="small"><input type="checkbox" id="logo" checked> logo</label>
+        <label class="small"><input type="checkbox" id="pill" checked> pilulă „Oraș • Dată”</label>
+        <label class="small"><input type="checkbox" id="safe"> safe zone</label>
       </div>
     </div>
-    <div class="badge">Paletă: Ink #1C1C1C • Gold #D4AF37</div>
-  </div>
-
-  <div class="panels">
-    <!-- Controls -->
-    <div class="card">
-      <form id="ui" class="controls">
-        <div class="row">
-          <div>
-            <label>Format</label>
-            <select id="fmt">
-              <option value="1080x1080">Post 1:1 (1080×1080)</option>
-              <option value="1080x1920">Story/Reel (1080×1920)</option>
-              <option value="1080x1350">4:5 Portrait (1080×1350)</option>
-              <option value="1920x1080">Banner 16:9 (1920×1080)</option>
-            </select>
-          </div>
-          <div>
-            <label>Aliniere text</label>
-            <select id="align">
-              <option value="left">Stânga</option>
-              <option value="center">Centru</option>
-              <option value="right">Dreapta</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="range">
-          <label style="min-width:84px">Overlay</label>
-          <input id="overlay" type="range" min="25" max="80" step="1" value="55">
-          <span id="overlayVal">55%</span>
-        </div>
-
-        <div class="checks" style="margin-top:2px">
-          <label class="toggle"><input id="showLogo" type="checkbox" checked> logo</label>
-          <label class="toggle"><input id="showPill" type="checkbox" checked> pilulă „Private Chefs… ”</label>
-          <label class="toggle"><input id="showBand" type="checkbox" checked> bandă aurie</label>
-          <label class="toggle"><input id="safe" type="checkbox"> safe-zone</label>
-        </div>
-
-        <div>
-          <label>Headline</label>
-          <textarea id="headline">Experiență de restaurant, la tine acasă.</textarea>
-        </div>
-        <div>
-          <label>Avantaje (separator •)</label>
-          <input id="features" value="Chefi verificați • Contract & Factură • România & Italia">
-        </div>
-        <div class="row">
-          <div>
-            <label>Badge mic</label>
-            <input id="badge" value="Private Chefs • Professional Taste">
-          </div>
-          <div>
-            <label>CTA</label>
-            <input id="cta" value="Rezervă">
-          </div>
-        </div>
-        <div class="row">
-          <div>
-            <label>Oraș • Dată</label>
-            <input id="meta" value="București • 24 iun">
-          </div>
-          <div>
-            <label>Link imagine (opțional)</label>
-            <input id="imgUrl" placeholder="https://images.unsplash.com/photo-...">
-          </div>
-        </div>
-        <div class="row">
-          <div>
-            <label>Încarcă imagine</label>
-            <input id="file" type="file" accept="image/*">
-          </div>
-          <div>
-            <label>Export</label>
-            <select id="scale">
-              <option value="1">1x (1080px latura)</option>
-              <option value="2">2x (retina)</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button type="button" class="btn" id="apply">Aplică</button>
-          <button type="button" class="btn primary" id="save">Descarcă PNG</button>
-          <button type="button" class="btn dark" id="demo1">Preset Story</button>
-          <button type="button" class="btn" id="demo2">Preset 1:1</button>
-        </div>
-        <div style="font-size:13px;color:#6b7680">
-          Tip: dacă linkul nu se încarcă (CORS), folosește <b>Încarcă imagine</b>. Pentru Unsplash, pune linkul direct din
-          <kbd>images.unsplash.com</kbd>.
-        </div>
-      </form>
+    <div class="row" style="margin-top:8px">
+      <input id="t1" type="text" value="Experiență de restaurant, la tine acasă." placeholder="Titlu">
+      <input id="t2" type="text" value="Chefi verificați • Contract & factură • România & Italia" placeholder="Subtitlu">
+      <input id="t3" type="text" value="Private Chefs • Professional Taste" placeholder="Kicker">
+      <input id="cta" type="text" value="Rezervă" placeholder="CTA">
+      <input id="loc" type="text" value="București • 24 Iun" placeholder="Oraș • Dată">
     </div>
-
-    <!-- Preview -->
-    <div class="card preview">
-      <div class="canvas-wrap">
-        <canvas id="cv" width="1080" height="1080" aria-label="Previzualizare"></canvas>
-      </div>
+    <div class="row" style="margin-top:8px">
+      <input id="bg" type="url" value="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format&fit=crop" placeholder="URL imagine">
+      <input id="file" type="file" accept="image/*">
+      <select id="scale">
+        <option value="1">Export 1× (1080px latura)</option>
+        <option value="2">Export 2× (2160px latura)</option>
+      </select>
+      <button class="btn" id="apply">Aplică</button>
+      <button class="btn primary" id="download">Descarcă PNG</button>
+      <span class="small">selectează cadrul dorit înainte de export</span>
     </div>
   </div>
 
-  <footer>© CHEF PRIVÉ — paletă Ink #1C1C1C • Gold #D4AF37 • Paper #FFFFFF</footer>
+  <!-- Frames -->
+  <div class="grid">
+    <section class="card">
+      <h3>Post pătrat 1080×1080</h3>
+      <div class="frame sel" id="sq" tabindex="0">
+        <div class="bg" data-bg></div>
+        <div class="veil" data-veil></div>
+        <div class="inner">
+          <div class="top">
+            <span class="mark" data-logo></span>
+            <span class="kicker" data-kicker>Private Chefs • Professional Taste</span>
+          </div>
+          <div>
+            <div class="title" data-title>Experiență de restaurant, la tine acasă.</div>
+            <div class="body" data-body>Chefi verificați • Contract & factură • România & Italia</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+              <a class="cta" href="#" data-cta>Rezervă</a>
+              <span class="pill" data-pill> București • 24 Iun </span>
+            </div>
+          </div>
+        </div>
+        <div class="safe" data-safe></div>
+        <div class="strip" data-strip></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Story 1080×1920</h3>
+      <div class="frame" id="story" tabindex="0">
+        <div class="bg" data-bg></div>
+        <div class="veil" data-veil></div>
+        <div class="inner">
+          <div class="top">
+            <span class="mark" data-logo></span>
+            <span class="kicker" data-kicker>Private Chefs • Professional Taste</span>
+          </div>
+          <div>
+            <div class="title" data-title>Experiență de restaurant, la tine acasă.</div>
+            <div class="body" data-body>Chefi verificați • Contract & factură • România & Italia</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+              <a class="cta" href="#" data-cta>Rezervă</a>
+              <span class="pill" data-pill> București • 24 Iun </span>
+            </div>
+          </div>
+        </div>
+        <div class="safe" data-safe></div>
+        <div class="strip" data-strip></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Portret 4:5 (1080×1350)</h3>
+      <div class="frame" id="port" tabindex="0">
+        <div class="bg" data-bg></div>
+        <div class="veil" data-veil></div>
+        <div class="inner">
+          <div class="top">
+            <span class="mark" data-logo></span>
+            <span class="kicker" data-kicker>Private Chefs • Professional Taste</span>
+          </div>
+          <div>
+            <div class="title" data-title>Experiență de restaurant, la tine acasă.</div>
+            <div class="body" data-body>Chefi verificați • Contract & factură • România & Italia</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+              <a class="cta" href="#" data-cta>Rezervă</a>
+              <span class="pill" data-pill> București • 24 Iun </span>
+            </div>
+          </div>
+        </div>
+        <div class="safe" data-safe></div>
+        <div class="strip" data-strip></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Banner link 1200×628</h3>
+      <div class="frame" id="land" tabindex="0">
+        <div class="bg" data-bg></div>
+        <div class="veil" data-veil></div>
+        <div class="inner">
+          <div class="top">
+            <span class="mark" data-logo></span>
+            <span class="kicker" data-kicker>Private Chefs • Professional Taste</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-end">
+            <div>
+              <div class="title" data-title>Experiență de restaurant</div>
+              <div class="body" data-body>Chefi verificați • Contract & factură</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center">
+              <span class="pill" data-pill> București • 24 Iun </span>
+              <a class="cta" href="#" data-cta>Rezervă</a>
+            </div>
+          </div>
+        </div>
+        <div class="safe" data-safe></div>
+        <div class="strip" data-strip></div>
+      </div>
+    </section>
+  </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" crossorigin="anonymous"></script>
 <script>
 (()=>{
+  // ====== CONFIG LOGO (schimbă dacă ai altă cale) ======
+  const LOGO_URL = './IMG_6413.png';
 
-const ui = {
-  fmt: qs('#fmt'), align: qs('#align'), overlay: qs('#overlay'), overlayVal: qs('#overlayVal'),
-  showLogo: qs('#showLogo'), showPill: qs('#showPill'), showBand: qs('#showBand'), safe: qs('#safe'),
-  headline: qs('#headline'), features: qs('#features'), badge: qs('#badge'), cta: qs('#cta'),
-  meta: qs('#meta'), imgUrl: qs('#imgUrl'), file: qs('#file'), scale: qs('#scale'),
-  apply: qs('#apply'), save: qs('#save'), demo1: qs('#demo1'), demo2: qs('#demo2')
-};
-const cv = qs('#cv'), ctx = cv.getContext('2d');
-const GOLD = '#D4AF37', INK = '#1C1C1C', PAPER = '#FFFFFF';
-
-let imgObj = null;
-
-ui.overlay.addEventListener('input', ()=> ui.overlayVal.textContent = ui.overlay.value+'%');
-
-ui.file.addEventListener('change', ()=>{
-  const f = ui.file.files[0];
-  if(!f) return;
-  const r = new FileReader();
-  r.onload = e => loadImage(e.target.result);
-  r.readAsDataURL(f);
-});
-
-ui.apply.addEventListener('click', draw);
-ui.save.addEventListener('click', savePNG);
-ui.imgUrl.addEventListener('change', ()=> { if(ui.imgUrl.value.trim()) loadImage(ui.imgUrl.value.trim()); });
-
-ui.demo1.addEventListener('click', ()=>{
-  ui.fmt.value = '1080x1920';
-  ui.align.value = 'left';
-  ui.overlay.value = 60; ui.overlay.dispatchEvent(new Event('input'));
-  ui.headline.value = 'Experiență de restaurant, la tine acasă.';
-  ui.features.value = 'Chefi verificați • Contract & Factură • România & Italia';
-  ui.badge.value = 'Private Chefs • Professional Taste';
-  ui.cta.value = 'Rezervă';
-  ui.meta.value = 'Cluj • 30 iul';
-  ui.showBand.checked = true; ui.showPill.checked = true; ui.showLogo.checked = true;
-  ui.imgUrl.value = 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=2000&q=70';
-  loadImage(ui.imgUrl.value).then(draw);
-});
-
-ui.demo2.addEventListener('click', ()=>{
-  ui.fmt.value = '1080x1080';
-  ui.align.value = 'center';
-  ui.overlay.value = 55; ui.overlay.dispatchEvent(new Event('input'));
-  ui.headline.value = 'Cină privată, meniu personalizat.';
-  ui.features.value = 'Fine dining • Plating premium • Echipa completă';
-  ui.badge.value = 'Private Chefs • Professional Taste';
-  ui.cta.value = 'Rezervă';
-  ui.meta.value = 'București • 24 iun';
-  ui.showBand.checked = true; ui.showPill.checked = true; ui.showLogo.checked = true;
-  ui.imgUrl.value = 'https://images.unsplash.com/photo-1528605105345-5344ea20e269?auto=format&fit=crop&w=2000&q=70';
-  loadImage(ui.imgUrl.value).then(draw);
-});
-
-function qs(s,root=document){ return root.querySelector(s); }
-
-function parseFmt(v){
-  const [w,h] = v.split('x').map(n=>parseInt(n,10));
-  return {w,h};
-}
-
-function loadImage(src){
-  return new Promise((resolve,reject)=>{
-    const im = new Image();
-    // încercăm CORS liber; dacă nu merge, tot desenăm dacă e data:URL
-    im.crossOrigin = 'anonymous';
-    im.onload = ()=>{ imgObj = im; resolve(im); };
-    im.onerror = ()=>{ alert('Imaginea nu a putut fi încărcată. Folosește upload sau un link direct (images.unsplash.com).'); reject(); };
-    im.src = src;
-  });
-}
-
-function coverDraw(img, W, H){
-  const iw = img.width, ih = img.height, ir = iw/ih, cr = W/H;
-  let dw = W, dh = H, sx=0, sy=0, sw=iw, sh=ih;
-  if(ir > cr){ // imaginea e mai lată
-    const need = ih * cr;
-    sx = (iw - need)/2; sw = need;
-  } else {
-    const need = iw / cr;
-    sy = (ih - need)/2; sh = need;
+  function putLogo(container){
+    const img = new Image(); img.crossOrigin='anonymous';
+    img.onload=()=>{ container.innerHTML=''; img.style.width='100%'; img.style.height='100%'; img.style.objectFit='contain'; container.appendChild(img); };
+    img.onerror=()=>{ container.innerHTML=`<svg viewBox="0 0 48 48" width="100%" height="100%"><circle cx="24" cy="24" r="22" fill="#fff" stroke="#1C1C1C" stroke-width="2"/><path d="M24 18a6 6 0 0 1 6 6v1h4c.6 0 1 .4 1 1v6c0 .6-.4 1-1 1H17c-.6 0-1-.4-1-1v-6c0-.6.4-1 1-1h4v-1a6 6 0 0 1 6-6z" fill="none" stroke="#D4AF37" stroke-width="2"/><path d="M34 36a12 12 0 1 1 0-24" fill="none" stroke="#1C1C1C" stroke-width="2" stroke-linecap="round"/></svg>`; };
+    img.src = LOGO_URL;
   }
-  ctx.drawImage(img, sx, sy, sw, sh, 0, 0, W, H);
-}
+  document.querySelectorAll('[data-logo]').forEach(putLogo);
+  const brandL = document.getElementById('brandLogo'); putLogo(brandL);
 
-function roundRect(x,y,w,h,r){
-  ctx.beginPath();
-  const rr = Math.min(r, w/2, h/2);
-  ctx.moveTo(x+rr, y);
-  ctx.arcTo(x+w, y, x+w, y+h, rr);
-  ctx.arcTo(x+w, y+h, x, y+h, rr);
-  ctx.arcTo(x, y+h, x, y, rr);
-  ctx.arcTo(x, y, x+w, y, rr);
-  ctx.closePath();
-}
+  const $=sel=>document.querySelector(sel);
+  const frames=[...document.querySelectorAll('.frame')];
+  frames.forEach(f=>f.addEventListener('click',()=>{ frames.forEach(x=>x.classList.remove('sel')); f.classList.add('sel'); f.scrollIntoView({behavior:'smooth',block:'center'}); }));
 
-function drawLogo(x,y, size){
-  // logo simplificat: cerc negru + arc auriu + C
-  const s = size;
-  ctx.save();
-  ctx.translate(x,y);
-  // fundal alb
-  ctx.fillStyle = PAPER; roundRect(-s/2,-s/2,s,s,s*0.5); ctx.fill();
-  ctx.strokeStyle = INK; ctx.lineWidth = Math.max(2, s*0.06);
-  ctx.beginPath(); ctx.arc(0,0,s*0.38,0,Math.PI*2); ctx.stroke();
-  // arc gold
-  ctx.strokeStyle = GOLD; ctx.lineWidth = Math.max(2, s*0.10);
-  ctx.beginPath(); ctx.arc(0,0,s*0.34,Math.PI*0.15,Math.PI*1.6); ctx.stroke();
-  // semnul "C"
-  ctx.strokeStyle = INK; ctx.lineWidth = Math.max(2, s*0.10);
-  ctx.lineCap = 'round';
-  ctx.beginPath(); ctx.arc(0,0,s*0.28,Math.PI*0.2,Math.PI*1.8); ctx.stroke();
-  ctx.restore();
-}
+  // inputs
+  const inputs={
+    t1:$('#t1'), t2:$('#t2'), t3:$('#t3'), cta:$('#cta'), loc:$('#loc'),
+    bg:$('#bg'), file:$('#file'), preset:$('#preset'), align:$('#align'),
+    strip:$('#strip'), logo:$('#logo'), pill:$('#pill'), safe:$('#safe'),
+    veil:$('#veil'), veilv:$('#veilv'), scale:$('#scale'),
+    apply:$('#apply'), download:$('#download')
+  };
 
-async function draw(){
-  await loadFonts();
-  const [W,H] = ui.size.value.split('x').map(n=>+n);
-  cv.width=W; cv.height=H;
-
-  // background
-  ctx.save();
-  ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H);
-  try{ coverDraw(BG,W,H); }catch(e){}
-  ctx.restore();
-
-  // overlay (întunecare)
-  const ov = (+ui.overlay.value||0)/100; ui.ovlVal.textContent = Math.round(ov*100)+'%';
-  const g = ctx.createLinearGradient(0,0,0,H);
-  g.addColorStop(0, `rgba(0,0,0,${0.35+ov*0.35})`);
-  g.addColorStop(1, `rgba(0,0,0,${0.55+ov*0.35})`);
-  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-
-  // layout
-  const MIN = Math.min(W,H);
-  const PAD = Math.round(MIN*0.06);
-  const COLW = W - PAD*2;
-  const alignCenter = ui.align.value === 'center';
-  let cy = PAD;
-
-  // logo
-  if(ui.tLogo.checked){
-    drawLogo(PAD+22, PAD+22, MIN/1080);
-    ctx.fillStyle='#fff';
-    ctx.font = `800 ${Math.round(MIN*0.03)}px Inter`;
-    ctx.textAlign='left'; ctx.textBaseline='alphabetic';
-    ctx.fillText('CHEF PRIVÉ', PAD+50, PAD+28);
-    ctx.globalAlpha=.9;
-    ctx.font = `700 ${Math.round(MIN*0.018)}px Inter`;
-    ctx.fillText('Bucătarul Personal', PAD+50, PAD+50);
-    ctx.globalAlpha=1;
-  }
-
-  // bandă aurie jos
-  if(ui.tGold.checked){
-    const bw = Math.min(220, Math.round(W*0.22));
-    pill(PAD, H-PAD-10, bw, 10, C.gold, null, .85);
-  }
-
-  // pill (tagline) sus
-  if(ui.tPill.checked){
-    const txt = ui.badge.value.trim();
-    if(txt){
-      ctx.font = `800 ${Math.round(MIN*0.022)}px Inter`;
-      const m = ctx.measureText(txt);
-      const pw = m.width + 26, ph = Math.round(MIN*0.045);
-      const px = alignCenter ? (W-pw)/2 : PAD;
-      const py = cy + Math.round(MIN*0.02);
-      pill(px,py,pw,ph,'rgba(255,255,255,.14)','rgba(255,255,255,.45)');
-      ctx.fillStyle='#fff'; ctx.textAlign=alignCenter?'center':'left'; ctx.textBaseline='middle';
-      ctx.fillText(txt, alignCenter? (W/2) : (px+pw/2 - (pw-m.width)/2), py+ph/2+1);
-      cy = py + ph + Math.round(MIN*0.02);
-    }
-  }
-
-  // TITLU
-  const h1 = ui.h1.value.trim();
-  const H1size = Math.round(MIN*0.07);
-  ctx.font = `700 ${H1size}px "Playfair Display"`;
-  const lines = wrapLines(h1, COLW, ctx);
-  const lh = Math.round(H1size*1.12);     // mai mult spațiu între rânduri
-  const startX = (ui.align.value==='center') ? W/2 : PAD;
-  let y = cy + Math.round(MIN*0.02);
-
-  // halo pentru lizibilitate
-  ctx.shadowColor = 'rgba(0,0,0,.55)';
-  ctx.shadowBlur = 8;
-  ctx.fillStyle = '#fff';
-  ctx.textAlign = (ui.align.value==='center')?'center':'left';
-  ctx.textBaseline = 'top';
-  lines.forEach(t => { ctx.fillText(t, startX, y); y += lh; });
-  ctx.shadowBlur = 0; // reset
-
-  // SUB-TEXT pe „plăcuță”
-  const sub = ui.sub.value.trim();
-  if(sub){
-    const SUBsize = Math.round(MIN*0.024);
-    ctx.font = `700 ${SUBsize}px Inter`;
-    const subLines = wrapLines(sub, COLW, ctx);
-    const lineH = Math.round(SUBsize*1.35);
-
-    // lățimea blocului (cea mai lată linie + padding)
-    let maxW = 0; subLines.forEach(t=>{ maxW = Math.max(maxW, ctx.measureText(t).width); });
-    const padX = 12, padY = 8;
-    const boxW = Math.round(maxW + padX*2);
-    const boxH = Math.round(subLines.length*lineH + padY*2);
-    const sx = (ui.align.value==='center') ? (W - boxW)/2 : PAD;
-    const sy = y + Math.round(MIN*0.02);
-
-    pill(sx, sy, boxW, boxH, 'rgba(0,0,0,.45)', 'rgba(255,255,255,.28)');
-    ctx.fillStyle = '#fff'; ctx.textBaseline='top'; ctx.textAlign = (ui.align.value==='center')?'center':'left';
-
-    subLines.forEach((t,i)=>{
-      const tx = (ui.align.value==='center') ? (W/2) : (sx + padX);
-      ctx.fillText(t, tx, sy + padY + i*lineH);
+  function applyTexts(){
+    document.querySelectorAll('[data-title]').forEach(e=>e.innerHTML=inputs.t1.value.replace(/\n/g,'<br>'));
+    document.querySelectorAll('[data-body]').forEach(e=>e.textContent=inputs.t2.value);
+    document.querySelectorAll('[data-kicker]').forEach(e=>e.textContent=inputs.t3.value);
+    document.querySelectorAll('[data-cta]').forEach(e=>e.textContent=inputs.cta.value);
+    document.querySelectorAll('[data-pill]').forEach(e=>e.textContent=inputs.loc.value);
+    document.querySelectorAll('[data-veil]').forEach(e=>e.style.opacity=(+inputs.veil.value/100).toFixed(2));
+    inputs.veilv.textContent=inputs.veil.value;
+    frames.forEach(f=>{
+      f.querySelectorAll('[data-strip]').forEach(s=> s.style.display = inputs.strip.checked?'block':'none');
+      f.querySelectorAll('[data-logo]').forEach(l=> l.style.display = inputs.logo.checked?'grid':'none');
+      f.querySelectorAll('[data-pill]').forEach(p=> p.style.display = inputs.pill.checked?'inline-flex':'none');
+      f.querySelectorAll('[data-safe]').forEach(s=> s.classList.toggle('show', inputs.safe.checked));
+      f.classList.toggle('align-center', inputs.align.value==='center');
     });
-
-    y = sy + boxH;   // împinge CTA după plăcuță
   }
+  function applyBG(url){ document.querySelectorAll('[data-bg]').forEach(e=> e.style.backgroundImage=`url("${url}")`); }
+  inputs.apply.addEventListener('click', ()=>{ applyTexts(); applyBG(inputs.bg.value); });
+  inputs.veil.addEventListener('input', applyTexts);
+  ['t1','t2','t3','cta','loc','align','strip','logo','pill','safe'].forEach(id=> inputs[id].addEventListener('change', applyTexts));
+  inputs.file.addEventListener('change',()=>{ const f=inputs.file.files[0]; if(!f) return; const r=new FileReader(); r.onload=e=>{ inputs.bg.value=e.target.result; applyBG(inputs.bg.value); }; r.readAsDataURL(f); });
 
-  // CTA
-  const cta = ui.cta.value.trim();
-  if(cta){
-    y += Math.round(MIN*0.02);
-    ctx.font = `800 ${Math.round(MIN*0.024)}px Inter`;
-    const mt = ctx.measureText(cta);
-    const pw = mt.width + 28, ph = Math.round(MIN*0.06);
-    const px = (ui.align.value==='center') ? (W-pw)/2 : PAD;
-    pill(px,y,pw,ph,C.gold,null,.95);
-    ctx.fillStyle= C.ink; ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(cta, px+pw/2, y+ph/2+1);
+  // presets
+  function stars5(){ return `<span class="stars">${'<svg viewBox="0 0 24 24"><path d="M12 3.6 14.9 9l6 .9-4.3 4.2 1 6-5.6-3-5.6 3 1-6L3 9.9l6-.9L12 3.6z"/></svg>'.repeat(5)}</span>`; }
+  function setPreset(name){
+    // curăță stelele/extra
+    document.querySelectorAll('.stars').forEach(n=>n.remove());
+    if(name==='std'){
+      inputs.t1.value='Experiență de restaurant, la tine acasă.';
+      inputs.t2.value='Chefi verificați • Contract & factură • România & Italia';
+      inputs.t3.value='Private Chefs • Professional Taste';
+      inputs.cta.value='Rezervă';
+      inputs.loc.value='București • 24 Iun';
+      inputs.align.value='left'; inputs.veil.value=55;
+    }
+    if(name==='event'){
+      inputs.t1.value='Eveniment reușit, clienți fericiți!';
+      inputs.t2.value='Set-up impecabil • Servire discretă • Plăți sigure';
+      inputs.t3.value='CHEF PRIVÉ';
+      inputs.cta.value='Solicită ofertă';
+      inputs.align.value='left'; inputs.veil.value=60;
+    }
+    if(name==='review'){
+      inputs.t1.value='„Plating ca în restaurant, timpi perfecți.”';
+      inputs.t2.value='— Ana M. • Cină privată • București';
+      inputs.t3.value='Scor 4.9/5 (Google + intern)';
+      inputs.cta.value='Vezi meniuri';
+      inputs.align.value='left'; inputs.veil.value=65;
+      // adaugă stelele jos stânga
+      frames.forEach(f=>{
+        const s=document.createElement('div'); s.innerHTML=stars5(); s.style.position='absolute'; s.style.left='24px'; s.style.bottom='24px'; s.style.zIndex='4'; f.appendChild(s);
+      });
+    }
+    if(name==='chef'){
+      inputs.t1.value='Chef nou în rețea: Andrei • Fine dining';
+      inputs.t2.value='Disponibil în București & Brașov';
+      inputs.t3.value='Bine ai venit!';
+      inputs.cta.value='Rezervă-l'; inputs.align.value='center'; inputs.veil.value=50;
+    }
+    if(name==='offer'){
+      inputs.t1.value='Ofertă sezonieră: meniuri de iarnă';
+      inputs.t2.value='Până la -15% pentru rezervări în cursul săptămânii';
+      inputs.t3.value='Valabil în RO & IT';
+      inputs.cta.value='Află detalii'; inputs.align.value='center'; inputs.veil.value=55;
+    }
+    if(name==='hiring'){
+      inputs.t1.value='Recrutăm bucătari & cofetari';
+      inputs.t2.value='Program flexibil • Comenzi verificate • Plăți rapide';
+      inputs.t3.value='Aplică în 3 minute';
+      inputs.cta.value='Aplică acum'; inputs.align.value='center'; inputs.veil.value=50;
+    }
+    applyTexts();
   }
+  inputs.preset.addEventListener('change', ()=> setPreset(inputs.preset.value));
 
-  // Oraș / Dată jos
-  const loc = ui.loc.value.trim();
-  if(loc){
-    ctx.textAlign = (ui.align.value==='center') ? 'center' : 'left';
-    ctx.textBaseline='alphabetic';
-    ctx.font = `700 ${Math.round(MIN*0.02)}px Inter`;
-    ctx.fillStyle='rgba(255,255,255,.85)';
-    ctx.fillText(loc, (ui.align.value==='center') ? W/2 : PAD, H-PAD-16);
-  }
+  // default
+  applyBG(inputs.bg.value); setPreset('std');
 
-  // Safe-zone (opțional)
-  if(ui.tSafe.checked){
-    const m = Math.round(MIN*0.05);
-    ctx.save(); ctx.strokeStyle='rgba(255,255,255,.5)'; ctx.setLineDash([8,8]); ctx.lineWidth=1.5;
-    roundRect(m,m,W-m*2,H-m*2,14); ctx.stroke(); ctx.restore();
-  }
-}
-function wrapText(text, x, y, maxWidth, lineHeight, anchor='left'){
-  const words = text.split(/\s+/); let line = '';
-  const savedAlign = ctx.textAlign;
-  if(anchor==='center') ctx.textAlign='center';
-  if(anchor==='right') ctx.textAlign='right';
-  let cursorY = y;
-  for(let n=0;n<words.length;n++){
-    const test = line + words[n] + ' ';
-    const w = ctx.measureText(test).width;
-    if(w > maxWidth){ ctx.fillText(line, x, cursorY); line = words[n] + ' '; cursorY += lineHeight; }
-    else { line = test; }
-  }
-  ctx.fillText(line, x, cursorY);
-  ctx.textAlign = savedAlign;
-}
+  // export
+  const PIX = { sq:[1080,1080], story:[1080,1920], port:[1080,1350], land:[1200,628] };
+  $('#download').addEventListener('click', async ()=>{
+    const active = document.querySelector('.frame.sel') || $('#sq');
+    const id = active.id;
+    const [w0,h0]=PIX[id]; const scale = +inputs.scale.value;
+    const W=w0*scale, H=h0*scale;
 
-function savePNG(){
-  const data = cv.toDataURL('image/png');
-  const a = document.createElement('a');
-  a.href = data; a.download = 'chef-prive.png'; a.click();
-}
+    // set dim provizorii pt. render clar
+    const keepWidth = active.style.width, keepHeight = active.style.height;
+    active.style.width = W+'px'; active.style.height = H+'px';
+    await new Promise(r=>setTimeout(r,30));
 
-// init with a nice demo
-loadImage('https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=2000&q=70').then(draw);
+    const canvas = await html2canvas(active, {useCORS:true, scale:1, backgroundColor:null});
+    const a=document.createElement('a'); a.download=`chef-prive_${id}_${W}x${H}.png`; a.href=canvas.toDataURL('image/png'); a.click();
 
+    // restore
+    active.style.width = keepWidth; active.style.height = keepHeight;
+  });
+
+  // select frame on key
+  document.addEventListener('keydown',e=>{
+    if(e.key==='1') $('#sq').click();
+    if(e.key==='2') $('#story').click();
+    if(e.key==='3') $('#port').click();
+    if(e.key==='4') $('#land').click();
+  });
 })();
 </script>
 </body>
