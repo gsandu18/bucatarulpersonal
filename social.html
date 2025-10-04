@@ -285,153 +285,140 @@ function drawLogo(x,y, size){
 }
 
 async function draw(){
-  await document.fonts.ready;
-
-  const {w,h} = parseFmt(ui.fmt.value);
-  const scale = parseInt(ui.scale.value,10) || 1;
-  cv.width = w*scale; cv.height = h*scale;
-  cv.style.aspectRatio = `${w}/${h}`;
-  ctx.setTransform(scale,0,0,scale,0,0); // UI desenăm „la 1x” dar exportul e scalat
+  await loadFonts();
+  const [W,H] = ui.size.value.split('x').map(n=>+n);
+  cv.width=W; cv.height=H;
 
   // background
-  ctx.fillStyle = '#000'; ctx.fillRect(0,0,w,h);
-  if(imgObj){ coverDraw(imgObj, w, h); }
-  else {
-    // fallback gradient
-    const g = ctx.createLinearGradient(0,0,w,h);
-    g.addColorStop(0,'#1b1f22'); g.addColorStop(1,'#0f1418');
-    ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+  ctx.save();
+  ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H);
+  try{ coverDraw(BG,W,H); }catch(e){}
+  ctx.restore();
+
+  // overlay (întunecare)
+  const ov = (+ui.overlay.value||0)/100; ui.ovlVal.textContent = Math.round(ov*100)+'%';
+  const g = ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0, `rgba(0,0,0,${0.35+ov*0.35})`);
+  g.addColorStop(1, `rgba(0,0,0,${0.55+ov*0.35})`);
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
+  // layout
+  const MIN = Math.min(W,H);
+  const PAD = Math.round(MIN*0.06);
+  const COLW = W - PAD*2;
+  const alignCenter = ui.align.value === 'center';
+  let cy = PAD;
+
+  // logo
+  if(ui.tLogo.checked){
+    drawLogo(PAD+22, PAD+22, MIN/1080);
+    ctx.fillStyle='#fff';
+    ctx.font = `800 ${Math.round(MIN*0.03)}px Inter`;
+    ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+    ctx.fillText('CHEF PRIVÉ', PAD+50, PAD+28);
+    ctx.globalAlpha=.9;
+    ctx.font = `700 ${Math.round(MIN*0.018)}px Inter`;
+    ctx.fillText('Bucătarul Personal', PAD+50, PAD+50);
+    ctx.globalAlpha=1;
   }
 
-  // overlay
-  const ov = (+ui.overlay.value||55)/100;
-  const grd = ctx.createLinearGradient(0,0,0,h);
-  grd.addColorStop(0, `rgba(0,0,0,${ov*0.9})`);
-  grd.addColorStop(0.5, `rgba(0,0,0,${ov*0.55})`);
-  grd.addColorStop(1, `rgba(0,0,0,${ov*0.85})`);
-  ctx.fillStyle = grd; ctx.fillRect(0,0,w,h);
-
-  const padding = Math.round(Math.min(w,h)*0.06);
-  const safe = ui.safe.checked ? Math.round(Math.min(w,h)*0.02) : 0;
-  const contentW = w - padding*2;
-
-  // bandă aurie jos (decor)
-  if(ui.showBand.checked){
-    const bandH = Math.round(Math.min(w,h)*0.035);
-    ctx.globalAlpha = 0.85;
-    ctx.fillStyle = GOLD;
-    roundRect(padding, h-padding-bandH, contentW, bandH, bandH/2);
-    ctx.fill();
-    ctx.globalAlpha = 1;
+  // bandă aurie jos
+  if(ui.tGold.checked){
+    const bw = Math.min(220, Math.round(W*0.22));
+    pill(PAD, H-PAD-10, bw, 10, C.gold, null, .85);
   }
 
-  // top zone: logo + brand mic
-  const topY = padding;
-  if(ui.showLogo.checked){
-    drawLogo(padding + 38, topY + 38, 64);
-    ctx.fillStyle = '#fff';
-    ctx.font = `800 ${Math.round(Math.min(w,h)*0.035)}px "Playfair Display", serif`;
-    ctx.textBaseline = 'middle';
-    ctx.fillText('CHEF PRIVÉ', padding + 80, topY + 26);
-    ctx.font = `700 ${Math.round(Math.min(w,h)*0.018)}px Inter, sans-serif`;
-    ctx.fillStyle = 'rgba(255,255,255,.9)';
-    ctx.fillText('Bucătarul Personal', padding + 80, topY + 54);
+  // pill (tagline) sus
+  if(ui.tPill.checked){
+    const txt = ui.badge.value.trim();
+    if(txt){
+      ctx.font = `800 ${Math.round(MIN*0.022)}px Inter`;
+      const m = ctx.measureText(txt);
+      const pw = m.width + 26, ph = Math.round(MIN*0.045);
+      const px = alignCenter ? (W-pw)/2 : PAD;
+      const py = cy + Math.round(MIN*0.02);
+      pill(px,py,pw,ph,'rgba(255,255,255,.14)','rgba(255,255,255,.45)');
+      ctx.fillStyle='#fff'; ctx.textAlign=alignCenter?'center':'left'; ctx.textBaseline='middle';
+      ctx.fillText(txt, alignCenter? (W/2) : (px+pw/2 - (pw-m.width)/2), py+ph/2+1);
+      cy = py + ph + Math.round(MIN*0.02);
+    }
   }
 
-  // pill (badge mic)
-  const pillText = (ui.badge.value||'').trim();
-  if(ui.showPill.checked && pillText){
-    const fs = Math.round(Math.min(w,h)*0.018);
-    ctx.font = `800 ${fs}px Inter, sans-serif`;
-    const tw = ctx.measureText(pillText).width;
-    const ph = Math.round(fs*2.0), pw = tw + fs*1.8;
-    const px = padding, py = topY + 72;
-    ctx.globalAlpha = .9;
-    ctx.fillStyle = 'rgba(0,0,0,.35)';
-    roundRect(px, py, pw, ph, ph/2);
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,255,.45)'; ctx.lineWidth = 1.2; ctx.stroke();
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = '#fff';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(pillText, px + fs*0.9, py + ph/2);
-  }
+  // TITLU
+  const h1 = ui.h1.value.trim();
+  const H1size = Math.round(MIN*0.07);
+  ctx.font = `700 ${H1size}px "Playfair Display"`;
+  const lines = wrapLines(h1, COLW, ctx);
+  const lh = Math.round(H1size*1.12);     // mai mult spațiu între rânduri
+  const startX = (ui.align.value==='center') ? W/2 : PAD;
+  let y = cy + Math.round(MIN*0.02);
 
-  // text bloc (headline, features, meta, CTA)
-  const align = ui.align.value;
-  const headline = (ui.headline.value||'').trim();
-  const features = (ui.features.value||'').trim();
-  const metaTxt = (ui.meta.value||'').trim();
-  const cta = (ui.cta.value||'').trim();
-
-  let x = padding, anchor = 'left';
-  if(align==='center'){ x = w/2; anchor = 'center'; }
-  if(align==='right'){ x = w - padding; anchor = 'right'; }
-
-  function setAlign(a){
-    if(a==='center'){ ctx.textAlign='center'; }
-    else if(a==='right'){ ctx.textAlign='right'; }
-    else { ctx.textAlign='left'; }
-  }
-
-  let curY = Math.round(h*0.58);
-  if(h > w) curY = Math.round(h*0.62); // story
-
-  // HEADLINE
-  setAlign(anchor);
+  // halo pentru lizibilitate
+  ctx.shadowColor = 'rgba(0,0,0,.55)';
+  ctx.shadowBlur = 8;
   ctx.fillStyle = '#fff';
-  ctx.textBaseline = 'alphabetic';
-  const hSize = Math.round(Math.min(w,h)*0.095); // proporțional
-  ctx.font = `800 ${hSize}px "Playfair Display", serif`;
-  wrapText(headline, x, curY, contentW, hSize*1.05, anchor);
-  curY += hSize*2.2; // spațiere aproximativă după 2 rânduri
+  ctx.textAlign = (ui.align.value==='center')?'center':'left';
+  ctx.textBaseline = 'top';
+  lines.forEach(t => { ctx.fillText(t, startX, y); y += lh; });
+  ctx.shadowBlur = 0; // reset
 
-  // FEATURES
-  const fz = Math.round(Math.min(w,h)*0.028);
-  ctx.font = `700 ${fz}px Inter, sans-serif`;
-  ctx.fillStyle = 'rgba(255,255,255,.92)';
-  wrapText(features, x, curY, contentW, fz*1.4, anchor);
-  curY += fz*2.1;
+  // SUB-TEXT pe „plăcuță”
+  const sub = ui.sub.value.trim();
+  if(sub){
+    const SUBsize = Math.round(MIN*0.024);
+    ctx.font = `700 ${SUBsize}px Inter`;
+    const subLines = wrapLines(sub, COLW, ctx);
+    const lineH = Math.round(SUBsize*1.35);
 
-  // META (oraș • dată)
-  if(metaTxt){
-    const mz = Math.round(Math.min(w,h)*0.022);
-    ctx.font = `700 ${mz}px Inter, sans-serif`;
-    ctx.fillStyle = 'rgba(255,255,255,.75)';
-    wrapText(metaTxt, x, curY, contentW, mz*1.35, anchor);
+    // lățimea blocului (cea mai lată linie + padding)
+    let maxW = 0; subLines.forEach(t=>{ maxW = Math.max(maxW, ctx.measureText(t).width); });
+    const padX = 12, padY = 8;
+    const boxW = Math.round(maxW + padX*2);
+    const boxH = Math.round(subLines.length*lineH + padY*2);
+    const sx = (ui.align.value==='center') ? (W - boxW)/2 : PAD;
+    const sy = y + Math.round(MIN*0.02);
+
+    pill(sx, sy, boxW, boxH, 'rgba(0,0,0,.45)', 'rgba(255,255,255,.28)');
+    ctx.fillStyle = '#fff'; ctx.textBaseline='top'; ctx.textAlign = (ui.align.value==='center')?'center':'left';
+
+    subLines.forEach((t,i)=>{
+      const tx = (ui.align.value==='center') ? (W/2) : (sx + padX);
+      ctx.fillText(t, tx, sy + padY + i*lineH);
+    });
+
+    y = sy + boxH;   // împinge CTA după plăcuță
   }
 
   // CTA
+  const cta = ui.cta.value.trim();
   if(cta){
-    const btnY = h - padding - Math.round(Math.min(w,h)*0.11);
-    const bh = Math.round(Math.min(w,h)*0.075);
-    const fs = Math.round(bh*0.42);
-    ctx.font = `800 ${fs}px Inter, sans-serif`;
-    const tw = ctx.measureText(cta).width;
-    const bw = tw + fs*2.2;
-    let bx = x;
-    if(anchor==='center') bx = x - bw/2;
-    if(anchor==='right')  bx = x - bw;
-    ctx.fillStyle = GOLD;
-    ctx.globalAlpha = .98;
-    roundRect(bx, btnY, bw, bh, bh/2);
-    ctx.fill();
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = INK;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(cta, bx + bw/2, btnY + bh/2 + 1);
+    y += Math.round(MIN*0.02);
+    ctx.font = `800 ${Math.round(MIN*0.024)}px Inter`;
+    const mt = ctx.measureText(cta);
+    const pw = mt.width + 28, ph = Math.round(MIN*0.06);
+    const px = (ui.align.value==='center') ? (W-pw)/2 : PAD;
+    pill(px,y,pw,ph,C.gold,null,.95);
+    ctx.fillStyle= C.ink; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(cta, px+pw/2, y+ph/2+1);
   }
 
-  // SAFE ZONE vizual (opțional)
-  if(ui.safe.checked){
-    ctx.strokeStyle = 'rgba(255,255,255,.35)';
-    ctx.lineWidth = 2; ctx.setLineDash([10,8]);
-    ctx.strokeRect(padding-safe, padding-safe, contentW+safe*2, h - (padding*2) + safe*2);
-    ctx.setLineDash([]);
+  // Oraș / Dată jos
+  const loc = ui.loc.value.trim();
+  if(loc){
+    ctx.textAlign = (ui.align.value==='center') ? 'center' : 'left';
+    ctx.textBaseline='alphabetic';
+    ctx.font = `700 ${Math.round(MIN*0.02)}px Inter`;
+    ctx.fillStyle='rgba(255,255,255,.85)';
+    ctx.fillText(loc, (ui.align.value==='center') ? W/2 : PAD, H-PAD-16);
+  }
+
+  // Safe-zone (opțional)
+  if(ui.tSafe.checked){
+    const m = Math.round(MIN*0.05);
+    ctx.save(); ctx.strokeStyle='rgba(255,255,255,.5)'; ctx.setLineDash([8,8]); ctx.lineWidth=1.5;
+    roundRect(m,m,W-m*2,H-m*2,14); ctx.stroke(); ctx.restore();
   }
 }
-
 function wrapText(text, x, y, maxWidth, lineHeight, anchor='left'){
   const words = text.split(/\s+/); let line = '';
   const savedAlign = ctx.textAlign;
