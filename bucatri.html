@@ -3,48 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bucătarii noștri — Bucătarul Personal</title>
-  <meta name="description" content="Descoperă bucătarii noștri: fine dining, italian, BBQ, corporate. Filtrează după oraș și stil." />
+  <title>Bucătarii noștri — CHEF PRIVÉ</title>
+  <meta name="description" content="Descoperă bucătarii noștri: fine dining, italian, BBQ, corporate. Filtrează după oraș, stil și buget. Chefi verificați, recenzii reale." />
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--rubin:#0e5a43;--ink:#182422;--muted:#5f6b6f;--line:#e8eeea;--max:1160px}
-    body{margin:0;font:16px/1.6 Inter,system-ui;color:var(--ink)}
-    a{color:var(--rubin);text-decoration:none}
+    :root{
+      --noir:#1C1C1C; --gold:#D4AF37; --graph:#8E8E93; --paper:#FFFFFF; --mist:#FAFAFB; --line:#E9E9EC;
+      --max:1160px; --rad:16px; --shadow:0 12px 36px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--noir);background:var(--paper)}
+    h1,h2,h3{font-family:"Playfair Display",serif;color:var(--noir);letter-spacing:.2px}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
     .container{max-width:var(--max);margin:0 auto;padding:0 clamp(12px,4vw,32px)}
-    header{position:sticky;top:0;background:#ffffffd9;border-bottom:1px solid #e6ece8;backdrop-filter:blur(10px);z-index:10}
+
+    /* Header */
+    header{position:sticky;top:0;background:rgba(255,255,255,.72);border-bottom:1px solid rgba(0,0,0,.06);backdrop-filter:saturate(160%) blur(10px);z-index:10}
     .nav{display:flex;align-items:center;gap:12px;min-height:72px;max-width:var(--max);margin:0 auto;padding:8px clamp(12px,3vw,22px)}
-    .menu{display:flex;gap:6px;flex-wrap:wrap}
-    .menu a{padding:8px 10px;border-radius:10px;font-weight:800;color:#1e2a27}
-    .menu a[aria-current="page"], .menu a:hover{background:#edf6f1}
-    .btn{display:inline-block;padding:10px 14px;border:1px solid var(--rubin);border-radius:999px;font-weight:800}
-    h1,h2,h3{font-family:"Playfair Display",serif}
-    .page-head{padding:28px 0 10px}
-    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 18px}
-    .chip{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--line);font-weight:700;color:#214a3b}
-    select,input{padding:10px 12px;border:1px solid #dfe9e4;border-radius:12px}
+    .brand{display:flex;align-items:center;gap:10px;color:inherit}
+    .brand .name{font-family:"Playfair Display",serif;letter-spacing:3px;font-size:18px}
+    .brand small{font-size:11px;color:var(--graph);letter-spacing:1px}
+    .menu{display:flex;gap:6px;flex-wrap:wrap;margin-left:12px}
+    .menu a{padding:8px 10px;border-radius:12px;font-weight:800}
+    .menu a[aria-current="page"], .menu a:hover{background:rgba(0,0,0,.05)}
+    .btn{display:inline-block;padding:10px 14px;border:1px solid #ddd;border-radius:999px;font-weight:800}
+    .btn.primary{background:var(--gold);border-color:var(--gold);color:#1C1C1C}
+    .btn.ghost{background:#fff;color:#1C1C1C}
+
+    /* Page head + filtre */
+    .page-head{padding:26px 0 10px}
+    .muted{color:var(--graph)}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 18px}
+    .chip{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--line);font-weight:700;background:#fff}
+    .chip select, .chip input{padding:8px 10px;border:1px solid #E3E3E6;border-radius:10px;background:#FBFBFC;color:inherit}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px}
+    .toolbar .search{flex:1 1 220px;display:flex;align-items:center;gap:8px;border:1px solid #E3E3E6;border-radius:12px;background:#FBFBFC;padding:8px 12px}
+    .toolbar .search input{border:none;background:transparent;outline:none;width:100%}
+
+    /* Grid */
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    @media(max-width:1080px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.grid{grid-template-columns:1fr}}
-    .card{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(16,24,40,.08);background:#fff}
-    .media{aspect-ratio:4/3;background:#eef3ef}
+    @media(max-width:1080px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:700px){.grid{grid-template-columns:1fr}}
+
+    /* Cards */
+    .card{border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;box-shadow:var(--shadow);background:#fff;transition:transform .2s, box-shadow .2s}
+    .card:hover{transform:translateY(-2px);box-shadow:0 18px 50px rgba(0,0,0,.12)}
+    .media{aspect-ratio:4/3;background:#F5F5F7}
     .media img{width:100%;height:100%;object-fit:cover}
     .body{padding:14px}
-    .body h3{margin:0 0 4px;color:var(--rubin)}
-    .meta{color:var(--muted);margin:2px 0 10px}
+    .body h3{margin:0 0 4px}
+    .meta{color:var(--graph);margin:2px 0 10px}
     .tags{display:flex;flex-wrap:wrap;gap:8px}
-    .tag{border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px}
+    .tag{border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px;background:#fff}
+    .price{font-weight:800;color:#1C1C1C}
+
+    /* Stele */
     .stars{display:inline-flex;gap:2px;align-items:center}
     .star{position:relative;width:18px;height:18px}
     .star svg{width:100%;height:100%}
-    .star .bot path{fill:#d9e2dc}.star .top{position:absolute;inset:0;overflow:hidden}.star .top path{fill:#f5c518}
-    .rating-meta{margin-left:6px;font-size:13px;color:var(--muted);font-weight:600}
-    footer{margin-top:40px;border-top:1px solid #e6ece8;padding:16px 0;color:#66756f;text-align:center}
+    .star .bot path{fill:#E1E6E9}
+    .star .top{position:absolute;inset:0;overflow:hidden}
+    .star .top path{fill:#f5c518}
+    .rating-meta{margin-left:6px;font-size:13px;color:var(--graph);font-weight:600}
+
+    /* Paginare simplă (optional) */
+    .pager{display:flex;gap:8px;justify-content:center;margin-top:14px}
+    .pager button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-weight:700;cursor:pointer}
+    .pager button[disabled]{opacity:.5;cursor:not-allowed}
+
+    footer{margin-top:40px;border-top:1px solid var(--line);padding:16px 0;color:#66756f;text-align:center}
   </style>
 </head>
 <body>
   <header>
     <div class="nav">
-      <a class="brand" href="/"><img src="./IMG_6413.png" alt="Bucătarul Personal" style="height:44px"></a>
+      <a class="brand" href="/">
+        <!-- mini sigiliu -->
+        <svg width="40" height="40" viewBox="0 0 220 220" aria-hidden="true">
+          <rect width="220" height="220" fill="#FFFFFF"/>
+          <g transform="translate(50,50)">
+            <circle cx="60" cy="60" r="46" fill="none" stroke="#1C1C1C" stroke-width="4"/>
+            <path d="M60 42c7 0 13 6 13 13v1h11c1 0 2 1 2 2v10c0 1-1 2-2 2H36c-1 0-2-1-2-2V58c0-1 1-2 2-2h11v-1c0-7 6-13 13-13z" fill="none" stroke="#D4AF37" stroke-width="4"/>
+            <path d="M81 102a30 30 0 1 1 0-56" fill="none" stroke="#1C1C1C" stroke-width="4" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <span>
+          <span class="name">CHEF PRIVÉ</span><br>
+          <small class="muted">Bucătarul Personal</small>
+        </span>
+      </a>
+
       <nav class="menu" aria-label="Meniu">
         <a href="/#despre">Despre noi</a>
         <a href="bucatarii.html" aria-current="page">Bucătarii noștri</a>
@@ -53,7 +103,8 @@
         <a href="/#contact">Contact</a>
         <a href="contul.html">Contul meu</a>
       </nav>
-      <a class="btn" href="/#formular" style="margin-left:auto;background:var(--rubin);color:#fff;border-color:transparent">Vreau un bucătar</a>
+
+      <a class="btn primary" href="/#formular" style="margin-left:auto">Rezervă un chef</a>
     </div>
   </header>
 
@@ -61,73 +112,160 @@
     <div class="page-head">
       <h1>Bucătarii noștri</h1>
       <p class="muted">Alege după oraș, stil și buget. Toți au contract, factură și recenzii reale.</p>
+
       <div class="filters" id="filters">
         <label class="chip">Oraș
-          <select id="f-city"><option value="">Toate</option><option>București</option><option>Cluj</option><option>Timișoara</option><option>Brașov</option></select>
+          <select id="f-city">
+            <option value="">Toate</option><option>București</option><option>Cluj</option><option>Timișoara</option><option>Brașov</option>
+          </select>
         </label>
         <label class="chip">Stil
-          <select id="f-style"><option value="">Toate</option><option>Fine dining</option><option>Italian</option><option>BBQ</option><option>Mediteranean</option></select>
+          <select id="f-style">
+            <option value="">Toate</option><option>Fine dining</option><option>Italian</option><option>BBQ</option><option>Mediteranean</option><option>Vegetarian</option>
+          </select>
         </label>
         <label class="chip">Buget (€/pers)
-          <select id="f-budget"><option value="">Toate</option><option value="1">&lt;40</option><option value="2">40–60</option><option value="3">60–90</option><option value="4">&gt;90</option></select>
+          <select id="f-budget">
+            <option value="">Toate</option><option value="1">&lt;40</option><option value="2">40–60</option><option value="3">60–90</option><option value="4">&gt;90</option>
+          </select>
         </label>
+      </div>
+
+      <div class="toolbar">
+        <label class="chip">Sortează
+          <select id="f-sort">
+            <option value="best">Relevanță</option>
+            <option value="rating">Rating descrescător</option>
+            <option value="budget-asc">Buget crescător</option>
+            <option value="budget-desc">Buget descrescător</option>
+          </select>
+        </label>
+        <div class="search" aria-label="Caută după nume sau stil">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="m21 21-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"/></svg>
+          <input id="f-q" type="search" placeholder="Caută: nume, stil…">
+        </div>
       </div>
     </div>
 
     <div id="grid" class="grid" aria-live="polite"></div>
+    <div class="pager" id="pager" aria-label="Pagini" hidden>
+      <button id="prev">‹</button>
+      <button id="next">›</button>
+    </div>
   </main>
 
-  <footer>© <span id="year"></span> Bucătarul Personal</footer>
+  <footer>© <span id="year"></span> CHEF PRIVÉ • Bucătarul Personal</footer>
 
   <script>
+    // Data
     const CHEFS=[
-      {name:'Chef Andrei',city:'București',style:['Fine dining','Mediteranean','Steak'],budget:3,rating:4.8,count:126,img:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop'},
-      {name:'Chef Elisa',city:'Cluj',style:['Italian','Seafood','Pasta'],budget:2,rating:4.6,count:98,img:'https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1200&auto=format&fit=crop'},
-      {name:'Chef Radu',city:'Timișoara',style:['BBQ','Corporate'],budget:2,rating:4.9,count:203,img:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop'},
-      {name:'Chef Maria',city:'Brașov',style:['Fine dining','Vegetarian'],budget:4,rating:4.7,count:84,img:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop'}
+      {name:'Chef Andrei',city:'București',style:['Fine dining','Mediteranean','Steak'],budget:3,rating:4.8,count:126,
+       img:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop'},
+      {name:'Chef Elisa',city:'Cluj',style:['Italian','Seafood','Pasta'],budget:2,rating:4.6,count:98,
+       img:'https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1200&auto=format&fit=crop'},
+      {name:'Chef Radu',city:'Timișoara',style:['BBQ','Corporate'],budget:2,rating:4.9,count:203,
+       img:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop'},
+      {name:'Chef Maria',city:'Brașov',style:['Fine dining','Vegetarian'],budget:4,rating:4.7,count:84,
+       img:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop'}
     ];
-    const grid=document.getElementById('grid');
-    const y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();
+
+    // Utils
+    const $ = s => document.querySelector(s);
+    const grid = $('#grid');
+    const perPage = 9; let page = 1; let results = CHEFS.slice();
+
+    // Footer year
+    const y = document.getElementById('year'); if(y) y.textContent = new Date().getFullYear();
+
+    // Stars component
     const makeStars=(r,c)=>`
-      <span class="stars" aria-label="Evaluare ${r.toFixed(1).replace('.',',')} din 5">
+      <span class="stars" role="img" aria-label="Evaluare ${r.toFixed(1).replace('.',',')} din 5">
         ${[...Array(5)].map(()=>`
           <span class="star">
-            <span class="bot"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
-            <span class="top"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
+            <span class="bot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
+            <span class="top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.56 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z"/></svg></span>
           </span>`).join('')}
         <span class="rating-meta">${r.toFixed(1).replace('.',',')} (${c})</span>
       </span>`;
+
     function paintStars(card,r){
-      card.querySelectorAll('.star .top').forEach((top,i)=>{ const f=Math.max(0,Math.min(1,r-i)); top.style.width=(f*100)+'%';});
-    }
-    function render(){
-      const city=document.getElementById('f-city').value;
-      const style=document.getElementById('f-style').value;
-      const budget=document.getElementById('f-budget').value;
-      const list=CHEFS.filter(c=>{
-        const okCity=!city||c.city===city;
-        const okStyle=!style||c.style.includes(style);
-        const okBudget=!budget||c.budget==+budget;
-        return okCity&&okStyle&&okBudget;
+      card.querySelectorAll('.star .top').forEach((top,i)=>{
+        const f=Math.max(0,Math.min(1,r-i)); top.style.width=(f*100)+'%';
       });
-      grid.innerHTML=list.map(c=>`
+    }
+
+    // Filtering / sorting / search
+    function applyFilters(){
+      const city = $('#f-city').value.trim();
+      const style = $('#f-style').value.trim();
+      const budget = $('#f-budget').value.trim();
+      const q = $('#f-q').value.trim().toLowerCase();
+
+      results = CHEFS.filter(c=>{
+        const okCity = !city || c.city===city;
+        const okStyle = !style || c.style.includes(style);
+        const okBudget = !budget || c.budget==+budget;
+        const okSearch = !q || c.name.toLowerCase().includes(q) || c.style.some(s=> s.toLowerCase().includes(q)) || c.city.toLowerCase().includes(q);
+        return okCity && okStyle && okBudget && okSearch;
+      });
+
+      const sort = $('#f-sort').value;
+      if(sort==='rating') results.sort((a,b)=> b.rating - a.rating);
+      if(sort==='budget-asc') results.sort((a,b)=> a.budget - b.budget);
+      if(sort==='budget-desc') results.sort((a,b)=> b.budget - a.budget);
+      // 'best' = implicit order (as is)
+
+      page = 1;
+      render();
+    }
+
+    function render(){
+      const start = (page-1)*perPage, end = start + perPage;
+      const view = results.slice(start,end);
+
+      grid.innerHTML = view.map(c=>`
         <article class="card">
-          <div class="media"><img src="${c.img}" alt="${c.name} în bucătărie"></div>
+          <div class="media">
+            <img loading="lazy" decoding="async" src="${c.img}" alt="${c.name} în bucătărie">
+          </div>
           <div class="body">
             <h3>${c.name}</h3>
-            <div class="meta">${c.city} • ${c.style[0]}</div>
+            <div class="meta">${c.city} • ${c.style[0]} • <span class="price">€${c.budget===1?'<40':c.budget===2?'40–60':c.budget===3?'60–90':'>90'}</span></div>
             ${makeStars(c.rating,c.count)}
             <div class="tags">${c.style.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-            <div style="margin-top:10px">
-              <a class="btn" href="/#formular" style="background:var(--rubin);color:#fff;border-color:transparent">Solicită ofertă</a>
+            <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+              <a class="btn primary" href="/#formular">Solicită ofertă</a>
+              <a class="btn ghost" href="/servicii.html#private-chef">Detalii</a>
             </div>
           </div>
         </article>`).join('');
-      // umplere stele
-      document.querySelectorAll('.card').forEach((card,i)=> paintStars(card,list[i].rating));
+
+      // stele
+      [...grid.querySelectorAll('.card')].forEach((card,i)=> paintStars(card, view[i]?.rating||0));
+
+      // pager
+      const pager = document.getElementById('pager');
+      if(results.length > perPage){
+        pager.hidden = false;
+        document.getElementById('prev').disabled = page===1;
+        document.getElementById('next').disabled = end >= results.length;
+      } else {
+        pager.hidden = true;
+      }
+
+      // aria-live tip
+      grid.setAttribute('aria-label', `${results.length} rezultate. Afișate ${view.length} pe pagina ${page}.`);
     }
-    document.getElementById('filters').addEventListener('change',render);
-    render();
+
+    // Events
+    document.getElementById('filters').addEventListener('change', applyFilters);
+    document.getElementById('f-sort').addEventListener('change', applyFilters);
+    document.getElementById('f-q').addEventListener('input', applyFilters);
+    document.getElementById('prev').addEventListener('click', ()=>{ if(page>1){ page--; render(); }});
+    document.getElementById('next').addEventListener('click', ()=>{ if(page*perPage<results.length){ page++; render(); }});
+
+    // Init
+    applyFilters();
   </script>
 </body>
 </html>
