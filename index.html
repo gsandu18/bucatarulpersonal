@@ -164,6 +164,20 @@
     .newsletter form{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
     .newsletter input{flex:1 1 220px}
     .copyright{max-width:var(--max);margin:0 auto;padding:12px clamp(12px,4vw,32px);border-top:1px solid #E9E9EC;color:var(--graph);text-align:center;font-size:14px}
+ /* === FIX: chip-urile România / Italia pe iOS === */
+.chips .chip{ white-space:nowrap; }                       /* nu lăsa ruperea pe 2 rânduri */
+.chips .chip input[type="radio"]{
+  width:auto !important;                                  /* anulează width:100% */
+  height:auto;
+  margin:0 8px 0 0;
+  flex:0 0 auto;
+  appearance:auto; -webkit-appearance:auto;               /* revine la radio nativ */
+  accent-color: var(--gold);                              /* cercul selectat pe brand */
+}
+    /* în loc de: input,select,textarea{ width:100% } */
+form input:not([type="radio"]):not([type="checkbox"]),
+form select,
+form textarea{ width:100%; }
   </style>
 </head>
 <body>
