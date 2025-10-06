@@ -135,29 +135,23 @@
     .chips{display:flex;gap:8px;flex-wrap:wrap}
     .chip{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:700;cursor:pointer}
     .map{height:clamp(360px,60vh,680px);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
-
-    /* ===== Chefs ===== */
+ /* ===== Chefs ===== */
     .chefs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     @media(max-width:980px){.chefs-grid{grid-template-columns:1fr 1fr}}
     @media(max-width:640px){.chefs-grid{grid-template-columns:1fr}}
-    .chef-card .ribbon{
-      position:absolute;left:12px;top:12px;background:#1d7f5f;color:#fff;font-weight:800;
-      padding:6px 10px;border-radius:999px;font-size:12px;box-shadow:0 6px 18px rgba(0,0,0,.14)
-    }
-    .chef-card .media{height:180px;background:#F5F5F7}
+    .chef-card{position:relative}
+    .chef-card .ribbon{position:absolute;left:12px;top:12px;background:#1d7f5f;color:#fff;font-weight:800;padding:6px 10px;border-radius:999px;font-size:12px;box-shadow:0 6px 18px rgba(0,0,0,.14)}
+    .chef-card .media{aspect-ratio:1/1;background:#F5F5F7}
     .chef-card .media img{width:100%;height:100%;object-fit:cover}
     .chef-card .body{padding:14px}
-    .chef-card .meta{color:var(--graph);margin-top:4px}
+    .chef-card .meta{color:var(--graph);margin-top:6px;display:flex;gap:10px;flex-wrap:wrap}
+    .chef-card .stats{display:flex;gap:12px;align-items:center;margin-top:8px}
 
-    /* stele rating */
-    .stars{display:inline-flex;gap:2px;align-items:center;--star: #f5c518}
-    .stars .star{position:relative;width:18px;height:18px}
-    .stars .star svg{width:100%;height:100%}
-    .stars .bg path{fill:#e6e6ea}
-    .stars .fg{position:absolute;inset:0;overflow:hidden}
-    .stars .fg path{fill:var(--star)}
-    .stars .num{margin-left:6px;font-size:13px;color:#6a756e;font-weight:800}
-
+    /* ===== Stele ===== */
+    .stars{position:relative;display:inline-block;line-height:1;font-size:16px}
+    .stars .base{color:#e6e6ea}
+    .stars .fill{position:absolute;left:0;top:0;white-space:nowrap;overflow:hidden;color:var(--star);width:0}
+    .score{margin-left:6px;font-weight:800;color:#475569;font-size:14px}
     /* ===== Formulare ===== */
     label{display:block;font-weight:700;margin-bottom:6px}
     input,select,textarea{width:100%;padding:12px 14px;border:1px solid #E3E3E6;border-radius:12px;background:#FBFBFC}
@@ -336,17 +330,46 @@
     </div>
   </section>
 
-  <!-- ===== TESTIMONIALE ===== -->
-  <section id="testimoniale" class="section tst">
-    <div class="container">
-      <h2>Ce spun clienții noștri</h2>
-      <p class="muted">Scor mediu (Google + intern): <strong>4.9/5</strong></p>
 
-      <div class="viewport">
-        <div class="track" id="tst-track">
-          <article class="item"><div class="card"><div class="head"><img class="ava" src="https://i.pravatar.cc/100?img=12" alt=""><div class="who"><div class="name">Ana M.</div><div class="meta">Cină privată • București</div></div></div><p>„Plating ca în restaurant, timpi perfecți, discreție totală.”</p><div class="foot"><span>6 persoane</span><span>Mai 2025</span></div></div></article>
-          <article class="item"><div class="card"><div class="head"><img class="ava" src="https://i.pravatar.cc/100?img=5" alt=""><div class="who"><div class="name">Radu T.</div><div class="meta">Eveniment • Cluj</div></div></div><p>„Setup impecabil, echipă punctuală și flexibilă. Live cooking memorabil.”</p><div class="foot"><span>120 persoane</span><span>Ian 2025</span></div></div></article>
-          <article class="item"><div class="card"><div class="head"><img class="ava" src="https://i.pravatar.cc/100?img=28" alt=""><div class="who"><div class="name">Elisa P.</div><div class="meta">Cină • Brașov</div></div></div><p>„Au personalizat meniul pentru alergii și au fost extrem de atenți.”</p><div class="foot"><span>8 persoane</span><span>Nov 2024</span></div></div></article>
+       <!-- ===== CE SPUN CLIENȚII (Slider) ===== -->
+  <section id="testimoniale" class="section">
+    <div class="wrap" id="tst">
+      <h2 class="container">Ce spun clienții</h2>
+      <p class="container muted" style="margin-top:-6px">Scor mediu (Google + intern): <strong>4.9/5</strong></p>
+
+      <div class="wrap">
+        <div class="viewport">
+          <div id="tst-track" class="track" aria-live="polite">
+            <article class="item">
+              <div class="card" style="padding:16px;display:grid;gap:10px">
+                <div class="thead"><img class="ava" src="https://i.pravatar.cc/100?img=12" alt="Ana M."><div><div style="font-weight:800">Ana M.</div><div class="tmeta">Cină privată • București</div></div></div>
+                <div><span class="stars" data-rating="5"><span class="fill">★★★★★</span><span class="base">★★★★★</span></span><span class="score">5.0</span></div>
+                <p>„Plating ca în restaurant, timpi perfecți, discreție totală.”</p>
+                <div class="tfoot"><span>6 persoane</span><span>Mai 2025</span></div>
+              </div>
+            </article>
+            <article class="item">
+              <div class="card" style="padding:16px;display:grid;gap:10px">
+                <div class="thead"><img class="ava" src="https://i.pravatar.cc/100?img=5" alt="Radu T."><div><div style="font-weight:800">Radu T.</div><div class="tmeta">Eveniment • Cluj</div></div></div>
+                <div><span class="stars" data-rating="4.8"><span class="fill">★★★★★</span><span class="base">★★★★★</span></span><span class="score">4.8</span></div>
+                <p>„Setup impecabil, echipă punctuală și flexibilă. Live cooking memorabil.”</p>
+                <div class="tfoot"><span>120 persoane</span><span>Ian 2025</span></div>
+              </div>
+            </article>
+            <article class="item">
+              <div class="card" style="padding:16px;display:grid;gap:10px">
+                <div class="thead"><img class="ava" src="https://i.pravatar.cc/100?img=28" alt="Elisa P."><div><div style="font-weight:800">Elisa P.</div><div class="tmeta">Cină • Brașov</div></div></div>
+                <div><span class="stars" data-rating="4.9"><span class="fill">★★★★★</span><span class="base">★★★★★</span></span><span class="score">4.9</span></div>
+                <p>„Au personalizat meniul pentru alergii și au fost extrem de atenți.”</p>
+                <div class="tfoot"><span>8 persoane</span><span>Nov 2024</span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="ctrl">
+          <button class="btn-nav" id="tst-prev" aria-label="Înapoi">‹</button>
+          <div id="tst-dots" class="dots" aria-label="Pagini"></div>
+          <button class="btn-nav" id="tst-next" aria-label="Înainte">›</button>
         </div>
       </div>
     </div>
