@@ -11,7 +11,7 @@
   <!-- Fonturi -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root{
@@ -19,8 +19,6 @@
       --max:1160px; --rad:16px; --shadow:0 12px 36px rgba(0,0,0,.08);
       --safe-bottom:env(safe-area-inset-bottom,0px);
       --star:#f5c518;
-
-      /* adăugate (lipseau) */
       --glass: rgba(255,255,255,.72);
       --hdrH: 72px;
       --graphite:#6a6a6a;
@@ -29,7 +27,7 @@
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{margin:0;background:var(--paper);color:var(--noir);font:400 16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-    h1,h2,h3{font-family:"Montsserat Bold",serif;color:var(--noir);letter-spacing:.2px}
+    h1,h2,h3{font-family:"Montserrat",serif;color:var(--noir);letter-spacing:.2px}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
 
@@ -46,7 +44,6 @@
     @media(max-width:980px){.grid-3{grid-template-columns:1fr 1fr}}
     @media(max-width:640px){.grid-3{grid-template-columns:1fr}}
 
-    /* FIX: regula tăiată */
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     @media(max-width:820px){.grid-2{grid-template-columns:1fr}}
 
@@ -130,8 +127,8 @@
     .ctrl{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:12px}
     .btn-nav{border:1px solid var(--line);background:#fff;border-radius:12px;width:40px;height:40px;display:grid;place-items:center;cursor:pointer}
     .dots{display:flex;gap:8px}
-   .dot{width:8px;height:8px;border-radius:50%;background:#d9d9de;border:1px solid #c7c7cc} 
-      .dot.active{background:#1C1C1C}   
+    .dot{width:8px;height:8px;border-radius:50%;background:#d9d9de;border:1px solid #c7c7cc} 
+    .dot.active{background:#1C1C1C}   
     
     /* ===== Harta ===== */
     .map-wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(12px,4vw,24px)}
@@ -139,7 +136,8 @@
     .chips{display:flex;gap:8px;flex-wrap:wrap}
     .chip{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:700;cursor:pointer}
     .map{height:clamp(360px,60vh,680px);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
- /* ===== Chefs ===== */
+
+    /* ===== Chefs ===== */
     .chefs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     @media(max-width:980px){.chefs-grid{grid-template-columns:1fr 1fr}}
     @media(max-width:640px){.chefs-grid{grid-template-columns:1fr}}
@@ -150,7 +148,8 @@
     .chef-card .body{padding:14px}
     .chef-card .meta{color:var(--graph);margin-top:6px;display:flex;gap:10px;flex-wrap:wrap}
     .chef-card .stats{display:flex;gap:12px;align-items:center;margin-top:8px}
-   /* ===== Stele ===== */
+
+    /* ===== Stele ===== */
     .stars{position:relative;display:inline-block;line-height:1;font-size:16px}
     .stars .base{color:#e6e6ea}
     .stars .fill{position:absolute;left:0;top:0;white-space:nowrap;overflow:hidden;color:var(--star);width:0}
@@ -177,24 +176,22 @@
     /* iOS radio fix (chips) */
     .chips .chip{white-space:nowrap}
     .chips .chip input[type="radio"]{width:auto;height:auto;margin:0 8px 0 0;flex:0 0 auto;appearance:auto;-webkit-appearance:auto;accent-color:var(--gold)}
-  /* Drawer overlay + panou */
-.drawer-back{
-  position:fixed; inset:0; background:rgba(0,0,0,.4);
-  display:none; z-index:1000;
-}
-.drawer{
-  position:absolute; right:0; top:0; height:100%;
-  width:min(420px,92%); background:#fff; border-left:1px solid var(--line);
-  box-shadow:var(--shadow); display:flex; flex-direction:column;
-  transform:translateX(100%); transition:transform .28s cubic-bezier(.2,.7,.2,1);
-}
-.drawer-back.open{ display:block; }
-.drawer-back.open .drawer{ transform:translateX(0); }
 
-/* Link-urile din drawer */
-.drawer a{ padding:14px 16px; border-bottom:1px solid var(--line); font-weight:700; color:#1C1C1C; }
-.drawer .head{ display:flex; align-items:center; justify-content:space-between; padding:14px; border-bottom:1px solid var(--line); }
-  @media(max-width:980px){ .menu,.lang{display:none} .burger{display:inline-flex} }
+    /* ====== Drawer overlay + panou (MOBIL) ====== */
+    .drawer-back{
+      position:fixed; inset:0; background:rgba(0,0,0,.4);
+      display:none; z-index:1000;
+    }
+    .drawer{
+      position:absolute; right:0; top:0; height:100%;
+      width:min(420px,92%); background:#fff; border-left:1px solid var(--line);
+      box-shadow:var(--shadow); display:flex; flex-direction:column;
+      transform:translateX(100%); transition:transform .28s cubic-bezier(.2,.7,.2,1);
+    }
+    .drawer-back.open{ display:block; }
+    .drawer-back.open .drawer{ transform:translateX(0); }
+    .drawer a{ padding:14px 16px; border-bottom:1px solid var(--line); font-weight:700; color:#1C1C1C; }
+    .drawer .head{ display:flex; align-items:center; justify-content:space-between; padding:14px; border-bottom:1px solid var(--line); }
   </style>
 </head>
 <body>
@@ -206,8 +203,8 @@
         <img src="logo.svg" alt="Bucătarul Personal" class="logo" height="52">
         <span class="lockup">
           <span class="name">Bucătarul Personal</span>
-             <span class="sub">Private Chefs • RO & IT</span>
-  </span>
+          <span class="sub">Private Chefs • RO & IT</span>
+        </span>
       </a>
 
       <nav class="menu" aria-label="Meniu principal">
@@ -228,18 +225,18 @@
         </div>
       </div>
 
-      <button class="burger" id="openDrawer" aria-label="Deschide meniul">
-        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <button class="burger" id="openDrawer" aria-label="Deschide meniul" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
   </header>
 
   <!-- Drawer mobil -->
-  <div class="drawer-back" id="drawerBack" aria-hidden="true" style="display:none">
-    <nav class="drawer" aria-label="Meniu mobil" style="position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#fff;border-left:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column">
-      <div class="head" style="display:flex;align-items:center;justify-content:space-between;padding:14px;border-bottom:1px solid var(--line)">
+  <div class="drawer-back" id="drawerBack" aria-hidden="true">
+    <nav class="drawer" aria-label="Meniu mobil">
+      <div class="head">
         <strong>Meniu</strong>
-        <button id="closeDrawer" class="btn">Închide</button>
+        <button id="closeDrawer" class="btn" aria-label="Închide meniul">Închide</button>
       </div>
       <a href="despre.html">Despre noi</a>
       <a href="bucatari.html">Bucătarii noștri</a>
@@ -344,7 +341,7 @@
     </div>
   </section>
 
-<!-- ===== CE SPUN CLIENȚII (Slider) ===== -->
+  <!-- ===== CE SPUN CLIENȚII (Slider) ===== -->
   <section id="testimoniale" class="section">
     <div class="wrap" id="tst">
       <h2 class="container">Ce spun clienții</h2>
@@ -525,45 +522,71 @@
     const langBtn = document.getElementById('langBtn');
     const langList = document.getElementById('langList');
     langBtn?.addEventListener('click', (e)=>{ e.stopPropagation(); const open=lang.classList.toggle('open'); langBtn.setAttribute('aria-expanded', open?'true':'false'); });
-    document.addEventListener('click', (e)=>{ if(!lang.contains(e.target)) { lang.classList.remove('open'); langBtn?.setAttribute('aria-expanded','// burger / drawer
-const drawerBack = document.getElementById('drawerBack');
-const openDrawerBtn  = document.getElementById('openDrawer');
-const closeDrawerBtn = document.getElementById('closeDrawer');
+    document.addEventListener('click', (e)=>{ if(!lang.contains(e.target)) { lang.classList.remove('open'); langBtn?.setAttribute('aria-expanded','false'); } });
 
-function toggleDrawer(show){
-  if(!drawerBack) return;
-  drawerBack.classList.toggle('open', !!show);
-  drawerBack.setAttribute('aria-hidden', show ? 'false' : 'true');
-  openDrawerBtn?.setAttribute('aria-expanded', show ? 'true' : 'false');
-  document.body.style.overflow = show ? 'hidden' : '';
-}
+    // ===== burger / drawer =====
+    const drawerBack = document.getElementById('drawerBack');
+    const openDrawerBtn  = document.getElementById('openDrawer');
+    const closeDrawerBtn = document.getElementById('closeDrawer');
 
-openDrawerBtn?.addEventListener('click', (e)=>{ e.preventDefault(); toggleDrawer(true); });
-closeDrawerBtn?.addEventListener('click', (e)=>{ e.preventDefault(); toggleDrawer(false); });
+    function toggleDrawer(show){
+      if(!drawerBack) return;
+      // 1) control inline pentru a bate eventuale style="display:none"
+      drawerBack.style.display = show ? 'block' : 'none';
+      // 2) într-un frame separat, setăm clasa pentru animație
+      requestAnimationFrame(()=>{ drawerBack.classList.toggle('open', !!show); });
+      // a11y + scroll lock
+      drawerBack.setAttribute('aria-hidden', show ? 'false' : 'true');
+      openDrawerBtn?.setAttribute('aria-expanded', show ? 'true' : 'false');
+      document.body.style.overflow = show ? 'hidden' : '';
+    }
 
-// click în afara panoului => închide
-drawerBack?.addEventListener('click', (e)=>{ if(e.target === drawerBack) toggleDrawer(false); });
+    openDrawerBtn?.addEventListener('click', (e)=>{ e.preventDefault(); toggleDrawer(true); });
+    closeDrawerBtn?.addEventListener('click', (e)=>{ e.preventDefault(); toggleDrawer(false); });
+    // click pe overlay în afara panoului => închide
+    drawerBack?.addEventListener('click', (e)=>{ if(e.target === drawerBack) toggleDrawer(false); });
+    // Esc => închide
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') toggleDrawer(false); });
+    // click pe link din drawer => închide
+    drawerBack?.querySelector('.drawer')?.addEventListener('click', (e)=>{
+      if(e.target.closest('a')) toggleDrawer(false);
+    });
 
-// închide pe Esc
-document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') toggleDrawer(false); });
+    // ===== hero slider: dots =====
+    (function(){
+      const slides=[...document.querySelectorAll('.hero .slide')];
+      const dots=[...document.querySelectorAll('.hero .dot')];
+      if(!slides.length) return;
+      let i=0, timer=null;
+      function go(n){ i=(n+slides.length)%slides.length; slides.forEach((s,k)=>s.classList.toggle('active',k===i)); dots.forEach((d,k)=>d.classList.toggle('active',k===i)); }
+      function play(){ stop(); timer=setInterval(()=>go(i+1),6000); }
+      function stop(){ if(timer){clearInterval(timer); timer=null;} }
+      dots.forEach((d,k)=>d.addEventListener('click',()=>{ go(k); play(); }));
+      play();
+    })();
 
-// închide când se apasă pe un link din drawer
-drawerBack?.querySelector('.drawer')?.addEventListener('click', (e)=>{
-  if(e.target.closest('a')) toggleDrawer(false);
-});
-    // formular demo
+    // ===== testimoniale: auto-scroll simplu =====
+    (function(){
+      const track=document.getElementById('tst-track'); if(!track) return;
+      let auto=setInterval(()=>{ const nearEnd=track.scrollLeft+track.clientWidth>=track.scrollWidth-5;
+        track.scrollTo({left: nearEnd?0 : track.scrollLeft+track.clientWidth*0.9, behavior:'smooth'}); }, 3500);
+      track.addEventListener('mouseenter', ()=>clearInterval(auto));
+      track.addEventListener('mouseleave', ()=>auto=setInterval(()=>{ const nearEnd=track.scrollLeft+track.clientWidth>=track.scrollWidth-5; track.scrollTo({left: nearEnd?0 : track.scrollLeft+track.clientWidth*0.9, behavior:'smooth'}); }, 3500));
+    })();
+
+    // ===== formular demo =====
     (function(){
       const f=document.getElementById('order-form'), ok=document.getElementById('ok');
       f?.addEventListener('submit', e=>{ e.preventDefault(); ok.style.display='inline-block'; setTimeout(()=>{ ok.style.display='none'; f.reset(); }, 3000); });
     })();
 
-    // newsletter demo
+    // ===== newsletter demo =====
     (function(){
       const f=document.getElementById('nl-form'), ok=document.getElementById('nl-ok');
       f?.addEventListener('submit', e=>{ e.preventDefault(); if(!f.checkValidity()) return; ok.style.display='inline-block'; setTimeout(()=>{ ok.style.display='none'; f.reset(); }, 3000); });
     })();
 
-    // Harta RO/IT cu Leaflet
+    // ===== Harta RO/IT cu Leaflet =====
     (function(){
       if(!window.L) return;
       const map = L.map('map', { scrollWheelZoom:true }).setView([45.5, 12], 5);
@@ -584,121 +607,6 @@ drawerBack?.querySelector('.drawer')?.addEventListener('click', (e)=>{
       render('ro');
       document.getElementById('country-chips').addEventListener('change', e=>{ if(e.target.name==='tara') render(e.target.value); });
     })();
-      // ===== Testimoniale: slider complet (prev/next, dots, autoplay, responsive) =====
-(function(){
-  const wrap   = document.getElementById('tst');
-  const track  = document.getElementById('tst-track');
-  const prev   = document.getElementById('tst-prev');
-  const next   = document.getElementById('tst-next');
-  const dotsEl = document.getElementById('tst-dots');
-  if(!wrap || !track) return;
-
-  const items = Array.from(track.children);
-  let per = 3; // default desktop
-  let page = 0;
-  let pages = 1;
-  let autoTimer = null;
-
-  function calcPer(){
-    const w = window.innerWidth;
-    per = (w <= 640) ? 1 : (w <= 980) ? 2 : 3;
-  }
-
-  function calcPages(){
-    pages = Math.max(1, Math.ceil(items.length / per));
-  }
-
-  function buildDots(){
-    dotsEl.innerHTML = '';
-    for(let i=0;i<pages;i++){
-      const b = document.createElement('button');
-      b.className = 'dot' + (i===page?' active':'');
-      b.setAttribute('aria-label', `Pagina ${i+1}`);
-      b.addEventListener('click', ()=>go(i));
-      dotsEl.appendChild(b);
-    }
-  }
-
-  function applyTransform(){
-    const gap = parseFloat(getComputedStyle(track).getPropertyValue('gap')) || 16;
-    const cardWidth = track.clientWidth / per - (gap * (per - 1) / per);
-    const x = page * (cardWidth + gap) * per;
-    track.style.transform = `translateX(${-x}px)`;
-    Array.from(dotsEl.children).forEach((d,i)=>d.classList.toggle('active', i===page));
-  }
-
-  function go(n){
-    page = (n + pages) % pages;
-    applyTransform();
-  }
-
-  function nextPage(){ go(page + 1); }
-  function prevPage(){ go(page - 1); }
-
-  function startAuto(){
-    stopAuto();
-    autoTimer = setInterval(nextPage, 4000);
-  }
-  function stopAuto(){
-    if(autoTimer){ clearInterval(autoTimer); autoTimer = null; }
-  }
-
-  function onResize(){
-    const oldPer = per;
-    calcPer();
-    const oldPages = pages;
-    calcPages();
-    // dacă se schimbă numărul de pagini, reconstruim punctele și ajustăm pagina curentă
-    if(per !== oldPer || pages !== oldPages){
-      page = Math.min(page, pages - 1);
-      buildDots();
-      applyTransform();
-    } else {
-      applyTransform();
-    }
-  }
-
-  prev?.addEventListener('click', ()=>{ prevPage(); startAuto(); });
-  next?.addEventListener('click', ()=>{ nextPage(); startAuto(); });
-  wrap.addEventListener('mouseenter', stopAuto);
-  wrap.addEventListener('mouseleave', startAuto);
-  window.addEventListener('resize', ()=>{ requestAnimationFrame(onResize); });
-
-  // init
-  calcPer(); calcPages(); buildDots(); applyTransform(); startAuto();
-})();
-
-// ===== Stele galbene din .stars[data-rating] (toate locurile: testimoniale + chefi) =====
-(function(){
-  const STAR5 = '★★★★★';
-
-  function ensureMarkup(el){
-    // dacă nu are straturile, le construim
-    if(!el.querySelector('.base') || !el.querySelector('.fill')){
-      el.innerHTML = `<span class="fill">${STAR5}</span><span class="base">${STAR5}</span>`;
-    }
-  }
-
-  function render(el){
-    const rating = parseFloat(el.getAttribute('data-rating')) || 0;
-    ensureMarkup(el);
-    const pct = Math.max(0, Math.min(100, (rating / 5) * 100));
-    const fill = el.querySelector('.fill');
-    if(fill) fill.style.width = pct + '%';
-
-    // dacă e cerut scor numeric lângă stele și nu există, îl adăugăm
-    if(!el.nextElementSibling || !el.nextElementSibling.classList?.contains('score')){
-      const s = document.createElement('span');
-      s.className = 'score';
-      s.textContent = rating.toFixed(1);
-      el.after(s);
-    } else {
-      el.nextElementSibling.textContent = rating.toFixed(1);
-    }
-  }
-
-  document.querySelectorAll('.stars[data-rating]').forEach(render);
-})();                                                                      
   </script>
 </body>
 </html>
