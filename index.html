@@ -584,6 +584,121 @@ drawerBack?.querySelector('.drawer')?.addEventListener('click', (e)=>{
       render('ro');
       document.getElementById('country-chips').addEventListener('change', e=>{ if(e.target.name==='tara') render(e.target.value); });
     })();
+      // ===== Testimoniale: slider complet (prev/next, dots, autoplay, responsive) =====
+(function(){
+  const wrap   = document.getElementById('tst');
+  const track  = document.getElementById('tst-track');
+  const prev   = document.getElementById('tst-prev');
+  const next   = document.getElementById('tst-next');
+  const dotsEl = document.getElementById('tst-dots');
+  if(!wrap || !track) return;
+
+  const items = Array.from(track.children);
+  let per = 3; // default desktop
+  let page = 0;
+  let pages = 1;
+  let autoTimer = null;
+
+  function calcPer(){
+    const w = window.innerWidth;
+    per = (w <= 640) ? 1 : (w <= 980) ? 2 : 3;
+  }
+
+  function calcPages(){
+    pages = Math.max(1, Math.ceil(items.length / per));
+  }
+
+  function buildDots(){
+    dotsEl.innerHTML = '';
+    for(let i=0;i<pages;i++){
+      const b = document.createElement('button');
+      b.className = 'dot' + (i===page?' active':'');
+      b.setAttribute('aria-label', `Pagina ${i+1}`);
+      b.addEventListener('click', ()=>go(i));
+      dotsEl.appendChild(b);
+    }
+  }
+
+  function applyTransform(){
+    const gap = parseFloat(getComputedStyle(track).getPropertyValue('gap')) || 16;
+    const cardWidth = track.clientWidth / per - (gap * (per - 1) / per);
+    const x = page * (cardWidth + gap) * per;
+    track.style.transform = `translateX(${-x}px)`;
+    Array.from(dotsEl.children).forEach((d,i)=>d.classList.toggle('active', i===page));
+  }
+
+  function go(n){
+    page = (n + pages) % pages;
+    applyTransform();
+  }
+
+  function nextPage(){ go(page + 1); }
+  function prevPage(){ go(page - 1); }
+
+  function startAuto(){
+    stopAuto();
+    autoTimer = setInterval(nextPage, 4000);
+  }
+  function stopAuto(){
+    if(autoTimer){ clearInterval(autoTimer); autoTimer = null; }
+  }
+
+  function onResize(){
+    const oldPer = per;
+    calcPer();
+    const oldPages = pages;
+    calcPages();
+    // dacă se schimbă numărul de pagini, reconstruim punctele și ajustăm pagina curentă
+    if(per !== oldPer || pages !== oldPages){
+      page = Math.min(page, pages - 1);
+      buildDots();
+      applyTransform();
+    } else {
+      applyTransform();
+    }
+  }
+
+  prev?.addEventListener('click', ()=>{ prevPage(); startAuto(); });
+  next?.addEventListener('click', ()=>{ nextPage(); startAuto(); });
+  wrap.addEventListener('mouseenter', stopAuto);
+  wrap.addEventListener('mouseleave', startAuto);
+  window.addEventListener('resize', ()=>{ requestAnimationFrame(onResize); });
+
+  // init
+  calcPer(); calcPages(); buildDots(); applyTransform(); startAuto();
+})();
+
+// ===== Stele galbene din .stars[data-rating] (toate locurile: testimoniale + chefi) =====
+(function(){
+  const STAR5 = '★★★★★';
+
+  function ensureMarkup(el){
+    // dacă nu are straturile, le construim
+    if(!el.querySelector('.base') || !el.querySelector('.fill')){
+      el.innerHTML = `<span class="fill">${STAR5}</span><span class="base">${STAR5}</span>`;
+    }
+  }
+
+  function render(el){
+    const rating = parseFloat(el.getAttribute('data-rating')) || 0;
+    ensureMarkup(el);
+    const pct = Math.max(0, Math.min(100, (rating / 5) * 100));
+    const fill = el.querySelector('.fill');
+    if(fill) fill.style.width = pct + '%';
+
+    // dacă e cerut scor numeric lângă stele și nu există, îl adăugăm
+    if(!el.nextElementSibling || !el.nextElementSibling.classList?.contains('score')){
+      const s = document.createElement('span');
+      s.className = 'score';
+      s.textContent = rating.toFixed(1);
+      el.after(s);
+    } else {
+      el.nextElementSibling.textContent = rating.toFixed(1);
+    }
+  }
+
+  document.querySelectorAll('.stars[data-rating]').forEach(render);
+})();                                                                      
   </script>
 </body>
 </html>
