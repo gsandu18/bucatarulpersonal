@@ -74,6 +74,47 @@
     .pager button[disabled]{opacity:.5;cursor:not-allowed}
 
     footer{margin-top:40px;border-top:1px solid var(--line);padding:16px 0;color:#66756f;text-align:center}
+  /* === Override paletă & finisaje (crem + auriu) === */
+:root{
+  --soft:#fcf9f4;     /* crem pentru head strip + footer */
+  --line:#ded5bf;     /* bej pentru borduri */
+  --accent:#b98660;   /* auriu pentru butoane */
+  --accent-ink:#121212;
+  --star:#f5c518;     /* galben stele */
+}
+
+/* Header: alb cu fâșie crem sus + bordură bej */
+header{
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  position:sticky; top:0; z-index:10;
+}
+header::before{
+  content:""; position:absolute; inset:0 0 auto 0;
+  height:10px; background:var(--soft);
+}
+
+/* Meniu + butoane */
+.menu a{ font-weight:800; }
+.btn{ border-radius:999px; font-weight:800; }
+.btn.primary{ background:var(--accent); border-color:var(--accent); color:var(--accent-ink); }
+.btn.primary:hover{ filter:brightness(.95); }
+.btn.ghost{ background:#fff; color:var(--noir); border-color:var(--line); }
+
+/* Carduri: borduri bej */
+.card{ border-color:var(--line); }
+
+/* Stele: galben + umplere fracționată corectă */
+.star .bot path{ fill:#E1E6E9; }
+.star .top path{ fill:var(--star); }
+
+/* Footer: crem + bordură bej */
+footer{
+  background:var(--soft);
+  border-top:1px solid var(--line);
+  color:#665a4a;
+}
   </style>
 </head>
 <body>
