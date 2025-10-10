@@ -219,17 +219,42 @@ footer{ border-top:1px solid var(--line); color: var(--muted); }
   </script>
 </head>
 <body>
+<header class="site-header">
+  <div class="navbar">
+    <a class="brand" href="/" aria-label="Acasă">BUCĂTARUL PERSONAL</a>
 
-  <!-- Header -->
-  <header>
-    <div class="nav">
-      <a href="/">Bucătarul Personal</a>
-      <div class="spacer"></div>
-      <a href="/bucatarii.html">Bucătării</a>
+    <nav class="navlinks" aria-label="Navigație principală">
+      <a href="/despre-noi.html">Despre noi</a>
+      <a href="/bucatarii.html">Bucătarii noștri</a>
+      <a href="/servicii.html" class="active">Servicii</a>
       <a href="/blog.html">Blog</a>
-      <a href="/#formular">Comandă</a>
-      <button class="burger" id="burger" aria-label="Meniu">☰</button>
-    </div>
+      <a href="/contact.html">Contact</a>
+      <a href="/cont.html" class="btn ghost">Contul meu</a>
+      <a href="/#formular" class="btn primary">VREAU UN BUCĂTAR</a>
+      <button class="lang-pill" type="button">🌐 RO</button>
+    </nav>
+
+    <button class="burger" id="hdr-burger" aria-label="Deschide meniul">☰</button>
+  </div>
+
+  <!-- Drawer mobil -->
+  <div class="drawer-back" id="drawer-back" aria-hidden="true">
+    <nav class="drawer" aria-label="Meniu mobil" role="dialog" aria-modal="true">
+      <div class="head">
+        <strong>Bucătarul Personal</strong>
+        <button class="btn ghost" id="drawer-close">Închide</button>
+      </div>
+      <a href="/despre-noi.html">Despre noi</a>
+      <a href="/bucatarii.html">Bucătarii noștri</a>
+      <a href="/servicii.html" class="active">Servicii</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/cont.html">Contul meu</a>
+      <a href="/#formular" class="btn primary" style="margin:14px">Vreau un bucătar</a>
+    </nav>
+  </div>
+</header>
+  
   </header>
 
   <!-- Drawer mobil -->
