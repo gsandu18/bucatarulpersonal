@@ -122,6 +122,48 @@
     footer{color:var(--muted);text-align:center;border-top:1px solid var(--line);margin-top:28px;padding:16px 0}
 
     @media (prefers-reduced-motion: reduce){ .card, .plan{ transition:none } }
+    /* === PALETĂ DIN IMAGINE — OVERRIDE === */
+:root{
+  --ink: #161616;           /* text principal / titluri */
+  --muted: #665a4a;         /* subtitluri / descrieri */
+  --paper: #ffffff;         /* canvas alb */
+  --soft: #fcf9f4;          /* bare/fundal secțiuni soft */
+  --line: #ded5bf;          /* borduri, linii subtile */
+  --card: #ffffff;          /* card bg */
+  --accent: #b98660;        /* butoane “Detalii” / CTA */
+  --accent-ink: #121212;    /* text pe butonul accent */
+}
+
+/* header: alb cu o fâșie subtilă crem, ca în screenshot */
+header{ background: rgba(255,255,255,.92); backdrop-filter: blur(10px); border-bottom:1px solid var(--line) }
+header::before{
+  content:""; position: absolute; inset:0 0 auto 0; height:10px; background: var(--soft);
+}
+
+/* titluri & corp text */
+h1,h2,h3{ color: var(--ink); }
+.muted{ color: var(--muted); }
+
+/* carduri servicii */
+.card{ background: var(--card); border:1px solid var(--line); box-shadow: 0 14px 36px rgba(0,0,0,.08) }
+.card .body{ background: var(--card); }
+
+/* butoane */
+.btn{ border-radius: 999px; font-weight: 800; }
+.btn.primary{
+  background: var(--accent); color: var(--accent-ink);
+  border-color: transparent;
+}
+.btn.primary:hover{ filter: brightness(.95); }
+.btn.ghost{ background:#fff; color: var(--ink); border:1px solid var(--line); }
+.pill{ border:1px solid var(--line); background:#fff; color:#184236; font-weight:700; }
+
+/* badge-urile rotunde (dacă le folosești) */
+.badge{ background: rgba(255,255,255,.92); color:#0b3327; border:1px solid var(--line); }
+
+/* grilă & media rămân la fel; doar finisaje */
+.media{ background: #f6f1ec; }
+footer{ border-top:1px solid var(--line); color: var(--muted); }
   </style>
 
   <!-- JSON-LD basic -->
