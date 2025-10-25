@@ -341,7 +341,6 @@ header {
     .newsletter form{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
     .newsletter input{flex:1 1 260px;min-width:0}
     .copyright{max-width:var(--max);margin:0 auto;padding:12px clamp(12px,4vw,32px);border-top:1px solid #E9E9EC;color:var(--graph);text-align:center;font-size:14px}
-style>
 .foot{
   max-width:1200px;
   margin:0 auto;
@@ -377,24 +376,6 @@ style>
 }
 @media(max-width:900px){
   .foot{grid-template-columns:1fr 1fr;}
-}
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
-
-const form=document.getElementById('newsletterForm');
-const ok=document.getElementById('nl-ok');
-form?.addEventListener('submit',e=>{
-  e.preventDefault();
-  ok.style.display='inline-block';
-  setTimeout(()=>{ok.style.display='none';form.reset()},3000);
-});
-</script>
-@media (max-width: 900px) {
-  .brand-block {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
 }
     /* iOS radio fix (chips) */
     .chips .chip{white-space:nowrap}
