@@ -585,50 +585,104 @@ header {
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="foot">
-      <div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-          <img src="Chef Prive - RO 2.svg" alt="" style="height:180px;width:auto">
-          <div>
-          </div>
-        </div>
-       
-      <div>
-        <h4>Companie</h4>
-        <ul>
-          <li><a href="#despre">Despre noi</a></li>
-          <li><a href="#chefs">Bucătarii noștri</a></li>
-          <li><a href="#servicii">Servicii</a></li>
-          <li><a href="#blog">Blog</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="/termeni">Termeni &amp; Condiții</a></li>
-          <li><a href="/confidentialitate">Confidențialitate</a></li>
-          <li><a href="/cookies">Politica cookie-uri</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Newsletter</h4>
-        <div class="newsletter">
-          <p class="muted">Primește ocazional idei de meniuri și oferte.</p>
-          <form id="nl-form" novalidate>
-            <input type="email" id="nl-email" placeholder="email@exemplu.com" required>
-            <button class="btn primary" type="submit">Abonează-te</button>
-            <span id="nl-ok" style="display:none;color:#2C3E2F;font-weight:800">Îți mulțumim! ✅</span>
-          </form>
-        </div>
-      </div>
+ <!-- ===== FOOTER ===== -->
+<footer style="background:#FAFAFA;border-top:3px solid #d4af37;margin-top:80px;">
+  <div class="foot">
+    <div class="col logo-col">
+      <img src="Chef Prive – RO 2.svg" alt="Chef Privé" style="height:48px;width:auto;margin-bottom:10px;">
+      <p style="color:#6a6a6a;font-size:15px;">By Bucătarul Personal<br>Servicii Private Chef în România și Italia.</p>
     </div>
 
-    <div class="copyright">© <span id="year"></span> CHEF PRIVÉ • Toate drepturile rezervate</div>
-  </footer>
+    <div class="col">
+      <h4>Companie</h4>
+      <ul>
+        <li><a href="#despre">Despre noi</a></li>
+        <li><a href="#chefi">Bucătarii noștri</a></li>
+        <li><a href="#servicii">Servicii</a></li>
+        <li><a href="#blog">Blog</a></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/termeni">Termeni &amp; Condiții</a></li>
+        <li><a href="/confidentialitate">Confidențialitate</a></li>
+        <li><a href="/cookies">Politica cookie-uri</a></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h4>Newsletter</h4>
+      <p style="color:#6a6a6a;font-size:14px;">Primește ocazional idei de meniuri și oferte.</p>
+      <form id="newsletterForm" style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input type="email" placeholder="email@exemplu.com" required style="flex:1 1 160px;padding:10px 12px;border:1px solid #ddd;border-radius:8px;">
+        <button type="submit" style="background:#d4af37;border:none;color:#1C1C1C;font-weight:700;border-radius:8px;padding:10px 16px;cursor:pointer;">Abonează-te</button>
+      </form>
+      <span id="nl-ok" style="display:none;color:#0e5a43;font-weight:700;margin-top:8px;">Mulțumim! ✅</span>
+    </div>
+  </div>
+
+  <div class="copyright">
+    © <span id="year"></span> CHEF PRIVÉ • Toate drepturile rezervate
+  </div>
+</footer>
+
+<style>
+.foot{
+  max-width:1200px;
+  margin:0 auto;
+  padding:40px 20px;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1.2fr;
+  gap:32px;
+}
+.foot h4{
+  margin:0 0 10px;
+  font-weight:800;
+  font-size:16px;
+}
+.foot ul{
+  list-style:none;
+  padding:0;margin:0;
+  display:grid;
+  gap:6px;
+}
+.foot a{
+  color:#1C1C1C;
+  font-weight:500;
+  transition:color .2s;
+}
+.foot a:hover{color:#0e5a43;}
+.copyright{
+  text-align:center;
+  padding:18px;
+  font-size:14px;
+  color:#6a6a6a;
+  border-top:1px solid #e9e9ec;
+  background:#F8F8F8;
+}
+@media(max-width:900px){
+  .foot{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  .foot{grid-template-columns:1fr;}
+  .col{margin-bottom:20px;}
+}
+</style>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const form=document.getElementById('newsletterForm');
+const ok=document.getElementById('nl-ok');
+form?.addEventListener('submit',e=>{
+  e.preventDefault();
+  ok.style.display='inline-block';
+  setTimeout(()=>{ok.style.display='none';form.reset()},3000);
+});
+</script>
+
 
   <!-- ===== JS ===== -->
   <script>
