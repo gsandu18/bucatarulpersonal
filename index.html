@@ -706,63 +706,6 @@ header {
     © <span id="year"></span> CHEF PRIVÉ • Toate drepturile rezervate
   </div>
 </footer>
-
-<style>
-.foot{
-  max-width:1200px;
-  margin:0 auto;
-  padding:40px 20px;
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr 1.2fr;
-  gap:32px;
-}
-.foot h4{
-  margin:0 0 10px;
-  font-weight:800;
-  font-size:16px;
-}
-.foot ul{
-  list-style:none;
-  padding:0;margin:0;
-  display:grid;
-  gap:6px;
-}
-.foot a{
-  color:#1C1C1C;
-  font-weight:500;
-  transition:color .2s;
-}
-.foot a:hover{color:#0e5a43;}
-.copyright{
-  text-align:center;
-  padding:18px;
-  font-size:14px;
-  color:#6a6a6a;
-  border-top:1px solid #e9e9ec;
-  background:#F8F8F8;
-}
-@media(max-width:900px){
-  .foot{grid-template-columns:1fr 1fr;}
-}
-@media(max-width:600px){
-  .foot{grid-template-columns:1fr;}
-  .col{margin-bottom:20px;}
-}
-</style>
-
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
-
-const form=document.getElementById('newsletterForm');
-const ok=document.getElementById('nl-ok');
-form?.addEventListener('submit',e=>{
-  e.preventDefault();
-  ok.style.display='inline-block';
-  setTimeout(()=>{ok.style.display='none';form.reset()},3000);
-});
-</script>
-
-
   <!-- ===== JS ===== -->
   <script>
     // anul curent
