@@ -56,45 +56,66 @@
     .menu a{font-weight:600;}
     .menu a:hover{color:#0e5a43;}
     .lang-switch select{padding:6px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-weight:/* BURGER */
-    .menu-toggle{
-      display:none;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      width:40px;
-      height:40px;
-      gap:6px;
-      background:none;
-      border:none;
-      cursor:pointer;
-      z-index:1100;
-    }
-    .menu-toggle span{
-      width:24px;
-      height:3px;
-      background:#1c1c1c;
-      border-radius:2px;
-      transition:0.3s;
-    }
+  /* BURGER */
+.menu-toggle{
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  width:40px;
+  height:40px;
+  gap:6px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  z-index:1100;
+}
+.menu-toggle span{
+  width:24px;
+  height:3px;
+  background:#1c1c1c;
+  border-radius:2px;
+  transition:all 0.3s ease;
+}
 
-    /* ===== Responsive Nav ===== */
-    @media(max-width:900px){
-      .menu-toggle{display:flex;}
-      .menu ul{
-        display:none;
-        position:absolute;
-        top:70px;
-        left:0;right:0;
-        flex-direction:column;
-        align-items:center;
-        gap:16px;
-        padding:20px 0;
-        background:#fff;
-        border-top:1px solid #eee;
-      }
-      .menu.open ul{display:flex;}
-      .lang-switch{display:none;}
-      }
+/* Burger animat în X */
+.menu-toggle.active span:nth-child(1){
+  transform:rotate(45deg) translate(5px, 5px);
+}
+.menu-toggle.active span:nth-child(2){
+  opacity:0;
+}
+.menu-toggle.active span:nth-child(3){
+  transform:rotate(-45deg) translate(5px, -5px);
+}
+
+/* RESPONSIVE NAV */
+@media(max-width:900px){
+  .menu-toggle{display:flex;}
+  .menu ul{
+    display:none;
+    position:absolute;
+    top:70px;
+    left:0;
+    right:0;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+    padding:24px 0;
+    background:#fff;
+    border-top:1px solid #eee;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    opacity:0;
+    transform:translateY(-10px);
+    transition:all .3s ease;
+  }
+  .menu.open ul{
+    display:flex;
+    opacity:1;
+    transform:translateY(0);
+  }
+  .lang-switch{display:none;}
+}
 
     /* ===== Hero ===== */
     .hero{position:relative;height:clamp(56vh,92vh,820px);min-height:540px;overflow:hidden}
