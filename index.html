@@ -341,37 +341,54 @@ header {
     .newsletter form{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
     .newsletter input{flex:1 1 260px;min-width:0}
     .copyright{max-width:var(--max);margin:0 auto;padding:12px clamp(12px,4vw,32px);border-top:1px solid #E9E9EC;color:var(--graph);text-align:center;font-size:14px}
-.logo-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+style>
+.foot{
+  max-width:1200px;
+  margin:0 auto;
+  padding:40px 20px;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1.2fr;
+  gap:32px;
 }
-
-.brand-block {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
+.foot h4{
+  margin:0 0 10px;
+  font-weight:800;
+  font-size:16px;
 }
-
-.footer-logo {
-  height: 60px;
-  width: auto;
-  flex-shrink: 0;
+.foot ul{
+  list-style:none;
+  padding:0;margin:0;
+  display:grid;
+  gap:6px;
 }
-
-.brand-text p {
-  margin: 0;
-  color: #6a6a6a;
-  line-height: 1.4;
-  font-size: 15px;
+.foot a{
+  color:#1C1C1C;
+  font-weight:500;
+  transition:color .2s;
 }
-
-.brand-text strong {
-  color: #1c1c1c;
-  font-weight: 700;
-  font-size: 16px;
+.foot a:hover{color:#0e5a43;}
+.copyright{
+  text-align:center;
+  padding:18px;
+  font-size:14px;
+  color:#6a6a6a;
+  border-top:1px solid #e9e9ec;
+  background:#F8F8F8;
 }
+@media(max-width:900px){
+  .foot{grid-template-columns:1fr 1fr;}
+}
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
 
+const form=document.getElementById('newsletterForm');
+const ok=document.getElementById('nl-ok');
+form?.addEventListener('submit',e=>{
+  e.preventDefault();
+  ok.style.display='inline-block';
+  setTimeout(()=>{ok.style.display='none';form.reset()},3000);
+});
+</script>
 @media (max-width: 900px) {
   .brand-block {
     flex-direction: column;
