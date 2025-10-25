@@ -658,17 +658,150 @@ header {
     </div>
   </section>
 
- <!-- ===== FOOTER ===== -->
-<div class="col logo-col">
-  <div class="brand-block">
-    <img src="Chef Prive - RO 2.svg" alt="Chef Privé" class="footer-logo">
-    <div class="brand-text">
-      <p><strong>By Bucătarul Personal</strong></p>
-      <p>Servicii Private Chef în România și Italia.</p>
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CHEF PRIVÉ — Bucătarul Personal</title>
+  <meta name="description" content="Private Chefs. Professional Taste. Chefi personali pentru evenimente corporate și experiențe private, în România și Italia.">
+  <meta name="author" content="Chef Privé — by Bucătarul Personal">
+  <meta name="owner" content="contact@chefprive.ro">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --noir:#1C1C1C; --gold:#D4AF37; --mist:#FAFAFB; --line:#E9E9EC; --max:1160px;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:"Inter",sans-serif; color:var(--noir); background:#fff; }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0; z-index:100;
+      background:rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid #ddd;
+    }
+    .nav {
+      max-width: var(--max);
+      margin:0 auto;
+      padding:12px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .logo { height:44px; width:auto; }
+    nav ul { list-style:none; display:flex; gap:32px; }
+    nav a { color:#1C1C1C; font-weight:600; text-decoration:none; transition:.2s; }
+    nav a:hover { color:#0e5a43; }
+    .lang-switch select {
+      border:1px solid #ccc; border-radius:20px;
+      padding:6px 10px; font-weight:600; background:transparent;
+    }
+
+    /* HERO */
+    .hero { position:relative; height:70vh; overflow:hidden; display:flex; align-items:center; }
+    .hero img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.8); }
+    .hero .overlay { position:absolute; inset:0; background:rgba(0,0,0,.45); }
+    .hero .content { position:relative; z-index:2; max-width:700px; color:#fff; padding:0 40px; }
+    .hero h1 { font-family:"Montserrat",serif; font-size:clamp(30px,6vw,54px); margin-bottom:10px; }
+    .hero p { font-size:18px; margin-bottom:20px; }
+    .btn { display:inline-block; padding:12px 20px; border-radius:999px; font-weight:700; cursor:pointer; text-decoration:none; }
+    .btn.primary { background:var(--gold); color:#1C1C1C; }
+    .btn.ghost { background:#fff; color:#1C1C1C; border:1px solid #ccc; }
+
+    /* FOOTER */
+    footer { background:var(--mist); border-top:3px solid var(--gold); margin-top:64px; }
+    .foot {
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr 1.2fr;
+      gap:40px;
+      padding:50px 20px;
+    }
+    @media(max-width:900px){ .foot{grid-template-columns:1fr 1fr;} }
+    @media(max-width:640px){ .foot{grid-template-columns:1fr;text-align:center;} }
+
+    .brand-block { display:flex; flex-direction:column; align-items:flex-start; gap:10px; }
+    .footer-logo { height:70px; width:auto; }
+    .brand-text p { margin:0; line-height:1.5; color:#555; }
+    .brand-text strong { color:#1C1C1C; font-size:15px; }
+
+    .foot h4 { font-weight:800; font-size:16px; margin-bottom:10px; }
+    .foot ul { list-style:none; display:grid; gap:6px; padding:0; }
+    .foot a { color:#1C1C1C; text-decoration:none; font-weight:500; transition:.2s; }
+    .foot a:hover { color:#0e5a43; }
+
+    form { display:flex; gap:8px; flex-wrap:wrap; }
+    input[type=email] {
+      flex:1 1 200px; padding:10px 12px; border:1px solid #ddd; border-radius:8px;
+    }
+    button[type=submit] {
+      background:#d4af37; border:none; color:#1C1C1C; font-weight:700;
+      border-radius:8px; padding:10px 16px; cursor:pointer;
+    }
+
+    .copyright {
+      text-align:center;
+      font-size:14px;
+      color:#6a6a6a;
+      border-top:1px solid var(--line);
+      background:#F8F8F8;
+      padding:18px;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="nav">
+    <a href="#"><img src="Chef Prive - RO 2.svg" alt="Chef Privé" class="logo"></a>
+    <nav class="menu">
+      <ul>
+        <li><a href="#despre" data-key="about">Despre noi</a></li>
+        <li><a href="#chefi" data-key="chefs">Bucătarii noștri</a></li>
+        <li><a href="#servicii" data-key="services">Servicii</a></li>
+        <li><a href="#contact" data-key="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="lang-switch">
+      <select id="langSelect">
+        <option value="ro" selected>🇷🇴 RO</option>
+        <option value="it">🇮🇹 IT</option>
+        <option value="en">🇬🇧 EN</option>
+      </select>
     </div>
   </div>
-</div>
+</header>
 
+<section class="hero">
+  <img src="https://images.unsplash.com/photo-1528605105345-5344ea20e269?q=80&w=1600&auto=format&fit=crop" alt="">
+  <div class="overlay"></div>
+  <div class="content">
+    <h1>Experiență de restaurant, la tine acasă sau la birou.</h1>
+    <p>Meniuri personalizate, echipă completă și execuție impecabilă — în România și Italia.</p>
+    <a href="#formular" class="btn primary">Rezervă un chef</a>
+    <a href="#cum-func" class="btn ghost">Cum funcționează</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div class="col">
+      <div class="brand-block">
+        <img src="Chef Prive - RO 2.svg" alt="Chef Privé" class="footer-logo">
+        <div class="brand-text">
+          <p><strong>By Bucătarul Personal</strong></p>
+          <p>Servicii Private Chef în România și Italia.</p>
+        </div>
+      </div>
+    </div>
 
     <div class="col">
       <h4>Companie</h4>
@@ -683,18 +816,18 @@ header {
     <div class="col">
       <h4>Legal</h4>
       <ul>
-        <li><a href="/termeni">Termeni &amp; Condiții</a></li>
-        <li><a href="/confidentialitate">Confidențialitate</a></li>
-        <li><a href="/cookies">Politica cookie-uri</a></li>
+        <li><a href="#">Termeni & Condiții</a></li>
+        <li><a href="#">Confidențialitate</a></li>
+        <li><a href="#">Politica cookie-uri</a></li>
       </ul>
     </div>
 
     <div class="col">
       <h4>Newsletter</h4>
       <p style="color:#6a6a6a;font-size:14px;">Primește ocazional idei de meniuri și oferte.</p>
-      <form id="newsletterForm" style="display:flex;gap:8px;flex-wrap:wrap;">
-        <input type="email" placeholder="email@exemplu.com" required style="flex:1 1 160px;padding:10px 12px;border:1px solid #ddd;border-radius:8px;">
-        <button type="submit" style="background:#d4af37;border:none;color:#1C1C1C;font-weight:700;border-radius:8px;padding:10px 16px;cursor:pointer;">Abonează-te</button>
+      <form id="newsletterForm">
+        <input type="email" placeholder="email@exemplu.com" required>
+        <button type="submit">Abonează-te</button>
       </form>
       <span id="nl-ok" style="display:none;color:#0e5a43;font-weight:700;margin-top:8px;">Mulțumim! ✅</span>
     </div>
@@ -704,6 +837,7 @@ header {
     © <span id="year"></span> CHEF PRIVÉ • Toate drepturile rezervate
   </div>
 </footer>
+
   <!-- ===== JS ===== -->
   <script>
     // anul curent
