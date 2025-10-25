@@ -106,8 +106,36 @@ header {
   transition: all 0.2s ease;
 }
 
-.lang-switch button:hover {
+.lang-switch {
+  position: relative;
+}
+
+.lang-dropdown {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  list-style: none;
+  padding: 6px 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.lang-dropdown li {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.lang-dropdown li:hover {
   background: rgba(0,0,0,0.05);
+}
+
+.lang-switch.open .lang-dropdown {
+  display: block;
+}
+
 }
 
 /* ===== Hamburger ===== */
