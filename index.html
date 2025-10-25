@@ -47,47 +47,28 @@
     @media(max-width:640px){.grid-3{grid-template-columns:1fr}}
 
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media(max-width:820px){.grid-2{grid-template-columns:1fr}}
-/* HEADER */
-    header{position:sticky;top:0;background:#fff;border-bottom:1px solid #eee;z-index:100;}
-    .nav{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;max-width:1200px;margin:auto;}
-    .logo{height:70px;width:auto;}
-    .menu ul{display:flex;list-style:none;gap:24px;margin:0;padding:0;}
+    @media(max-width:820px){.grid-2{grid-template-columns:/* HEADER */
+    /* HEADER */
+    header{position:sticky;top:0;background:#fff;border-bottom:1px solid #eee;z-index:1000;}
+    .nav{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;}
+    .logo{height:90px;}
+    .brand-text{font-size:14px;font-weight:600;color:#0e5a43;margin-left:8px;}
+    .menu ul{display:flex;list-style:none;gap:24px;}
     .menu a{font-weight:600;}
     .menu a:hover{color:#0e5a43;}
-    .lang-switch select{padding:6px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-weight:/* BURGER */
-  /* BURGER */
-.menu-toggle{
-  display:none;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  width:40px;
-  height:40px;
-  gap:6px;
-  background:none;
-  border:none;
-  cursor:pointer;
-  z-index:1100;
-}
-.menu-toggle span{
-  width:24px;
-  height:3px;
-  background:#1c1c1c;
-  border-radius:2px;
-  transition:all 0.3s ease;
-}
+    .lang-switch select{padding:6px 10px;border-radius:20px;border:1px solid #ccc;font-weight:600;cursor:pointer;}
 
-/* Burger animat în X */
-.menu-toggle.active span:nth-child(1){
-  transform:rotate(45deg) translate(5px, 5px);
-}
-.menu-toggle.active span:nth-child(2){
-  opacity:0;
-}
-.menu-toggle.active span:nth-child(3){
-  transform:rotate(-45deg) translate(5px, -5px);
-}
+    /* BURGER */
+    .menu-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;width:40px;height:40px;gap:6px;border:none;background:none;cursor:pointer;}
+    .menu-toggle span{width:24px;height:3px;background:#1C1C1C;border-radius:2px;transition:.3s;}
+    .menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+    .menu-toggle.active span:nth-child(2){opacity:0;}
+    .menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+    @media(max-width:900px){
+      .menu-toggle{display:flex;}
+      .menu ul{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;align-items:center;gap:16px;background:#fff;padding:24px 0;box-shadow:0 8px 20px rgba(0,0,0,.06);}
+      .menu.open ul{display:flex;}
+      .lang-switch{display:none;}
 
 /* RESPONSIVE NAV */
 @media(max-width:900px){
@@ -107,7 +88,7 @@
     box-shadow:0 8px 20px rgba(0,0,0,.06);
     opacity:0;
     transform:translateY(-10px);
-    transition:all .3s ease;
+    transition:all .3s ease;ease;ease;}
   }
   .menu.open ul{
     display:flex;
@@ -225,17 +206,24 @@
 
 <header>
   <div class="nav">
-    <a href="#"><img src="Chef Prive - RO 2.svg" alt="Chef Privé" class="logo"></a>
+    <a href="#">
+      <img src="Chef Prive - RO 2.svg" alt="Chef Privé" class="logo">
+      <span class="brand-text">by Bucătarul Personal</span>
+    </a>
     <nav class="menu">
       <ul>
-        <li><a href="#despre">Despre noi</a></li>
-        <li><a href="#chefs">Bucătarii</a></li>
-        <li><a href="#servicii">Servicii</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#despre" data-key="about">Despre noi</a></li>
+        <li><a href="#chefs" data-key="chefs">Bucătarii</a></li>
+        <li><a href="#servicii" data-key="services">Servicii</a></li>
+        <li><a href="#contact" data-key="contact">Contact</a></li>
       </ul>
     </nav>
     <div class="lang-switch">
-      <select><option>RO</option><option>IT</option><option>EN</option></select>
+      <select id="langSelect">
+        <option value="ro">RO</option>
+        <option value="it">IT</option>
+        <option value="en">EN</option>
+      </select>
     </div>
     <button class="menu-toggle" id="burger" aria-label="Meniu mobil">
       <span></span><span></span><span></span>
