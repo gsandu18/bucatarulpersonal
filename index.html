@@ -55,23 +55,22 @@
     .menu ul{display:flex;list-style:none;gap:24px;margin:0;padding:0;}
     .menu a{font-weight:600;}
     .menu a:hover{color:#0e5a43;}
-    .lang-switch select{padding:6px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-weight:600;}
-
-    /* ===== BURGER ===== */
-    .menu-toggle {
+    .lang-switch select{padding:6px 10px;border-radius:20px;border:1px solid #ccc;cursor:pointer;font-weight:/* BURGER */
+    .menu-toggle{
       display:none;
       flex-direction:column;
       justify-content:center;
       align-items:center;
-      width:32px;
-      height:32px;
-      gap:5px;
-      border:none;
+      width:40px;
+      height:40px;
+      gap:6px;
       background:none;
+      border:none;
       cursor:pointer;
+      z-index:1100;
     }
-    .menu-toggle span {
-      width:22px;
+    .menu-toggle span{
+      width:24px;
       height:3px;
       background:#1c1c1c;
       border-radius:2px;
