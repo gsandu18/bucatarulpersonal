@@ -470,48 +470,15 @@
     const langBtn = document.getElementById('langBtn');
     const langList = document.getElementById('langList');
     langBtn?.addEventListener('click', (e)=>{ e.stopPropagation(); const open=lang.classList.toggle('open'); langBtn.setAttribute('aria-expanded', open?'true':'false'); });
-    document.addEventListener('click', (e)=>{ if(!lang.contains(e.target)) { lang.classList.remove('open'); langBtn?.setAttribute('aria-expanded','false'); } });
+    document.addEventListener('click', (e)=>{ if(!lang.contains(e.target)) { lang.classList.remove('open'); langBtn?.setAttribute('aria-expanded','// ===== BURGER FUNCȚIONAL =====
+// ===== BURGER FUNCȚIONAL =====
+const burger = document.getElementById('burger');
+const menu = document.querySelector('.menu');
 
-    // ===== burger / drawer =====
-    const drawerBack = document.getElementById('drawerBack');
-    const openDrawerBtn  = document.getElementById('openDrawer');
-    const closeDrawerBtn = document.getElementById('closeDrawer');
-
-    function toggleDrawer(show){
-      if(!drawerBack) return;
-      // 1) control inline pentru a bate eventuale style="display:none"
-      drawerBack.style.display = show ? 'block' : 'none';
-      // 2) într-un frame separat, setăm clasa pentru animație
-      requestAnimationFrame(()=>{ drawerBack.classList.toggle('open', !!show); });
-      // a11y + scroll lock
-      drawerBack.setAttribute('aria-hidden', show ? 'false' : 'true');
-      openDrawerBtn?.setAttribute('aria-expanded', show ? 'true' : 'false');
-      document.body.style.overflow = show ? 'hidden' : '';
-    }
-
-    openDrawerBtn?.addEventListener('click', (e)=>{ e.preventDefault(); toggleDrawer(true); });
-    closeDrawerBtn?.addEventListener('click', (e)=>{ e.preventDefault(); toggleDrawer(false); });
-    // click pe overlay în afara panoului => închide
-    drawerBack?.addEventListener('click', (e)=>{ if(e.target === drawerBack) toggleDrawer(false); });
-    // Esc => închide
-    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') toggleDrawer(false); });
-    // click pe link din drawer => închide
-    drawerBack?.querySelector('.drawer')?.addEventListener('click', (e)=>{
-      if(e.target.closest('a')) toggleDrawer(false);
-    });
-
-    // ===== hero slider: dots =====
-    (function(){
-      const slides=[...document.querySelectorAll('.hero .slide')];
-      const dots=[...document.querySelectorAll('.hero .dot')];
-      if(!slides.length) return;
-      let i=0, timer=null;
-      function go(n){ i=(n+slides.length)%slides.length; slides.forEach((s,k)=>s.classList.toggle('active',k===i)); dots.forEach((d,k)=>d.classList.toggle('active',k===i)); }
-      function play(){ stop(); timer=setInterval(()=>go(i+1),6000); }
-      function stop(){ if(timer){clearInterval(timer); timer=null;} }
-      dots.forEach((d,k)=>d.addEventListener('click',()=>{ go(k); play(); }));
-      play();
-    })();
+burger.addEventListener('click', () => {
+  burger.classList.toggle('active');
+  menu.classList.toggle('open');
+});
 
    // ===== Testimoniale: slider complet (prev/next, dots, autoplay, responsive) =====
 (function(){
