@@ -92,9 +92,23 @@ header {
 
 .logo {
   display: block;
-  height: 150px; /* înainte era 52px */
+  height: 68px; /* înălțime clară și echilibrată */
   width: auto;
-  transition: height 0.3s ease;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+.logo:hover {
+  transform: scale(1.04); /* efect elegant când treci cu mouse-ul */
+}
+.nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 }
 .lang-switch select {
   border: 1px solid rgba(0,0,0,0.1);
@@ -400,13 +414,9 @@ header {
 
 <header>
   <div class="nav">
-    <a class="brand" href="/" style="text-align:center; display:flex; flex-direction:column; align-items:center; text-decoration:none;">
-  <img src="Chef Prive - RO 2.svg" alt="Chef Privé" class="logo" style="height:150px; width:auto;">
-  <span style="font-family:'Playfair Display',serif; font-size:12px; color:#555; letter-spacing:0.5px; margin-top:4px; text-transform:uppercase;">
-    By Bucătarul Personal
-  </span>
-</a>
-
+    <a class="brand" href="/" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+      <img src="Chef Prive - RO 2.svg" alt="Chef Privé by Bucătarul Personal" class="logo">
+    </a>
 
     <nav class="menu">
       <ul>
