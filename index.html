@@ -92,14 +92,16 @@ header {
 
 .logo {
   display: block;
-  height: 68px; /* înălțime clară și echilibrată */
+  height: 110px; /* înălțime clară, vizibilă */
   width: auto;
+  max-height: 18vh; /* se adaptează pe ecrane mici */
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 .logo:hover {
-  transform: scale(1.04); /* efect elegant când treci cu mouse-ul */
+  transform: scale(1.03);
 }
+
 .nav {
   max-width: 1200px;
   margin: 0 auto;
