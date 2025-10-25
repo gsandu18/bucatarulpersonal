@@ -416,102 +416,55 @@ header {
 
 <header>
   <div class="nav">
-    <a class="brand" href="/" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
-      <img src="Chef Prive - RO 2.svg" alt="Chef Privé by Bucătarul Personal" class="logo">
-    </a>
-
+    <a href="#"><img src="Chef Prive - RO 2.svg" alt="Chef Privé" class="logo"></a>
     <nav class="menu">
       <ul>
-        <li><a href="#despre" data-key="about">Despre noi</a></li>
-        <li><a href="#chefi" data-key="chefs">Bucătarii noștri</a></li>
-        <li><a href="#servicii" data-key="services">Servicii</a></li>
-        <li><a href="#contact" data-key="contact">Contact</a></li>
+        <li><a href="#despre">Despre noi</a></li>
+        <li><a href="#chefs">Bucătarii</a></li>
+        <li><a href="#servicii">Servicii</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
-
     <div class="lang-switch">
-      <select id="langSelect">
-        <option value="ro" selected>🇷🇴 RO</option>
-        <option value="it">🇮🇹 IT</option>
-        <option value="en">🇬🇧 EN</option>
-      </select>
+      <select><option>RO</option><option>IT</option><option>EN</option></select>
     </div>
+    <button class="menu-toggle" id="burger" aria-label="Meniu mobil">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
-
-  <!-- Drawer mobil -->
-  <div class="drawer-back" id="drawerBack" aria-hidden="true">
-    <nav class="drawer" aria-label="Meniu mobil">
-      <div class="head">
-        <strong>Meniu</strong>
-        <button id="closeDrawer" class="btn" aria-label="Închide meniul">Închide</button>
+<!-- HERO -->
+<section class="hero">
+  <div class="slide active">
+    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80" class="bg" alt="">
+    <div class="overlay"></div>
+    <div class="content">
+      <span class="badge">Premium • Chefi verificați • Contract & Factură</span>
+      <h1>Experiență de restaurant, la tine acasă sau la birou.</h1>
+      <p>Meniuri personalizate, echipă completă și execuție impecabilă — în România și Italia.</p>
+      <div class="actions">
+        <a href="#formular" class="btn primary">Rezervă un chef</a>
+        <a href="#cum-func" class="btn ghost">Cum funcționează</a>
       </div>
-      <a href="despre-noi.html">Despre noi</a>
-      <a href="#bucatarii">Bucătarii noștri</a>
-      <a href="servicii.html">Servicii</a>
-      <a href="blog.html">Blog</a>
-      <a href="#contact">Contact</a>
-      <a href="contul.html">Contul meu</a>
-      <div style="padding:14px;">
-        <strong>Limba</strong>
-        <div style="margin-top:8px; display:grid;">
-          <a href="/index.html">Română</a>
-          <a href="/en/index.html">English</a>
-          <a href="/it/index.html">Italiano</a>
-        </div>
-      </div>
-    </nav>
+    </div>
   </div>
-
-  <!-- ===== HERO ===== -->
-  <section class="hero" id="hero" aria-label="Slide-uri principale" aria-live="polite">
-    <div class="slide active">
-      <img class="bg" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format&fit=crop" alt="">
-      <div class="overlay" aria-hidden="true"></div>
-      <div class="content">
-        <span class="badge">Premium • Chefi verificați • Contract & Factură</span>
-        <h1>Experiență de restaurant, la tine acasă sau la birou.</h1>
-        <p class="lead">Meniuri personalizate, echipă completă și execuție impecabilă — în România și Italia.</p>
-        <div class="actions">
-          <a href="#formular" class="btn primary">Rezervă un chef</a>
-          <a href="#cum-func" class="btn ghost">Cum funcționează</a>
-        </div>
-      </div>
-      <div class="right">
-        <div class="panel">
-          <h3>De ce noi?</h3>
-          <p>4.9/5 rating, 300+ recenzii. Discreție, contract, standarde 5★.</p>
-          <p class="lead" style="margin:0;color:#1C1C1C;font-weight:700">Private Chefs. Professional Taste.</p>
-        </div>
+  <div class="slide">
+    <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1600&q=80" class="bg" alt="">
+    <div class="overlay"></div>
+    <div class="content">
+      <span class="badge">Devino partener</span>
+      <h1>Înregistrează-te ca bucătar personal</h1>
+      <p>Primești cereri verificate, plăți sigure, program flexibil. Alege doar evenimentele potrivite.</p>
+      <div class="actions">
+        <a href="#formular" class="btn primary">Înregistrare</a>
+        <a href="#servicii" class="btn ghost">Află mai mult</a>
       </div>
     </div>
+  </div>
+  <div class="dots"><span class="dot active"></span><span class="dot"></span></div>
+</section>
 
-    <div class="slide">
-      <img class="bg" src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1600&auto=format&fit=crop" alt="">
-      <div class="overlay" aria-hidden="true"></div>
-      <div class="content">
-        <span class="badge">Devino partener</span>
-        <h1>Înregistrează-te ca bucătar personal</h1>
-        <p class="lead">Primești cereri verificate, plăți sigure, program flexibil. Alege doar evenimentele potrivite.</p>
-        <div class="actions">
-          <a href="cont.html" class="btn primary">Înregistrare</a>
-          <a href="Landing-page-chef.html" class="btn ghost">Află mai mult</a>
-        </div>
-      </div>
-      <div class="right">
-        <div class="panel">
-          <h3>Ce oferim bucătarilor</h3>
-          <p>Flux simplu, contracte clare, suport eveniment. Acces la clienți premium B2C/B2B.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="dots" role="tablist" aria-label="Schimbă slide-ul">
-      <button class="dot active" role="tab" aria-selected="true" tabindex="0"></button>
-      <button class="dot" role="tab" aria-selected="false" tabindex="-1"></button>
-    </div>
-  </section>
 
   <!-- ===== CUM FUNCȚIONEAZĂ ===== -->
   <section id="cum-func" class="section flow">
