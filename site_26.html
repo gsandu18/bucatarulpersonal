@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ro" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>CHEF PRIVÉ by Bucătarul Personal — Servicii Private Chef în România și Italia</title>
+  <meta name="description" content="Private Chefs. Professional Taste. Chefi personali pentru evenimente corporate și experiențe private, în România și Italia." />
+  <meta name="theme-color" content="#FFFFFF" />
+  <meta name="color-scheme" content="light" />
+  <meta name="application-name" content="CHEF PRIVÉ by Bucătarul Personal">
+  <meta property="og:site_name" content="CHEF PRIVÉ by Bucătarul Personal">
+  <meta name="copyright" content="© Bucătarul Personal SRL">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --noir:#1C1C1C; --gold:#D4AF37; --graph:#8E8E93; --paper:#FFFFFF;
+      --max:1200px; --rad:16px; --shadow:0 12px 36px rgba(0,0,0,.08);
+      --star:#f5c518; --verde:#0e5a43;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:Inter,system-ui,sans-serif;background:#fff;color:var(--noir);line-height:1.6;}
+    img{max-width:100%;display:block;}
+    h1,h2,h3{font-family:"Montserrat",serif;color:var(--noir);margin-bottom:8px;}
+    a{text-decoration:none;color:inherit;}
+    .btn{display:inline-block;padding:12px 22px;border-radius:50px;font-weight:700;cursor:pointer;}
+    .btn.primary{background:var(--gold);color:#1C1C1C;}
+    .btn.ghost{border:1px solid var(--noir);color:var(--noir);background:#fff;}
+    header{position:sticky;top:0;background:#fff;border-bottom:1px solid #eee;z-index:100;}
+    .nav{max-width:var(--max);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;}
+    .logo{height:80px;}
+    .menu ul{display:flex;gap:24px;list-style:none;}
+    .menu a{font-weight:600;}
+    .menu a:hover{color:var(--verde);}
+    .menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+    .menu-toggle span{width:24px;height:3px;background:var(--noir);border-radius:2px;}
+    @media(max-width:900px){
+      .menu ul{display:none;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:#fff;padding:20px;box-shadow:0 8px 20px rgba(0,0,0,.1);}
+      .menu.open ul{display:flex;}
+      .menu-toggle{display:flex;}
+    }
+
+    /* HERO */
+    .hero{position:relative;min-height:90vh;display:flex;align-items:center;justify-content:center;color:#fff;text-align:center;overflow:hidden;}
+    .hero::before{
+      content:"";position:absolute;inset:0;
+      background:url('https://images.unsplash.com/photo-1529692236671-f1dc28a3aa9d?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      filter:brightness(0.6);
+    }
+    .hero-content{position:relative;z-index:1;max-width:800px;padding:20px;}
+    .hero h1{font-size:clamp(32px,6vw,64px);line-height:1.1;margin-bottom:12px;color:#fff;}
+    .hero p{font-size:18px;margin-bottom:20px;color:#f5f5f5;}
+    .hero .btn{margin:6px;}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <img src="Chef Prive - RO 2.svg" alt="Chef Privé" class="logo">
+    <nav class="menu">
+      <ul>
+        <li><a href="#despre">Despre noi</a></li>
+        <li><a href="#servicii">Servicii</a></li>
+        <li><a href="#testimoniale">Testimoniale</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="menu-toggle" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Experiență de restaurant, la tine acasă</h1>
+    <p>Meniuri personalizate, plating artistic și chefi profesioniști în România și Italia.</p>
+    <a href="#formular" class="btn primary">Rezervă un Chef</a>
+    <a href="#cum-func" class="btn ghost">Cum funcționează</a>
+  </div>
+</section>
+
+<!-- CUM FUNCȚIONEAZĂ -->
+<section id="cum-func" style="background:#FAFAFA;padding:60px 20px;text-align:center;">
+  <h2>Cum funcționează</h2>
+  <p style="color:#555;margin-bottom:30px;">Proces clar în 3 pași simpli.</p>
+  <div style="max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
+    <div style="background:#fff;border:1px solid #eee;border-radius:16px;padding:20px;box-shadow:0 6px 20px rgba(0,0,0,.05);">
+      <h3>01. Completezi cererea</h3>
+      <p>Introdu orașul, data, numărul de persoane și preferințele culinare.</p>
+    </div>
+    <div style="background:#fff;border:1px solid #eee;border-radius:16px;padding:20px;box-shadow:0 6px 20px rgba(0,0,0,.05);">
+      <h3>02. Primești propuneri</h3>
+      <p>Îți trimitem 1-2 oferte adaptate bugetului și stilului tău.</p>
+    </div>
+    <div style="background:#fff;border:1px solid #eee;border-radius:16px;padding:20px;box-shadow:0 6px 20px rgba(0,0,0,.05);">
+      <h3>03. Chef-ul vine la tine</h3>
+      <p>Gătit, servire și curățenie incluse. Contract & factură.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICII -->
+<section id="servicii" style="padding:70px 20px;text-align:center;">
+  <h2>Serviciile noastre</h2>
+  <p style="color:#555;margin-bottom:40px;">Alege serviciul potrivit — fiecare oferă o experiență gourmet completă.</p>
+  <div style="max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;">
+    <div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08);">
+      <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=1200&auto=format&fit=crop" alt="Private Chef">
+      <div style="padding:20px;">
+        <h3>Private Chef</h3>
+        <p>Meniuri personalizate pentru cine private sau aniversări.</p>
+        <a href="#formular" class="btn primary" style="margin-top:10px;">Detalii</a>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08);">
+      <img src="https://images.unsplash.com/photo-1562967916-eb82221dfb36?q=80&w=1200&auto=format&fit=crop" alt="Evenimente corporate">
+      <div style="padding:20px;">
+        <h3>Evenimente Corporate</h3>
+        <p>Cine executive, lansări, team building-uri cu meniuri premium.</p>
+        <a href="#formular" class="btn primary" style="margin-top:10px;">Detalii</a>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08);">
+      <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c43?q=80&w=1200&auto=format&fit=crop" alt="Consultanță gastronomică">
+      <div style="padding:20px;">
+        <h3>Consultanță & Cursuri</h3>
+        <p>Training echipe, design de meniu și optimizare costuri.</p>
+        <a href="#formular" class="btn primary" style="margin-top:10px;">Detalii</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALE -->
+<section id="testimoniale" style="background:#FAFAFA;padding:70px 20px;text-align:center;">
+  <h2>Ce spun clienții</h2>
+  <p style="color:#555;margin-bottom:40px;">Recenzii verificate din Google & parteneri.</p>
+
+  <div id="slider" style="max-width:1100px;margin:auto;overflow:hidden;position:relative;">
+    <div id="slides" style="display:flex;transition:transform .6s ease;gap:20px;">
+      <div style="min-width:320px;background:#fff;border-radius:16px;padding:20px;box-shadow:0 6px 20px rgba(0,0,0,.06);">
+        <h3>„Plating ca în restaurant.”</h3>
+        <p style="color:#555;">Serviciu impecabil, chef discret și atent la detalii.</p>
+        <div style="margin-top:10px;font-weight:700;">Ana M. — București ⭐⭐⭐⭐⭐</div>
+      </div>
+      <div style="min-width:320px;background:#fff;border-radius:16px;padding:20px;box-shadow:0 6px 20px rgba(0,0,0,.06);">
+        <h3>„Eveniment corporate reușit.”</h3>
+        <p style="color:#555;">Echipă punctuală, meniuri rafinate, servire premium.</p>
+        <div style="margin-top:10px;font-weight:700;">Radu T. — Cluj ⭐⭐⭐⭐⭐</div>
+      </div>
+      <div style="min-width:320px;background:#fff;border-radius:16px;padding:20px;box-shadow:0 6px 20px rgba(0,0,0,.06);">
+        <h3>„Recomand 100%.”</h3>
+        <p style="color:#555;">Am avut o cină privată perfectă, adaptată alergiilor mele.</p>
+        <div style="margin-top:10px;font-weight:700;">Elisa P. — Brașov ⭐⭐⭐⭐⭐</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HARTĂ -->
+<section id="harta" style="padding:70px 20px;text-align:center;">
+  <h2>Unde suntem prezenți</h2>
+  <p style="color:#555;margin-bottom:30px;">România 🇷🇴 & Italia 🇮🇹 — orașe mari și echipe locale de chefi.</p>
+  <div id="map" style="height:400px;max-width:1100px;margin:auto;border-radius:16px;overflow:hidden;box-shadow:0 6px 30px rgba(0,0,0,.1);"></div>
+</section>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  // ====== Slider automat testimoniale ======
+  const slides = document.getElementById('slides');
+  let idx = 0;
+  setInterval(()=>{
+    idx = (idx + 1) % 3;
+    slides.style.transform = `translateX(-px)`;
+  },4000);
+
+  // ====== Hartă Leaflet România + Italia ======
+  const map = L.map('map').setView([45, 10], 5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const cities = [
+    // România
+    { name: "București", coords: [44.4268, 26.1025], color: "#0e5a43" },
+    { name: "Cluj-Napoca", coords: [46.7712, 23.6236], color: "#0e5a43" },
+    { name: "Timișoara", coords: [45.7489, 21.2087], color: "#0e5a43" },
+    { name: "Brașov", coords: [45.6579, 25.6012], color: "#0e5a43" },
+    { name: "Iași", coords: [47.1585, 27.6014], color: "#0e5a43" },
+    // Italia
+    { name: "Milano", coords: [45.4642, 9.19], color: "#D4AF37" },
+    { name: "Roma", coords: [41.9028, 12.4964], color: "#D4AF37" },
+    { name: "Firenze", coords: [43.7696, 11.2558], color: "#D4AF37" },
+    { name: "Torino", coords: [45.0703, 7.6869], color: "#D4AF37" },
+    { name: "Venezia", coords: [45.4408, 12.3155], color: "#D4AF37" }
+  ];
+
+  cities.forEach(c=>{
+    const icon = L.divIcon({className:'custom-pin', html:`<svg xmlns='http://www.w3.org/2000/svg' fill='' width='24' height='24'><path d='M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z'/></svg>`});
+    L.marker(c.coords,{icon}).addTo(map).bindPopup(`<strong></strong>`);
+  });
+</script>
+
+<!-- BUCĂTARII NOȘTRI -->
+<section id="chefs" style="padding:70px 20px;text-align:center;background:#fff;">
+  <h2>Bucătarii noștri</h2>
+  <p style="color:#555;margin-bottom:40px;">Profesioniști selectați, cu experiență în restaurante internaționale.</p>
+
+  <div style="max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
+    <div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.08);">
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop" alt="Chef Andrei">
+      <div style="padding:20px;">
+        <h3>Chef Andrei</h3>
+        <p style="color:#666;">Fine dining • București</p>
+        <div style="color:#f5c518;font-size:18px;">★★★★★</div>
+      </div>
+    </div>
+
+    <div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.08);">
+      <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=800&auto=format&fit=crop" alt="Chef Elisa">
+      <div style="padding:20px;">
+        <h3>Chef Elisa</h3>
+        <p style="color:#666;">Italian Cuisine • Cluj-Napoca</p>
+        <div style="color:#f5c518;font-size:18px;">★★★★★</div>
+      </div>
+    </div>
+
+    <div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.08);">
+      <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop" alt="Chef Radu">
+      <div style="padding:20px;">
+        <h3>Chef Radu</h3>
+        <p style="color:#666;">BBQ & Events • Timișoara</p>
+        <div style="color:#f5c518;font-size:18px;">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FORMULAR DE COMANDĂ -->
+<section id="formular" style="background:#FAFAFA;padding:70px 20px;text-align:center;">
+  <h2>Cerere de comandă</h2>
+  <p style="color:#555;margin-bottom:30px;">Completează 5 câmpuri și revenim rapid cu propuneri de meniu.</p>
+
+  <form style="max-width:700px;margin:auto;display:grid;gap:16px;text-align:left;">
+    <div>
+      <label style="font-weight:600;">Nume complet</label>
+      <input type="text" placeholder="Ex: Ana Popescu" required style="width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:8px;">
+    </div>
+    <div>
+      <label style="font-weight:600;">Oraș</label>
+      <input type="text" placeholder="Ex: București" required style="width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:8px;">
+    </div>
+    <div>
+      <label style="font-weight:600;">Dată eveniment</label>
+      <input type="date" required style="width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:8px;">
+    </div>
+    <div>
+      <label style="font-weight:600;">Număr persoane</label>
+      <select style="width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:8px;">
+        <option>2</option><option>4</option><option>6</option><option>8</option><option>10</option><option>20+</option>
+      </select>
+    </div>
+    <div>
+      <label style="font-weight:600;">Preferințe culinare</label>
+      <textarea rows="4" placeholder="dietă, alergii, stil de meniu, oră servire…" style="width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:8px;"></textarea>
+    </div>
+    <button type="submit" class="btn primary" style="width:fit-content;margin:auto;">Trimite cererea</button>
+    <p id="form-msg" style="text-align:center;color:#0e5a43;font-weight:700;display:none;">Cerere trimisă ✅ Revenim rapid!</p>
+  </form>
+</section>
+
+<script>
+  const form=document.querySelector('#formular form');
+  const msg=document.getElementById('form-msg');
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    msg.style.display='block';
+    setTimeout(()=>{msg.style.display='none';form.reset();},3000);
+  });
+</script>
+<!-- CONTACT -->
+<section id="contact" style="padding:70px 20px;text-align:center;background:#FAFAFA;">
+  <h2>Contact</h2>
+  <p style="color:#555;margin-bottom:30px;">Completează formularul sau contactează-ne direct.</p>
+  <form style="max-width:600px;margin:auto;display:grid;gap:14px;">
+    <input type="text" placeholder="Nume complet" required style="padding:12px 14px;border-radius:8px;border:1px solid #ddd;">
+    <input type="email" placeholder="Email" required style="padding:12px 14px;border-radius:8px;border:1px solid #ddd;">
+    <textarea rows="4" placeholder="Mesajul tău..." style="padding:12px 14px;border-radius:8px;border:1px solid #ddd;"></textarea>
+    <button type="submit" class="btn primary">Trimite mesajul</button>
+  </form>
+  <p style="margin-top:20px;">sau scrie-ne pe <a href="https://wa.me/40772893476" style="color:var(--verde);font-weight:700;">WhatsApp</a></p>
+</section>
+
+
+
+<!-- FOOTER -->
+<footer style="background:#111;color:#fff;text-align:center;padding:40px 20px;">
+  <div style="max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:30px;text-align:left;">
+    <div>
+      <img src="Chef Prive - RO 2.svg" alt="Chef Privé" style="height:70px;margin-bottom:10px;">
+      <p>By Bucătarul Personal — Servicii Private Chef în România și Italia.</p>
+    </div>
+    <div>
+      <h3 style="color:var(--gold);margin-bottom:10px;">Companie</h3>
+      <ul style="list-style:none;padding:0;line-height:1.8;">
+        <li><a href="#despre" style="color:#fff;">Despre noi</a></li>
+        <li><a href="#servicii" style="color:#fff;">Servicii</a></li>
+        <li><a href="#testimoniale" style="color:#fff;">Testimoniale</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color:var(--gold);margin-bottom:10px;">Legal</h3>
+      <ul style="list-style:none;padding:0;line-height:1.8;">
+        <li><a href="#" style="color:#fff;">Termeni & Condiții</a></li>
+        <li><a href="#" style="color:#fff;">Politica de confidențialitate</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:30px;font-size:14px;color:#aaa;">© <span id="year"></span> CHEF PRIVÉ • Toate drepturile rezervate</div>
+</footer>
+
+<!-- SCRIPT MENIU MOBIL -->
+<script>
+  const burger=document.getElementById('burger');
+  const menu=document.querySelector('.menu');
+  burger.addEventListener('click',()=>menu.classList.toggle('open'));
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
