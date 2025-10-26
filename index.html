@@ -103,7 +103,8 @@
     .btn-send:hover{background:var(--auriu-dark);}
     .btn-reset{border:1px solid var(--auriu-dark);background:#fff;color:var(--auriu-dark);border-radius:999px;padding:12px 24px;font-weight:700;}
     .btn-reset:hover{background:var(--auriu-dark);color:
-/* TESTIMONIALE — infinite scroll elegant */
+
+     /* TESTIMONIALE — infinite scroll elegant */
 #testimoniale {
   background: #fff;
   text-align: center;
@@ -318,11 +319,10 @@ document.addEventListener("DOMContentLoaded", () => {
     slides[index].classList.add('active');
   }, document.addEventListener("DOMContentLoaded", () => {
 
-  // SLIDER TESTIMONIALE
-  const carousel = document.getElementById('reviewCarousel');
-  const nextBtn = document.getElementById('nextBtn');
-  const prevBtn = document.getElementById('prevBtn');
-
+// SLIDER TESTIMONIALE — infinit
+const carousel = document.getElementById('reviewCarousel');
+const clone = carousel.innerHTML; // duplicăm conținutul
+carousel.innerHTML += clone; // pentru scroll infinit
   let currentIndex = 0;
   const items = carousel.querySelectorAll('.item');
   const visibleCount = Math.floor(carousel.offsetWidth / 340); // câte carduri se văd
