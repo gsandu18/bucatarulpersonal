@@ -234,7 +234,24 @@ header.scrolled .logo {
     #testimoniale .item p{color:var(--muted);margin-bottom:6px;}
     #testimoniale .item small{color:#888;}
     .stars{color:#d4af37;font-size:18px;margin-bottom:6px;}
+#testimoniale .carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  padding: 10px 0;
+}
 
+#testimoniale .item {
+  flex: 0 0 320px;
+  scroll-snap-align: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  text-align: left;
+}
     /* CONTACT */
     #contact .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:1.5rem;}
     #contact a{color:var(--auriu-dark);}
@@ -440,6 +457,36 @@ window.addEventListener('scroll', () => {
     header.classList.remove('scrolled');
   }
 });
+  <script>
+async function loadGoogleReviews() {
+  const placeId = "PASTEAZĂ_AICI_PLACE_ID"; // ex: ChIJxw7SEh7QsUAR0o6Mx2PvqjA
+  const apiKey = "PASTEAZĂ_AICI_API_KEY";
+
+  const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,rating,reviews&key=${apiKey}`;
+
+  const response = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
+  const data = await response.json();
+
+  if (!data.result || !data.result.reviews) return;
+
+  const container = document.querySelector("#testimoniale .carousel");
+  container.innerHTML = "";
+
+  data.result.reviews.slice(0, 6).forEach(r => {
+    const stars = "★".repeat(Math.round(r.rating)) + "☆".repeat(5 - Math.round(r.rating));
+    const div = document.createElement("div");
+    div.classList.add("item");
+    div.innerHTML = `
+      <div class="stars">${stars}</div>
+      <h4>${r.author_name}</h4>
+      <p>"${r.text}"</p>
+      <small>${r.relative_time_description}</small>
+    `;
+    container.appendChild(div);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", loadGoogleReviews);
 </script>
 </body>
 </html>
