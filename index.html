@@ -57,8 +57,12 @@
 }
 .nav-menu a{
   font-size:1.2rem;
-  color:var(--auriu-dark);
+  color:#000; /* text negru */
   font-weight:600;
+  transition:color 0.25s ease;
+}
+.nav-menu a:hover{
+  color:var(--auriu-dark); /* la hover devine auriu */
 }
 .nav-menu a:hover{color:var(--auriu);}
 .nav-menu.open{right:0;}
