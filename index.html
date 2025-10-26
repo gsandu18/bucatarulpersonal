@@ -152,6 +152,23 @@ footer a{color:#cdd}
 
 /* Siguranță: dacă există .bp-masthead din versiuni trecute, ascunde-o */
 .bp-masthead{display:none !important;}
+  
+  /* === Butoane generice (.btn) – folosite în HERO, Servicii, Chefi === */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  padding:12px 18px; border:1px solid transparent; border-radius:999px;
+  font-weight:600; cursor:pointer; text-decoration:none;
+}
+.btn--accent{ background:var(--accent); color:#231f1a; border-color:#B7983A; }
+.btn--ghost{  background:transparent; color:#fff; border:1px solid rgba(255,255,255,.45); }
+.btn--dark{   background:#000; color:#fff; border:1px solid var(--accent); }
+.btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+/* suport layout existent */
+.cta .btn{ min-width:200px; }
+@media (max-width:680px){
+  .cta .btn{ padding:12px 16px; font-size:16px; width:100%; max-width:420px; }
+}
 </style>
 </head>
 <body id="top">
