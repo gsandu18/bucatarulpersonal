@@ -7,6 +7,7 @@
   <meta name="description" content="Experiență de restaurant la tine acasă: chefi verificați, meniuri personalizate, contract & factură. Servicii private și corporate în România și Italia.">
   <meta property="og:image" content="Chef-Prive-OG.jpg">
   <meta name="theme-color" content="#d4af37" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -16,7 +17,7 @@
     :root{
       --auriu:#d4af37; --auriu-dark:#b08d2e;
       --ink:#1a1a1a; --muted:#5f5f5f; --line:#e6e6e6;
-      --soft:#f9f9f9; --max:1160px; --shadow:0 10px 25px rgba(0,0,0,.06);
+      --soft:#f9f9f9; --shadow:0 10px 25px rgba(0,0,0,.06);
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
@@ -102,62 +103,16 @@
     .btn-send{background:var(--auriu);color:#fff;border:none;padding:12px 24px;border-radius:999px;font-weight:700;cursor:pointer;}
     .btn-send:hover{background:var(--auriu-dark);}
     .btn-reset{border:1px solid var(--auriu-dark);background:#fff;color:var(--auriu-dark);border-radius:999px;padding:12px 24px;font-weight:700;}
-    .btn-reset:hover{background:var(--auriu-dark);color:
+    .btn-reset:hover{background:var(--auriu-dark);color:#fff;}
 
-     /* TESTIMONIALE — infinite scroll elegant */
-#testimoniale {
-  background: #fff;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
-  padding: 80px 0;
-}
-
-#testimoniale h2 {
-  margin-bottom: 40px;
-  color: var(--auriu);
-}
-
-#testimoniale .carousel {
-  display: flex;
-  gap: 20px;
-  animation: slideInfinite 35s linear infinite;
-  width: max-content;
-}
-
-#testimoniale .item {
-  flex: 0 0 320px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  box-shadow: var(--shadow);
-  padding: 20px;
-  text-align: left;
-}
-
-#testimoniale .item h4 {
-  margin: 0 0 6px;
-  color: var(--auriu-dark);
-}
-#testimoniale .item p {
-  color: var(--muted);
-  font-style: italic;
-}
-.stars {
-  color: var(--auriu);
-  font-size: 18px;
-  margin-bottom: 6px;
-}
-
-@keyframes slideInfinite {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* Dublăm conținutul pentru efectul de scroll infinit */
-#testimoniale .carousel::after {
-  content: attr(data-duplicate);
-}
+    /* TESTIMONIALE INFINITE */
+    #testimoniale{text-align:center;overflow:hidden;position:relative;padding:80px 0;}
+    #testimoniale h2{margin-bottom:40px;color:var(--auriu);}
+    #testimoniale .carousel{display:flex;gap:20px;animation:slideInfinite 35s linear infinite;width:max-content;}
+    #testimoniale .item{flex:0 0 320px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:20px;text-align:left;}
+    #testimoniale .item h4{margin:0 0 6px;color:var(--auriu-dark);}
+    #testimoniale .item p{color:var(--muted);font-style:italic;}
+    @keyframes slideInfinite{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
     /* CONTACT + FOOTER */
     #contact .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:1.5rem;}
@@ -171,7 +126,6 @@
 
 <body>
 
-  <!-- HEADER -->
   <header id="hdr">
     <img src="Chef Prive - RO - Orizontal.png" alt="Chef Privé — Bucătarul Personal">
     <button class="burger" id="burgerBtn">☰</button>
@@ -185,7 +139,6 @@
     </nav>
   </header>
 
-  <!-- HERO SLIDER -->
   <section class="hero-slider" id="hero">
     <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1600&q=80')"></div>
     <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=1600&q=80')"></div>
@@ -203,7 +156,6 @@
     </div>
   </section>
 
-  <!-- CUM FUNCȚIONEAZĂ -->
   <section id="cum-functioneaza">
     <h2>Cum funcționează</h2>
     <p class="lead">Patru pași simpli pentru o experiență culinară perfectă.</p>
@@ -215,18 +167,15 @@
     </div>
   </section>
 
-  <!-- BUCĂTARII NOȘTRI -->
   <section id="chefs">
     <h2>Bucătarii noștri</h2>
-    <p class="lead">Profesioniști cu experiență în fine dining, evenimente private și corporate.</p>
     <div class="grid">
-      <div class="chef-card"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200" alt=""><div class="chef-body"><h3>Chef Andrei</h3><div class="stars">★★★★★</div><p>Fine Dining • București</p><span class="tag">Mediteranean</span></div></div>
-      <div class="chef-card"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1200" alt=""><div class="chef-body"><h3>Chef Elisa</h3><div class="stars">★★★★★</div><p>Italian • Cluj</p><span class="tag">Pasta</span></div></div>
-      <div class="chef-card"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200" alt=""><div class="chef-body"><h3>Chef Radu</h3><div class="stars">★★★★☆</div><p>BBQ • Timișoara</p><span class="tag">Grill</span></div></div>
+      <div class="chef-card"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200" alt=""><div class="chef-body"><h3>Chef Andrei</h3><div class="stars">★★★★★</div><p>Fine Dining • București</p></div></div>
+      <div class="chef-card"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=1200" alt=""><div class="chef-body"><h3>Chef Elisa</h3><div class="stars">★★★★★</div><p>Italian • Cluj</p></div></div>
+      <div class="chef-card"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200" alt=""><div class="chef-body"><h3>Chef Radu</h3><div class="stars">★★★★☆</div><p>BBQ • Timișoara</p></div></div>
     </div>
   </section>
 
-  <!-- FORMULAR -->
   <section id="formular">
     <h2>Rezervă un Chef</h2>
     <form id="form">
@@ -240,30 +189,33 @@
   </section>
 
   <section id="testimoniale">
-  <h2>Ce spun clienții noștri</h2>
-  <div class="carousel" id="reviewCarousel">
-    <div class="item"><div class="stars">★★★★★</div><h4>Ana M.</h4><p>„O experiență impecabilă! Mâncare excelentă și servire de top.”</p><small>București</small></div>
-    <div class="item"><div class="stars">★★★★★</div><h4>Radu T.</h4><p>„Chef-ul a fost punctual și profesionist. Recomand cu încredere.”</p><small>Cluj</small></div>
-    <div class="item"><div class="stars">★★★★☆</div><h4>Elisa P.</h4><p>„Totul a fost delicios, atent la detalii și foarte elegant.”</p><small>Brașov</small></div>
-    <div class="item"><div class="stars">★★★★★</div><h4>Maria G.</h4><p>„Meniu rafinat și servire elegantă. Totul la superlativ.”</p><small>Oradea</small></div>
-    <div class="item"><div class="stars">★★★★★</div><h4>Andrei P.</h4><p>„A fost o seară memorabilă! Mulțumim Chef Privé.”</p><small>Timișoara</small></div>
-    <div class="item"><div class="stars">★★★★★</div><h4>Giulia R.</h4><p>„Chef-ul a gătit ca într-un restaurant Michelin!”</p><small>Roma</small></div>
-  </div>
-</section>
+    <h2>Ce spun clienții noștri</h2>
+    <div class="carousel" id="reviewCarousel">
+      <div class="item"><div class="stars">★★★★★</div><h4>Ana M.</h4><p>„O experiență impecabilă! Mâncare excelentă și servire de top.”</p><small>București</small></div>
+      <div class="item"><div class="stars">★★★★★</div><h4>Radu T.</h4><p>„Chef-ul a fost punctual și profesionist. Recomand cu încredere.”</p><small>Cluj</small></div>
+      <div class="item"><div class="stars">★★★★☆</div><h4>Elisa P.</h4><p>„Totul a fost delicios, atent la detalii și foarte elegant.”</p><small>Brașov</small></div>
+      <div class="item"><div class="stars">★★★★★</div><h4>Maria G.</h4><p>„Meniu rafinat și servire elegantă. Totul la superlativ.”</p><small>Oradea</small></div>
+      <div class="item"><div class="stars">★★★★★</div><h4>Andrei P.</h4><p>„A fost o seară memorabilă! Mulțumim Chef Privé.”</p><small>Timișoara</small></div>
+      <div
+              <div class="item"><div class="stars">★★★★★</div><h4>Giulia R.</h4><p>„Chef-ul a gătit ca într-un restaurant Michelin!”</p><small>Roma</small></div>
+    </div>
+  </section>
 
-  <!-- CONTACT + FOOTER -->
+  <!-- CONTACT -->
   <section id="contact">
     <h2>Contact</h2>
-    <div class="grid"><div><strong>Email:</strong> <a href="mailto:contact@bucatarulpersonal.ro">
-      contact@bucatarulpersonal.ro</a></div>
+    <div class="grid">
+      <div><strong>Email:</strong> <a href="mailto:contact@bucatarulpersonal.ro">contact@bucatarulpersonal.ro</a></div>
       <div><strong>Telefon:</strong> <a href="tel:+40772893476">+40 772 893 476</a></div>
       <div><strong>WhatsApp:</strong> <a href="https://wa.me/40772893476" target="_blank">Deschide chat</a></div>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <img src="Chef Prive - RO - Orizontal.png" alt="Chef Privé Logo">
     <div class="links">
+      <a href="#hero">Acasă</a>
       <a href="#cum-functioneaza">Cum funcționează</a>
       <a href="#chefs">Bucătarii noștri</a>
       <a href="#formular">Comandă</a>
@@ -275,72 +227,63 @@
     </div>
     <small>© <span id="year"></span> Bucătarul Personal — Toate drepturile rezervate.</small>
   </footer>
- <script>
-document.addEventListener("DOMContentLoaded", () => {
 
-  // === HEADER SCROLL ===
-  const hdr = document.getElementById('hdr');
-  window.addEventListener('scroll', () => {
-    hdr.classList.toggle('scrolled', window.scrollY > 50);
-  });
+  <!-- SCRIPT FUNCȚIONAL -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
 
-  // === BURGER MENU ===
-  const burger = document.getElementById('burgerBtn');
-  const nav = document.getElementById('navMenu');
-  burger.addEventListener('click', () => {
-    nav.classList.toggle('open');
-    burger.textContent = nav.classList.contains('open') ? '✕' : '☰';
-  });
-  nav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      nav.classList.remove('open');
-      burger.textContent = '☰';
+    // === HEADER SCROLL ===
+    const hdr = document.getElementById('hdr');
+    window.addEventListener('scroll', () => {
+      hdr.classList.toggle('scrolled', window.scrollY > 50);
     });
+
+    // === BURGER MENU ===
+    const burger = document.getElementById('burgerBtn');
+    const nav = document.getElementById('navMenu');
+    burger.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      burger.textContent = nav.classList.contains('open') ? '✕' : '☰';
+    });
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        burger.textContent = '☰';
+      });
+    });
+    document.addEventListener('click', e => {
+      if (!nav.contains(e.target) && !burger.contains(e.target)) {
+        nav.classList.remove('open');
+        burger.textContent = '☰';
+      }
+    });
+
+    // === HERO SLIDER ===
+    const slides = document.querySelectorAll('.slide');
+    let slideIndex = 0;
+    setInterval(() => {
+      slides[slideIndex].classList.remove('active');
+      slideIndex = (slideIndex + 1) % slides.length;
+      slides[slideIndex].classList.add('active');
+    }, 5000);
+
+    // === TESTIMONIALE (scroll infinit) ===
+    const carousel = document.getElementById('reviewCarousel');
+    carousel.innerHTML += carousel.innerHTML; // duplicare pentru efect infinit
+    carousel.addEventListener('mouseenter', () => carousel.style.animationPlayState = 'paused');
+    carousel.addEventListener('mouseleave', () => carousel.style.animationPlayState = 'running');
+
+    // === FORMULAR DEMO ===
+    document.getElementById('form').addEventListener('submit', e => {
+      e.preventDefault();
+      alert("✅ Cererea a fost trimisă! Revenim în cel mai scurt timp.");
+      e.target.reset();
+    });
+
+    // === ANUL CURENT ===
+    document.getElementById('year').textContent = new Date().getFullYear();
+
   });
-  document.addEventListener('click', e => {
-    if (!nav.contains(e.target) && !burger.contains(e.target)) {
-      nav.classList.remove('open');
-      burger.textContent = '☰';
-    }
-  });
-
-  // === HERO SLIDER ===
-  const slides = document.querySelectorAll('.slide');
-  let slideIndex = 0;
-  setInterval(() => {
-    slides[slideIndex].classList.remove('active');
-    slideIndex = (slideIndex + 1) % slides.length;
-    slides[slideIndex].classList.add('active');
-  }, 5000);
-
-  // === TESTIMONIALE INFINITE ===
-  const carousel = document.getElementById('reviewCarousel');
-  // duplicăm conținutul pentru efect infinit
-  carousel.innerHTML += carousel.innerHTML;
-
-  // aplicăm animația CSS infinită
-  carousel.style.animation = "slideInfinite 35s linear infinite";
-
-  // opțional: pauză la hover (elegant)
-  carousel.addEventListener('mouseenter', () => {
-    carousel.style.animationPlayState = 'paused';
-  });
-  carousel.addEventListener('mouseleave', () => {
-    carousel.style.animationPlayState = 'running';
-  });
-
-  // === FORMULAR DEMO ===
-  document.getElementById('form').addEventListener('submit', e => {
-    e.preventDefault();
-    alert("✅ Cererea a fost trimisă! Revenim în cel mai scurt timp.");
-    e.target.reset();
-  });
-
-  // === ANUL CURENT ===
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-});
-</script>
-
+  </script>
 </body>
 </html>
