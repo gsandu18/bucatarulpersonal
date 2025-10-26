@@ -37,7 +37,14 @@
       display:flex;align-items:center;justify-content:space-between;
       padding:12px 24px;
     }
-    header img{height:clamp(150px,9vw,180px);width:auto;}
+    header img{
+  height:auto;
+  width:auto;
+  max-height:50px;         /* înălțime corectă pentru toate ecranele */
+  margin-left:8px;         /* mic spațiu față de marginea stângă */
+  object-fit:contain;      /* menține proporțiile */
+  display:block;
+}
     .burger{font-size:28px;background:none;border:none;color:var(--auriu-dark);cursor:pointer;}
 /* MENIU BURGER */
 .nav-menu{
