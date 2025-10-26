@@ -103,18 +103,27 @@
     .btn-send:hover{background:var(--auriu-dark);}
     .btn-reset{border:1px solid var(--auriu-dark);background:#fff;color:var(--auriu-dark);border-radius:999px;padding:12px 24px;font-weight:700;}
     .btn-reset:hover{background:var(--auriu-dark);color:#/* TESTIMONIALE */
+/* TESTIMONIALE — infinite scroll elegant */
 #testimoniale {
-  text-align: center;
   background: #fff;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  padding: 80px 0;
 }
+
+#testimoniale h2 {
+  margin-bottom: 40px;
+  color: var(--auriu);
+}
+
 #testimoniale .carousel {
   display: flex;
-  overflow: hidden;
-  scroll-behavior: smooth;
   gap: 20px;
-  transition: transform 0.6s ease-in-out;
-  margin-top: 2rem;
+  animation: slideInfinite 35s linear infinite;
+  width: max-content;
 }
+
 #testimoniale .item {
   flex: 0 0 320px;
   background: #fff;
@@ -124,6 +133,7 @@
   padding: 20px;
   text-align: left;
 }
+
 #testimoniale .item h4 {
   margin: 0 0 6px;
   color: var(--auriu-dark);
@@ -132,24 +142,20 @@
   color: var(--muted);
   font-style: italic;
 }
-#testimoniale .controls {
-  text-align: center;
-  margin-top: 20px;
-}
-.control-btn {
-  background: none;
-  border: 2px solid var(--auriu);
+.stars {
   color: var(--auriu);
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  margin: 0 6px;
-  transition: all 0.3s ease;
+  font-size: 18px;
+  margin-bottom: 6px;
 }
-.control-btn:hover {
-  background: var(--auriu);
-  color: #fff;
+
+@keyframes slideInfinite {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Dublăm conținutul pentru efectul de scroll infinit */
+#testimoniale .carousel::after {
+  content: attr(data-duplicate);
 }
 
     /* CONTACT + FOOTER */
@@ -232,16 +238,17 @@
     </form>
   </section>
 
-  <!-- TESTIMONIALE -->
   <section id="testimoniale">
-    <h2>Ce spun clienții noștri</h2>
-    <div class="carousel" id="reviewCarousel">
-      <div class="item"><div class="stars">★★★★★</div><h4>Ana M.</h4><p>„O experiență impecabilă! Mâncare excelentă și servire de top.”</p><small>București</small></div>
-      <div class="item"><div class="stars">★★★★★</div><h4>Radu T.</h4><p>„Chef-ul a fost punctual și profesionist. Recomand cu încredere.”</p><small>Cluj</small></div>
-      <div class="item"><div class="stars">★★★★☆</div><h4>Elisa P.</h4><p>„Totul a fost delicios, atent la detalii și foarte elegant.”</p><small>Brașov</small></div>
-    </div>
-    <div class="controls"><button class="control-btn" id="prevBtn"><i class="fa-solid fa-chevron-left"></i></button><button class="control-btn" id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button></div>
-  </section>
+  <h2>Ce spun clienții noștri</h2>
+  <div class="carousel" id="reviewCarousel">
+    <div class="item"><div class="stars">★★★★★</div><h4>Ana M.</h4><p>„O experiență impecabilă! Mâncare excelentă și servire de top.”</p><small>București</small></div>
+    <div class="item"><div class="stars">★★★★★</div><h4>Radu T.</h4><p>„Chef-ul a fost punctual și profesionist. Recomand cu încredere.”</p><small>Cluj</small></div>
+    <div class="item"><div class="stars">★★★★☆</div><h4>Elisa P.</h4><p>„Totul a fost delicios, atent la detalii și foarte elegant.”</p><small>Brașov</small></div>
+    <div class="item"><div class="stars">★★★★★</div><h4>Maria G.</h4><p>„Meniu rafinat și servire elegantă. Totul la superlativ.”</p><small>Oradea</small></div>
+    <div class="item"><div class="stars">★★★★★</div><h4>Andrei P.</h4><p>„A fost o seară memorabilă! Mulțumim Chef Privé.”</p><small>Timișoara</small></div>
+    <div class="item"><div class="stars">★★★★★</div><h4>Giulia R.</h4><p>„Chef-ul a gătit ca într-un restaurant Michelin!”</p><small>Roma</small></div>
+  </div>
+</section>
 
   <!-- CONTACT + FOOTER -->
   <section id="contact">
