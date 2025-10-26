@@ -276,33 +276,28 @@
     <small>© <span id="year"></span> Bucătarul Personal — Toate drepturile rezervate.</small>
   </footer>
 
-  <script>
+ <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // HEADER SCROLL
-  window.addEventListener('scroll',()=>{
-    const hdr=document.getElementById('hdr');
+
+  // === HEADER SCROLL ===
+  const hdr = document.getElementById('hdr');
+  window.addEventListener('scroll', () => {
     hdr.classList.toggle('scrolled', window.scrollY > 50);
   });
 
-  // BURGER MENU
+  // === BURGER MENU ===
   const burger = document.getElementById('burgerBtn');
   const nav = document.getElementById('navMenu');
-
-  // deschidere / închidere
   burger.addEventListener('click', () => {
     nav.classList.toggle('open');
     burger.textContent = nav.classList.contains('open') ? '✕' : '☰';
   });
-
-  // închidere când se apasă un link
   nav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       nav.classList.remove('open');
       burger.textContent = '☰';
     });
   });
-
-  // închidere când se apasă în afara meniului
   document.addEventListener('click', e => {
     if (!nav.contains(e.target) && !burger.contains(e.target)) {
       nav.classList.remove('open');
@@ -310,55 +305,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // HERO SLIDER
+  // === HERO SLIDER ===
   const slides = document.querySelectorAll('.slide');
-  let index = 0;
+  let slideIndex = 0;
   setInterval(() => {
-    slides[index].classList.remove('active');
-    index = (index + 1) % slides.length;
-    slides[index].classList.add('active');
-  }, document.addEventListener("DOMContentLoaded", () => {
+    slides[slideIndex].classList.remove('active');
+    slideIndex = (slideIndex + 1) % slides.length;
+    slides[slideIndex].classList.add('active');
+  }, 5000);
 
-// SLIDER TESTIMONIALE — infinit
-const carousel = document.getElementById('reviewCarousel');
-const clone = carousel.innerHTML; // duplicăm conținutul
-carousel.innerHTML += clone; // pentru scroll infinit
-  let currentIndex = 0;
-  const items = carousel.querySelectorAll('.item');
-  const visibleCount = Math.floor(carousel.offsetWidth / 340); // câte carduri se văd
+  // === TESTIMONIALE INFINITE ===
+  const carousel = document.getElementById('reviewCarousel');
+  // duplicăm conținutul pentru efect infinit
+  carousel.innerHTML += carousel.innerHTML;
 
-  function updateCarousel() {
-    const maxIndex = items.length - visibleCount;
-    if (currentIndex < 0) currentIndex = 0;
-    if (currentIndex > maxIndex) currentIndex = maxIndex;
-    const offset = currentIndex * 340;
-    carousel.style.transform = `translateX(-${offset}px)`;
-  }
+  // aplicăm animația CSS infinită
+  carousel.style.animation = "slideInfinite 35s linear infinite";
 
-  nextBtn.addEventListener('click', () => {
-    currentIndex++;
-    updateCarousel();
+  // opțional: pauză la hover (elegant)
+  carousel.addEventListener('mouseenter', () => {
+    carousel.style.animationPlayState = 'paused';
+  });
+  carousel.addEventListener('mouseleave', () => {
+    carousel.style.animationPlayState = 'running';
   });
 
-  prevBtn.addEventListener('click', () => {
-    currentIndex--;
-    updateCarousel();
-  });
-
-  // Auto-slide la fiecare 6 secunde
-  setInterval(() => {
-    currentIndex = (currentIndex + 1) % items.length;
-    updateCarousel();
-  }, 6000);
-  // FORMULAR DEMO
+  // === FORMULAR DEMO ===
   document.getElementById('form').addEventListener('submit', e => {
     e.preventDefault();
     alert("✅ Cererea a fost trimisă! Revenim în cel mai scurt timp.");
     e.target.reset();
   });
 
-  // ANUL CURENT
+  // === ANUL CURENT ===
   document.getElementById('year').textContent = new Date().getFullYear();
+
 });
 </script>
 </body>
