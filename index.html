@@ -85,7 +85,52 @@
     .icon{font-size:42px;color:var(--auriu);margin-bottom:14px;}
     #cum-functioneaza h3{color:var(--ink);margin-bottom:8px;}
     #cum-functioneaza p{color:var(--muted);}
-
+  /* SERVICII */
+  #servicii {
+    background:#fff;
+    text-align:center;
+    padding:clamp(60px,8vw,100px) 1.5rem;
+  }
+  #servicii h2 {
+    color:var(--auriu);
+    margin-bottom:1rem;
+  }
+  #servicii p.lead {
+    color:var(--muted);
+    max-width:600px;
+    margin:0 auto 2.5rem;
+    font-size:1.1rem;
+  }
+  .services-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:28px;
+    margin-top:2rem;
+  }
+  .service-card {
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    padding:40px 20px;
+    transition:transform .25s, box-shadow .25s;
+  }
+  .service-card:hover {
+    transform:translateY(-6px);
+    box-shadow:0 15px 35px rgba(0,0,0,0.08);
+  }
+  .service-card .icon {
+    font-size:42px;
+    color:var(--auriu);
+    margin-bottom:14px;
+  }
+  .service-card h3 {
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .service-card p {
+    color:var(--muted);
+  }
     /* CHEFS */
     #chefs .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:2rem;}
     .chef-card{border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;text-align:left;background:#fff;}
@@ -164,6 +209,31 @@
       <div class="card"><span class="step-number">02</span><div class="icon"><i class="fa-solid fa-comments"></i></div><h3>Primești ofertele</h3><p>Unul dintre chefi îți răspunde cu propuneri potrivite.</p></div>
       <div class="card"><span class="step-number">03</span><div class="icon"><i class="fa-solid fa-credit-card"></i></div><h3>Confirmi și achiți</h3><p>Semnăm contractul și rezervăm data evenimentului.</p></div>
       <div class="card"><span class="step-number">04</span><div class="icon"><i class="fa-solid fa-user-chef"></i></div><h3>Chef-ul vine la tine</h3><p>Gătim, servim și lăsăm bucătăria impecabilă.</p></div>
+    </div>
+  </section>
+
+    <!-- SERVICIILE NOASTRE -->
+  <section id="servicii">
+    <h2>Serviciile noastre</h2>
+    <p class="lead">Experiențe culinare exclusiviste, create pentru fiecare ocazie.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <i class="fa-solid fa-utensils icon"></i>
+        <h3>Cine Private</h3>
+        <p>Chef personal la tine acasă – meniuri gourmet personalizate, cu plating de restaurant și ingrediente premium.</p>
+      </div>
+
+      <div class="service-card">
+        <i class="fa-solid fa-briefcase icon"></i>
+        <h3>Evenimente Corporate</h3>
+        <p>Team-building, cine de afaceri și recepții private pentru companii – totul sub semnătura Chef Privé.</p>
+      </div>
+
+      <div class="service-card">
+        <i class="fa-solid fa-champagne-glasses icon"></i>
+        <h3>Cursuri de Gătit & Degustări</h3>
+        <p>Workshop-uri interactive, sesiuni de degustare și seri tematice – perfecte pentru grupuri restrânse.</p>
+      </div>
     </div>
   </section>
 
