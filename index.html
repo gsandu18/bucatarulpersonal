@@ -306,24 +306,6 @@
   </footer>
 
 <script>
-  // Scroll header
-  window.addEventListener('scroll', () => {
-    const h = document.getElementById('hdr');
-    if (window.scrollY > 30) h.style.background = 'rgba(255,255,255,0.95)';
-    else h.style.background = 'rgba(255,255,255,0.85)';
-  });
-
-  // Anul curent
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Formular feedback demo
-  document.getElementById('form').addEventListener('submit', e => {
-    e.preventDefault();
-    alert("✅ Cererea a fost trimisă! Revenim în cel mai scurt timp.");
-    e.target.reset();
-  });
-
-  // --- MENIU BURGER ---
   document.addEventListener("DOMContentLoaded", () => {
     const burger = document.getElementById('burgerBtn');
     const nav = document.getElementById('navMenu');
@@ -334,21 +316,43 @@
       burger.textContent = nav.classList.contains('open') ? '✕' : '☰';
     });
 
-    // Închidere când se apasă un link
+    // Închidere la click pe link
     nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('open');
-        burger.textContent = '☰';
-      });
+      link.addEventListener('click', closeMenu);
+      link.addEventListener('touchstart', closeMenu);
     });
 
-    // Închidere dacă se apasă în afara meniului
-    document.addEventListener('click', e => {
+    // Închidere la click/tap în afara meniului
+    document.addEventListener('click', handleOutside);
+    document.addEventListener('touchstart', handleOutside);
+
+    function closeMenu() {
+      nav.classList.remove('open');
+      burger.textContent = '☰';
+    }
+
+    function handleOutside(e) {
       if (!nav.contains(e.target) && !burger.contains(e.target)) {
-        nav.classList.remove('open');
-        burger.textContent = '☰';
+        closeMenu();
       }
-    });
+    }
+  });
+
+  // scroll header
+  window.addEventListener('scroll', () => {
+    const h = document.getElementById('hdr');
+    if (window.scrollY > 30) h.style.background = 'rgba(255,255,255,0.95)';
+    else h.style.background = 'rgba(255,255,255,0.85)';
+  });
+
+  // anul curent
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // demo formular
+  document.getElementById('form').addEventListener('submit', e => {
+    e.preventDefault();
+    alert("✅ Cererea a fost trimisă! Revenim în cel mai scurt timp.");
+    e.target.reset();
   });
 </script>
 </body>
