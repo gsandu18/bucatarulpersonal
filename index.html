@@ -234,52 +234,61 @@ document.addEventListener("DOMContentLoaded", () => {
   // HEADER SCROLL
   window.addEventListener('scroll',()=>{
     const hdr=document.getElementById('hdr');
-    if(window.scrollY>50) hdr.classList.add('scrolled');
-    else hdr.classList.remove('scrolled');
+    hdr.classList.toggle('scrolled', window.scrollY > 50);
   });
 
   // BURGER MENU
-  const burger=document.getElementById('burgerBtn');
-  const nav=document.getElementById('navMenu');
+  const burger = document.getElementById('burgerBtn');
+  const nav = document.getElementById('navMenu');
 
-  burger.addEventListener('click',()=>{
+  // deschidere / închidere
+  burger.addEventListener('click', () => {
     nav.classList.toggle('open');
     burger.textContent = nav.classList.contains('open') ? '✕' : '☰';
   });
 
-  document.querySelectorAll('.nav-menu a').forEach(link=>{
-    link.addEventListener('click',()=>{
+  // închidere când se apasă un link
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
       nav.classList.remove('open');
-      burger.textContent='☰';
+      burger.textContent = '☰';
     });
   });
 
+  // închidere când se apasă în afara meniului
+  document.addEventListener('click', e => {
+    if (!nav.contains(e.target) && !burger.contains(e.target)) {
+      nav.classList.remove('open');
+      burger.textContent = '☰';
+    }
+  });
+
   // HERO SLIDER
-  const slides=document.querySelectorAll('.slide');
-  let index=0;
-  setInterval(()=>{
+  const slides = document.querySelectorAll('.slide');
+  let index = 0;
+  setInterval(() => {
     slides[index].classList.remove('active');
-    index=(index+1)%slides.length;
+    index = (index + 1) % slides.length;
     slides[index].classList.add('active');
-  },5000);
+  }, 5000);
 
   // TESTIMONIALE SLIDER
-  const carousel=document.getElementById('reviewCarousel');
-  const nextBtn=document.getElementById('nextBtn');
-  const prevBtn=document.getElementById('prevBtn');
-  let offset=0;
-  nextBtn.addEventListener('click',()=>{offset-=340;carousel.style.transform=`translateX(${offset}px)`;});
-  prevBtn.addEventListener('click',()=>{offset+=340;carousel.style.transform=`translateX(${offset}px)`;});
+  const carousel = document.getElementById('reviewCarousel');
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  let offset = 0;
+  nextBtn.addEventListener('click', () => {offset -= 340;carousel.style.transform = `translateX(${offset}px)`;});
+  prevBtn.addEventListener('click', () => {offset += 340;carousel.style.transform = `translateX(${offset}px)`;});
 
   // FORMULAR DEMO
-  document.getElementById('form').addEventListener('submit',e=>{
+  document.getElementById('form').addEventListener('submit', e => {
     e.preventDefault();
     alert("✅ Cererea a fost trimisă! Revenim în cel mai scurt timp.");
     e.target.reset();
   });
 
   // ANUL CURENT
-  document.getElementById('year').textContent=new Date().getFullYear();
+  document.getElementById('year').textContent = new Date().getFullYear();
 });
 </script>
 </body>
