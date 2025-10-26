@@ -102,16 +102,55 @@
     .btn-send{background:var(--auriu);color:#fff;border:none;padding:12px 24px;border-radius:999px;font-weight:700;cursor:pointer;}
     .btn-send:hover{background:var(--auriu-dark);}
     .btn-reset{border:1px solid var(--auriu-dark);background:#fff;color:var(--auriu-dark);border-radius:999px;padding:12px 24px;font-weight:700;}
-    .btn-reset:hover{background:var(--auriu-dark);color:#fff;}
-
-    /* TESTIMONIALE */
-    #testimoniale .carousel{display:flex;overflow:hidden;gap:20px;transition:transform .6s ease;}
-    #testimoniale .item{flex:0 0 320px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:20px;text-align:left;}
-    #testimoniale .item h4{margin:0 0 6px;color:var(--auriu-dark);}
-    #testimoniale .item p{color:var(--muted);}
-    #testimoniale .controls{text-align:center;margin-top:20px;}
-    .control-btn{background:none;border:2px solid var(--auriu);color:var(--auriu);border-radius:50%;width:36px;height:36px;cursor:pointer;margin:0 6px;}
-    .control-btn:hover{background:var(--auriu);color:#fff;}
+    .btn-reset:hover{background:var(--auriu-dark);color:#/* TESTIMONIALE */
+#testimoniale {
+  text-align: center;
+  background: #fff;
+}
+#testimoniale .carousel {
+  display: flex;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  gap: 20px;
+  transition: transform 0.6s ease-in-out;
+  margin-top: 2rem;
+}
+#testimoniale .item {
+  flex: 0 0 320px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  text-align: left;
+}
+#testimoniale .item h4 {
+  margin: 0 0 6px;
+  color: var(--auriu-dark);
+}
+#testimoniale .item p {
+  color: var(--muted);
+  font-style: italic;
+}
+#testimoniale .controls {
+  text-align: center;
+  margin-top: 20px;
+}
+.control-btn {
+  background: none;
+  border: 2px solid var(--auriu);
+  color: var(--auriu);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  margin: 0 6px;
+  transition: all 0.3s ease;
+}
+.control-btn:hover {
+  background: var(--auriu);
+  color: #fff;
+}
 
     /* CONTACT + FOOTER */
     #contact .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:1.5rem;}
@@ -270,16 +309,40 @@ document.addEventListener("DOMContentLoaded", () => {
     slides[index].classList.remove('active');
     index = (index + 1) % slides.length;
     slides[index].classList.add('active');
-  }, 5000);
+  }, document.addEventListener("DOMContentLoaded", () => {
 
-  // TESTIMONIALE SLIDER
+  // SLIDER TESTIMONIALE
   const carousel = document.getElementById('reviewCarousel');
   const nextBtn = document.getElementById('nextBtn');
   const prevBtn = document.getElementById('prevBtn');
-  let offset = 0;
-  nextBtn.addEventListener('click', () => {offset -= 340;carousel.style.transform = `translateX(${offset}px)`;});
-  prevBtn.addEventListener('click', () => {offset += 340;carousel.style.transform = `translateX(${offset}px)`;});
 
+  let currentIndex = 0;
+  const items = carousel.querySelectorAll('.item');
+  const visibleCount = Math.floor(carousel.offsetWidth / 340); // câte carduri se văd
+
+  function updateCarousel() {
+    const maxIndex = items.length - visibleCount;
+    if (currentIndex < 0) currentIndex = 0;
+    if (currentIndex > maxIndex) currentIndex = maxIndex;
+    const offset = currentIndex * 340;
+    carousel.style.transform = `translateX(-${offset}px)`;
+  }
+
+  nextBtn.addEventListener('click', () => {
+    currentIndex++;
+    updateCarousel();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    currentIndex--;
+    updateCarousel();
+  });
+
+  // Auto-slide la fiecare 6 secunde
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % items.length;
+    updateCarousel();
+  }, 6000);
   // FORMULAR DEMO
   document.getElementById('form').addEventListener('submit', e => {
     e.preventDefault();
