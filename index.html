@@ -39,7 +39,32 @@
     }
     header img{height:clamp(70px,9vw,180px);width:auto;}
     .burger{font-size:28px;background:none;border:none;color:var(--auriu-dark);cursor:pointer;}
-/* MENIU RESPONSIVE */
+/* MENIU BURGER */
+.nav-menu{
+  position:fixed;
+  top:0;right:-100%;
+  width:70%;
+  height:100vh;
+  background:#fff;
+  box-shadow:-6px 0 16px rgba(0,0,0,0.15);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-left:32px;
+  gap:28px;
+  transition:right 0.35s ease;
+  z-index:10000;
+}
+.nav-menu a{
+  font-size:1.2rem;
+  color:var(--auriu-dark);
+  font-weight:600;
+}
+.nav-menu a:hover{color:var(--auriu);}
+.nav-menu.open{right:0;}
+    
+    
+    /* MENIU RESPONSIVE */
 .nav-menu{
   position:fixed;
   top:0;right:-100%;
