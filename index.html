@@ -35,7 +35,7 @@
       padding:10px 24px;transition:all .3s ease;
     }
     header.scrolled{background:rgba(255,255,255,0.97);box-shadow:0 4px 12px rgba(0,0,0,0.05);}
-    header img{height:64px;width:auto;object-fit:contain;}
+    header img{height:120px;width:auto;object-fit:contain;}
     .burger{font-size:28px;background:none;border:none;color:var(--auriu-dark);cursor:pointer;}
 
     /* MENIU */
@@ -230,53 +230,57 @@
   </footer>
 
   <script>
-    // Header scroll effect
-    window.addEventListener('scroll',()=>{
-      const hdr=document.getElementById('hdr');
-      if(window.scrollY>50) hdr.classList.add('scrolled');
-      else hdr.classList.remove('scrolled');
+document.addEventListener("DOMContentLoaded", () => {
+  // HEADER SCROLL
+  window.addEventListener('scroll',()=>{
+    const hdr=document.getElementById('hdr');
+    if(window.scrollY>50) hdr.classList.add('scrolled');
+    else hdr.classList.remove('scrolled');
+  });
+
+  // BURGER MENU
+  const burger=document.getElementById('burgerBtn');
+  const nav=document.getElementById('navMenu');
+
+  burger.addEventListener('click',()=>{
+    nav.classList.toggle('open');
+    burger.textContent = nav.classList.contains('open') ? '✕' : '☰';
+  });
+
+  document.querySelectorAll('.nav-menu a').forEach(link=>{
+    link.addEventListener('click',()=>{
+      nav.classList.remove('open');
+      burger.textContent='☰';
     });
+  });
 
-    // Burger menu
-    const burger=document.getElementById('burgerBtn');
-    const nav=document.getElementById('navMenu');
-    burger.addEventListener('click',()=>{
-      nav.classList.toggle('open');
-      burger.textContent = nav.classList.contains('open') ? '✕' : '☰';
-    });
-    document.querySelectorAll('.nav-menu a').forEach(link=>{
-      link.addEventListener('click',()=>{
-        nav.classList.remove('open');
-        burger.textContent='☰';
-      });
-    });
+  // HERO SLIDER
+  const slides=document.querySelectorAll('.slide');
+  let index=0;
+  setInterval(()=>{
+    slides[index].classList.remove('active');
+    index=(index+1)%slides.length;
+    slides[index].classList.add('active');
+  },5000);
 
-    // Hero slider
-    const slides=document.querySelectorAll('.slide');
-    let index=0;
-    setInterval(()=>{
-      slides[index].classList.remove('active');
-      index=(index+1)%slides.length;
-      slides[index].classList.add('active');
-    },5000);
+  // TESTIMONIALE SLIDER
+  const carousel=document.getElementById('reviewCarousel');
+  const nextBtn=document.getElementById('nextBtn');
+  const prevBtn=document.getElementById('prevBtn');
+  let offset=0;
+  nextBtn.addEventListener('click',()=>{offset-=340;carousel.style.transform=`translateX(${offset}px)`;});
+  prevBtn.addEventListener('click',()=>{offset+=340;carousel.style.transform=`translateX(${offset}px)`;});
 
-    // Testimoniale slider
-    const carousel=document.getElementById('reviewCarousel');
-    const nextBtn=document.getElementById('nextBtn');
-    const prevBtn=document.getElementById('prevBtn');
-    let offset=0;
-    nextBtn.addEventListener('click',()=>{offset-=340;carousel.style.transform=`translateX(${offset}px)`;});
-    prevBtn.addEventListener('click',()=>{offset+=340;carousel.style.transform=`translateX(${offset}px)`;});
+  // FORMULAR DEMO
+  document.getElementById('form').addEventListener('submit',e=>{
+    e.preventDefault();
+    alert("✅ Cererea a fost trimisă! Revenim în cel mai scurt timp.");
+    e.target.reset();
+  });
 
-    // Formular demo
-    document.getElementById('form').addEventListener('submit',e=>{
-      e.preventDefault();
-      alert("✅ Cererea a fost trimisă! Revenim în cel mai scurt timp.");
-      e.target.reset();
-    });
-
-    // Anul curent
-    document.getElementById('year').textContent=new Date().getFullYear();
-  </script>
+  // ANUL CURENT
+  document.getElementById('year').textContent=new Date().getFullYear();
+});
+</script>
 </body>
 </html>
