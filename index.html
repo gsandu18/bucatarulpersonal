@@ -36,8 +36,24 @@
       padding:10px 24px;transition:all .3s ease;
     }
     header.scrolled{background:rgba(255,255,255,0.97);box-shadow:0 4px 12px rgba(0,0,0,0.05);}
-    header img{height:
-      220px;width:auto;object-fit:contain;}
+    header header img {
+  height: 120px; /* dimensiune logo mai mare */
+  width: auto;
+  object-fit: contain;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Logo mai mic automat când se derulează pagina */
+header.scrolled img {
+  height: 90px;
+}
+
+/* Ajustări pentru mobil */
+@media (max-width: 768px) {
+  header img {
+    height: 100px; /* pe telefon, un echilibru perfect */
+  }
+}
     .burger{font-size:28px;background:none;border:none;color:var(--auriu-dark);cursor:pointer;}
     
 /* HEADER mai compact */
