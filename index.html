@@ -300,6 +300,69 @@ header.scrolled img {
     footer img{height:120px;margin-bottom:10px;}
     footer .links{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:10px;}
     footer .links a{color:var(--auriu-dark);font-weight:600;}
+
+    /* === FOOTER STIL ELEGANT === */
+#footer {
+  background: #fff;
+  border-top: 2px solid #d4af37;
+  padding: 50px 20px;
+  text-align: center;
+  color: #444;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.footer-logo img {
+  height: 100px;
+  width: auto;
+  margin-bottom: 10px;
+}
+
+/* === Linkuri principale === */
+.footer-links, .footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 28px;
+}
+
+.footer-links a, .footer-legal a {
+  color: #b38b2d;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color .3s;
+}
+
+.footer-links a:hover, .footer-legal a:hover {
+  color: #0e5a43;
+}
+
+/* === Copyright === */
+.footer-copy {
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* === Responsive === */
+@media (max-width: 600px) {
+  .footer-links, .footer-legal {
+    gap: 12px 20px;
+  }
+  .footer-links a, .footer-legal a {
+    font-size: 0.95rem;
+  }
+  .footer-logo img {
+    height: 80px;
+  }
+}
 /* === CONTAINER GENERAL === */
 #formular {
   background: #fffdf8;
@@ -782,21 +845,32 @@ document.addEventListener("DOMContentLoaded", () => {
   </section>
 
   <!-- FOOTER -->
-  <footer>
-    <img src="Chef Prive - RO - Orizontal.png" alt="Chef Privé Logo">
-    <div class="links">
+  <footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="Chef-Prive-RO-Orizontal.png" alt="Chef Privé — by Bucătarul Personal">
+    </div>
+
+    <nav class="footer-links">
       <a href="#hero">Acasă</a>
       <a href="#cum-functioneaza">Cum funcționează</a>
       <a href="#chefs">Bucătarii noștri</a>
       <a href="#formular">Comandă</a>
       <a href="#testimoniale">Testimoniale</a>
       <a href="#contact">Contact</a>
-      <a href="/termeni">Termeni &amp; Condiții</a>
+    </nav>
+
+    <nav class="footer-legal">
+      <a href="/termeni">Termeni & Condiții</a>
       <a href="/confidentialitate">Politica de Confidențialitate</a>
       <a href="/cookies">Cookie-uri</a>
+    </nav>
+
+    <div class="footer-copy">
+      © <span id="year"></span> Bucătarul Personal — Toate drepturile rezervate.
     </div>
-    <small>© <span id="year"></span> Bucătarul Personal — Toate drepturile rezervate.</small>
-  </footer>
+  </div>
+</footer>
 
   <!-- SCRIPT FUNCȚIONAL -->
   <script>
