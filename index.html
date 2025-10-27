@@ -380,17 +380,199 @@ header.scrolled img {
     </div>
   </section>
 
-  <section id="formular">
-    <h2>Rezervă un Chef</h2>
-    <form id="form">
-      <div><label>Oraș</label><input required placeholder="Ex: București"></div>
-      <div><label>Dată</label><input type="date" required></div>
-      <div><label>Nr. persoane</label><select><option>2</option><option>4</option><option>6</option><option>8+</option></select></div>
-      <div><label>Tip eveniment</label><select><option>Cină privată</option><option>Corporate</option><option>Aniversare</option></select></div>
-      <div><label>Preferințe culinare</label><textarea placeholder="Ex: fără gluten, meniu vegetarian..."></textarea></div>
-      <div class="form-actions"><button type="reset" class="btn-reset">Resetează</button><button type="submit" class="btn-send">Trimite cererea</button></div>
-    </form>
-  </section>
+ <section id="formular" style="padding:100px 1.5rem;background:#fff;">
+  <h2 style="text-align:center;font-size:2.2rem;color:#d4af37;margin-bottom:1rem;">Rezervă un Chef</h2>
+  <p style="text-align:center;color:#555;max-width:720px;margin:0 auto 2rem;">
+    Configurează evenimentul tău culinar și vezi oferta detaliată înainte de trimiterea cererii.
+  </p>
+
+  <form id="form" style="max-width:900px;margin:0 auto;display:grid;gap:1.8rem;">
+
+    <!-- DATE CLIENT -->
+    <div>
+      <label><b>Oraș</b></label>
+      <input required placeholder="Ex: București" id="oras" class="input-field">
+    </div>
+
+    <div>
+      <label><b>Dată</b></label>
+      <input type="date" required id="data" class="input-field">
+    </div>
+
+    <div>
+      <label><b>Număr persoane</b></label>
+      <input type="number" id="persoane" min="2" max="100" value="6" required class="input-field">
+    </div>
+
+    <!-- TIP MENIU -->
+    <div>
+      <h3 class="section-title">Alege tipul meniului</h3>
+      <div class="card-grid">
+        <div class="card-option" data-tip="traditional">🍲 <strong>Tradițional</strong><br><small>250–350 lei / pers</small></div>
+        <div class="card-option" data-tip="fine">🍷 <strong>Fine Dining</strong><br><small>350–500 lei / pers</small></div>
+        <div class="card-option" data-tip="international">🌍 <strong>Internațional</strong><br><small>400–600 lei / pers</small></div>
+      </div>
+    </div>
+
+    <!-- COMPLEXITATE -->
+    <div>
+      <h3 class="section-title">Complexitatea meniului</h3>
+      <div class="card-grid">
+        <div class="card-option" data-complex="standard">⭐ Standard</div>
+        <div class="card-option" data-complex="gourmet">🍽️ Gourmet</div>
+        <div class="card-option" data-complex="lux">👑 Lux</div>
+      </div>
+    </div>
+
+    <!-- EVENIMENT -->
+    <div>
+      <label><b>Tip eveniment</b></label>
+      <select id="tipEveniment" class="input-field">
+        <option>Cină privată</option>
+        <option>Corporate</option>
+        <option>Aniversare</option>
+        <option>Eveniment special</option>
+      </select>
+    </div>
+
+    <!-- PREFERINȚE -->
+    <div>
+      <label><b>Preferințe culinare</b></label>
+      <textarea id="preferinte" placeholder="Ex: fără gluten, meniu vegetarian..." class="input-field" style="min-height:100px;"></textarea>
+    </div>
+
+    <!-- LOGISTICĂ & VESELĂ -->
+    <div style="margin-top:1rem;text-align:center;">
+      <label style="cursor:pointer;font-weight:600;display:block;margin-bottom:10px;">
+        <input type="checkbox" id="logistica" style="transform:scale(1.2);margin-right:8px;">
+        Adaugă logistică completă (decor, transport echipamente) <b>+1500 lei</b>
+      </label>
+      <label style="cursor:pointer;font-weight:600;">
+        <input type="checkbox" id="vesela" style="transform:scale(1.2);margin-right:8px;">
+        Adaugă veselă & aparatură profesională de gătit <b>+50 lei / persoană</b>
+      </label>
+    </div>
+
+    <!-- OFERTĂ FINALĂ -->
+    <div id="ofertaFinala" style="display:none;margin-top:30px;border:1px solid #eee;border-radius:14px;padding:24px;background:#fffdf7;box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+      <h3 style="text-align:center;color:#0e5a43;margin-bottom:16px;">💼 Ofertă detaliată</h3>
+      <div id="detaliiOferta" style="line-height:1.8;font-size:1rem;color:#333;"></div>
+      <h3 style="text-align:center;margin-top:16px;color:#d4af37;">Total estimativ: <span id="pretTotal">0</span> lei</h3>
+      <div style="text-align:center;margin-top:1rem;">
+        <label><input type="checkbox" id="acceptOferta" style="transform:scale(1.3);margin-right:6px;"> Sunt de acord cu oferta de mai sus</label>
+      </div>
+    </div>
+
+    <!-- BUTOANE -->
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:1.5rem;">
+      <button type="button" id="genereazaOferta" class="btn-reset">Generează oferta</button>
+      <button type="submit" class="btn-send" disabled id="trimiteBtn">Trimite cererea</button>
+    </div>
+  </form>
+</section>
+
+<style>
+.input-field {
+  width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:10px;
+  background:#fff;font-size:1rem;color:#222;transition:all .2s ease;
+}
+.input-field:focus {border-color:#d4af37;outline:none;box-shadow:0 0 0 3px rgba(212,175,55,0.15);}
+.section-title {margin-bottom:10px;color:#d4af37;font-size:1.2rem;text-align:center;}
+.card-grid {display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.card-option {
+  flex:1;min-width:160px;background:#fff;border:2px solid #eee;border-radius:14px;
+  padding:18px 20px;text-align:center;font-weight:600;color:#333;cursor:pointer;
+  transition:all .25s ease;box-shadow:0 3px 10px rgba(0,0,0,0.05);
+}
+.card-option:hover {border-color:#d4af37;box-shadow:0 6px 14px rgba(0,0,0,0.1);}
+.card-option.active {
+  border-color:#d4af37;background:#fff8e1;color:#0e5a43;transform:translateY(-3px);
+}
+.btn-send,.btn-reset{
+  padding:12px 28px;border-radius:999px;font-weight:700;cursor:pointer;border:none;
+  transition:all .25s ease;font-size:1rem;
+}
+.btn-send{background:#d4af37;color:#fff;}
+.btn-send:hover{background:#b08d2e;}
+.btn-reset{background:#fff;border:2px solid #d4af37;color:#d4af37;}
+.btn-reset:hover{background:#d4af37;color:#fff;}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const persoane = document.getElementById("persoane");
+  const logistica = document.getElementById("logistica");
+  const vesela = document.getElementById("vesela");
+  const pretTotalEl = document.getElementById("pretTotal");
+  const detaliiOferta = document.getElementById("detaliiOferta");
+  const ofertaFinala = document.getElementById("ofertaFinala");
+  const acceptOferta = document.getElementById("acceptOferta");
+  const trimiteBtn = document.getElementById("trimiteBtn");
+  const genereazaBtn = document.getElementById("genereazaOferta");
+
+  let tipMeniu = "traditional";
+  let complexitate = "standard";
+
+  const preturi = {
+    traditional: { standard: 250, gourmet: 300, lux: 350 },
+    fine: { standard: 350, gourmet: 400, lux: 500 },
+    international: { standard: 400, gourmet: 500, lux: 600 }
+  };
+
+  function genereazaOferta() {
+    const nrPers = parseInt(persoane.value || 0);
+    const pretBaza = preturi[tipMeniu][complexitate];
+    let totalMeniu = pretBaza * nrPers;
+    let totalLogistica = logistica.checked ? 1500 : 0;
+    let totalVesela = vesela.checked ? nrPers * 50 : 0;
+    let totalFinal = totalMeniu + totalLogistica + totalVesela;
+
+    // detalii
+    detaliiOferta.innerHTML = `
+      <b>Tip meniu:</b> ${tipMeniu.charAt(0).toUpperCase() + tipMeniu.slice(1)} (${pretBaza} lei/pers)<br>
+      <b>Complexitate:</b> ${complexitate.toUpperCase()}<br>
+      <b>Număr persoane:</b> ${nrPers}<br>
+      <b>Subtotal meniu:</b> ${totalMeniu.toLocaleString('ro-RO')} lei<br>
+      <b>Logistică completă:</b> ${logistica.checked ? "Da (+1500 lei)" : "Nu"}<br>
+      <b>Veselă & aparatură:</b> ${vesela.checked ? "Da (+" + (nrPers*50) + " lei)" : "Nu"}<br>
+    `;
+    pretTotalEl.textContent = totalFinal.toLocaleString('ro-RO');
+    ofertaFinala.style.display = "block";
+    trimiteBtn.disabled = true;
+  }
+
+  document.querySelectorAll('[data-tip]').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('[data-tip]').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      tipMeniu = card.dataset.tip;
+    });
+  });
+  document.querySelectorAll('[data-complex]').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('[data-complex]').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      complexitate = card.dataset.complex;
+    });
+  });
+
+  genereazaBtn.addEventListener("click", genereazaOferta);
+
+  acceptOferta.addEventListener("change", () => {
+    trimiteBtn.disabled = !acceptOferta.checked;
+  });
+
+  document.getElementById('form').addEventListener('submit', e => {
+    e.preventDefault();
+    alert("✅ Cererea a fost trimisă! Mulțumim pentru confirmarea ofertei.");
+    e.target.reset();
+    ofertaFinala.style.display = "none";
+    trimiteBtn.disabled = true;
+    document.querySelectorAll('.card-option').forEach(c => c.classList.remove('active'));
+  });
+});
+</script>
+
 
   <section id="testimoniale">
     <h2>Ce spun clienții noștri</h2>
