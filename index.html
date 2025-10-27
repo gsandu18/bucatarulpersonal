@@ -111,6 +111,49 @@ header.scrolled img {
     .btn-outline{border:2px solid #fff;color:#fff;}
     .btn-outline:hover{background:#fff;color:var(--auriu-dark);}
     @media(max-width:480px){.btn{width:100%;}}
+/* HERO mai compact și echilibrat */
+.hero-slider {
+  position: relative;
+  height: 70vh; /* 🔹 în loc de 100vh */
+  min-height: 480px; /* pentru ecrane mici */
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 700px;
+  padding: 0 1rem;
+  z-index: 2;
+  transform: translateY(-20px); /* ușor ridicat vizual */
+}
+
+.hero-content h1 {
+  font-size: clamp(32px, 4.5vw, 48px); /* 🔹 font mai mic pe desktop */
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .5);
+}
+
+.hero-content p {
+  font-size: 1rem;
+  color: #eee;
+  margin-bottom: 1.8rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .hero-slider {
+    height: 60vh;
+  }
+  .hero-content h1 {
+    font-size: 28px;
+  }
+}
+    
 
     /* CUM FUNCȚIONEAZĂ */
     #cum-functioneaza .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin-top:2rem;}
