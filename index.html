@@ -38,7 +38,42 @@
     header.scrolled{background:rgba(255,255,255,0.97);box-shadow:0 4px 12px rgba(0,0,0,0.05);}
     header img{height:150px;width:auto;object-fit:contain;}
     .burger{font-size:28px;background:none;border:none;color:var(--auriu-dark);cursor:pointer;}
+    
+/* HEADER mai compact */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e6e6e6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 40px; /* 🔹 mai mic decât înainte */
+  transition: all .3s ease;
+}
 
+/* Logo păstrează dimensiunea actuală */
+header img {
+  height: 65px;  /* 🔹 logo vizibil, dar nu exagerat */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Micșorare automată la scroll */
+header.scrolled {
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 4px 30px; /* 🔹 micșorare elegantă */
+}
+
+header.scrolled img {
+  height: 55px; /* 🔹 scade puțin doar la scroll */
+  transition: height 0.3s ease;
+}
     /* MENIU */
     .nav-menu{
       position:fixed;top:0;right:-100%;width:70%;height:100vh;background:#fff;
