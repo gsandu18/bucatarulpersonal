@@ -11,6 +11,7 @@
       --gold: #d4af37;
       --black: #0d0d0d;
       --white: #f7f7f7;
+      --green: #3ddc84;
     }
     * {box-sizing: border-box; margin: 0; padding: 0;}
     body {
@@ -31,10 +32,7 @@
       align-items: center;
       padding: 30px 20px;
     }
-    .logo {
-      width: 160px;
-      margin-bottom: 30px;
-    }
+    .logo { width: 160px; margin-bottom: 30px; }
     .avatar {
       width: 100px;
       height: 100px;
@@ -75,7 +73,6 @@
       background: rgba(212,175,55,0.15);
       color: var(--gold);
     }
-
     .logout {
       margin-top: auto;
       width: 100%;
@@ -90,32 +87,67 @@
     }
     .logout:hover {background: #f0ca52;}
 
-    /* Content area */
+    /* Content */
     .content {
       flex: 1;
       padding: 40px;
     }
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding-bottom: 20px;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
     header h1 {
       font-family: 'Playfair Display', serif;
       color: var(--gold);
       font-size: 1.6rem;
-    }
-    .status {
-      background: rgba(255,255,255,0.08);
-      border-radius: 8px;
-      padding: 10px 16px;
-      font-size: 0.9rem;
+      margin-bottom: 10px;
     }
 
-    /* Cards */
+    /* Status bar */
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      margin-bottom: 30px;
+    }
+    .status-bar span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      position: relative;
+    }
+    .green { background: var(--green); }
+    .gold { background: var(--gold); }
+
+    /* Pulse animation */
+    .dot::after {
+      content: "";
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.4;
+      animation: pulse 1.6s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.8); opacity: 0.6; }
+      50% { transform: scale(1.3); opacity: 0.2; }
+      100% { transform: scale(0.8); opacity: 0.6; }
+    }
+
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -178,7 +210,11 @@
   <div class="content">
     <header>
       <h1>Dashboard Chef PRIVÉ</h1>
-      <div class="status">✅ Identitate verificată SpruceID</div>
+      <div class="status-bar" id="statusBar">
+        <span><div class="dot green"></div> Wallet conectat</span>
+        <span><div class="dot gold"></div> SpruceID verificat</span>
+        <span id="lastCheck">📅 Ultima verificare: --</span>
+      </div>
     </header>
 
     <div class="cards">
@@ -202,8 +238,15 @@
   </div>
 
   <script>
-    const address = sessionStorage.getItem("walletAddress");
-    if (address) document.getElementById("walletAddress").innerText = address;
+    const wallet = sessionStorage.getItem("walletAddress");
+    const walletField = document.getElementById("walletAddress");
+    const lastCheck = document.getElementById("lastCheck");
+
+    if (wallet) {
+      walletField.innerText = wallet;
+      const now = new Date();
+      lastCheck.innerText = "📅 Ultima verificare: " + now.toLocaleString("ro-RO");
+    }
 
     document.getElementById("logout").addEventListener("click", () => {
       sessionStorage.removeItem("walletAddress");
