@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHEF PRIVÉ — Web3 Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #d4af37;
+      --black: #0d0d0d;
+      --white: #f7f7f7;
+      --green: #0e5a43;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--black);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 1.5rem;
+    }
+    button {
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    button:hover {
+      background: #f0ca52;
+      transform: scale(1.05);
+    }
+    .address {
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+      color: var(--gold);
+      background: rgba(255, 255, 255, 0.08);
+      padding: 10px 20px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.8rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <h1>CHEF PRIVÉ ID</h1>
+  <h2>Autentificare Web3 sigură și elegantă</h2>
+
+  <button id="connect-wallet">🔗 Conectează Wallet</button>
+  <div id="wallet-address" class="address"></div>
+
+  <footer>© 2032 CHEF PRIVÉ — Luxury Culinary Network</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+  <script>
+    document.getElementById("connect-wallet").addEventListener("click", async () => {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          await provider.send("eth_requestAccounts", []);
+          const signer = provider.getSigner();
+          const address = await signer.getAddress();
+          document.getElementById("wallet-address").innerText = "Wallet conectat: " + address;
+
+          const signature = await signer.signMessage("Autentificare CHEF PRIVÉ ID 2032");
+
+          const formData = new FormData();
+          formData.append('address', address);
+          formData.append('signature', signature);
+
+          const res = await fetch("verify.php", { method: "POST", body: formData });
+          const text = await res.text();
+          alert(text);
+
+        } catch (err) {
+          alert("Eroare la conectare: " + err.message);
+        }
+      } else {
+        alert("Instalează MetaMask pentru a te conecta.");
+      }
+    });
+  </script>
+</body>
+</html>
