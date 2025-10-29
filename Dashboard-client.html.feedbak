@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Client — CHEF PRIVÉ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #d4af37;
+      --black: #0d0d0d;
+      --white: #f7f7f7;
+      --green: #3ddc84;
+      --gray: #aaa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      display: flex;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: #111;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+    }
+    .logo { width: 160px; margin-bottom: 30px; }
+    .avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      background: url('https://cdn-icons-png.flaticon.com/512/847/847969.png') center/cover no-repeat;
+      margin-bottom: 15px;
+    }
+    .client-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      text-align: center;
+    }
+    .wallet {
+      font-size: 0.8rem;
+      text-align: center;
+      color: #aaa;
+      margin: 8px 0 25px;
+      word-break: break-all;
+    }
+    nav {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--white);
+      padding: 10px 14px;
+      border-radius: 8px;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+    nav a:hover, nav a.active {
+      background: rgba(212,175,55,0.15);
+      color: var(--gold);
+    }
+    .logout {
+      margin-top: auto;
+      width: 100%;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      padding: 10px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .logout:hover { background: #f0ca52; }
+
+    /* Content */
+    .content {
+      flex: 1;
+      padding: 40px;
+    }
+    header {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 30px;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    th {
+      background: rgba(255,255,255,0.08);
+      color: var(--gold);
+      font-weight: 600;
+    }
+    tr:hover td { background: rgba(255,255,255,0.05); }
+    .status { font-weight: 600; text-transform: capitalize; }
+    .status.pending { color: var(--gold); }
+    .status.confirmed { color: var(--green); }
+    .status.finished { color: var(--gray); }
+    button.feedback {
+      background: none;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button.feedback:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #777;
+      font-size: 0.8rem;
+    }
+
+    /* Popup Feedback */
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+    .popup {
+      background: #111;
+      border: 1px solid var(--gold);
+      border-radius: 16px;
+      padding: 30px 40px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 0 20px rgba(212,175,55,0.3);
+      text-align: center;
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.95);}
+      to {opacity: 1; transform: scale(1);}
+    }
+    .popup h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      margin-bottom: 15px;
+    }
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .stars span {
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: 0.3s;
+      color: #444;
+    }
+    .stars span.active { color: var(--gold); transform: scale(1.1); }
+    textarea {
+      width: 100%;
+      min-height: 80px;
+      background: #222;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      border-radius: 8px;
+      padding: 8px;
+      font-family: 'Inter';
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    .popup button {
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      border-radius: 30px;
+      padding: 8px 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .popup button:hover { background: #f0ca52; }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <img src="Chef Prive.svg" alt="Chef Privé" class="logo">
+    <div class="avatar"></div>
+    <div class="client-name">Bun venit, Client!</div>
+    <div class="wallet" id="walletAddress">0x...</div>
+
+    <nav>
+      <a href="#" class="active">🍽️ Rezervările mele</a>
+      <a href="#">👨‍🍳 Chefi disponibili</a>
+      <a href="#">💬 Feedback</a>
+    </nav>
+
+    <button class="logout" id="logout">Deconectează Wallet</button>
+  </div>
+
+  <div class="content">
+    <header>
+      <h1>Rezervările mele — Chef PRIVÉ</h1>
+    </header>
+
+    <table id="bookingsTable">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Oraș</th>
+          <th>Chef atribuit</th>
+          <th>Status</th>
+          <th>Acțiuni</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <footer>© 2032 CHEF PRIVÉ — Luxury Culinary Network</footer>
+  </div>
+
+  <!-- Popup Feedback -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup">
+      <h2>Lasă feedback pentru <span id="chefName"></span></h2>
+      <div class="stars" id="stars">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      </div>
+      <textarea id="feedbackText" placeholder="Scrie un comentariu despre experiența ta..."></textarea>
+      <button id="submitFeedback">Trimite feedback</button>
+    </div>
+  </div>
+
+  <script>
+    const bookings = [
+      { date: "2025-11-12", city: "Milano", chef: "Chef Marco Bianchi", status: "confirmat" },
+      { date: "2025-12-01", city: "Roma", chef: "Chef Alessandro Rossi", status: "în așteptare" },
+      { date: "2026-01-15", city: "Firenze", chef: "Chef Gabriela Conti", status: "finalizat" }
+    ];
+
+    const tableBody = document.querySelector("#bookingsTable tbody");
+    bookings.forEach(b => {
+      const row = document.createElement("tr");
+      const statusClass = 
+        b.status.includes("așteptare") ? "pending" :
+        b.status.includes("confirmat") ? "confirmed" : "finished";
+      row.innerHTML = `
+        <td>${b.date}</td>
+        <td>${b.city}</td>
+        <td>${b.chef}</td>
+        <td class="status ${statusClass}">${b.status}</td>
+        <td><button class="feedback">Feedback</button></td>
+      `;
+      tableBody.appendChild(row);
+    });
+
+    // Popup
+    const popup = document.getElementById("popupOverlay");
+    const chefName = document.getElementById("chefName");
+    const stars = document.querySelectorAll("#stars span");
+    let currentRating = 0;
+
+    document.querySelectorAll(".feedback").forEach((btn, i) => {
+      btn.addEventListener("click", () => {
+        popup.style.display = "flex";
+        chefName.textContent = bookings[i].chef;
+      });
+    });
+
+    stars.forEach((star, i) => {
+      star.addEventListener("click", () => {
+        currentRating = i + 1;
+        stars.forEach((s, idx) => s.classList.toggle("active", idx < currentRating));
+      });
+    });
+
+    document.getElementById("submitFeedback").addEventListener("click", () => {
+      const text = document.getElementById("feedbackText").value.trim();
+      if (currentRating === 0) return alert("Selectează un număr de stele ⭐️");
+      if (!text) return alert("Adaugă un comentariu înainte de trimitere.");
+      popup.style.display = "none";
+      alert("✅ Feedback trimis cu succes! Mulțumim pentru recenzie!");
+      document.getElementById("feedbackText").value = "";
+      stars.forEach(s => s.classList.remove("active"));
+      currentRating = 0;
+    });
+
+    popup.addEventListener("click", e => {
+      if (e.target === popup) popup.style.display = "none";
+    });
+
+    // wallet
+    const wallet = sessionStorage.getItem("walletAddress");
+    if (wallet) document.getElementById("walletAddress").innerText = wallet;
+
+    // logout
+    document.getElementById("logout").addEventListener("click", () => {
+      sessionStorage.removeItem("walletAddress");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
