@@ -531,7 +531,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
   const formFirma = byId('form-firma'), formPF = byId('form-pf');
   const docsKind = byId('docs-kind'), docsInput = byId('docs-input'), docsList = byId('docs-list'), docsReq = byId('docs-req');
   const pfPricing = byId('pf-pricing');
-
+<button class="btn primary" onclick="genereazaContractESign()">📄 Generează contract digital</button>
   function setType(t){
     Store.setItem('COLAB_TYPE', t);
     optFirma?.classList.toggle('active', t==='firma');
@@ -781,6 +781,166 @@ document.addEventListener('DOMContentLoaded', ()=> {
   show('profil');
   computeProgress();
 });
+  <script>
+async function genereazaContractESign() {
+  const apiKey = "AICI_PUI_CHEIA_TA_ESIGNANYWHERE"; // cheia ta LIVE
+  const endpoint = "https://www.esignanywhere.net/api/v6/transactions";
+
+  const emailBucatar = document.getElementById("pf-email2")?.value?.trim();
+  if (!emailBucatar) {
+    alert("Introdu adresa de e-mail a bucătarului pentru semnare digitală.");
+    return;
+  }
+
+  const azi = new Date().toLocaleDateString("ro-RO");
+
+  // ============================
+  // 🧾 CONTRACT COMPLET HTML
+  // ============================
+  const htmlContract = `
+  <html><head><meta charset="utf-8">
+  <title>Contract de Parteneriat - Bucătarul Personal</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; line-height: 1.6; padding: 40px; color: #222; }
+    h1 { color: #0e5a43; text-align:center; text-transform: uppercase; }
+    h2 { color: #0b4a36; border-bottom: 1px solid #0e5a43; padding-bottom: 4px; margin-top: 24px; }
+    p { margin: 6px 0; text-align: justify; }
+    ul { margin-left: 24px; }
+    .sign { margin-top: 60px; display: flex; justify-content: space-between; }
+    .sign div { width:45%; text-align:center; }
+    .footer { margin-top: 60px; font-size: 13px; text-align:center; color:#777; }
+  </style>
+  </head>
+  <body>
+
+  <h1>CONTRACT DE PARTENERIAT</h1>
+  <p><b>Data:</b> ${azi}</p>
+
+  <p>Între <b>BUCĂTARUL PERSONAL S.R.L.</b>, cu sediul în București, reprezentată legal de <b>Sandu Gabriel</b>,
+  în calitate de Titular, și <b>${emailBucatar}</b> (denumit în continuare „Colaborator”), s-a încheiat prezentul contract.</p>
+
+  <h2>I. DEFINIȚII</h2>
+  <p>Termenii folosiți în prezentul contract au următoarele semnificații:
+  „Platforma” – sistemul digital Bucătarul Personal care facilitează colaborarea între chefi și clienți;
+  „Colaborator” – persoană fizică sau juridică ce prestează servicii culinare sub brandul Bucătarul Personal.</p>
+
+  <h2>II. OBIECTUL CONTRACTULUI</h2>
+  <p>Obiectul contractului îl constituie prestarea de servicii culinare, evenimente private, mese zilnice, cene corporate și alte activități specifice domeniului gastronomic sub marca <b>Bucătarul Personal</b>.</p>
+
+  <h2>III. DURATA CONTRACTULUI</h2>
+  <p>Contractul se încheie pe durată nedeterminată, începând cu data semnării electronice a părților. Fiecare parte poate denunța unilateral contractul cu notificare scrisă cu minimum 15 zile înainte.</p>
+
+  <h2>IV. DREPTURI ȘI OBLIGAȚII</h2>
+  <ul>
+    <li>Colaboratorul se obligă să respecte standardele de calitate și imagine ale brandului Bucătarul Personal.</li>
+    <li>Colaboratorul trebuie să dețină autorizațiile legale pentru desfășurarea activității sale.</li>
+    <li>Platforma oferă vizibilitate, promovare, gestionarea cererilor și intermedierea plăților.</li>
+    <li>Colaboratorul răspunde pentru calitatea produselor și siguranța alimentară, conform normelor HACCP.</li>
+  </ul>
+
+  <h2>V. CONFIDENȚIALITATE</h2>
+  <p>Părțile se angajează să păstreze confidențialitatea datelor, informațiilor și preferințelor clienților. Niciuna dintre părți nu va divulga informații către terți fără acordul scris al celeilalte părți.</p>
+
+  <h2>VI. LOIALITATE</h2>
+  <p>Colaboratorul nu va contacta direct clienții Platformei în scopul de a presta servicii similare în afara acesteia.
+  Orice abatere va duce la suspendarea imediată a contului și reținerea comisioanelor restante.</p>
+
+  <h2>VII. ÎNCETAREA CONTRACTULUI</h2>
+  <p>Contractul poate înceta:
+    <ul>
+      <li>Prin acordul părților;</li>
+      <li>Prin încălcarea gravă a obligațiilor contractuale;</li>
+      <li>Prin forță majoră, conform legislației în vigoare.</li>
+    </ul>
+  </p>
+
+  <h2>VIII. MODALITĂȚI DE COMUNICARE</h2>
+  <p>Comunicarea se va realiza prin e-mail, la adresele declarate de părți. Orice modificare a datelor de contact va fi transmisă în termen de 3 zile lucrătoare.</p>
+
+  <h2>IX. DREPTURI DE PROPRIETATE INTELECTUALĂ</h2>
+  <p>Brandul „Bucătarul Personal” este marcă protejată. Colaboratorul poate utiliza denumirea și materialele vizuale
+  doar în scopurile contractului și cu respectarea identității vizuale a Platformei.</p>
+
+  <h2>X. PROTECȚIA DATELOR CU CARACTER PERSONAL</h2>
+  <p>Părțile se angajează să respecte prevederile Regulamentului (UE) 2016/679 (GDPR). Platforma prelucrează datele colaboratorilor doar pentru scopuri operaționale și contractuale.</p>
+
+  <h2>XI. FORȚA MAJORĂ</h2>
+  <p>Niciuna dintre părți nu răspunde pentru neexecutarea obligațiilor cauzată de un eveniment imprevizibil și de neînlăturat, recunoscut conform legii ca forță majoră.</p>
+
+  <h2>XII. DISPOZIȚII FINALE</h2>
+  <p>Prezentul contract este guvernat de legea română. Modificările se fac numai prin act adițional semnat electronic de ambele părți.</p>
+
+  <div class="sign">
+    <div>
+      <b>BUCĂTARUL PERSONAL S.R.L.</b><br>
+      Reprezentant: Sandu Gabriel<br><br><br>
+      <i>(Semnătură digitală)</i>
+    </div>
+    <div>
+      <b>${emailBucatar}</b><br>
+      <i>(Semnătură digitală)</i>
+    </div>
+  </div>
+
+  <div class="footer">
+    Semnat electronic prin eSignAnywhere (Namirial) – Certificat calificat conform Regulamentului eIDAS.
+  </div>
+
+  </body></html>`;
+
+  // ============================
+  // 📦 Conversie în base64 PDF
+  // ============================
+  const blob = new Blob([htmlContract], { type: "application/pdf" });
+  const buffer = await blob.arrayBuffer();
+  const pdfBase64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+
+  // ============================
+  // 📤 Trimitere către eSignAnywhere LIVE
+  // ============================
+  const body = {
+    name: "Contract Bucătarul Personal",
+    recipients: [
+      { email: emailBucatar, name: "Colaborator", recipientType: "Signer" },
+      { email: "bucatarulpersonal2018@gmail.com", name: "Sandu Gabriel", recipientType: "Signer" }
+    ],
+    documents: [
+      { fileName: "Contract_BucatarulPersonal.pdf", fileContent: pdfBase64 }
+    ],
+    settings: { sendEmail: true, showPreview: false }
+  };
+
+  try {
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + apiKey,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (!res.ok) throw new Error("Eroare API: " + res.status);
+    const data = await res.json();
+
+    const recip = data.recipients || [];
+    const linkChef = recip.find(r => r.email === emailBucatar)?.signingUrl;
+    const linkTitular = recip.find(r => r.email === "bucatarulpersonal2018@gmail.com")?.signingUrl;
+
+    let msg = "<h3>✅ Contract generat cu succes!</h3>";
+    if (linkChef) msg += `<p><a href="${linkChef}" target="_blank">🔗 Semnează contractul (Bucătar)</a></p>`;
+    if (linkTitular) msg += `<p><a href="${linkTitular}" target="_blank">🔗 Semnează contractul (Titular)</a></p>`;
+
+    const el = document.createElement("div");
+    el.innerHTML = msg;
+    document.body.appendChild(el);
+
+  } catch (err) {
+    console.error(err);
+    alert("A apărut o eroare la trimiterea către eSignAnywhere. Verifică cheia API sau datele contractului.");
+  }
+}
+</script>
 </script>
 </body>
 </html>
